@@ -1,12 +1,6 @@
 import flatten from 'lodash/flatten';
 import { getResourceInfo } from '@scipe/ui';
-import {
-  getId,
-  arrayify,
-  getValue,
-  embed,
-  getNodeMap
-} from '@scipe/jsonld';
+import { getId, arrayify, getValue, embed, getNodeMap } from '@scipe/jsonld';
 import {
   getStageActions,
   getBlockingActions,
@@ -543,6 +537,7 @@ export function getWorkflowStatusIcon(user, acl, action, stage) {
   const canAssign = acl.checkPermission(user, 'AssignActionPermission', {
     action
   });
+
   const canAssignEndorseAction = endorseAction
     ? acl.checkPermission(user, 'AssignActionPermission', {
         action: endorseAction
