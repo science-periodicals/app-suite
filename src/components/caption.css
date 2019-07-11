@@ -1,0 +1,46 @@
+.caption {
+  font: var(--sans-body-type);
+  color: var(--sans-body-type__color);
+  letter-spacing: var(--sans-body-type__letter-spacing);
+
+  /* mark for deletion */
+  /* & [role='math'] {
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+  }
+
+  & [role='math'] math {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  } */
+
+  &__title {
+    /*margin: 0 var(--sgrd); this is now in shell.css */
+    font-weight: 500;
+    padding-top: var(--xsgrd);
+    padding-bottom: var(--xsgrd);
+  }
+
+  &__body {
+    color: var(--text-color--light);
+    margin-bottom: 1em;
+
+    &--embedded {
+      /*margin: 0 var(--sgrd); this is now in shell.css*/
+    }
+    /*& > * {
+      padding: 0 !important;
+    }*/
+  }
+
+  & .rdfa-caption-metadata {
+    &__list-item {
+      padding-bottom: var(--xsgrd);
+    }
+  }
+}

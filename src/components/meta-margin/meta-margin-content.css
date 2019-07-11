@@ -1,0 +1,39 @@
+.meta-margin-content {
+  padding-top: var(--xsgrd);
+  padding-right: 25px;
+  padding-bottom: var(--sgrd);
+  margin-right: var(--mgrd);
+  &--divider {
+    border-top: 2px solid var(--ruling-color);
+    padding-top: var(--sgrd);
+  }
+
+  /* don't take up space if there are no content */
+  &:empty {
+    display: none;
+  }
+
+  @media screen {
+    font: var(--sans-body-type--small);
+    color: var(--sans-body-type--small__color);
+    letter-spacing: var(--sans-body-type--small__letter-spacing);
+  }
+
+  @media print {
+    font: var(--sans-body-print-type--small);
+    color: var(--sans-body-print-type--small__color);
+    letter-spacing: var(--sans-body-print-type--small__letter-spacing);
+
+    & :any-link {
+      color: var(--sans-body-print-type--small__color) !important;
+    }
+  }
+
+  & small {
+    @media print {
+      font: var(--sans-body-print-type--small);
+      color: var(--sans-body-print-type--small__color);
+      letter-spacing: var(--sans-body-print-type--small__letter-spacing);
+    }
+  }
+}

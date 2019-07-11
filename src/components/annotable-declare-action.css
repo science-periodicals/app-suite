@@ -1,0 +1,16 @@
+.annotable-declare-action {
+  &__question {
+    padding-bottom: var(--xsgrd);
+
+    &__text {
+      padding: var(--xsgrd);
+      font-style: oblique;
+      background-color: var(--grey-25);
+      color: var(--grey-600);
+    }
+  }
+
+  &__answer {
+    padding-bottom: var(--sgrd);
+  }
+}

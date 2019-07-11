@@ -1,0 +1,40 @@
+.get-started-nav {
+  &__header {
+    padding: var(--sgrd) var(--sgrd) var(--sgrd);
+    display: flex;
+    align-items: center;
+
+    & .iconoclass {
+      color: black;
+    }
+  }
+
+  &__header-logo {
+    max-width: calc(100% - var(--lgrd));
+    height: 5.2rem;
+    object-fit: contain;
+  }
+
+  &__content {
+    padding-bottom: var(--sgrd);
+  }
+
+  &__sub-header {
+    padding: 0 var(--sgrd);
+    color: var(--text-color--light);
+    font: var(--ui-type);
+    line-height: 1.2em;
+    letter-spacing: var(--ui-type--big__letter-spacing);
+    hyphens: auto;
+  }
+
+  &__start-button {
+    margin-top: var(--xsgrd);
+    display: flex;
+    justify-content: center;
+
+    & .iconoclass {
+      margin-left: var(--xsgrd);
+    }
+  }
+}

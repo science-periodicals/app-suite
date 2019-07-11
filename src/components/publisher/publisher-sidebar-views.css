@@ -1,0 +1,80 @@
+.publisher-sidebar-views {
+  &__empty {
+    color: var(--grey-600);
+    padding-left: var(--xsgrd);
+    padding-right: var(--xsgrd);
+  }
+
+  & .checkbox-label {
+    color: var(--grey-600) !important;
+  }
+
+  &__row-nav {
+    display: flex;
+    align-items: center;
+    border-radius: 12px;
+    height: 24px;
+    padding: 0 4px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--low-shadow);
+    color: var(--grey-600);
+    transition: box-shadow 0.2s;
+    flex: 0 0 auto;
+
+    & .iconoclass--disabled {
+      opacity: 0.2;
+    }
+
+    &:hover {
+      box-shadow: var(--high-shadow);
+    }
+    &__bg {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-color: white;
+    }
+
+    &__status-color {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      opacity: 0.5;
+    }
+
+    &--error &__status-color {
+      background-color: var(--status-error-color);
+    }
+
+    &--warning &__status-color {
+      background-color: var(--status-warning-color);
+    }
+
+    &--comment &__status-color {
+      background-color: var(--comment-color);
+    }
+
+    &--revision-request-comment &__status-color {
+      background-color: var(--revision-request-comment-color);
+    }
+
+    &--reviewer-comment &__status-color {
+      background-color: var(--reviewer-comment-color);
+    }
+
+    &--endorser-comment &__status-color {
+      background-color: var(--endorser-comment-color);
+    }
+  }
+
+  &__status-icon {
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+  }
+}

@@ -1,0 +1,76 @@
+.journal-info {
+  max-width: 1080px;
+  margin: 0 auto;
+  &__card {
+    padding: var(--xlgrd);
+  }
+
+  &__header {
+    margin-bottom: var(--mgrd);
+    display: flex;
+    align-items: center;
+    color: var(--ui-type--headline__color);
+  }
+
+  &__header-title {
+    font: var(--ui-type--headline);
+    letter-spacing: var(--ui-type--headline__letter-spacing);
+    padding-left: var(--xsgrd);
+  }
+  &__header-icon {
+    color: var(--text-color--light);
+  }
+
+  &__description {
+    padding-bottom: var(--lgrd);
+  }
+
+  &__section {
+    font: var(--ui-type);
+    color: var(--ui-type__color);
+    letter-spacing: var(--ui-type__letter-spacing);
+    padding-bottom: var(--lgrd);
+
+    &--subjects {
+      & .semantic-tags {
+        padding: var(--xsgrd);
+        background-color: var(--grey-50);
+        border-radius: 12px;
+        margin: 0;
+      }
+    }
+
+    &--submit {
+      padding-top: var(--mgrd);
+      padding-bottom: 0;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  &__section-title {
+    font: var(--ui-type--subhead-2);
+    color: var(--ui-type--subhead-2__color);
+    letter-spacing: var(--ui-type--subhead-2__letter-spacing);
+
+    border-bottom: 2px solid var(--ruling-color--major);
+    padding-bottom: var(--xsgrd);
+    margin-bottom: 1em;
+  }
+
+  &__section-description {
+    font: var(--ui-type);
+    color: var(--ui-type__color);
+    letter-spacing: var(--ui-type__letter-spacing);
+  }
+
+  &__contact-details-item {
+    padding-bottom: var(--sgrd);
+    display: flex;
+    align-items: center;
+    & .iconoclass {
+      margin-right: var(--sgrd);
+      color: var(--text-color--light);
+    }
+  }
+}

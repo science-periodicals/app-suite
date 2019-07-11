@@ -1,0 +1,102 @@
+.comment {
+  padding: var(--sgrd);
+
+  &--threaded {
+    padding: 0 !important;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+  }
+
+  &__header-left {
+    display: flex;
+    align-items: center;
+  }
+
+  &__header-right {
+    margin-left: auto;
+  }
+
+  &__status {
+    display: flex;
+    align-items: center;
+    margin-top: var(--xsgrd);
+    padding: 0 var(--xsgrd);
+    background-color: var(--status-warning-color-3-a);
+    border-radius: 4px;
+
+    & .iconoclass {
+      margin-right: var(--xsgrd);
+    }
+    & .paper-button {
+      margin-left: auto;
+    }
+    & .shell-link {
+      margin-left: auto;
+    }
+  }
+
+  & .date-from-now {
+    color: var(--text-color--light);
+    padding-left: var(--sgrd);
+    text-transform: capitalize;
+  }
+
+  &__comment-text {
+    margin-top: var(--sgrd);
+    /* allow wrapping of long words and urls. See:
+    https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/ */
+
+    /* These are technically the same, but use both */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  & .value {
+    padding-bottom: 0.4rem;
+  }
+
+  &__request-context {
+    /* font-style: oblique; */
+    color: var(--grey-600);
+    border-bottom: 1px solid var(--ruling-color);
+    padding-bottom: var(--xsgrd);
+  }
+
+  &__request-context ~ &__comment-text {
+    margin-top: var(--sgrd);
+  }
+
+  &--revision-request-comment &__comment-text,
+  &--reviewer-comment &__comment-text {
+    margin-top: 0;
+  }
+
+  &__annotation-control {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  &--author-response-comment &__annotation-control {
+    /* margin-bottom: var(--sgrd); */
+  }
+
+  &--author-response-comment &__form {
+    margin-top: var(--sgrd);
+  }
+}

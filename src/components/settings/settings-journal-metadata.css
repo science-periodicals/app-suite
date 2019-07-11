@@ -1,0 +1,16 @@
+.settings-journal-metadata {
+  &__name-input {
+    margin-bottom: var(--mgrd);
+  }
+
+  &__description-input {
+    margin-bottom: var(--mgrd);
+  }
+
+  &__about .semantic-tags {
+    padding: var(--xsgrd);
+    background-color: var(--grey-50);
+    border-radius: 12px;
+    margin: 0;
+  }
+}

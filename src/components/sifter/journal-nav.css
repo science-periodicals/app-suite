@@ -1,0 +1,57 @@
+.journal-nav {
+  &__header {
+    padding: var(--sgrd);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--ruling-color);
+    & .iconoclass {
+      color: black;
+    }
+  }
+
+  &__share-menu {
+    padding-top: 8px;
+
+    & .menu__header .iconoclass {
+      color: var(--text-color--light);
+    }
+  }
+
+  &__header-logo {
+    max-width: calc(100% - var(--lgrd));
+    max-height: var(--lgrd);
+    object-fit: contain;
+  }
+
+  &__content {
+    padding: var(--sgrd);
+  }
+
+  &__nav-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  &__nav-list-item {
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+
+    & a {
+      display: flex;
+      color: var(--text-color);
+      align-items: center;
+    }
+
+    & .iconoclass {
+      margin-right: var(--xsgrd);
+    }
+  }
+
+  &__submit {
+    margin-top: var(--sgrd);
+    display: flex;
+    justify-content: center;
+  }
+}

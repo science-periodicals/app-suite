@@ -1,0 +1,33 @@
+.issue-medium-banner-content {
+  padding: var(--sgrd) var(--mgrd) var(--mgrd);
+  height: 100%;
+
+  &__title-label {
+    font: var(--sans-body-type--small);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 400;
+    line-height: 1.5em;
+    margin-bottom: 0.5em;
+  }
+
+  &__content-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+  }
+
+  &__title {
+    font: var(--sans-body-type--headline);
+    line-height: 1.25em;
+    font-weight: 400;
+    padding-right: var(--sgrd);
+  }
+
+  &__date {
+    font: var(--sans-body-type--headline);
+    line-height: 1.25em;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+}

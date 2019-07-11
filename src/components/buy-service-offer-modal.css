@@ -1,0 +1,49 @@
+.buy-service-offer-modal {
+  font: var(--ui-type);
+  color: var(--ui-type__color);
+  letter-spacing: var(--ui-type__letter-spacing);
+
+  width: 100vw;
+  min-width: 32rem;
+  max-width: 800px;
+  max-height: calc(100vh - 56px);
+  box-sizing: border-box;
+
+  overflow-y: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+
+  &__header {
+    padding: var(--mgrd);
+    /* border-bottom: 1px solid var(--ruling-color); */
+  }
+  &__title {
+    font: var(--ui-type--subhead-1);
+    letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+    padding-bottom: var(--sgrd);
+  }
+
+  &__description {
+  }
+
+  & .service-picker {
+    padding: 0 var(--mgrd);
+  }
+
+  &__summary {
+    padding: var(--mgrd);
+    border-bottom: 1px solid var(--ruling-color);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__summary-label {
+    font: var(--ui-type--label);
+    color: var(--ui-type--label__color);
+    letter-spacing: var(--ui-type--label__letter-spacing);
+    padding-right: var(--sgrd);
+  }
+
+  & .control-panel {
+    padding: var(--xsgrd) var(--mgrd) var(--sgrd) var(--mgrd);
+  }
+}

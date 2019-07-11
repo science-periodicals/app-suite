@@ -1,0 +1,11 @@
+.notice {
+  margin-top: var(--sgrd);
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  & .iconoclass {
+    color: var(--text-color--light);
+    margin-right: var(--xsgrd);
+  }
+}

@@ -1,0 +1,75 @@
+.publisher-sidebar-participants {
+  &__role-label {
+    font: var(--ui-type--label);
+    color: var(--ui-type--label__color);
+    letter-spacing: var(--ui-type--label__letter-spacing);
+    padding-bottom: var(--xsgrd);
+  }
+
+  &__role-group {
+    margin-bottom: var(--sgrd);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__badge-group {
+    display: flex;
+    padding: 0 var(--xsgrd);
+  }
+
+  &__divider {
+    color: var(--grey-400);
+    font: var(--ui-type--label);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px var(--xsgrd);
+    background-color: var(--grey-100);
+    margin-bottom: var(--xsgrd);
+    border-radius: 2px;
+
+    &__icon.iconoclass {
+      color: var(--grey-400) !important;
+    }
+  }
+
+  &__invite-modal {
+    width: 51vw;
+    background-color: white;
+    position: relative;
+
+    &__content {
+    }
+
+    &__workflow-participants {
+      padding: 0 var(--mgrd);
+    }
+    &__workflow-participants-handler {
+      padding: var(--xsgrd);
+    }
+
+    &__header {
+      font: var(--ui-type--subhead-1);
+      color: var(--ui-type--subhead-1__color);
+      letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+      padding: var(--sgrd) var(--mgrd);
+    }
+
+    & .control-panel {
+      padding: var(--sgrd) var(--mgrd);
+    }
+
+
+    @media (--small-desktop) {
+      width: 75vw;
+    }
+
+    @media (--small-tablet) {
+      width: 95vw;
+    }
+  }
+}

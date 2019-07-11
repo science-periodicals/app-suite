@@ -1,0 +1,16 @@
+.role-affiliation {
+  position: relative;
+  padding: 0 var(--lgrd);
+
+  &__symbol {
+    position: relative;
+    left: calc(var(--2ch) * -1);
+    &:after {
+      content: '.';
+    }
+  }
+}
+
+.shell .role-affiliation {
+  padding-left: var(--xlgrd);
+}

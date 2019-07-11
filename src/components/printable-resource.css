@@ -1,0 +1,64 @@
+/* Note the page size is set in rdfa-scholarly-article.css (`@page` rule) */
+.printable-resource-container {
+  page-break-inside: avoid;
+  page-break-before: always;
+  break-before: page;
+  clear: both;
+}
+
+.printable-resource {
+  /* do not use flexbox for printing - Firefox has problems with flex layout in print media */
+  height: 100%;
+  width: calc(100vw - var(--rdfa-scholarly-article__left-margin--print));
+  position: relative;
+  overflow: hidden;
+  page-break-inside: avoid;
+
+  /* use below to test page size in print */
+  /*
+  &:before {
+    content: '';
+    display: block;
+    outline: 2px solid purple;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(189, 0, 0, 0.25);
+    z-index: 100;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    outline: 4px solid rbga(0, 255, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8.5in;
+    height: 11in;
+    background: rgba(0, 0, 100, 0.25);
+    z-index: 100;
+  }
+  */
+
+  &__content {
+    /* don't use display flex here or it will cause problem in firefox */
+    position: absolute;
+    top: 50px;
+    height: calc(100% - 50px - 32px);
+    overflow: hidden;
+  }
+}
+
+/*
+  Safari does not support @page margin's. Instead it defaults to about .25in
+  we can try to compensate here, but the margins are variable according to print settings and extra padding can result in page overflow
+*/
+/* _::-webkit-full-page-media,
+_:future,
+:root .printable-resource-container {
+  background: red;
+  padding-top: 0.25in;
+} */

@@ -1,0 +1,38 @@
+.settings-journal-access {
+  padding: var(--sgrd) 0;
+
+  &__title {
+    font: var(--ui-type--subhead-2);
+    color: var(--ui-type--subhead-2__color);
+    letter-spacing: var(--ui-type--subhead-2__letter-spacing);
+
+    padding-bottom: var(--sgrd);
+    border-bottom: 1px solid var(--ruling-color);
+    margin-bottom: var(--sgrd);
+  }
+
+  &__toggle-group {
+    display: inline-flex;
+  }
+
+  &__switch-label {
+    font: var(--ui-type--label);
+    color: var(--ui-type--label__color);
+    letter-spacing: var(--ui-type--label__letter-spacing);
+    padding-right: var(--xsgrd);
+  }
+
+  &__public-access {
+    & .paper-switch {
+      margin-left: auto;
+    }
+  }
+
+  &__no-submit-msg {
+    padding-top: var(--mgrd);
+  }
+
+  &__no-submit-msg-text {
+    padding-bottom: 0;
+  }
+}

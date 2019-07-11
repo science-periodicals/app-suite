@@ -1,0 +1,16 @@
+.footnote {
+  padding: var(--sgrd);
+  position: relative;
+
+  &__symbol {
+    position: absolute;
+    left: -1rem;
+    &:after {
+      content: '.';
+    }
+  }
+}
+
+.shell .footnote {
+  margin-left: var(--lgrd);
+}

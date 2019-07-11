@@ -1,0 +1,8 @@
+.email-composer {
+  padding: var(--mgrd);
+
+  &__body {
+    margin-top: var(--mgrd);
+    margin-bottom: var(--mgrd);
+  }
+}

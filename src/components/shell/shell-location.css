@@ -1,0 +1,7 @@
+.shell-location {
+  &__content {
+    &--padded {
+      padding: var(--sgrd) var(--mgrd);
+    }
+  }
+}

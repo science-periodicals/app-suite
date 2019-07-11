@@ -1,0 +1,9 @@
+.annotable-pay-action {
+  &__discount {
+    display: flex;
+    align-items: center;
+    & .paper-button {
+      margin-left: auto;
+    }
+  }
+}

@@ -1,0 +1,48 @@
+.featured-issue-card {
+  /* margin: 0 var(--sgrd) var(--sgrd) var(--sgrd); */
+
+  & .card__content {
+    height: 100%;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: black;
+  }
+
+  &__body {
+    min-height: var(--mgrd);
+    padding: var(--sgrd);
+    box-sizing: content-box;
+
+    color: white;
+    flex: 1 1 auto;
+  }
+
+  &__body-text {
+    font: var(--sans-body-type);
+    color: var(--sans-body-type__color);
+    letter-spacing: var(--sans-body-type__letter-spacing);
+    color: white;
+    max-height: 12em;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    color: var(--text-color--light);
+    flex: 0 0 auto;
+    padding: var(--xsgrd) var(--sgrd);
+  }
+
+  &__arrow-icon {
+    margin-left: auto;
+    display: block;
+    text-align: right;
+    color: var(--text-color--light);
+  }
+}

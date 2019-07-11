@@ -1,0 +1,336 @@
+html {
+  --rdfa-scholarly-article__meta-margin-width: 32rem;
+  --rdfa-scholarly-article__meta-margin-width--mobile: 5.6rem;
+
+  --rdfa-scholarly-article__left-margin: var(--lgrd);
+  --rdfa-scholarly-article__right-margin: var(--lgrd);
+  --rdfa-scholarly-article__right-margin--mobile: var(--sgrd);
+  --rdfa-scholarly-article__gutter: 0.5in;
+
+  --rdfa-scholarly-article__left-margin--print: 0.375in;
+  --rdfa-scholarly-article__right-margin--print: 0.375in;
+
+  --rdfa-scholarly-article__body-width: 800px;
+  --rdfa-scholarly-article__body-width--min: 320px;
+  --rdfa-scholarly-article__body-width--max: 800px;
+
+  /* overwall width of div (body + right margin = 1344)*/
+  --rdfa-scholarly-article__width: 1120px;
+  --rdfa-scholarly-article__width--min: 320px;
+  --rdfa-scholarly-article__width--max: 1440px;
+}
+
+.rdfa-scholarly-article-container {
+  & .card__border {
+    /* hide card drop shadow in print */
+    @media print {
+      display: none;
+    }
+  }
+}
+
+.rdfa-scholarly-article {
+  width: 75vw;
+  box-sizing: border-box;
+  padding: 8rem 0 8rem var(--sgrd);
+  padding-right: calc(
+    var(--rdfa-scholarly-article__meta-margin-width) +
+      var(--rdfa-scholarly-article__gutter)
+  );
+  font: var(--serif-body-type--big);
+  color: var(--serif-body-type--big__color);
+  letter-spacing: var(--serif-body-type--big__letter-spacing);
+  position: relative;
+
+  hyphens: auto;
+  font-variant-numeric: lining-nums;
+  font-display: fallback;
+  overflow-wrap: break-word;
+
+  /*
+   a span with class .sa-uncaptioned-image is wrapped around images that are not captioned and are not figures.
+   These may be found in the article body, in a text-box or similar. 
+   A data attr is included with a value of 'inline' or 'block' according to intended layout mode in the original Manuscript
+  */
+  & .sa-uncaptioned-image {
+    &[data-display='inline'] {
+      display: inline-block;
+    }
+    &[data-display='block'] {
+      display: block;
+    }
+  }
+
+  @media only screen {
+    /* when screen is larger than overall width (body + right margin = 1344) */
+    max-width: var(--rdfa-scholarly-article__width);
+    width: 100%;
+    /*min-width: calc(var(--rdfa-scholarly-article__width--min));*/
+    /* max-width: var(--rdfa-scholarly-article__width--max); */
+    /*margin-right: calc(var(--rdfa-scholarly-article__meta-margin-width)/2);*/
+    /* left: calc((100% - (var(--rdfa-scholarly-article__body-width))) / 2); */
+    margin: 0 auto;
+  }
+
+  @media (--beyond-xlarge-desktop) {
+    /* in app-layout mode 'auto', the left-margin expands as needed so we need to remove the left-margin here */
+    margin-left: 0;
+  }
+
+  /*  margin symmetry is dropped and left margin shrinks to make room  */
+  @media only screen and (width < 1440px) {
+    /* border: 1px solid pink; */
+    margin-left: auto;
+    left: 0;
+  }
+  /* screen is less than article standard width */
+  @media only screen and (width < 1120px) {
+    padding-left: var(--rdfa-scholarly-article__left-margin);
+    /* border: 1px solid orange; */
+    margin-left: 0;
+    /* width: calc(100vw); */
+    width: 100%;
+  }
+  /* hide margin in devices */
+  @media (--up-to-small-desktop) {
+    width: calc(
+      100vw - var(--rdfa-scholarly-article__meta-margin-width--mobile)
+    );
+    padding-right: var(--rdfa-scholarly-article__right-margin--mobile);
+    padding-top: var(--lgrd);
+    font: var(--serif-body-type);
+  }
+
+  @media print {
+    font: var(--serif-body-print-type);
+    color: var(--serif-body-print-type__color);
+    letter-spacing: var(--serif-body-print-type__letter-spacing);
+    width: calc(100vw);
+    padding-left: var(--rdfa-scholarly-article__left-margin--print);
+    /* top and bottom margins are takein care of in teh @page query below */
+    padding-top: 0;
+    padding-bottom: 0;
+    & :any-link {
+      color: var(--serif-body-print-type__color);
+    }
+    & * {
+      -webkit-print-color-adjust: exact !important; /* Chrome, Safari */
+      color-adjust: exact !important; /*Firefox*/
+    }
+  }
+
+  & h1,
+  & h2,
+  & h3,
+  & h4,
+  & h5,
+  & h6 {
+    /*font-variant-caps: small-caps;
+    font-variant-caps: all-small-caps;
+    font-feature-settings: 'smcp' 1;
+    -moz-font-feature-settings: 'smcp' 1;*/
+    line-height: 1.2em;
+    letter-spacing: 0.015em;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+    margin: 0 0 1em 0;
+    hyphens: none;
+    & :any-link {
+      color: var(--text-color--light);
+      &:hover {
+        color: var(--accent-color);
+      }
+    }
+  }
+
+  & h1 {
+    font: var(--serif-body-type--big--headline);
+    letter-spacing: var(--serif-body-type--big--headline__letter-spacing);
+    font-weight: 600;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media (--small-tablet) {
+      font: var(--serif-body-type--headline);
+      letter-spacing: var(--serif-body-type--headline__letter-spacing);
+    }
+    @media print {
+      font: var(--serif-body-print-type--headline);
+      color: var(--serif-body-print-type--headline__color);
+      letter-spacing: var(--serif-body-print-type--headline__letter-spacing);
+    }
+  }
+
+  & h2 {
+    font: var(--serif-body-type--big--subhead-1);
+    color: var(--serif-body-type--big--subhead-1__color);
+    letter-spacing: var(--serif-body-type--big--subhead-1__letter-spacing);
+    text-align: center;
+
+    margin-bottom: 1.25em;
+
+    @media print {
+      font: var(--serif-body-print-type--subhead-1);
+      color: var(--serif-body-print-type--subhead-1__color);
+      letter-spacing: var(--serif-body-print-type--subhead-1__letter-spacing);
+    }
+  }
+
+  & h3 {
+    text-align: center;
+    font: var(--serif-body-type--big--subhead-2);
+    color: var(--serif-body-type--big--subhead-2__color);
+    letter-spacing: var(--serif-body-type--big--subhead-2__letter-spacing);
+
+    margin-bottom: 1em;
+
+    padding-top: var(--xsgrd);
+    padding-bottom: var(--xsgrd);
+    /*letter-spacing: 0.5px;*/
+    font-variant: all-small-caps; /* firefox and chrome have different levels of compatibility for font-feature-settings */
+    font-feature-settings: 'smcp' 1;
+    -moz-font-feature-settings: 'smcp' 1;
+
+    @media print {
+      font: var(--serif-body-print-type--subhead-2);
+      color: var(--serif-body-print-type--subhead-2__color);
+      letter-spacing: var(--serif-body-print-type--subhead-2__letter-spacing);
+    }
+  }
+
+  & h4 {
+    text-align: center;
+    font: var(--serif-body-type--subhead-2);
+    color: var(--serif-body-type--subhead-2__color);
+    letter-spacing: var(--serif-body-type--subhead-2__letter-spacing);
+    padding-top: var(--xsgrd);
+    padding-bottom: var(--xsgrd);
+    font-weight: 600; /* note: milo serif does not have a 500 mid-weight. */
+    /*letter-spacing: 0.5px;*/
+    /* font-feature-settings: 'smcp' 1;
+    -moz-font-feature-settings: 'smcp' 1; */
+
+    @media print {
+      font: var(--serif-body-print-type--subhead-2);
+      color: var(--serif-body-print-type--subhead-2__color);
+      letter-spacing: var(--serif-body-print-type--subhead-2__letter-spacing);
+      padding-bottom: 0;
+    }
+  }
+
+  & h5 {
+    text-align: center;
+    font: var(--serif-body-type--subhead-3);
+    color: var(--serif-body-type--subhead-3__color);
+    letter-spacing: var(--serif-body-type--subhead-3__letter-spacing);
+    font-weight: 600; /* note: milo serif does not have a 500 mid-weight. */
+    padding-top: var(--xsgrd);
+    padding-bottom: var(--xsgrd);
+    /*letter-spacing: 0.5px;*/
+    @media print {
+      font: var(--serif-body-print-type--subhead-3);
+      color: var(--serif-body-print-type--subhead-3__color);
+      letter-spacing: var(--serif-body-print-type--subhead-3__letter-spacing);
+      padding-bottom: 0;
+    }
+  }
+
+  & h6 {
+    text-align: center;
+    font: var(--serif-body-type--subhead-4);
+    color: var(--serif-body-type--subhead-4__color);
+    letter-spacing: var(--serif-body-type--subhead-4__letter-spacing);
+    text-transform: uppercase;
+    padding-top: var(--xsgrd);
+    padding-bottom: var(--xsgrd);
+    font-weight: 600; /* note: milo serif does not have a 500 mid-weight. */
+    /*letter-spacing: 0.5px;*/
+    @media print {
+      font: var(--serif-body-print-type--subhead-4);
+      color: var(--serif-body-print-type--subhead-4__color);
+      letter-spacing: var(--serif-body-print-type--subhead-4__letter-spacing);
+      padding-bottom: 0;
+    }
+  }
+
+  & abbr {
+    /* text-decoration: underline solid var(--ruling-color); */
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ruling-color--major);
+
+    @media print {
+      border-bottom: none;
+    }
+  }
+  & blockquote {
+    padding: 0 var(--mgrd);
+    quotes: '\201C''\201D';
+    border-left: 2px solid var(--ruling-color);
+    margin-left: -2.4rem;
+    margin-top: var(--xsgrd);
+    margin-bottom: var(--xsgrd);
+    font: var(--serif-body-type);
+    letter-spacing: var(--serif-body-type__letter-spacing);
+
+    @media print {
+      font: var(--serif-body-print-type--small);
+      padding: 0 var(--sgrd);
+      margin-left: -1.6rem;
+    }
+  }
+
+  &__print-header {
+    display: none;
+
+    @media print {
+      display: block;
+      width: 100%;
+      height: 50px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      background: white;
+      border-top: 1px solid black;
+      border-bottom: 1px solid black;
+      margin-top: -50px;
+      background: red;
+    }
+  }
+  /* show url's for links in the body of the ms */
+  /*& p > a[href^='http']:after {
+    content: ' (' attr(href) ') ';
+    font-weight: normal;
+    text-decoration-color: var(--text-color--light);
+    color: var(--text-color--light);
+  }*/
+}
+
+/*
+  top level sections get dividers
+ */
+
+.rdfa-article-body-section {
+  padding-top: var(--mgrd);
+
+  & .rdfa-article-body-section {
+    &:first-child {
+      /* don't pad first self-nested child */
+      padding-top: 0;
+    }
+    padding-top: 1em;
+  }
+}
+
+/*http://www.westciv.com/style_master/academy/css_tutorial/advanced/printing.html*/
+@page {
+  margin: 0.75in 0 0.5in 0;
+  size: letter portrait;
+  orphans: 2;
+  widows: 2;
+  counter-increment: page;
+  /* try to force browser to print backgrounds */
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}

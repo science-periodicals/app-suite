@@ -1,0 +1,404 @@
+.dataset .dataset__header {
+  display: block;
+  width: 100%;
+  border-top: 1px solid var(--grey-300);
+  margin-top: var(--sgrd);
+  padding: var(--xsgrd);
+  box-sizing: border-box;
+}
+.resource-view .table {
+  margin-top: var(--sgrd);
+}
+
+.table-object {
+  position: relative;
+  font: var(--ui-type--condensed);
+  font-stretch: condensed;
+  color: var(--ui-type--condensed__color);
+  letter-spacing: var(--ui-type--condensed__letter-spacing);
+  letter-spacing: 0.25px;
+  box-sizing: border-box;
+}
+
+.table-object--print {
+  padding: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  flex: 0 0 100%;
+  display: block;
+  font: var(--sans-body-print-type--small-condensed);
+  font-stretch: condensed;
+  color: var(--sans-body-print-type--small-condensed__color);
+  letter-spacing: var(--sans-body-print-type--small-condensed__letter-spacing);
+
+  & .table-object__data {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    overflow: visible;
+    & .value {
+      /* display: inline; */
+      width: 100%;
+      /* display: contents; */
+
+      /* We prevent repeated header in print: See https://stackoverflow.com/questions/274149/repeat-table-headers-in-print-mode  */
+      /* Note: https://stackoverflow.com/questions/7706504/page-break-inside-doesnt-work-in-chrome */
+      & thead,
+      & tfoot {
+        display: table-row-group;
+      }
+
+      & table [role='math'] svg {
+        max-width: none;
+      }
+    }
+  }
+}
+
+.table-object table {
+  margin-right: auto;
+  background-color: transparent;
+  border: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.table-object th {
+  letter-spacing: 0.5px;
+  font-weight: 300;
+  color: var(--text-color--light);
+  padding: 12px;
+  /*white-space: nowrap;*/
+  border-bottom: 0px;
+  border-top: 0px;
+  border-right: 1px solid var(--ruling-color);
+  line-height: 15px;
+  vertical-align: bottom;
+  hyphens: manual;
+  font-stretch: normal;
+}
+
+/*--------------------------------*/
+/* Fixed Header at top of table
+/*--------------------------------*/
+
+.table-object .table-object__header {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  box-shadow: 0px 0px 10px var(--grey-400);
+  z-index: 2;
+  border-collapse: collapse;
+  width: 100%;
+  display: inline-block;
+  box-sizing: border-box;
+
+  /* use below to keep box shadow when header is empty */
+  min-height: 1px;
+  margin-top: -1px;
+}
+
+/* special handeling for when some header cells have split row */
+.table-object__header thead tr ~ tr th {
+  border-top: 1px solid var(--ruling-color);
+}
+
+.table-object__header tfoot tr .table-object__header tbody tr {
+  width: 100%;
+  height: 0px;
+}
+
+/*hide all the body contents for the fixed header
+   and the header contents from the table data*/
+.table-object--screen {
+  width: 100%;
+
+  & .table-object__header tbody .table-object__hideable-cell,
+  & .table-object__data thead .table-object__hideable-cell {
+    display: block;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    line-height: 0;
+    overflow: hidden;
+  }
+
+  & .table-object__header tfoot,
+  & .table-object__header tfoot tr,
+  & .table-object__header tfoot td,
+  & .table-object__header tfoot th,
+  & .table-object__header tbody,
+  & .table-object__header tbody tr,
+  & .table-object__header tbody td,
+  & .table-object__header tbody th {
+    height: 0px !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    line-height: 0px !important;
+    border: 0;
+    overflow: hidden;
+    border-collapse: collapse;
+    padding: 0 12px !important;
+    visibility: collapse;
+  }
+  & .table-object__header tfoot *,
+  & .table-object__header tbody * {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    height: 0px !important;
+  }
+
+  & .table-object.table-object--fullview .table-object__header,
+  & .table-object__header.header--no-float {
+    box-shadow: none;
+  }
+
+  & .table-object__header caption {
+    height: 0px;
+  }
+}
+/*--------------------------------*/
+/* Data Table Body */
+/*--------------------------------*/
+
+.table-object__data {
+  border-collapse: collapse;
+  /*padding: var(--lgrd);
+   padding-top: 0px;*/
+  padding: 0;
+  box-sizing: border-box;
+  min-width: auto;
+  position: relative;
+  /* must to inline-block width:auto to work */
+  display: inline-block;
+  overflow: hidden;
+  background-color: var(--grey-50-a);
+  line-height: 0; /* kill extra white space added into inline-block child elements */
+}
+
+.table-object--screen .table-object__data {
+  border-top: 1px solid var(--ruling-color);
+}
+
+.table-object--screen .table-object__data {
+  width: 100%;
+}
+
+.table-object--print .table-object__data {
+  background-color: transparent;
+  /* position: absolute;
+  top: 0; */
+}
+
+/* Style the cells */
+.table-object__data tr td,
+.table-object__data tr th {
+  padding: 12px;
+  border: 1px solid var(--ruling-color);
+  /*white-space: nowrap;*/
+  line-height: 18px;
+  vertical-align: top;
+  background-color: var(--card-bg-color);
+}
+
+/* hide the top header of the table body */
+.table-object--screen {
+  /* no borders on top side of table */
+  & .table-object__data tr:first-of-type td,
+  & .table-object__data tr:first-of-type th {
+    /*border-top: 0;*/
+  }
+  /* no borders on left side of table */
+  & .table-object__data td:first-of-type,
+  & .table-object__data th:first-of-type {
+    border-left: 0;
+  }
+
+  & .table-object__data tfoot tr:first-of-type th,
+  & .table-object__data tfoot tr:first-of-type td {
+    border-top: 2px solid lightgrey;
+    font-weight: bold;
+  }
+
+  & .table-object__data thead th,
+  & .table-object__data thead,
+  & .table-object__data thead tr,
+  & .table-object__data thead td {
+    height: 0px !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    line-height: 0px !important;
+    overflow: hidden !important;
+    border-top: 0 !important;
+    border-bottom: 0 !important;
+    box-sizing: border-box;
+    position: relative;
+    visibility: collapse;
+  }
+
+  & .table-object__data thead * {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    height: 0px !important;
+    line-height: 0;
+    color: transparent !important;
+  }
+}
+/*--------------------------------*/
+/* Manage the scrolling */
+/*--------------------------------*/
+
+/* Force correct sizing */
+.table-object__shrinkwrap {
+  display: inline-block;
+  min-width: 100%;
+  line-height: 0; /* kill extra white space added into inline-block child elements */
+  /* font-size: 0; */
+}
+
+.table-object .table-object__viewport {
+  width: 100%;
+  border: 1px solid var(--ruling-color);
+  overflow: hidden;
+  /*padding: var(--mgrd);*/
+  /*box-shadow: inset 0px 0px 6px var( --grey-300 );*/
+  /*background-color: var(--grey-50);*/
+  position: relative;
+  transition: 0.3s;
+}
+
+.table-object.table-object--fullview .table-object__viewport {
+  border: 1px solid var(--ruling-color);
+  /*box-shadow: inset 0px 0px 6px white;*/
+  transition: 0.3s;
+  background-color: var(--grey-50-a);
+}
+
+.table-object__left-shadow {
+  position: absolute;
+  left: -10px;
+  top: 0;
+  bottom: 0;
+  width: 10px;
+  box-shadow: 0px 0px 0px var(--grey-400);
+  z-index: 2;
+  @media print {
+    display: none;
+  }
+}
+.table-object__left-shadow.active {
+  box-shadow: 0px 0px 10px var(--grey-400);
+}
+
+.table-object__right-shadow {
+  position: absolute;
+  right: -10px;
+  top: 0;
+  bottom: 0;
+  width: 10px;
+  box-shadow: 0px 0px 0px var(--grey-400);
+  z-index: 2;
+  @media print {
+    display: none;
+  }
+}
+.table-object__right-shadow.active {
+  box-shadow: 0px 0px 10px var(--grey-400);
+}
+
+.table-object__bottom-shadow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 10px;
+  box-shadow: 0px 0px 0px var(--grey-400);
+  z-index: 2;
+  @media print {
+    display: none;
+  }
+}
+.table-object__bottom-shadow.active {
+  box-shadow: 0px 0px 10px var(--grey-400);
+}
+
+.table-object__top-shadow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -10px;
+  height: 10px;
+  box-shadow: 0px 0px 10px var(--grey-400);
+  z-index: 2;
+
+  @media print {
+    display: none;
+  }
+}
+.table-object__top-shadow.active {
+  box-shadow: 0px 0px 10px var(--grey-400);
+}
+
+.table-object__scroll-h {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow-x: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  overflow-y: hidden;
+
+  /*border: 2px solid green;*/
+  box-sizing: border-box;
+  line-height: 0; /* kill extra white space added into inline-block child elements */
+  /* font-size: 0; */
+
+  @media print {
+    overflow: visible;
+  }
+}
+
+.table-object__scroll-v {
+  min-width: auto;
+  width: 100%;
+  max-height: 65vh;
+  position: relative;
+  overflow-y: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  /*border: 1px solid red;*/
+  display: inline-block;
+  box-sizing: border-box;
+  line-height: 0; /* kill extra white space added into inline-block child elements */
+
+  @media print {
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+.table-object p {
+  margin: 0px;
+  padding: 0px;
+}
+
+.table-object blockquote {
+  margin: 0px;
+  padding: 0px;
+}
+
+.table-object .table-object__data tr:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.table-object .table-object__caption {
+  font: var(--serif-body-type);
+  text-align: left;
+  padding: var(--sgrd);
+  margin-top: var(--sgrd);
+  width: 100%;
+  box-sizing: border-box;
+}

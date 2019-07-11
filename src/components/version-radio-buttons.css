@@ -1,0 +1,55 @@
+.version-radio-buttons {
+  display: flex;
+  align-items: center;
+
+  &__option {
+    display: flex;
+    align-items: center;
+
+    height: var(--mgrd);
+
+    color: white;
+    padding: 0 var(--xsgrd);
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: var(--grey-50);
+
+    transition: background-color 0.2s;
+
+    &:first-of-type {
+      border-radius: 1.2rem 0 0 1.2rem;
+    }
+    &:last-of-type {
+      border-radius: 0 1.2rem 1.2rem 0;
+    }
+
+    &:hover {
+      background-color: var(--accent-color--ghost);
+    }
+
+    /* box-shadow: inset 0 8px 9px -10px rgba(0, 0, 0, 0.3); */
+    border: 1px solid rgba(0, 0, 0, 0.05);
+
+    &--active {
+      background-color: var(--accent-color--light);
+      pointer-events: none;
+      box-shadow: none;
+      border: none;
+
+      & .version {
+        color: white;
+      }
+      &:hover {
+        background-color: var(--accent-color);
+      }
+    }
+  }
+  &__radio-input {
+    /* Hide the default radio button controls */
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+}

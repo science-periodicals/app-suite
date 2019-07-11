@@ -1,0 +1,20 @@
+.table {
+  & [role="math"] {
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+  }
+
+  & [role="math"] math {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+}
+
+.table figcaption {
+  margin-top: var(--lgrd);
+}

@@ -1,0 +1,27 @@
+.graph-issues {
+  padding: var(--mgrd) 0;
+  width: 100%;
+  box-sizing: border-box;
+
+  &__header {
+    font: var(--ui-type--subhead-2);
+    color: var(--ui-type--subhead-2__color);
+    letter-spacing: var(--ui-type--subhead-2__letter-spacing);
+    padding-bottom: var(--sgrd);
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+  }
+
+  &__list-item-contents {
+    display: flex;
+    align-items: center;
+  }
+
+  &__viewing-icon {
+    color: var(--text-color--light);
+    margin-right: var(--xsgrd);
+  }
+}

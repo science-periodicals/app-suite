@@ -1,0 +1,11 @@
+.explorer-facets {
+  padding: var(--mgrd) var(--sgrd);
+  max-height: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+
+  & > .expansion-panel {
+    border-top: 0;
+  }
+}

@@ -1,0 +1,13 @@
+.annotable-encoding {
+  font: var(--ui-type) !important;
+  color: var(--ui-type__color) !important;
+  letter-spacing: var(--ui-type__letter-spacing) !important;
+
+  & .progress-logger {
+    padding-top: var(--sgrd);
+
+    &:empty {
+      padding-top: 0;
+    }
+  }
+}

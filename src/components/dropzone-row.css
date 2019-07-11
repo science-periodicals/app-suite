@@ -1,0 +1,46 @@
+/* .dropzone:hover .dropzone-row{
+  padding: 8px;
+} */
+
+.dropzone-row {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  min-height: 24px;
+  box-sizing: border-box;
+  padding: 4px 0;
+  transition: padding 0.2s;
+
+  & ul {
+    margin: 0;
+    list-style: none;
+    list-style: none;
+    padding: 0;
+  }
+}
+
+.dropzone-row-icons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.dropzone-row-icons li {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-content: center;
+}
+
+.dropzone-row-icons .iconoclass {
+  opacity: 0.4;
+  transition: opacity 0.2s;
+  color: var(--grey-800);
+}
+
+.dropzone-row-icons .iconoclass:hover,
+.dropzone-row-icons .iconoclass.active {
+  opacity: 1;
+  transition: opacity 0.2s;
+}

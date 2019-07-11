@@ -1,0 +1,8 @@
+.settings-organization-contact-points {
+  box-sizing: border-box;
+
+  &__verified-email {
+    display: flex;
+    align-items: center;
+  }
+}

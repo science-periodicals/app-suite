@@ -1,0 +1,81 @@
+.annotable-action {
+  &__head-card {
+    margin-bottom: var(--mgrd);
+  }
+
+  &__card {
+    margin-bottom: var(--mgrd);
+  }
+
+  &__card-body {
+    padding-bottom: var(--lgrd);
+  }
+
+  &__section-title {
+    display: flex;
+    align-items: center;
+    font: var(--ui-type--subhead-2);
+    color: var(--ui-type--subhead-2__color);
+    letter-spacing: var(--ui-type--subhead-2__letter-spacing);
+    margin-bottom: var(--sgrd);
+  }
+
+  &__controls {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+
+    & .paper-button--capsule {
+      height: var(--mgrd);
+      margin-right: var(--xsgrd);
+    }
+
+    & .iconoclass {
+      color: var(--text-color--light);
+    }
+
+    &__endorse-button-icon {
+      margin-right: var(--xsgrd);
+    }
+  }
+
+  &__label {
+    font: var(--ui-type--label);
+    color: var(--ui-type--label__color);
+    letter-spacing: var(--ui-type--label__letter-spacing);
+  }
+
+  &__attachment-title {
+    font: var(--ui-type--subhead-1);
+    color: var(--text-color--light);
+    letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+    padding-top: var(--lgrd);
+    padding-bottom: var(--sgrd);
+    display: flex;
+    align-items: center;
+    margin-left: -3.2rem;
+  }
+
+  &__attachment-title-icon {
+    margin-right: var(--xsgrd);
+  }
+
+  &__sub-title {
+    font: var(--ui-type--subhead-2);
+    color: var(--ui-type--subhead-2__color);
+    letter-spacing: var(--ui-type--subhead-2__letter-spacing);
+    padding-top: var(--mgrd);
+    padding-bottom: var(--xsgrd);
+    text-align: left;
+    text-transform: none;
+    font-feature-settings: normal;
+  }
+
+  &__section {
+    margin: var(--xsgrd) 0;
+  }
+
+  &__content {
+    padding: var(--xsgrd) 0;
+  }
+}

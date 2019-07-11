@@ -1,0 +1,80 @@
+.annotable-contributor-list-item {
+  font: var(--ui-type) !important;
+  color: var(--ui-type__color) !important;
+  letter-spacing: var(--ui-type__letter-spacing) !important;
+
+  transition: background-color 0.2s, box-shadow 0.2s;
+
+  background-color: white;
+
+  &--disabled {
+    /*pointer-events: none;*/
+    background-color: transparent;
+  }
+
+  &__body {
+    padding: 1.2rem var(--xsgrd);
+    display: flex;
+    align-items: flex-start;
+
+    &__contributor {
+      flex: 0 1 auto;
+    }
+    &__contributor-name {
+      display: flex;
+      align-items: flex-start;
+      min-height: var(--mgrd);
+      flex: 0 1 auto;
+      overflow: hidden;
+    }
+
+    & .contributor-info-menu {
+      margin-top: 0.2rem;
+      margin-right: 0.4rem;
+      height: var(--sgrd);
+    }
+
+    &__data {
+      /* display: flex; */
+      margin: 0;
+      color: var(--text-color--light);
+
+      & :any-link {
+        color: var(--text-color--light);
+      }
+    }
+
+    &__data-label {
+      font: var(--ui-type--small);
+      text-transform: uppercase;
+      color: var(--text-color--light);
+      display: inline;
+    }
+
+    &__data-value {
+      display: inline;
+      margin: 0;
+      &:before {
+        color: var(--text-color--light);
+        content: '; ';
+      }
+      &:first-of-type:before {
+        content: '';
+      }
+    }
+
+    &__controls {
+      margin-left: auto;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      & .iconoclass {
+        margin-left: 0.4rem;
+      }
+    }
+
+    &__shell-icon--active {
+      color: var(--accent-color);
+    }
+  }
+}

@@ -1,0 +1,9 @@
+.contribute-action {
+  position: relative;
+  padding: 0 var(--lgrd);
+
+  &__symbol {
+    position: absolute;
+    left: var(--sgrd);
+  }
+}

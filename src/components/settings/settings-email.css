@@ -1,0 +1,41 @@
+.settings-email {
+  box-sizing: border-box;
+  overflow: auto;
+
+  & .card {
+    background-color: white;
+    width: 100%;
+    margin-bottom: var(--lgrd);
+  }
+
+  &__header {
+    padding: var(--lgrd);
+    padding-bottom: var(--sgrd);
+    display: flex;
+    align-items: center;
+  }
+
+  &__header-text {
+    font: var(--ui-type--subhead-1);
+    color: var(--ui-type--subhead-1__color);
+    letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+    margin-left: var(--xsgrd);
+  }
+
+  &__header-icon {
+    color: var(--icon-status-color);
+  }
+
+  &__card-body {
+    padding: 0 var(--lgrd);
+  }
+
+  & .control-panel {
+    padding: var(--mgrd) var(--lgrd);
+  }
+
+  &__verified-email {
+    display: flex;
+    align-items: center;
+  }
+}

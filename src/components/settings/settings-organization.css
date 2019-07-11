@@ -1,0 +1,21 @@
+.settings-organization {
+
+  &__organization-title {
+    font: var(--ui-type--subhead-1);
+color: var(--ui-type--subhead-1__color);
+letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+
+    padding: var(--mgrd);
+    display: flex;
+    align-items: center;
+
+    & .organization-badge {
+      margin-right: var(--sgrd);
+    }
+  }
+
+  &__body {
+    padding: var(--sgrd) var(--mgrd) 0 var(--mgrd);
+  }
+
+}

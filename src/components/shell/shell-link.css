@@ -1,0 +1,13 @@
+.shell-link {
+  & a {
+    border: none;
+  }
+
+  &--button {
+    text-transform: uppercase;
+  }
+
+  & .iconoclass {
+    color: var(--grey-400) !important;
+  }
+}

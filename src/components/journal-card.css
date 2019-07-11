@@ -1,0 +1,190 @@
+.journal-card {
+  /*width: 100%;*/
+  margin-bottom: var(--sgrd);
+  display: flex;
+  flex-direction: column;
+
+  & p {
+    padding: 0;
+    margin-bottom: 1em;
+  }
+
+  & .graph-overview {
+    padding: 0px 16px 12px 16px;
+    font-size: 13px;
+  }
+
+  @media (--tablet) {
+    width: calc(100% - 32px);
+    margin: 16px;
+  }
+
+  &__ {
+    /* sub components */
+
+    &header {
+      display: flex;
+      padding: 24px 24px 16px 24px;
+      overflow: hidden;
+      justify-content: space-between;
+    }
+
+    &actions-body {
+      padding: 0 var(--sgrd) var(--sgrd) var(--sgrd);
+      overflow-y: visible;
+      transition: all 0.2s;
+      font-size: 13px;
+
+      &--collapsed {
+        overflow: hidden;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+
+    &snippet-body {
+      overflow-y: auto;
+      -ms-overflow-style: -ms-autohiding-scrollbar;
+      transition: all 0.2s;
+      font-size: 13px;
+
+      &--collapsed {
+        overflow: hidden;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+
+    &role-icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      padding-right: var(--sgrd);
+      height: var(--lgrd);
+      vertical-align: middle;
+      line-height: 32px;
+
+      & .iconoclass {
+        color: var(--grey-300);
+      }
+    }
+
+    &menu {
+      position: absolute;
+      right: 16px;
+      top: 24px;
+    }
+
+    &controls {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0 var(--sgrd);
+      border-top: 1px solid var(--ruling-color--major);
+      font: var(--ui-type--light);
+      color: var(--text-color--light);
+      align-items: center;
+      height: 32px;
+      line-height: 32px;
+      box-sizing: border-box;
+
+      &__label {
+        margin-right: 8px;
+        letter-spacing: 0.05em;
+      }
+
+      &__button {
+        transition: transform 0.2s;
+
+        &--expanded {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    &list {
+      border-top: 1px solid var(--ruling-color);
+    }
+
+    &actions-tasks {
+      padding: var(--sgrd) var(--mgrd);
+    }
+
+    &tags {
+      border-top: 1px solid var(--ruling-color--major);
+      display: flex;
+      padding: 16px 24px;
+      justify-content: space-between;
+      align-items: center;
+
+      & .journal-badge {
+        display: block;
+        margin-right: 8px;
+        cursor: pointer;
+      }
+    }
+
+    &metadata {
+      flex-grow: 1;
+      flex-shrink: 1;
+      width: auto;
+      font: var(--ui-type);
+      overflow: hidden;
+
+      &__stats {
+        margin-top: 1em;
+        color: var(--text-color--light);
+      }
+
+      &__project-title {
+        font: var(--ui-type--subhead-1);
+        color: var(--ui-type--subhead-1__color);
+        letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+        line-height: 1.5em;
+      }
+
+      & .graph-contributors {
+        display: inline-block;
+        color: var(--text-color--light);
+        max-height: 1.5em;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        & li {
+          display: inline;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+
+          &::after {
+            content: ', ';
+            white-space: pre;
+          }
+
+          &:last-of-type::after {
+            content: '';
+          }
+        }
+      }
+    }
+
+    &abstract-text {
+      padding: 0 32px 24px 32px;
+      overflow-x: hidden;
+      transition: all 0.2s;
+      font-size: 13px;
+      display: block;
+    }
+
+    &resources {
+      @media (--tablet) {
+        width: 64px;
+        height: 64px;
+        font-size: 11px;
+        margin-right: 24px;
+      }
+      @media (--mobile) {
+        display: none;
+      }
+    }
+  } /* end sub components */
+}

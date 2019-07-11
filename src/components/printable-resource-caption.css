@@ -1,0 +1,124 @@
+.printable-resource-caption-container {
+}
+.printable-resource-caption {
+  flex: 0 0 auto;
+  /* outline: 1px solid lightblue; */
+  padding: var(--sgrd) 0; /* use container with padding to avoid measurement issues in js */
+  border-top: 4px solid var(--ruling-color);
+  box-sizing: border-box;
+  display: flex;
+
+  /* set base unit for em's - these will be overriddend in js */
+  font-size: 10pt;
+  line-height: 10pt;
+
+  &__content {
+    /* font: var(--ui-type--big);
+      letter-spacing: var(--ui-type--big__letter-spacing); */
+
+    font: var(--sans-body-print-type--em);
+    color: var(--sans-body-print-type__color);
+    letter-spacing: var(--sans-body-print-type__letter-spacing);
+
+    /* outline: 2px solid blueviolet; */
+    margin-bottom: var(--xsgrd--em);
+
+    /* force formula's to fit in available width */
+    & [role='math'] svg {
+      max-width: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &__body {
+    flex: 1 1 auto;
+    /* it's possible for block elements to exceed width even after scaling. so hide overflow */
+    overflow-x: hidden;
+
+    &__metadata {
+      padding-top: var(--xsgrd--em);
+
+      & label {
+        color: var(--text-color--light);
+        font: var(--sans-body-print-type--big--em);
+      }
+    }
+  }
+
+  &__parts {
+    list-style: none;
+    padding: 0;
+
+    list-style: none;
+    padding: var(--sgrd--em) 0;
+
+    font: var(--sans-body-print-type--em);
+    color: var(--text-color--light);
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  &__metadata {
+    /* border-top: 2px solid var(--ruling-color); */
+    margin-top: var(--xsgrd--em);
+    font: var(--sans-body-print-type--small--em);
+    color: var(--text-color--light);
+    padding-bottom: var(--sgrd--em);
+    border-bottom: 2px solid var(--ruling-color);
+  }
+
+  &__sidebar {
+    box-sizing: border-box;
+    margin-left: 4.8rem; /* use rem so we do not scale margin */
+    padding-right: var(--rdfa-scholarly-article__right-margin--print);
+    flex: 0 0 var(--rdfa-scholarly-article__meta-margin-width);
+    width: var(--rdfa-scholarly-article__meta-margin-width);
+    height: 100%; /* !! important so that the JS size computation works */
+
+    &__logo {
+      max-height: 0.375in;
+      max-width: 100%;
+      margin-bottom: var(--xsgrd--em);
+    }
+
+    &__text-logo {
+      font: var(--sans-body-print-type--subhead-1--em);
+      color: var(--sans-body-print-type--subhead-1__color);
+      letter-spacing: var(--sans-body-print-type--subhead-1__letter-spacing);
+    }
+
+    &__issue-title {
+      font: var(--sans-body-print-type--subhead-2--em);
+      color: var(--sans-body-print-type--subhead-2__color);
+      letter-spacing: var(--sans-body-print-type--subhead-2__letter-spacing);
+
+      font-weight: 400;
+    }
+
+    &__article-title {
+      font: var(--sans-body-print-type--subhead-3--em);
+      color: var(--sans-body-print-type--subhead-3__color);
+      letter-spacing: var(--sans-body-print-type--subhead-3__letter-spacing);
+      margin-bottom: var(--xsgrd--em);
+      font-weight: 300;
+    }
+
+    &__figure-title {
+      display: flex;
+      align-items: center;
+      font: var(--sans-body-print-type--subhead-3--em);
+      color: var(--sans-body-print-type--subhead-3__color);
+      letter-spacing: var(--sans-body-print-type--subhead-3__letter-spacing);
+      margin-bottom: var(--xsgrd--em);
+      & .iconoclass {
+        margin-right: 0.3em;
+      }
+    }
+
+    &__metadata {
+      font: var(--sans-body-print-type--small--em);
+    }
+  }
+}

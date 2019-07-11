@@ -1,0 +1,56 @@
+.annotation-header {
+  height: var(--mgrd);
+  border-radius: 12px;
+  box-sizing: border-box;
+  background-color: var(--hl-blue-2);
+  line-height: var(--mgrd);
+  white-space: nowrap;
+  display: flex;
+  padding-left: var(--xsgrd);
+  padding-right: var(--xsgrd);
+  margin: 0 var(--xsgrd);
+  position: relative;
+
+  &--error {
+    background-color: var(--status-error-color--light);
+  }
+
+  &--warning {
+    background-color: var(--status-warning-color--light);
+  }
+
+  &--revision-request-comment,
+  &--author-response-comment {
+    background-color: var(--revision-request-comment-color);
+  }
+
+  &--reviewer-comment {
+    background-color: var(--reviewer-comment-color);
+  }
+
+  &--endorser-comment {
+    background-color: var(--endorser-comment-color);
+  }
+
+
+  &__title {
+    color: var(--text-color);
+    margin-right: var(--sgrd);
+  }
+
+  &__menu {
+    margin: 4px 0;
+    float: right;
+    display: flex;
+    align-items: center;
+
+    &__counter {
+      font: var(--ui-type--label);
+      color: var(--ui-type--label__color);
+      letter-spacing: var(--ui-type--label__letter-spacing);
+      font-size: 1rem;
+      line-height: 1.1rem;
+      padding-right: 0.4rem;
+    }
+  }
+}

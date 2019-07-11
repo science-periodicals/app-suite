@@ -1,0 +1,35 @@
+.create-comment {
+  padding: 0 var(--sgrd) var(--sgrd);
+
+  &--threaded {
+    padding: 0;
+    background-color: var(--grey-50);
+  }
+
+  &--comment-thread {
+    padding-top: var(--sgrd);
+  }
+
+  &__recipients {
+    display: flex;
+    align-items: center;
+    padding-top: var(--sgrd);
+    padding-right: var(--sgrd);
+    padding-bottom: var(--xsgrd);
+  }
+
+  &__body {
+    padding-top: var(--xsgrd);
+    & .paper-select {
+      margin-bottom: var(--xsgrd);
+    }
+  }
+}
+
+.comment-thread .create-comment__recipients {
+  /* thread has its own padding */
+  padding-top: 0;
+}
+.comment-thread--comments-thread .create-comment__recipients {
+  padding-top: var(--xsgrd);
+}

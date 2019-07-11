@@ -1,0 +1,26 @@
+.review-editor {
+  &__question {
+    padding-bottom: var(--xsgrd);
+
+    &__text {
+      padding: var(--xsgrd);
+      font-style: oblique;
+      background-color: var(--grey-25);
+      color: var(--grey-600);
+    }
+  }
+
+  &__answer {
+    padding-bottom: var(--sgrd);
+  }
+
+  &__rating {
+    padding: 0.4rem 0;
+    margin: var(--xsgrd) 0;
+  }
+
+  &__review-body {
+    margin: var(--xsgrd) 0;
+    padding-bottom: var(--xsgrd);
+  }
+}

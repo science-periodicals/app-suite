@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <% if (locals.csrfToken) { %>
+      <meta name="csrf-token" content="<%- csrfToken %>">
+    <% } %>
+
+    <% if (locals.helmet) { %>
+      <%- helmet.title.toString() %>
+      <%- helmet.meta.toString() %>
+      <%- helmet.link.toString() %>
+      <%- helmet.style.toString() %>
+    <% } else { %>
+      <title>sci.pe</title>
+    <% } %>
+
+    <link rel="icon" sizes='16x16' href="/favicon/alt-submark-favicon/favicon-16x16.png">
+    <link rel="icon" sizes='32x32' href="/favicon/alt-submark-favicon/favicon-32x32.png">
+
+    <%
+    if (locals.bundles) {
+      Object.keys(locals.bundles).forEach(function(name) {
+        if (name && locals.bundles[name] && locals.bundles[name].css) {
+    %>
+      <link rel="stylesheet" href="/assets/<%-locals.bundles[name].css %>" />
+    <% }})} %>
+
+    <script>
+     window.__CONFIG__ = <%- locals.escJSON({
+                           DB_VERSION: locals.DB_VERSION,
+                           ssr: locals.ssr,
+                           ci: locals.config && locals.config.ci ? true: false,
+                           backstop: locals.config && locals.config.backstop,
+                           restrictFreeAccounts: locals.config && locals.config.restrictFreeAccounts,
+                           openRegistration: locals.config && locals.config.openRegistration,
+                           isJournalSubdomain: !!locals.isJournalSubdomain,
+                           resetPouchDB: locals.resetPouchDB,
+                           bundles: locals.bundles,
+                           error: locals.error,
+                           stripePublishableKey: locals.stripePublishableKey
+                         }) %>;
+     window.__INITIAL_STATE__ = <%- locals.escJSON(locals.initialState || {}) %>
+    </script>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="/assets/papaparse.min.js"></script>
+
+    <%
+    if (locals.bundles && !locals.ssrOnly) {
+      Object.keys(locals.bundles).forEach(function(name) {
+        if (name && locals.bundles[name] && name !== 'xlsx-worker' && name !== 'highlight-worker' && !locals.bundles[name].prefetch) {
+    %>
+      <script src="/assets/<%- locals.bundles[name].js %>"></script>
+    <%
+    }})}
+    %>
+
+    <%
+    if (locals.bundles && !locals.ssrOnly) {
+      Object.keys(locals.bundles).forEach(function(name) {
+        if (name && locals.bundles[name] && locals.bundles[name].prefetch) {
+    %>
+      <link rel="prefetch" href="/assets/<%- locals.bundles[name].js %>" />
+    <%
+    }})}
+    %>
+
+    <%
+    if (locals.prefetchManifest) {
+      Object.keys(locals.prefetchManifest).forEach(function(name) {
+        if (name && locals.prefetchManifest[name]) {
+    %>
+      <link rel="prefetch" href="/assets/<%- locals.prefetchManifest[name].js %>" />
+    <%
+    }})}
+    %>
+
+  </head>
+  <body>
+    <div id="app"><%- locals.html %></div>
+  </body>
+</html>

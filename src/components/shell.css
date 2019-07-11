@@ -1,0 +1,212 @@
+/* TODO improve box-shadow at the top and get the dog eared corner working (probably at Card level) */
+.shell {
+  display: flex;
+  z-index: 50;
+  margin: 0;
+  /* position: fixed; */
+  max-height: 75vh;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  left: 0px;
+  bottom: 0;
+  transition: max-height 0.25s;
+
+  font: var(--serif-body-type);
+  color: var(--serif-body-type__color);
+  letter-spacing: var(--serif-body-type__letter-spacing);
+
+  &--edit {
+    & .card {
+    }
+  }
+
+  &--close {
+    max-height: 0;
+  }
+
+  &--no-transition {
+    transition: none !important;
+  }
+
+  @media print {
+    display: none;
+  }
+
+  &__card-container {
+    box-sizing: border-box;
+    padding-top: 8px;
+    width: 100%;
+  }
+
+  &__card {
+    box-sizing: border-box;
+  }
+}
+
+.shell__controls {
+  position: relative;
+  width: 100%;
+  padding-top: var(--sgrd);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.shell__controls * {
+  z-index: 10;
+}
+
+.shell__controls--delete {
+  right: var(--mgrd);
+}
+
+.shell__controls--drag {
+  position: absolute !important;
+  cursor: ns-resize !important;
+  left: 50%;
+}
+
+.shell__content {
+  margin-top: var(--mgrd);
+  padding-bottom: var(--sgrd);
+  max-height: calc(75vh - 128px);
+  overflow-y: scroll;
+}
+
+.shell__content__citation {
+  font-family: var(--serif-body-type-face);
+  font-size: 1.4rem;
+  padding: var(--xsgrd) var(--mgrd) var(--mgrd) var(--mgrd);
+}
+
+.shell__content__role-contact-point {
+  padding: var(--sgrd);
+  position: relative;
+  &__symbol {
+    position: absolute;
+    left: -1.2rem;
+    &:after {
+      content: '.';
+    }
+  }
+}
+
+.shell__content .resource-content,
+.shell__content .footnote {
+  padding: var(--sgrd);
+  padding-left: var(--sgrd); /* make space for the footnote number */
+  & > p {
+    padding-left: var(--sgrd);
+    padding-right: var(--sgrd);
+  }
+}
+
+.shell__content figure {
+  margin-top: 0px;
+
+  &.table {
+    padding: 0 var(--mgrd);
+  }
+}
+
+.shell__content {
+  & .caption {
+    &__title {
+      margin: 0 var(--sgrd);
+    }
+    &__body--embedded {
+      margin: 0 var(--sgrd);
+    }
+  }
+
+  & .media-object,
+  & .text-box-object {
+    & p {
+      margin: 0 var(--sgrd);
+      font: var(--serif-body-type);
+      color: var(--serif-body-type__color);
+      letter-spacing: var(--serif-body-type__letter-spacing);
+    }
+  }
+
+  /* text boxes */
+  & aside {
+    padding: var(--mgrd);
+
+    & .media-object,
+    & .text-box-object {
+      font: var(--sans-body-type);
+      color: var(--sans-body-type__color);
+      letter-spacing: var(--sans-body-type__letter-spacing);
+      padding-top: 1em;
+    }
+  }
+
+  & .flex-packer {
+    margin: 0 var(--sgrd);
+  }
+
+  & .footnote {
+    margin: 0 var(--sgrd);
+  }
+
+  & p.data-download {
+    margin: 0 var(--sgrd);
+  }
+
+  & .software-source-code {
+    margin: 0 var(--sgrd);
+  }
+
+  & .annotable-encoding {
+    padding: 0 var(--sgrd);
+  }
+  & .table__footnotes {
+    &--embedded {
+      margin: var(--sgrd);
+      & li {
+        padding: 0 0 var(--xsgrd) 0;
+      }
+      & .footnote {
+        padding: 0;
+        padding-left: var(--sgrd);
+
+        & p:last-child {
+          padding-bottom: 0;
+        }
+      }
+    }
+    &__refNum {
+      position: relative;
+    }
+  }
+
+  & .rdfa-caption-metadata {
+    margin: var(--sgrd);
+  }
+}
+
+/* TODO update shell media queries */
+/* !!left value and width should be the same as the one defined in resource-view.css TODO: create variables */
+@media (min-width: 0px) {
+  /*sm*/
+  .shell1 {
+    width: 100vw;
+    left: 0px;
+  }
+}
+
+@media (--beyond-tablet) {
+  /*md*/
+  .shell1 {
+    width: calc(66vw + 16px);
+    left: 8px;
+  }
+}
+
+@media (--beyond-large-desktop) {
+  .shell1 {
+    left: calc(25vw - 8px);
+    width: calc(50vw + 16px);
+  }
+}

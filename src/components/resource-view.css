@@ -1,0 +1,177 @@
+html {
+  --resource-right-margin: 5.6rem; /* space between body content and right side of card - does not include select bars */
+  --resource-right-gutter: 4rem; /* space between the right side of card and annotations */
+}
+
+.resource-view {
+  width: 100%;
+  /*height: calc(100% - var(--tabs-height));*/
+  padding-top: var(--mgrd);
+  padding-left: var(--sgrd);
+  position: relative;
+  z-index: 0; /* establish a z-index context */
+  display: flex;
+  box-sizing: border-box;
+
+  @media (--small-tablet) {
+    padding-left: 0.4rem;
+  }
+
+  &__outbound-divider {
+    color: var(--grey-400);
+    font: var(--ui-type--label);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 16px 4px 24px;
+    background-color: var(--grey-100);
+
+    border-radius: 2px;
+    margin: 0 -36px var(--sgrd) 0;
+  }
+
+  &__section-title {
+    font: var(--ui-type--subhead-2);
+    color: var(--ui-type--subhead-2__color);
+    letter-spacing: var(--ui-type--subhead-2__letter-spacing);
+  }
+
+  &__body {
+    flex: 1 1 1280px;
+    padding-right: var(--resource-right-gutter);
+    /* overflow: hidden; - normally we  set overflow hidden to force flex to scale width, but can't here becuase of annoations that overflow content */
+    min-width: 0; /* this workaround allows the flex to scale as needed */
+  }
+
+  /* this is the element that is being scrolled in JS */
+  /*
+  &__body {
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 5.6rem;
+    left: 0;
+    z-index: 0;
+    padding-top: 11.2rem;
+    transition: padding 0.2s;
+  }*/
+
+  &__body-card {
+    background-color: white;
+    margin-bottom: 42px;
+  }
+
+  &--header-collapsed {
+    & .resource-view__body {
+      padding-top: 0;
+    }
+  }
+
+  &__action {
+    position: relative;
+    /* padding-top: var(--lgrd); */
+    padding-bottom: var(--lgrd);
+    border-bottom: 1px solid var(--ruling-color--minor);
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    border-left: 2px solid transparent;
+
+    /* we toggled between --focused and --refocused to retrigger the animation @halmos there may be a better way to do that? */
+    &--focused {
+      animation-duration: 1s;
+      animation-name: focused-annotable-action;
+      border-left: 2px solid var(--accent-color);
+    }
+    &--refocused {
+      animation-duration: 1s;
+      animation-name: refocused-annotable-action;
+      border-left: 2px solid var(--accent-color);
+    }
+  }
+
+  & .resource-view__content {
+    position: relative;
+    padding-top: var(--xlgrd);
+    padding-bottom: var(--xlgrd);
+  }
+
+  & .image img,
+  & .video video,
+  & .audio audio {
+    max-height: 75vh;
+    max-width: 100%;
+    display: block;
+    margin: var(--sgrd) auto;
+  }
+
+  & .dataset {
+    margin-top: var(--sgrd);
+
+    &__list {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+  }
+
+  &__bg {
+    background-color: var(--base-bg-color);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    @media (--beyond-small-desktop) {
+      width: 66vw;
+    }
+
+    @media (--beyond-large-desktop) {
+      width: 50vw;
+    }
+  }
+
+  &__shell-positioner {
+    z-index: 50;
+    width: 100vw;
+    left: 0px;
+    bottom: 0;
+    display: flex;
+    position: fixed;
+    overflow: hidden;
+    min-width: 0;
+
+    /* this div is blocking click events in the right column */
+    pointer-events: none;
+    & .shell {
+      pointer-events: all;
+    }
+  }
+}
+
+@keyframes focused-annotable-action {
+  from {
+    border-color: transparent;
+  }
+
+  to {
+    border-color: var(--accent-color);
+  }
+}
+
+@keyframes refocused-annotable-action {
+  from {
+    border-color: transparent;
+  }
+
+  to {
+    border-color: var(--accent-color);
+  }
+}

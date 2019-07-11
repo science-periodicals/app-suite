@@ -1,0 +1,39 @@
+.settings-organization-billing {
+  &__plan-controls {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  &__card {
+    display: flex;
+    & .pay-button {
+      margin-left: auto;
+    }
+  }
+
+  &__modal {
+    font: var(--ui-type);
+    color: var(--ui-type__color);
+    letter-spacing: var(--ui-type__letter-spacing);
+
+    &__header {
+      font: var(--ui-type--subhead-1);
+      color: var(--ui-type--subhead-1__color);
+      letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+      margin-bottom: var(--mgrd);
+    }
+
+    width: 100vw;
+    min-width: 32rem;
+    max-width: 640px;
+    max-height: calc(100vh - 56px);
+    box-sizing: border-box;
+
+    &__content {
+      padding: var(--mgrd);
+      overflow-y: auto;
+      -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+  }
+}

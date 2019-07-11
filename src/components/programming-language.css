@@ -1,0 +1,17 @@
+.programming-language {
+  font: var(--ui-type);
+  color: var(--ui-type__color);
+  letter-spacing: var(--ui-type__letter-spacing);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: var(--xsgrd);
+  position: relative;
+  z-index: 1;
+
+  &:hover {
+    background-color: var(--grey-50);
+  }
+}

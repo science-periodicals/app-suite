@@ -1,0 +1,6 @@
+.typesetter-revision-request-info {
+  &__request {
+    font-style: oblique;
+    color: var(--grey-600);
+  }
+}

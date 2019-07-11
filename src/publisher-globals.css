@@ -1,0 +1,51 @@
+html {
+  --tabs-height: 3.2rem;
+  --header-card-title-height: 5.6rem;
+  --header-card-options-height: 9.6rem;
+  --oa-select-bar-width: 2.4rem;
+  --oa-select-bar-width--mobile: 1.8rem;
+  --oa-select-bar-spacing: 0.8rem;
+  --oa-select-bar-spacing--mobile: 0.8rem;
+
+  /* label (annotable) */
+  --oa-label-width: 24px;
+  /* tags (annotable) */
+  --oa-tag-offset-left: 28px;
+  /* focus line (annotable) */
+  --oa-focus-line-width: 2.4rem;
+
+  --child-bg-color: #fafafa;
+  --shadow_active: 2px 2px 4px var(--grey-400);
+  --shadow_inactive: 0 0 4px var(--grey-400);
+
+  --highlight-bar-v-offset: 0;
+
+  /* line selections */
+  --highlight-selection-v-offset: -3px;
+  /* the line selection level focus line*/
+  --highlight-selection-focus-line-v-offset: -5px;
+  /* the paragraph level focus line */
+  --highlight-block-focus-line-v-offset: 0;
+}
+
+body {
+  font-family: var(--sans-body-type-face);
+}
+
+.button__icon--40px {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  border: none;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  vertical-align: middle;
+  opacity: 0.3;
+  transition: opacity 0.2s;
+}
+
+.button__icon--40px:hover {
+  opacity: 1;
+  transition: opacity 0.2s;
+}

@@ -1,0 +1,32 @@
+.text-box-object {
+  font: var(--sans-body-type);
+  color: var(--sans-body-type__color);
+  letter-spacing: var(--sans-body-type__letter-spacing);
+
+  & aside {
+    border: none;
+  }
+
+  & img {
+    max-width: 100%;
+  }
+}
+
+.text-box-object--print {
+  font: var(--sans-body-print-type--small);
+  color: var(--sans-body-print-type__color);
+  letter-spacing: var(--sans-body-print-type__letter-spacing);
+
+  &--standalone {
+    /* In standalone mode, the text box is rendered in it's own page*/
+    position: absolute;
+  }
+
+  &--inline {
+    /* In inline mode, the text-box a box in the flow of the main text */
+  }
+
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}

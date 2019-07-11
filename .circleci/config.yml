@@ -1,0 +1,168 @@
+version: 2
+jobs:
+  test:
+    resource_class: medium+
+    working_directory: ~/app-suite
+    docker:
+      - image: circleci/node:dubnium
+      - image: ibmcom/cloudant-developer
+      - image: redis
+    environment:
+      COUCH_PROTOCOL: 'http:'
+      COUCH_HOST: localhost
+      COUCH_PORT: 5984
+      COUCH_ADMIN_USERNAME: admin
+      COUCH_ADMIN_PASSWORD: pass
+      COUCH_AUTH_DB: _users
+      COUCH_LOG_DB: test-app-suite-log
+      DB_NAME: test-app-suite
+      REDIS_HOST: 127.0.0.1
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ''
+    steps:
+      - checkout
+      - run: echo '//registry.npmjs.org/:_authToken='$NPM_PRIVATE_AUTH_TOKEN > $HOME/.npmrc
+      - run: sudo npm install -g cross-env couchapp
+      - restore_cache:
+          keys:
+            - v3-node_modules-{{ checksum "package-lock.json" }}
+            - v3-node_modules-
+      - run:
+          command: npm install
+          no_output_timeout: 5m
+      - save_cache:
+          key: v3-node_modules-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      - run: npm test
+      - persist_to_workspace:
+          root: ~/app-suite
+          paths: .
+
+  backstop:
+    resource_class: xlarge
+    working_directory: ~/app-suite
+    docker:
+      - image: circleci/node:dubnium-browsers
+      - image: ibmcom/cloudant-developer
+      - image: redis
+    environment:
+      COUCH_PROTOCOL: 'http:'
+      COUCH_HOST: 127.0.0.1
+      COUCH_PORT: 5984
+      COUCH_ADMIN_USERNAME: admin
+      COUCH_ADMIN_PASSWORD: pass
+      COUCH_AUTH_DB: _users
+      DB_NAME: scienceai
+      COUCH_LOG_DB: log
+      REDIS_HOST: 127.0.0.1
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ''
+      AWS_REGION: us-east-1
+      FS_BLOB_STORE_ROOT: /home/circleci/app-suite/blobs/blob
+    steps:
+      - attach_workspace:
+          at: ~/app-suite
+      - run: echo '//registry.npmjs.org/:_authToken='$NPM_PRIVATE_AUTH_TOKEN > $HOME/.npmrc
+      - run: sudo npm install -g @cloudant/couchbackup
+      - run: sudo apt update
+      - run: sudo apt-get install -y -qq awscli redis-tools
+      - run:
+          name: Init DB
+          command: npm run delete-auth-db && npm run create-auth-db && npm run push-auth-db && npm run delete-db && npm run create-db && npm run push-ddoc && npm run set-couchdb-auth && npm run reset-redis && npm run init-ontologist && npm run seed-services
+          no_output_timeout: 2m
+      - run:
+          name: Setup blob directory
+          command: |
+            pwd
+            mkdir -p blobs/blob
+            echo $FS_BLOB_STORE_ROOT
+            ls $FS_BLOB_STORE_ROOT
+          no_output_timeout: 2m
+
+      # caching
+      - run:
+           name: Create a file to generate a cache key as CircleCI does not really support dynamic cache key
+           command: node -p "require('@scipe/stories/package.json').version" > ~/story-version.txt
+      - restore_cache:
+          keys:
+            - v1-story-data-{{ checksum "~/story-version.txt" }}
+      - run:
+          name: download dump files
+          command: aws s3 sync s3://story-dumps-$(node -p "require('@scipe/stories/package.json').version") /home/circleci/app-suite/blobs/
+          no_output_timeout: 10m
+      - save_cache:
+          key: v1-story-data-{{ checksum "~/story-version.txt" }}
+          paths:
+            - /home/circleci/app-suite/blobs
+      - run:
+          name: restore dump
+          command: |
+            cat /home/circleci/app-suite/blobs/${COUCH_AUTH_DB}.txt.gz | gunzip | npx couchrestore --url ${COUCH_PROTOCOL}//${COUCH_ADMIN_USERNAME}:${COUCH_ADMIN_PASSWORD}@${COUCH_HOST}:${COUCH_PORT} --db ${COUCH_AUTH_DB}
+            cat /home/circleci/app-suite/blobs/${DB_NAME}.txt.gz | gunzip | npx couchrestore --url ${COUCH_PROTOCOL}//${COUCH_ADMIN_USERNAME}:${COUCH_ADMIN_PASSWORD}@${COUCH_HOST}:${COUCH_PORT} --db ${DB_NAME}
+          no_output_timeout: 10m
+
+      - run:
+          name: warmup
+          command: npm run warmup
+          no_output_timeout: 20m
+      - run:
+          name: start
+          command: npm run start-ci
+          background: true
+          no_output_timeout: 2h
+      - run:
+          name: wait for the server to start responding.
+          command: wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t inf http://127.0.0.1:3000
+      - run:
+          name: backstop
+          command: npm run backstop:test # -- --filter production-requirement__stage0-upload-active-0--aschtgen2015
+          no_output_timeout: 3m
+      - run:
+          name: prepare artifacts
+          command: (cd backstop_data && zip -r ../backstop-artifacts.zip bitmaps_test ci_report html_report)
+          when: always # need to run even if backstop failed
+          no_output_timeout: 10m
+      - store_artifacts:
+          path: ~/app-suite/backstop-artifacts.zip
+
+  publish:
+    working_directory: ~/app-suite
+    docker:
+      - image: circleci/node:dubnium
+    environment:
+      COUCH_AUTH_DB: _users
+      DB_NAME: scienceai
+    steps:
+      - attach_workspace:
+          at: ~/app-suite
+      - run:
+          name: Authenticate with registry
+          command: echo '//registry.npmjs.org/:_authToken='$NPM_PRIVATE_AUTH_TOKEN > $HOME/.npmrc
+      - run:
+          name: publish
+          command: npm publish
+          no_output_timeout: 40m
+
+workflows:
+  version: 2
+  test-publish:
+    jobs:
+      - test:
+          filters:  # required since `publish` has tag filters AND requires `test`
+            tags:
+              only: /.*/
+      - backstop:
+          requires:
+            - test
+          filters:
+            branches:
+              only: /.*/
+      - publish:
+          requires:
+            - test
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/

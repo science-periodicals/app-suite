@@ -1,0 +1,11 @@
+.searchable-issue-list {
+  &__input {
+    margin-right: var(--sgrd);
+  }
+
+  &__filter {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--sgrd);
+  }
+}

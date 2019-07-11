@@ -1,0 +1,226 @@
+/** see <Highlight/> component different classes are availables:
+ *
+ *- highlight-rect-selection for the highlight of a part of a block level element (like a character or a sentence)
+ *
+ * In addition to that, additional classes are available:
+ * - hovered (present when the highlight is hovered)
+ * - focused (present when the highlight is focused)
+ */
+
+.highlight-rect {
+  z-index: -2;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+}
+
+.highlight-rect .fill {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-color: var(--hl-blue-1-a);
+  border-radius: 12px;
+}
+
+.highlight-rect.hovered .fill {
+  background-color: var(--hl-blue-2-a);
+}
+.highlight-rect.focused .fill {
+  background-color: var(--hl-yellow-2-a);
+  z-index: -1;
+}
+.highlight-rect.focused.hovered .fill {
+  background-color: var(--hl-yellow-4-a);
+}
+
+/* TODO @halmos check color or add more style (border etc..) this is when the annotable is being edited (and the shell editor is open)*/
+.highlight-rect.edited .fill {
+  background-color: transparent;
+  border: 2px solid var(--accent-color);
+  box-sizing: border-box;
+  height: auto;
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+}
+
+.highlight-rect.highlight-rect-element {
+  background-color: var(--hl-yellow-3-a);
+  border-radius: 16px;
+  margin-left: -12px;
+  margin-right: 12px;
+  padding-left: 12px;
+  padding-right: 12px;
+  /*border:1px solid red;*/
+}
+
+/* sub-paragraph selections */
+.highlight-rect.highlight-rect-selection {
+  background-color: var(--hl-blue-3-a);
+  margin-left: -4px;
+  padding-right: 8px;
+  border-radius: 11px;
+  min-height: 22px;
+  margin-top: var(--highlight-selection-v-offset);
+  z-index: -3;
+}
+.highlight-rect.highlight-rect-selection.hovered {
+  background-color: var(--hl-blue-6-a);
+}
+.highlight-rect.highlight-rect-selection.focused {
+  background-color: var(--hl-yellow-4-a);
+  z-index: -1;
+}
+.highlight-rect.highlight-rect-selection.focused.hovered {
+  background-color: var(--hl-yellow-8-a);
+}
+
+.highlight-rect.highlight-rect-selection.focused
+  .highlight-rect-selection_underline {
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.15);
+}
+
+.highlight-rect.highlight-rect-selection .highlight-rect-selection_underline {
+  width: calc(100% - 2px);
+  height: calc(100% - 5px);
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.15);
+
+  margin-left: 5px;
+  margin-right: 5px;
+
+  /*	margin-bottom: 4px;*/
+}
+
+.focus-line-v {
+  /*  z-index: -3;*/
+  position: absolute;
+
+  &.section {
+    margin-top: var(--highlight-block-focus-line-v-offset);
+  }
+
+  &.selection {
+    margin-top: var(--highlight-selection-focus-line-v-offset);
+  }
+}
+
+.focus-line-h {
+  /*  z-index: -3;*/
+  position: absolute;
+  left: 100%;
+  width: 5.6rem;
+  &.section {
+    margin-top: var(--highlight-block-focus-line-v-offset);
+  }
+
+  &.selection {
+    margin-top: var(--highlight-selection-focus-line-v-offset);
+  }
+}
+
+.focus-line-v.hovered .fill,
+.focus-line-h.hovered .fill {
+  background-color: var(--hl-yellow-6);
+  transition: none;
+}
+
+/* fcous-line-v determines the height and fill allows for height transition */
+.focus-line-v .fill {
+  width: 100%;
+  height: 0%;
+  background-color: var(--hl-yellow-3);
+  border-radius: 12px;
+  border-top-right-radius: 0px;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in-out;
+  width: var(--oa-focus-line-width); /*!! keep in sync with highlight.js*/
+}
+
+.focus-line-v.focused .fill {
+  width: var(--oa-focus-line-width); /*!! keep in sync with highlight.js*/
+  min-height: var(--oa-select-bar-width); /*!! keep in sync with highlight.js*/
+  /* todo: this is a hack to address lack of ability to modify height */
+  height: 100%;
+}
+
+/* special case when only 1 line of text is selected */
+.focus-line-v.single-line .fill {
+  border-bottom-right-radius: 0px;
+}
+
+.focus-line-h .fill {
+  background-color: var(--hl-yellow-3);
+  border-radius: 0px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  height: 24px;
+  transition-property: width;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in-out;
+  width: 0px;
+}
+.focus-line-h.focused .fill {
+  width: 100%;
+  transition: 0.1s ease-in;
+}
+
+@media (min-width: 0px) {
+  /* fill in the padding */
+  .max-indent-level-1 .focus-line-h {
+    /*TODO - this styls is not tested*/
+    width: var(--sgrd);
+    right: calc(-1 * var(--oa-focus-line-width) - var(--sgrd));
+  }
+
+  .max-indent-level-2 .focus-line-h {
+    width: var(--sgrd);
+    right: calc(-1 * var(--oa-focus-line-width) - var(--sgrd));
+  }
+
+  .max-indent-level-3 .focus-line-h {
+    width: calc(
+      var(--sgrd) + var(--oa-select-bar-width) + var(--oa-select-bar-spacing)
+    );
+    right: calc(
+      -1 * var(--oa-focus-line-width) - var(--sgrd) - var(
+          --oa-select-bar-spacing
+        ) - var(--oa-select-bar-width)
+    );
+  }
+}
+
+@media (min-width: 768px) {
+  /* fill in the padding */
+  .max-indent-level-1 .focus-line-h {
+    width: calc(
+      var(--sgrd) + var(--oa-select-bar-width) + var(--oa-select-bar-spacing) *
+        2 - var(--oa-focus-line-width)
+    );
+    right: calc(
+      -1 * (var(--sgrd) + var(--oa-select-bar-width) +
+            var(--oa-select-bar-spacing) * 2)
+    );
+  }
+
+  .max-indent-level-2 .focus-line-h {
+    width: calc(
+      var(--sgrd) + var(--oa-select-bar-width) * 2 +
+        var(--oa-select-bar-spacing) * 3 - var(--oa-focus-line-width)
+    );
+    right: calc(
+      -1 * (var(--sgrd) + var(--oa-select-bar-width) * 2 +
+            var(--oa-select-bar-spacing) * 3)
+    );
+  }
+
+  .max-indent-level-3 .focus-line-h {
+    width: calc(
+      var(--sgrd) + var(--oa-select-bar-width) * 3 +
+        var(--oa-select-bar-spacing) * 4 - var(--oa-focus-line-width)
+    );
+    right: calc(
+      -1 * (var(--sgrd) + var(--oa-select-bar-width) * 3 +
+            var(--oa-select-bar-spacing) * 4)
+    );
+  }
+}

@@ -1,0 +1,7 @@
+.shell-comments {
+  padding: 0 var(--mgrd);
+
+  font: var(--ui-type);
+  color: var(--ui-type__color);
+  letter-spacing: var(--ui-type__letter-spacing);
+}

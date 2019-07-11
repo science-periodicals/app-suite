@@ -1,0 +1,62 @@
+.license {
+  font: var(--ui-type);
+  color: var(--ui-type__color);
+  letter-spacing: var(--ui-type__letter-spacing);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: var(--xsgrd);
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  overflow: hidden;
+
+  &:hover {
+    background-color: var(--grey-50);
+  }
+
+  & .iconoclass {
+    color: black;
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    flex: 1 1 calc(100% - 2.4rem);
+    align-items: center;
+    padding-right: var(--sgrd);
+    color: var(--text-color--light);
+    overflow: hidden;
+  }
+
+  &__info-id {
+    padding-right: var(--sgrd);
+    flex: 1 1 30%;
+    max-width: 30%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &__info-name {
+    padding-right: var(--sgrd);
+    flex: 1 1 50%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &__info-badge {
+    padding: 0.4rem;
+    text-transform: uppercase;
+    font-variant: small-caps;
+    border: 1px solid var(--ruling-color);
+    background-color: var(--grey-50);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    flex: 0 1 auto;
+  }
+}

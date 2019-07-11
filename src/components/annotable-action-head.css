@@ -1,0 +1,278 @@
+.annotable-action-head {
+  &--active &__banner,
+  &--active &__notices {
+    background-color: var(--action-active-color);
+  }
+  &--completed &__banner,
+  &--completed &__notices {
+    background-color: var(--action-completed-color);
+  }
+  /* kind of like completed */
+  &--canceled &__banner,
+  &--canceled &__notices {
+    background-color: var(--action-canceled-color);
+  }
+  /* in the process of being endorsed */
+  &--staged &__banner,
+  &--staged &__notices {
+    background-color: var(--action-staged-color);
+  }
+  /* there is an error */
+  &--failed &__banner,
+  &--failed &__notices {
+    background-color: var(--action-failed-color);
+  }
+  /* there are some blocking actions, we are just waiting and we can't do anyhing*/
+  &--waiting &__banner,
+  &--waiting &__notices {
+    background-color: var(--action-waiting-color);
+  }
+
+  &__banner {
+    background-color: var(--accent-color);
+    color: white;
+    padding: var(--mgrd);
+
+    /* TODO @halmos pick up good colors... */
+  }
+
+  &__banner-title {
+    color: white;
+    display: flex;
+    align-items: center;
+    font: var(--ui-type--subhead-1);
+    letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+  }
+
+  &__banner-icon {
+    margin-right: var(--xsgrd);
+  }
+
+  &__banner-controls {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+
+    & .button-menu {
+      &__head {
+        background-color: white;
+        color: var(--link-color);
+        & .iconoclass {
+          color: var(--link-color);
+        }
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.95) !important;
+        }
+      }
+    }
+
+    & .paper-button {
+      height: var(--mgrd);
+      margin-right: var(--xsgrd);
+      background-color: rgba(255, 255, 255, 1) !important;
+      color: var(--link-color) !important;
+      & .iconoclass {
+        color: var(--link-color);
+      }
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.95) !important;
+      }
+
+      &:disabled {
+        background-color: rgba(255, 255, 255, 0.4) !important;
+        color: rgba(255, 255, 255, 0.8) !important;
+        & .iconoclass {
+          color: rgba(255, 255, 255, 0.8) !important;
+        }
+      }
+
+      &__contents {
+        display: flex;
+      }
+    }
+
+    & .iconoclass {
+      color: white;
+    }
+  }
+
+  &__banner-status-label {
+    opacity: 0.8;
+    font: var(--ui-type--big);
+    text-transform: uppercase;
+    position: relative;
+    display: block;
+    top: 1px;
+  }
+
+  &__notices {
+    background-color: var(--action-staged-color);
+    border-top: 2px solid white;
+    &__bg {
+      background-color: rgba(255, 255, 255, 0.75);
+      &:empty {
+        padding: 0;
+      }
+    }
+    margin-bottom: var(--mgrd);
+  }
+
+  &__notice {
+    padding: var(--sgrd) var(--mgrd);
+  }
+
+  &__description-content {
+    font: var(--ui-type);
+    color: var(--ui-type__color);
+    letter-spacing: var(--ui-type__letter-spacing);
+    font-weight: 500;
+    border-left: 4px solid var(--hl-blue-1-a);
+    padding: var(--xsgrd) 0 var(--xsgrd) var(--xsgrd);
+    margin: var(--xsgrd) 0;
+    position: relative;
+    left: -5px;
+    min-height: var(--mgrd);
+  }
+
+  &__description-content-icon {
+    position: absolute;
+    left: -28px;
+    top: 3px;
+    color: var(--grey-200-a);
+  }
+
+  &__schedule {
+    font: var(--ui-type);
+    color: var(--ui-type__color);
+    padding: var(--xsgrd) 0 var(--xsgrd) var(--xsgrd);
+    margin: var(--xsgrd) 0;
+    min-height: var(--mgrd);
+  }
+
+  &__label {
+    font: var(--ui-type--label);
+    color: var(--ui-type--label__color);
+    letter-spacing: var(--ui-type--label__letter-spacing);
+  }
+
+  &__agent-endorser {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: var(--xsgrd) 0;
+    justify-content: space-between;
+  }
+
+  &__endorser {
+    margin-bottom: var(--xsgrd);
+    padding: var(--xsgrd) 0;
+    display: flex;
+    align-items: center;
+  }
+
+  &__endorser-label {
+    color: var(--text-color--light);
+    display: block;
+    padding-right: var(--xsgrd);
+    text-transform: uppercase;
+  }
+
+  &__agent,
+  &__endorse {
+    margin-bottom: var(--xsgrd);
+    font: var(--ui-type--label);
+    color: var(--ui-type--label__color);
+    letter-spacing: var(--ui-type--label__letter-spacing);
+    display: flex;
+    align-items: center;
+
+    &__controls {
+      margin-left: auto;
+    }
+    &__button-icon {
+      margin-right: var(--xsgrd);
+    }
+
+    &__userbadge {
+      margin-right: var(--xsgrd);
+      /* margin-left: -3.2rem; */
+    }
+  }
+}
+
+.annotable-action-head-notice {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  color: var(--text-color);
+  border-bottom: 1px solid white;
+
+  &--comment,
+  &--status {
+    align-items: center;
+    & .paper-button {
+      margin-left: auto;
+    }
+  }
+
+  &__icon {
+    margin-top: 0.2rem;
+    margin-right: var(--sgrd);
+  }
+  position: relative;
+
+  padding: var(--xsgrd) var(--mgrd);
+
+  font: var(--ui-type--short);
+  letter-spacing: var(--ui-type--short__letter-spacing);
+
+  &__content {
+    padding: 0.4rem 0;
+  }
+
+  &__title {
+    font: var(--ui-type--subhead-3);
+    letter-spacing: var(--ui-type--subhead-3__letter-spacing);
+  }
+  &__list {
+    padding-top: 0.4rem;
+    padding-left: 2ch;
+    list-style: circled-alpha;
+    color: rgba(0, 0, 0, 0.5);
+  }
+  &__list-item {
+    margin: 0.8rem 0;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  &__action-counts-list {
+    display: inline;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+
+    &__item {
+      display: inline;
+      vertical-align: baseline;
+      & > * {
+        vertical-align: middle;
+      }
+
+      &:after {
+        content: ', ';
+      }
+      &:last-of-type {
+        &:after {
+          content: '';
+        }
+      }
+    }
+    &__item-icon {
+      margin: 0 0 0 0.4rem !important;
+      vertical-align: middle;
+    }
+  }
+}

@@ -1,0 +1,49 @@
+.settings-organization-admins {
+  &__title {
+    font: var(--ui-type--subhead-2);
+    color: var(--ui-type--subhead-2__color);
+    letter-spacing: var(--ui-type--subhead-2__letter-spacing);
+
+    padding-bottom: var(--sgrd);
+    border-bottom: 1px solid var(--ruling-color);
+    margin-bottom: var(--sgrd);
+  }
+
+  &__list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    padding-bottom: var(--mgrd);
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__list-item {
+    padding: var(--xsgrd);
+    flex: 0 0 24rem;
+    animation: settings-organization-admins-fadein-anim 0.2s;
+
+    &--add-invite {
+      margin-left: auto;
+      align-self: flex-end;
+      flex: 0 0 auto;
+    }
+  }
+
+  &__more {
+    display: flex;
+    justify-content: center;
+  }
+
+}
+
+
+@keyframes settings-organization-admins-fadein-anim {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

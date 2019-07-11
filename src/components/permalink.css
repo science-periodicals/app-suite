@@ -1,0 +1,179 @@
+.permalink {
+  font: var(--ui-type--condensed);
+  font-size: 1rem;
+  letter-spacing: 0;
+  position: absolute;
+  /*width: var(--lgrd);*/
+  top: 0;
+  color: var(--grey-400);
+  display: block;
+  flex: 0 0 auto;
+
+  &:hover {
+    color: var(--text-color);
+  }
+
+  &__counter {
+    z-index: 10;
+    padding: 0 4px 0 2px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    height: 2.4rem;
+    border-radius: 0 1.2rem 1.2rem 0;
+    display: inline-flex;
+    align-items: center;
+    background-color: transparent;
+    transition: background-color 0.2s;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    &:hover {
+      background: white;
+      padding: 0 8px 0 2px;
+      box-shadow: inset 4px 0px 2px -2px rgba(0, 0, 0, 0.1),
+        2px 2px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    &__prefix {
+      transition: max-width 0.2s;
+      max-width: 0;
+      overflow: hidden;
+    }
+
+    &__annotation {
+      max-width: 35px;
+      overflow: hidden;
+      text-align: right;
+    }
+    &:hover &__annotation {
+      max-width: none;
+    }
+
+    &:hover &__prefix {
+      max-width: 48px;
+    }
+  }
+
+  &__menu {
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    min-width: 24px;
+  }
+
+  @media print {
+    /* TODO @sballesteros @halmos fix doesn't display reliably */
+    /*font-family: 'Roboto Condensed', sans-serif;*/
+  }
+
+  &--first {
+    /* we don't want the first counter to expand */
+    pointer-events: none;
+
+    border-top: 2px solid var(--grey-300);
+    right: 0;
+    top: -2px;
+    position: absolute;
+
+    & .menu-container {
+      top: 32px;
+      display: none;
+    }
+
+    & .permalink__counter__prefix {
+      max-width: 48px;
+      &:after {
+        content: '⋮';
+      }
+    }
+    &:hover .permalink__counter__prefix:after {
+      content: '';
+    }
+
+    & .permalink__counter__annotation {
+      max-width: 0;
+      overflow: hidden;
+      transition: max-width 0.2s;
+    }
+
+    &:hover .permalink__counter__annotation {
+      max-width: 48px;
+    }
+    @media (--up-to-small-desktop) {
+      right: 0;
+    }
+  }
+}
+
+.resource-view__action {
+  /* subsequent counters in publisher section */
+  & .annotable .permalink {
+    position: absolute;
+
+    /* NOTE: this has side-effects with .selectable-indent inside annotable.css */
+    right: -5.6rem;
+
+    @media (--tablet) {
+      right: -4.8rem;
+    }
+    @media (--small-tablet) {
+      right: -3.2rem;
+    }
+
+    &:hover::after {
+      @media (--up-to-small-desktop) {
+        border-radius: 1.2rem;
+        background: white;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+.permalink--with-comment .permalink__counter,
+.permalink--with-reviewer-comment .permalink__counter,
+.permalink--with-revision-request-comment .permalink__counter,
+.permalink--with-warning .permalink__counter,
+.permalink--with-error .permalink__counter {
+  padding: 0 8px 0 2px;
+  box-shadow: inset 4px 0px 2px -2px rgba(0, 0, 0, 0.1),
+    2px 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.permalink--highlighted .permalink__counter {
+  box-shadow: inset 4px 0px 2px -6px rgba(0, 0, 0, 0.1),
+    2px 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.permalink--with-comment .permalink__counter {
+  background-color: var(--comment-color);
+}
+
+.permalink--with-endorser-comment .permalink__counter {
+  background-color: var(--endorser-comment-color);
+}
+
+.permalink--with-reviewer-comment .permalink__counter {
+  background-color: var(--reviewer-comment-color);
+}
+
+.permalink--with-revision-request-comment .permalink__counter {
+  background-color: var(--revision-request-comment-color);
+}
+
+.permalink--with-warning .permalink__counter {
+  background-color: var(--status-warning-color--light);
+}
+
+.permalink--with-error .permalink__counter {
+  background-color: var(--status-error-color--light);
+}
+
+.permalink--highlighted .permalink__counter {
+  background-color: var(--hl-yellow-4);
+}

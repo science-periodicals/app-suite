@@ -1,0 +1,9 @@
+.feed-active-check-actions {
+  padding: 0 var(--sgrd);
+
+  &__more > * {
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+  }
+}

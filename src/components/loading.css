@@ -1,0 +1,21 @@
+.loading {
+  &__body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  &__loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font: var(--ui-type);
+    color: var(--text-color--light);
+    letter-spacing: var(--ui-type__letter-spacing);
+  }
+
+  &__label {
+    margin: 0 var(--xsgrd);
+  }
+}

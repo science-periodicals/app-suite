@@ -1,0 +1,38 @@
+.comment-thread {
+  &__body {
+    padding: 0 0 0 0;
+  }
+
+  & ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  &__new-comment-form {
+    padding-top: var(--sgrd);
+  }
+
+  &__recipients {
+    display: flex;
+    align-items: center;
+    padding-right: var(--sgrd);
+  }
+
+  &__textarea {
+    padding-top: var(--xsgrd);
+  }
+
+  &__thread {
+    background-color: var(--grey-50);
+    /* box-shadow: var(--mid-inset-shadow); */
+    border-top: 2px solid var(--ruling-color);
+    padding: var(--sgrd) var(--sgrd) 0;
+  }
+  &__thread-list {
+  }
+
+  &__thread-item {
+    padding-bottom: var(--sgrd);
+  }
+}

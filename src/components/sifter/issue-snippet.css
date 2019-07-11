@@ -1,0 +1,57 @@
+.issue-snippet {
+  margin-bottom: var(--mgrd);
+
+  &__description {
+    max-height: 400px;
+    transition: max-height 0.2s, padding 0.2s;
+    overflow: hidden;
+    padding: var(--sgrd) var(--mgrd);
+    font: var(--sans-body-type--big);
+    color: var(--sans-body-type--big__color);
+    letter-spacing: var(--sans-body-type--big__letter-spacing);
+    font-weight: 400;
+
+    & :any-link {
+      color: var(--text-color--light);
+    }
+  }
+
+  &__description-placeholder {
+    color: var(--text-color--light);
+  }
+
+  &__arrow-icon {
+    float: right;
+    display: block;
+    height: var(--mgrd);
+    &:hover {
+      color: var(--text-color--light) !important;
+    }
+  }
+
+  & .banner {
+    max-height: 200px;
+    transition: max-height 0.2s;
+  }
+}
+
+/** the instance of this banner that actually sticks to the top */
+.issue-snippet--sticky {
+  margin-bottom: 0;
+}
+.issue-snippet--sticky.issue-snippet--sticking {
+  & .issue-snippet__description {
+    max-height: 0;
+    padding: 0 var(--sgrd);
+    margin-bottom: 0;
+  }
+}
+
+/* this instance of this banner that is left in the scroll area */
+.issue-snippet--unsticky.issue-snippet--sticking {
+  & .banner {
+    /* max-height: 0;
+    min-height: 0;
+    overflow: hidden; */
+  }
+}

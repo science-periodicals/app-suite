@@ -1,0 +1,67 @@
+/*!! margin in between annotations and in between annotations and
+.document are set in JS in the Annotation Store */
+
+.annotation {
+  transition: box-shadow 0.2s, background-color 0.2s;
+  padding-right: var(--mgrd);
+  box-sizing: border-box;
+
+  &__card {
+    font: var(--ui-type);
+    color: var(--grey-500);
+    background-color: var(--grey-25);
+    box-shadow: var(--mid-shadow);
+    /* padding: 24px 16px;*/
+    padding: var(--sgrd) 0 0 0;
+    margin-left: var(--sgrd);
+    max-width: 480px;
+    margin-right: auto;
+    /* min-width: calc(var(--app-sidebar-width--min) - var(--sgrd)); */
+    transition: transform 0.2s;
+  }
+
+  &--focused &__card {
+    color: var(--text-color);
+    box-shadow: var(--xxhigh-shadow);
+    background-color: white;
+    transform: scale(1.05, 1.05);
+  }
+
+  &__body {
+    height: 100%;
+    width: 100%;
+    /*background-color: white;*/
+    position: relative;
+    margin-bottom: 8px;
+    /*color: #434343;*/
+    font-weight: 400;
+  }
+
+  @media (--beyond-tablet) {
+    transition-property: top, bottom;
+    transition-duration: 0.4s;
+    transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+    margin-top: -24px;
+    box-sizing: border-box;
+  }
+}
+
+/**
+ * overide standard styles when in shell
+ */
+.shell .annotation {
+  margin-top: 4px;
+  padding: 0);
+  &__card {
+    margin-right: var(--sgrd);
+    width: calc(100% - var(--lgrd));
+    max-width: none !important;
+    box-shadow: none;
+    background-color: transparent;
+    padding-top: 0;
+    transform: none;
+  }
+  &--focused &__card {
+    transform: none;
+  }
+}

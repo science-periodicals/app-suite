@@ -1,0 +1,161 @@
+.journal-masthead {
+  max-width: 1080px;
+  margin: 0 auto;
+  font: var(--ui-type--big);
+  color: var(--ui-type--big__color);
+  letter-spacing: var(--ui-type--big__letter-spacing);
+
+  &__description {
+    margin-bottom: var(--mgrd);
+  }
+
+  &__affiliation {
+    display: flex;
+
+    & .iconoclass {
+      margin-right: 1em;
+      color: var(--icon-button-color);
+    }
+  }
+
+  &__card {
+    padding: var(--lgrd);
+  }
+
+  &__content {
+  }
+
+  &__title-container {
+    display: flex;
+    & .paper-button {
+      margin-left: auto;
+    }
+  }
+
+  &__push-down {
+    flex: 1 0 auto;
+    min-height: 0;
+  }
+
+  &__journal-title {
+    font: var(--ui-type--headline);
+    color: var(--ui-type--headline__color);
+    letter-spacing: var(--ui-type--headline__letter-spacing);
+    padding-bottom: var(--lgrd);
+  }
+
+  &__staff-group {
+    margin-bottom: var(--mgrd);
+  }
+
+  &__staff-group-title {
+    font: var(--ui-type--subhead-1);
+    color: var(--ui-type--subhead-1__color);
+    letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+
+    border-bottom: 2px solid var(--ruling-color--major);
+    padding-bottom: var(--xsgrd);
+    margin-bottom: 1em;
+  }
+
+  &__sub-title {
+    font: var(--ui-type--subhead-3);
+    color: var(--text-color--light);
+    letter-spacing: var(--ui-type--subhead-3__letter-spacing);
+    padding-left: 4px;
+    margin-top: 0.5em;
+    margin-bottom: var(--xsgrd);
+  }
+
+  &__group {
+    font: var(--ui-type);
+    color: var(--ui-type__color);
+    letter-spacing: var(--ui-type__letter-spacing);
+    padding: var(--sgrd) 0;
+  }
+
+  &__text-block {
+    padding: 0 var(--xsgrd);
+    max-height: 24em;
+    overflow: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+
+    font: var(--sans-body-type);
+    color: var(--sans-body-type__color);
+    letter-spacing: var(--sans-body-type__letter-spacing);
+
+    /* try to prevent chrome bug in which the content href's are rendering 
+    outside of the scope of this container */
+    position: relative;
+    z-index: 0;
+
+    &--pre {
+      white-space: pre-wrap;
+      /* need to overwrite the <pre> font used to render the textarea input */
+      font: var(--sans-body-type);
+      color: var(--sans-body-type__color);
+      letter-spacing: var(--sans-body-type__letter-spacing);
+    }
+    & p {
+      padding-bottom: 1em;
+    }
+  }
+
+  &__staff-group-members {
+    columns: auto 32rem;
+    column-fill: balance;
+    /* try to prevent postcss compound property unferling issue */
+    column-width: 32rem !important;
+    column-count: auto !important;
+    height: auto;
+    column-gap: var(--sgrd);
+  }
+
+  &__staff-group-member {
+    padding: var(--sgrd);
+    /* width: 24rem; */
+    border: 2px solid var(--grey-200);
+    margin-bottom: var(--sgrd);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    break-inside: avoid;
+  }
+
+  &__staff-name {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-bottom: var(--xsgrd);
+    flex: 0 0 auto;
+  }
+
+  &__staff-name-text {
+    flex-grow: 1;
+    padding-left: var(--sgrd);
+  }
+
+  &__staff-group-member-tags {
+    flex-grow: 1;
+    margin-left: auto;
+    background-color: var(--grey-50);
+    padding: 0.4rem 0.2rem;
+    border-radius: var(--sgrd);
+    margin: var(--xsgrd) -0.4rem 0 -0.4rem;
+
+    & .semantic-tags {
+      margin: 0;
+    }
+  }
+
+  &__staff-submit {
+    width: 100%;
+    padding-top: var(--sgrd);
+    text-align: right;
+  }
+
+  &__button-container {
+    padding-top: var(--xsgrd);
+  }
+}

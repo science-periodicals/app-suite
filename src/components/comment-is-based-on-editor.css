@@ -1,0 +1,97 @@
+.comment-is-based-on-editor {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  font-family: var(--sans-body-type-face);
+  font-style: normal;
+  min-height: var(--mgrd);
+  margin-top: 0.4rem;
+  background-color: var(--grey-25-a);
+  padding: 0.4rem var(--xsgrd);
+  /* overflow: hidden; */
+
+  &__label {
+    font: var(--ui-type--small);
+    text-transform: uppercase;
+    color: var(--text-color--light);
+    display: inline-block;
+    margin: 0.4rem var(--xsgrd) 0.4rem 0;
+    white-space: nowrap;
+  }
+
+  &__external-link .iconoclass {
+    margin-bottom: 2px; /* alignment of the openInNew icon */
+  }
+
+  &__list {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  &__list-item {
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 0.4rem var(--xsgrd) 0.4rem var(--sgrd);
+    margin-right: var(--xsgrd);
+    background-color: var(--grey-200);
+    border-radius: var(--sgrd);
+    display: inline-flex !important;
+    flex: 0 1 auto;
+    align-items: center;
+    position: relative;
+    & .action-identifier {
+      margin: 0 0.4rem;
+    }
+  }
+
+  &__list-item-text {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex: 0 1 auto;
+    max-width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    &__name {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 0 1 100%;
+      max-width: 100%;
+      min-width: 50%;
+      overflow: hidden;
+    }
+  }
+
+  &__add {
+    background-color: var(--grey-200);
+    border-radius: 12px;
+    width: 18px;
+    height: 18px;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & .menu-container {
+      height: 18px;
+    }
+  }
+}
+
+.annotation__card {
+  & .comment-is-based-on-editor {
+    padding: 0;
+    background-color: transparent;
+
+    &__list-item {
+      /* background-color: transparent;*/
+      padding-left: var(--xsgrd);
+    }
+
+    &__list-item-text__name {
+      outline: 1px solid orange;
+      display: none;
+    }
+  }
+}

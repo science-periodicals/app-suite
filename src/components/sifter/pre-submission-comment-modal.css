@@ -1,0 +1,25 @@
+.pre-submission-comment-modal  {
+  padding: var(--mgrd) var(--lgrd) var(--lgrd) var(--lgrd);
+  margin: var(--lgrd);
+  max-width: 768px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: var(--sgrd);
+    align-items: center;
+  }
+  &__title {
+    font: var(--ui-type--subhead-1);
+    color: var(--text-color--light);
+    letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+  }
+  &__header-group {
+    display: flex;
+    align-items: center;
+  }
+  &__info-icon {
+    color: var(--text-color--light);
+    margin-right: var(--xsgrd);
+  }
+}

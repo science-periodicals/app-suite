@@ -1,0 +1,17 @@
+.apply-modal {
+  &__wrapper {
+    padding: var(--mgrd);
+  }
+
+  &__title {
+    font: var(--ui-type--subhead-1);
+    letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+  }
+}
+
+.apply-modal-form {
+  &__title {
+    font: var(--ui-type--subhead-1);
+    letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+  }
+}

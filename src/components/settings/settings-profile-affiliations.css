@@ -1,0 +1,15 @@
+.settings-profile-affiliations {
+  &__affiliation-editor {
+    border-top: 1px solid var(--ruling-color);
+    margin-left: -3.2rem;
+    margin-right: -3.2rem;
+    box-shadow: inset 0 8px 9px -10px rgba(0, 0, 0, 0.8);
+    padding: var(--lgrd);
+  }
+
+  &__add-affiliation {
+    display: flex;
+    padding: var(--sgrd);
+    justify-content: flex-end;
+  }
+}

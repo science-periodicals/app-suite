@@ -1,0 +1,131 @@
+.printable-resource-body {
+  flex: 1 0 auto;
+  padding: var(--mgrd) 3.6rem var(--mgrd) 0; /* padding will is ignored in JS */
+
+  /* setup baseline for em font scaling */
+  font-size: 10px;
+  line-height: 10px;
+
+  /* display: flex; */
+  justify-content: center;
+  width: 100%;
+  position: relative;
+
+  box-sizing: border-box;
+  /* align-items: center; */
+
+  & label {
+    color: var(--text-color--light);
+    font: var(--sans-body-print-type--em);
+  }
+
+  &__list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  &__list-item {
+    padding-bottom: var(--mgrd);
+  }
+
+  &__text-box-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    font: var(--sans-body-print-type--big--em);
+
+    & .text-box-object aside {
+      padding: var(--sgrd--em);
+      /*
+      There seems to be a print bug in webkit browsers that causes images to be incorectly positioned
+      within transform: scale() contexts. Setting `position` to `absolute` corrects this issue but requires a block wrapper element. 
+      TODO - revisit this issue w/r/t inline vs block wrapper element. 
+      */
+      & .sa-uncaptioned-img {
+        &[data-display='block'] img {
+          display: block;
+          position: absolute;
+          top: 0;
+
+          /* display: inline-block;
+        margin: var(--sgrd) auto;
+        max-width: 100%;
+        object-fit: fill;*/
+        }
+      }
+    }
+  }
+
+  &__source-code-container {
+    display: flex;
+    align-items: center;
+    font: var(--sans-body-print-type--big--em);
+  }
+
+  /* Simple figures (1 part) */
+  &__image-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    &__image {
+      width: 100%;
+      height: 100%;
+      max-height: 100%;
+      overflow: hidden;
+      display: block !important;
+      margin: var(--xsgrd);
+
+      & .image-object {
+        width: 100%;
+        height: 100%;
+      }
+
+      & img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: scale-down;
+        overflow: hidden;
+      }
+    }
+  }
+
+  /* Multi part figures */
+  &__multipart-image {
+    page-break-inside: auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-height: 100%;
+
+    &__row {
+      display: flex;
+      justify-content: center;
+      page-break-inside: avoid;
+      min-height: 0; /* FF requires this to allow it to scale down children */
+      min-width: 0;
+      & figure {
+        flex: 0 1 auto;
+        justify-content: flex-start;
+        max-height: 100%;
+        overflow: hidden;
+        display: block !important;
+        margin: var(--xsgrd);
+        & img {
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: scale-down;
+          overflow: hidden;
+        }
+      }
+    }
+
+    &__row &__figure {
+      /* force the image to fit inside of singlepage constraints */
+      display: flex !important;
+      flex-direction: column;
+    }
+  }
+}

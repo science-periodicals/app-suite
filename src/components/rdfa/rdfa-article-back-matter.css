@@ -1,0 +1,36 @@
+/* Note: Counters for Back Matter are manafed inside of meta-margin.css */
+.rdfa-article-back-matter {
+  border-top: 4px solid var(--ruling-color);
+
+  &--print {
+    /* at print, browser will lump the section with border to the children, even if they contain pageBreakBefore: true. 
+    having ruling line here at print can cause page mis-measurement for the printable-resources. */
+    border-top: none;
+    font: var(--sans-body-print-type--small);
+    color: var(--sans-body-print-type--small__color);
+    letter-spacing: var(--sans-body-print-type--small__letter-spacing);
+  }
+
+  &__citations {
+    &:not(:first-child) {
+      border-top: 4px solid var(--ruling-color);
+      /* padding-top: var(--mgrd); */
+    }
+    /* & .rdfa-citation__isbn,
+    & .rdfa-citation__doi {
+      color: blue;
+    } */
+
+    & .rdfa-article-back-matter__citations-list {
+      padding-left: 0;
+      list-style: none;
+    }
+    & .rdfa-article-back-matter__citation {
+      padding-bottom: 1em;
+
+      @media print {
+        padding-bottom: 1.25em;
+      }
+    }
+  }
+}

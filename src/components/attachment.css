@@ -1,0 +1,35 @@
+.attachment {
+  margin-top: var(--sgrd);
+
+  &__title {
+    font: var(--ui-type--subhead-1);
+    color: var(--text-color--light);
+    letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+    padding-top: var(--lgrd);
+    padding-bottom: var(--sgrd);
+    display: flex;
+    align-items: center;
+    margin-left: -3.2rem;
+  }
+
+  &__title-icon {
+    margin-right: var(--xsgrd);
+  }
+
+  &__agent {
+    margin-bottom: var(--sgrd);
+    font: var(--ui-type--label);
+    color: var(--ui-type--label__color);
+    letter-spacing: var(--ui-type--label__letter-spacing);
+    display: flex;
+    align-items: center;
+
+    &__user-badge {
+      margin-right: var(--xsgrd);
+    }
+  }
+}
+
+.shell .attachment__title {
+  padding-top: 0;
+}

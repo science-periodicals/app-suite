@@ -1,0 +1,14 @@
+.document-loader {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+
+  @media (--beyond-tablet) {
+    width: 66vw;
+  }
+
+  @media (--beyond-large-desktop) {
+    width: 50vw;
+  }
+}

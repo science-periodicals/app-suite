@@ -1,0 +1,49 @@
+.workflow-list {
+  &__item {
+    &__preview-row {
+      max-width: 100%;
+    }
+
+    &__preview-content {
+      display: flex;
+      flex: 1 1 100%;
+      max-width: 100%;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__preview-content-text {
+      flex: 1 1 auto;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-right: var(--xsgrd);
+    }
+
+    &__description {
+      font: var(--ui-type);
+      color: var(--ui-type__color);
+      letter-spacing: var(--ui-type__letter-spacing);
+      padding: var(--xsgrd) var(--sgrd);
+      color: var(--text-color--light);
+    }
+
+    &__badges {
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      flex: 0 1 auto;
+      justify-content: flex-end;
+      & :any-link {
+        color: var(--text-color--light);
+
+        &:hover {
+          color: var(--text-color);
+        }
+      }
+    }
+
+    &__badge {
+      margin-left: var(--xsgrd);
+    }
+  }
+}

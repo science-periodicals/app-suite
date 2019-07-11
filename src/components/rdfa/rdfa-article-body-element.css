@@ -1,0 +1,6 @@
+.rdfa-article-body-element {
+  & img {
+    max-width: 100%;
+    object-fit: contain;
+  }
+}

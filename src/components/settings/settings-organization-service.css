@@ -1,0 +1,99 @@
+.settings-organization-service {
+  &__title {
+    font: var(--ui-type--subhead-2);
+    color: var(--ui-type--subhead-2__color);
+    letter-spacing: var(--ui-type--subhead-2__letter-spacing);
+    padding-bottom: var(--xsgrd);
+  }
+
+  &__table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  &__table-head {
+    border-bottom: 2px solid var(--ruling-color);
+  }
+
+  &__table-header-item {
+    font: var(--ui-type--caption);
+    color: var(--ui-type--caption__color);
+    letter-spacing: var(--ui-type--caption__letter-spacing);
+
+    padding: var(--xsgrd);
+    color: var(--text-color--light);
+    text-align: left;
+    vertical-align: middle;
+
+    &--active-switch {
+      width: 6rem;
+    }
+  }
+
+  &__table-row {
+    border-bottom: 2px solid var(--ruling-color);
+
+    &--active {
+      background-color: var(--grey-50);
+    }
+  }
+
+  &__table-item {
+    padding: var(--xsgrd);
+    vertical-align: middle;
+
+    &--active-switch {
+      text-align: center;
+    }
+
+    &--right {
+      text-align: right;
+    }
+
+    & .iconoclass {
+      vertical-align: middle;
+    }
+  }
+
+  &__toggle-link {
+    padding-left: var(--xsgrd);
+    line-height: var(--mgrd);
+    white-space: nowrap;
+  }
+
+  &__add {
+    display: flex;
+    padding: var(--sgrd);
+    justify-content: flex-end;
+  }
+
+  &__service {
+    box-shadow: inset 0 8px 9px -10px rgba(0, 0, 0, 0.8);
+    margin: 0 -2.4rem;
+    padding: var(--mgrd) 4rem;
+  }
+
+  &__notice {
+    dispay: flex;
+    & .paper-button {
+      margin-left: auto;
+    }
+  }
+
+  &__brokered-service {
+
+  }
+
+  &__modal-header {
+    padding: var(--mgrd);
+  }
+
+  &__modal-title {
+    font: var(--ui-type--subhead-1);
+    letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+    padding-bottom: var(--sgrd);
+  }
+
+
+}

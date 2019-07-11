@@ -1,0 +1,15 @@
+.comment-context {
+  padding: 0 var(--mgrd) var(--mgrd) var(--mgrd);
+  &__header {
+    font: var(--ui-type--label);
+    color: var(--ui-type--label__color);
+    letter-spacing: var(--ui-type--label__letter-spacing);
+    padding-bottom: var(--sgrd);
+  }
+
+  &__content {
+    font: var(--ui-type);
+    color: var(--ui-type__color);
+    letter-spacing: var(--ui-type__letter-spacing);
+  }
+}

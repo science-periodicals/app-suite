@@ -1,0 +1,14 @@
+.license-editor {
+  font: var(--ui-type);
+  color: var(--ui-type__color);
+  letter-spacing: var(--ui-type__letter-spacing);
+  &__annotable-autocomplete {
+    z-index: 100; /* this is to ensure that the autocomplete menu is on top of the rest */
+  }
+
+  &__list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+}

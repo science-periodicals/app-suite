@@ -1,0 +1,20 @@
+.shell-editor {
+  padding: 0 var(--sgrd);
+
+  @media (--beyond-large-desktop) {
+    padding: 0 var(--lgrd);
+  }
+
+  &__notice-text {
+  }
+
+  &__notice-link {
+  }
+
+  &__notice-link-icon {
+    margin-left: 2px;
+    display: inline-block;
+    vertical-align: text-top;
+    color: var(--accent-color) !important;
+  }
+}

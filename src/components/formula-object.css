@@ -1,0 +1,33 @@
+.formula-object,
+figure[typeof='sa:Formula'] {
+  text-align: center;
+  padding: var(--mgrd) 0;
+  /*overflow-x: auto;
+  overflow-y: hidden;*/
+
+  @media print {
+    &:first-of-type {
+      padding-top: 0;
+    }
+    &:last-of-type {
+      padding-bottom: 0;
+    }
+  }
+}
+
+.formula-object math,
+figure[typeof='sa:Formula'] math {
+  height: 0;
+  margin-left: -99999px;
+}
+
+.formula-object--print {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  margin: 0.25em 0;
+
+  & .value {
+    max-width: 100%;
+  }
+}

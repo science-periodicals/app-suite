@@ -1,0 +1,11 @@
+.programming-language-editor {
+  font: var(--ui-type);
+  color: var(--ui-type__color);
+  letter-spacing: var(--ui-type__letter-spacing);
+
+  &__list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+}

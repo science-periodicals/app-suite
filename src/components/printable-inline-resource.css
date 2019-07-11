@@ -1,0 +1,47 @@
+.printable-inline-resource {
+  /*__figure is used for inline equations (`Formula`) */
+  /*__aside is used for inline text boxes (`TextBox`) */
+
+  &__figure {
+    margin: var(--xsgrd) 0;
+    margin-left: -0.8rem;
+    border-left: 2px solid var(--ruling-color);
+    padding-left: var(--xsgrd);
+  }
+
+  &__aside {
+    margin: var(--xsgrd) 0;
+    margin-left: -0.8rem;
+    border: 2px solid var(--ruling-color);
+    padding: var(--sgrd);
+  }
+
+  &__figure-label,
+  &__aside-label {
+    font: var(--sans-body-print-type--small);
+    color: var(--text-color--light);
+    letter-spacing: var(--sans-body-print-type__letter-spacing);
+  }
+
+  &__figure-info {
+    /* we take this approach so that there is no extra padding when the figure info is empty */
+    & > *:last-child {
+      padding-bottom: var(--xsgrd);
+
+      &:empty {
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  &__aside-info {
+    /* we take this approach so that there is no extra padding when the figure info is empty */
+    & > *:last-child {
+      padding-bottom: var(--sgrd);
+
+      &:empty {
+        padding-bottom: 0;
+      }
+    }
+  }
+}

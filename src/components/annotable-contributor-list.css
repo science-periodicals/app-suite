@@ -1,0 +1,9 @@
+.annotable-contributor-list {
+  &__add {
+    display: flex;
+    margin-top: var(--sgrd);
+    & > * {
+      margin-left: auto;
+    }
+  }
+}

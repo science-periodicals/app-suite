@@ -1,0 +1,21 @@
+.featured-article-banner-content {
+  padding: var(--sgrd);
+
+  &__title-label {
+    font: var(--sans-body-type--small);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 400;
+    line-height: 1em;
+    vertical-align: top;
+    margin-bottom: 0.5em;
+    opacity: 0.6;
+  }
+
+  &__title {
+    font: var(--sans-body-type--big);
+    letter-spacing: 0.01em;
+    font-weight: 400;
+    line-height: 1.5em;
+  }
+}

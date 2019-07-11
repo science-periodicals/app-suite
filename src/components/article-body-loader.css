@@ -1,0 +1,15 @@
+.article-body-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: var(--ui-type);
+  color: var(--text-color--light);
+  letter-spacing: var(--ui-type__letter-spacing);
+  padding: var(--sgrd);
+  background-color: var(--grey-100);
+  margin: var(--sgrd) 0;
+  border-radius: 0.4rem;
+  &__label {
+    margin: 0 var(--xsgrd);
+  }
+}

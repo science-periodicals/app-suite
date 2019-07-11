@@ -1,0 +1,5 @@
+--ignore-dir=public
+--ignore-dir=dist
+--ignore-dir=design
+--ignore-dir=scratch
+--ignore-dir=old

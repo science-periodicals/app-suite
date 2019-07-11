@@ -1,0 +1,5 @@
+.resource-content {
+  & .annotable-encoding {
+    margin: var(--sgrd) 0;
+  }
+}

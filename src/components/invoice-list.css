@@ -1,0 +1,15 @@
+.invoice-list {
+  &__table {
+    width: 100%;
+
+    & th,
+    & td {
+      text-align: left;
+    }
+
+    & th:last-child,
+    & td:last-child {
+      text-align: center;
+    }
+  }
+}

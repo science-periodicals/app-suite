@@ -1,0 +1,66 @@
+.journal-snippet {
+  &__header {
+    min-height: var(--xlgrd);
+    padding: var(--sgrd) var(--sgrd) var(--sgrd) var(--mgrd);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__journal-badge {
+    margin-right: var(--xsgrd);
+  }
+
+  &__title {
+    font: var(--ui-type--headline);
+    color: var(--ui-type--headline__color);
+    letter-spacing: var(--ui-type--headline__letter-spacing);
+    line-height: 1.3em;
+    hyphens: auto;
+
+    display: flex;
+    align-items: center;
+    @media (--up-to-xlarge-desktop) {
+      font: var(--ui-type--subhead-1);
+      letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+    }
+  }
+
+  &__body {
+    padding: 0 var(--sgrd) var(--sgrd) var(--sgrd);
+  }
+
+  &__text {
+    font: var(--serif-body-type);
+    color: var(--serif-body-type__color);
+    letter-spacing: var(--serif-body-type __letter-spacing);
+  }
+
+  &__subjects-section {
+    margin-top: var(--sgrd);
+  }
+
+  &__footer {
+    background-color: var(--grey-50);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-top: 1px solid var(--ruling-color--minor);
+    min-height: var(--xlgrd);
+    padding: var(--xsgrd) var(--mgrd);
+    font: var(--ui-type);
+    letter-spacing: var(--ui-type__letter-spacing);
+    color: var(--text-color--light);
+
+    & :any-link, & .paper-button:not(:hover) {
+      color: var(--text-color--light);
+    }
+
+    display: flex;
+
+    &__controls {
+      margin-left: auto;
+    }
+  }
+}

@@ -1,0 +1,39 @@
+.submission-form {
+  position: relative;
+  z-index: 1203;
+  background-color: var(--card-bg-color);
+  margin-bottom: var(--mgrd);
+  padding: var(--lgrd);
+  box-shadow: var(--mid-shadow);
+
+  & header {
+    display: flex;
+  }
+
+  &__title__badge {
+    margin-left: auto;
+  }
+
+  &__title {
+    font: var(--ui-type--headline);
+    color: var(--ui-type--headline__color);
+    letter-spacing: var(--ui-type--headline__letter-spacing);
+  }
+
+  &__input {
+    margin: var(--sgrd) 0;
+  }
+
+
+  & .controls{
+    padding-top: var(--mgrd);
+    text-align: right;
+  }
+
+  &__options {
+    padding: var(--mgrd) 0;
+    &__publication-type, &__editorial-office, &__workflows {
+      margin-top: var(--sgrd);
+    }
+  }
+}

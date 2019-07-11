@@ -1,0 +1,388 @@
+html {
+  --article-body-right-gutter: 40px;
+}
+
+.article-body,
+.article-body-element,
+.article-body-list,
+.article-body-figure {
+  z-index: 2; /* we set the background color of .article-body => put part and section on top of .article-body so that highlights work*/
+}
+
+/*----------- Article Body -----------*/
+.article-body,
+.article-back-matter {
+  position: relative;
+  border-radius: 0;
+  font-family: var(--serif-body-type-face);
+  font-size: 1.4rem;
+  line-height: var(--mgrd);
+  color: var(--text-color);
+
+  & p {
+    /* top padding gives room for paragraph level label */
+    padding-top: 2.4rem; /* leave enough height label */
+    padding-bottom: 0;
+  }
+
+  & ol li .footnote p:first-of-type {
+    padding-top: 0;
+  }
+
+  & .rich-textarea p {
+    padding-top: 0;
+  }
+
+  & h1,
+  & h2,
+  & h3,
+  & h4,
+  & h5,
+  & h6 {
+    & :any-link {
+      color: var(--text-color--light);
+      &:hover {
+        color: var(--accent-color);
+      }
+    }
+  }
+
+  & h1 {
+    font: var(--serif-body-type--headline);
+    color: var(--serif-body-type--headline__color);
+    letter-spacing: var(--serif-body-type--headline__letter-spacing);
+    text-align: center;
+    padding-top: var(--sgrd);
+    padding-bottom: var(--sgrd);
+    margin-top: var(--sgrd);
+    margin-bottom: var(--sgrd);
+    /*letter-spacing: 0.75px;*/
+  }
+
+  & h2 {
+    font: var(--serif-body-type--subhead-1);
+    color: var(--serif-body-type--subhead-1__color);
+    letter-spacing: var(--serif-body-type--subhead-1__letter-spacing);
+    text-align: center;
+    padding-top: var(--sgrd);
+    padding-bottom: var(--sgrd);
+    /*letter-spacing: 0.75px;*/
+    font-feature-settings: 'smcp' 1;
+    -moz-font-feature-settings: 'smcp' 1;
+  }
+
+  & h3 {
+    text-align: center;
+    font: var(--serif-body-type--subhead-2);
+    color: var(--serif-body-type--subhead-2__color);
+    letter-spacing: var(--serif-body-type--subhead-2__letter-spacing);
+
+    padding-top: var(--xsgrd);
+    padding-bottom: var(--xsgrd);
+    /*letter-spacing: 0.5px;*/
+    font-feature-settings: 'smcp' 1;
+    -moz-font-feature-settings: 'smcp' 1;
+  }
+
+  & h4 {
+    text-align: center;
+    font: var(--serif-body-type--subhead-3);
+    color: var(--serif-body-type--subhead-3__color);
+    letter-spacing: var(--serif-body-type--subhead-3__letter-spacing);
+
+    padding-top: var(--xsgrd);
+    padding-bottom: var(--xsgrd);
+    /*letter-spacing: 0.5px;*/
+    font-feature-settings: 'smcp' 1;
+    -moz-font-feature-settings: 'smcp' 1;
+  }
+
+  & h5 {
+    text-align: center;
+    font: var(--serif-body-type--subhead-3);
+    color: var(--serif-body-type--subhead-3__color);
+    letter-spacing: var(--serif-body-type--subhead-3__letter-spacing);
+
+    padding-top: var(--xsgrd);
+    padding-bottom: var(--xsgrd);
+    /*letter-spacing: 0.5px;*/
+  }
+
+  & h6 {
+    text-align: center;
+    font: var(--serif-body-type--subhead-4);
+    color: var(--serif-body-type--subhead-4__color);
+    letter-spacing: var(--serif-body-type--subhead-4__letter-spacing);
+    text-transform: uppercase;
+    padding-top: var(--xsgrd);
+    padding-bottom: var(--xsgrd);
+    /*letter-spacing: 0.5px;*/
+  }
+
+  & blockquote {
+    padding: 0 var(--sgrd);
+    quotes: '\201C''\201D';
+
+    /*&:before {
+      color: var(--text-color--light);
+      content: open-quote;
+      font-size: 2em;
+      left: -0.2rem;
+      top: var(--xsgrd);
+      position: absolute;
+    }
+    &:after {
+      color: var(--text-color--light);
+      content: no-close-quote;
+      font-size: 2em;
+      right: -0.2rem;
+      bottom: var(--xsgrd);
+      position: absolute;
+    }*/
+  }
+}
+
+/* ----------- Article Body Section ----------- */
+
+.article-body-section {
+  position: relative;
+
+  /* add the right gutter area for indicating nesting depth */
+  &:after {
+    height: 100%;
+    width: var(--article-body-right-gutter);
+
+    background: var(--grey-25-a);
+    position: absolute;
+    /* position is based on the .selectable-indent padding (see annotable.css)
+    - that padding changes according to media query */
+    /* right: -96px; */
+    right: calc((5.6rem + var(--article-body-right-gutter)) * -1);
+    @media (--tablet) {
+      right: calc((4.8rem + var(--article-body-right-gutter)) * -1);
+    }
+    @media (--small-tablet) {
+      right: calc((3.2rem + var(--article-body-right-gutter)) * -1);
+    }
+    display: block;
+    content: '';
+    z-index: -1;
+    border-top: 2px solid rgba(255, 255, 255, 0.75);
+    /* border-bottom: 1px solid rgba(255, 255, 255, 0.75); */
+    top: 0;
+    box-sizing: border-box;
+  }
+
+  &__opening-block {
+    z-index: +10;
+    height: 24px;
+    line-height: 24px;
+    color: var(--text-color--light);
+    border-top: 2px solid var(--ruling-color);
+    width: 100%;
+    position: relative;
+    /* padding-top: var(--sgrd);
+    padding-bottom: var(--sgrd); */
+    display: flex;
+    margin-top: var(--mgrd);
+  }
+
+  & .article-body-section &__opening-block {
+    border-top: 1px solid var(--ruling-color--minor);
+  }
+
+  /* TODO delete this?
+
+  &__opening-block--left {
+    padding-left: 8px;
+    display: inline-block;
+    width: 24px;
+    left: -64px;
+    position: absolute;
+    color: rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  &__opening-block--middle {
+    width: 33%;
+    margin-left: 33%;
+    height: 24px;
+    display: inline-block;
+    box-sizing: border-box;
+  }
+
+  &__opening-block--rule {
+    width: 100%;
+    height: 1em;
+    border-bottom: 1px solid var(--grey-500);
+    display: block;
+  }
+
+  &__opening-block--right {
+    display: inline-block;
+    position: relative;
+    padding-left: var(--sgrd);
+    width: 33%;
+    box-sizing: border-box;
+    height: 24px;
+    opacity: 0.6;
+    text-align: right;
+
+    & .dropdown {
+      display: inline-block;
+      box-sizing: border-box;
+      margin-right: var(--sgrd);
+      min-height: 24px;
+      max-width: 100%;
+    }
+  }
+
+  &__opening-block:hover &__opening-block--right {
+    opacity: 1;
+  }
+  */
+
+  &__marker-symbol {
+    color: var(--grey-400);
+    position: absolute;
+    right: -72px;
+    /* position is based on the .selectable-indent padding (see annotable.css)
+         - that padding changes according to media query */
+    right: calc((5.6rem + 12px) * -1);
+    @media (--tablet) {
+      right: calc((4.8rem + 12px) * -1);
+    }
+    @media (--small-tablet) {
+      right: calc((3.2rem + 12px) * -1);
+    }
+  }
+}
+
+/* special-case top dividers for back-matter sections */
+.article-back-matter
+  > .article-body-section
+  > .article-body-section__opening-block {
+  & .article-body-section__opening-block--middle {
+    width: 100%;
+    margin-left: 0;
+  }
+  & .article-body-section__opening-block--right {
+    width: 0;
+  }
+  & .article-body-section__opening-block--rule {
+    border-bottom: 2px solid var(--ruling-color);
+  }
+}
+
+.article-body-list {
+  margin: 0;
+  padding: 0;
+  counter-reset: refs;
+  list-style-type: none;
+
+  & li {
+    & .value p:first-of-type {
+      padding-top: 0;
+    }
+
+    & ul {
+      padding: 0;
+    }
+
+    position: relative;
+    list-style-position: inside;
+    margin-top: 0;
+
+    & .annotable .annotable__content {
+      padding-left: 32px;
+    }
+  }
+
+  &__refNum {
+    background-color: red;
+  }
+}
+
+ol.article-body-list .article-body-list__refNum::after {
+  /* this is a workaround to deal with highlightbar conflict with outdented list numbers */
+  counter-increment: refs;
+  content: counter(refs) '. ';
+  width: 2.4rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+ul.article-body-list .article-body-list__refNum::after {
+  counter-increment: refs;
+  content: counter(refs, disc);
+  width: 2.4rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+/*----------- Article Body Aside -----------*/
+
+.article-body-aside {
+  font: var(--s ans-body-type);
+  color: var(--s ans-body-type__color);
+  letter-spacing: var(--s ans-body-type__letter-spacing);
+
+  /*border-top: 1px solid var(--grey-300);*/
+  border-bottom: 1px solid var(--grey-300);
+  margin: var(--mgrd) 0;
+  padding: var(--mgrd) 0;
+
+  & header {
+    font: var(--s ans-body-type);
+    color: var(--s ans-body-type__color);
+    letter-spacing: var(--s ans-body-type__letter-spacing);
+
+    color: var(--text-color--light);
+  }
+
+  & .value,
+  & .caption__title {
+    margin: 0 var(--sgrd);
+  }
+}
+
+/*----------- Article Body Figure-----------*/
+.article-body-figure {
+  font: var(--s ans-body-type);
+  color: var(--s ans-body-type__color);
+  letter-spacing: var(--s ans-body-type__letter-spacing);
+
+  /* border-top: 1px solid  var(--grey-300); */
+  border-bottom: 1px solid var(--grey-300);
+  margin: var(--mgrd) 0;
+  padding-bottom: var(--mgrd);
+
+  & h1,
+  & h2,
+  & h3 {
+    font: var(--ui-type--subhead-2);
+    color: var(--ui-type--subhead-2__color);
+    letter-spacing: var(--ui-type--subhead-2__letter-spacing);
+  }
+  & h4 {
+    font: var(--ui-type--subhead-3);
+    color: var(--ui-type--subhead-3__color);
+    letter-spacing: var(--ui-type--subhead-3__letter-spacing);
+  }
+}
+
+.article-body-figure + .article-body-figure .editable-resource__metadata {
+  border-top: 0px;
+  padding-top: 0px;
+}
+
+.article-body-element {
+  & img {
+    max-width: 100%;
+    object-fit: contain;
+  }
+}

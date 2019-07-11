@@ -1,0 +1,21 @@
+.annotable-create-release-action {
+  &__notice-text {
+    padding-right: var(--xsgrd);
+  }
+  &__notice-scroll-button {
+    margin-left: auto !important;
+  }
+
+  & .comment-preview-list {
+    margin-top: var(--sgrd);
+  }
+
+  &__dropzone-section {
+    margin-top: var(--sgrd);
+  }
+
+  &__dropzone {
+    height: 3rem;
+    padding: var(--mgrd) 0;
+  }
+}

@@ -1,0 +1,47 @@
+.printable-resource-header {
+  flex: 0 0 50px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  height: 50px;
+  padding-left: var(--mgrd);
+  position: relative;
+  font: var(--ui-type--subhead-1);
+  color: white;
+  letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+
+  &__bg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 0;
+    color: var(--accent-color);
+  }
+  &__title {
+  }
+
+  &__counter {
+    padding-right: var(--sgrd);
+  }
+  &__identifier {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    flex: 0 0 auto;
+    z-index: 10;
+  }
+
+  &__qr-code {
+    height: 50px;
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+    box-sizing: content-box;
+    flex: 0 0 auto;
+    margin-right: var(--rdfa-scholarly-article__right-margin--print);
+  }
+}

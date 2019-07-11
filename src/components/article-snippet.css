@@ -1,0 +1,502 @@
+/* TODO fix in expansion-panel directly? */
+.article-snippet .expansion-panel {
+  border-bottom: none;
+}
+
+.article-snippet {
+  /*width: 100%;*/
+  /*margin-bottom: var(--sgrd);*/
+  display: flex;
+  flex-direction: column;
+  margin: 0 var(--sgrd) var(--mgrd) var(--sgrd);
+
+  &--rejected {
+    filter: grayscale(100%);
+    transition: filter 0.5s, opacity 0.5s;
+    opacity: 0.75;
+
+    &:hover {
+      filter: grayscale(25%);
+      opacity: 1;
+    }
+  }
+
+  /* Mark for deletion */
+  /* & [role='math'] {
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+  }
+
+  & figure [role='math'] {
+    padding: 1em 0;
+  }
+
+  & [role='math'] math {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  } */
+
+  & p {
+    padding: 0;
+    margin-bottom: 1em;
+  }
+
+  & .graph-overview {
+    padding: 0px 16px 12px 16px;
+    font-size: 13px;
+  }
+
+  &__header {
+    display: flex;
+    padding: var(--mgrd) var(--mgrd) var(--xsgrd) var(--mgrd);
+    overflow: hidden;
+    justify-content: space-between;
+  }
+
+  & .expansion-panel__preview-row {
+    padding-left: var(--mgrd);
+  }
+
+  &__chordal {
+    display: flex;
+    flex-direction: column;
+    width: 96px;
+    margin-right: 24px;
+    margin-top: 4px;
+    font: var(--ui-type--light);
+    color: var(--text-color--light);
+    position: relative;
+
+    &__rejected-notice {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 104px;
+      height: 104px;
+      background-color: var(--grey-200-a);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font: var(--ui-type--subhead-2);
+      color: white;
+      letter-spacing: var(--ui-type--subhead-2__letter-spacing);
+    }
+
+    &__diagram {
+      width: 104px;
+      min-width: 104px;
+      height: 104px;
+      background-color: whitesmoke;
+      margin-bottom: 16px;
+      margin-right: 16px;
+      border-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &__tooltip {
+      background-color: #fff;
+      color: black;
+      box-shadow: 1px 1px 5px lightgrey;
+      padding-top: 4px;
+      padding-bottom: 4px;
+      padding-left: 16px;
+      padding-right: 16px;
+      font-size: 13px;
+      opacity: 0.8;
+      width: -moz-max-content;
+      width: -webkit-max-content;
+      width: max-content;
+    }
+
+    &__caption {
+      text-align: center;
+    }
+  }
+
+  &__timeline-container {
+    padding: 0 var(--sgrd) var(--xsgrd) var(--sgrd);
+  }
+
+  &__header-icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding-left: var(--xsgrd);
+
+    height: var(--lgrd);
+    line-height: 32px;
+
+    & .iconoclass {
+      color: var(--grey-500) !important;
+    }
+  }
+
+  &__access-badge,
+  & .share-menu {
+    padding: 0 4px;
+    flex: 0 0 auto;
+    height: var(--lgrd);
+  }
+
+  &__menu {
+    position: absolute;
+    right: 16px;
+    top: 24px;
+  }
+
+  &__list {
+    border-top: 1px solid var(--ruling-color);
+  }
+
+  &__actions .expansion-panel__max-height-contents--expanded {
+    overflow-y: visible; /* workaround so that the workflow action handler menu can expand beyond the expanded contents TODO only add on anim done once ExpansionPanel will use CSSTransitionGroup */
+  }
+
+  &__actions-tasks {
+    padding: var(--sgrd) var(--mgrd);
+  }
+
+  &__publication-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* flex-wrap: wrap; */
+    width: 100%;
+
+    &__group {
+      display: flex;
+      align-items: center;
+      flex: 0 3 auto;
+      overflow: hidden;
+
+      &__journal-info {
+        flex: 1 1 auto;
+      }
+    }
+    &__datum {
+      margin-right: var(--xsgrd);
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      display: flex;
+      flex: 0 3 auto;
+      align-items: center;
+      display: block;
+      & > * {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      &--journal-name {
+        display: flex;
+        flex: 1 1 auto;
+        align-items: center;
+        & .journal-badge {
+          margin-right: 1em;
+        }
+      }
+    }
+  }
+
+  &__issue {
+    padding-right: var(--sgrd);
+  }
+  &__tags {
+    border-top: 1px solid var(--ruling-color--major);
+    display: flex;
+    padding: 16px 24px;
+    justify-content: space-between;
+    align-items: center;
+
+    & .journal-badge {
+      display: block;
+      margin-right: 8px;
+      cursor: pointer;
+    }
+  }
+
+  &__metadata {
+    font: var(--ui-type);
+    color: var(--ui-type__color);
+    letter-spacing: var(--ui-type__letter-spacing);
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: auto;
+
+    &__stats {
+      margin-top: 1em;
+      color: var(--text-color--light);
+    }
+
+    &__project-title {
+      font: var(--ui-type--headline);
+      color: var(--ui-type--headline__color);
+      letter-spacing: var(--ui-type--headline__letter-spacing);
+      line-height: 1.3em;
+      padding-bottom: 0.4rem;
+      hyphens: auto;
+
+      @media (--up-to-xlarge-desktop) {
+        font: var(--ui-type--subhead-1);
+        letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+      }
+    }
+
+    &__project-subtitle {
+      font: var(--ui-type--subhead-2);
+      color: var(--text-color--light);
+      letter-spacing: var(--ui-type--subhead-2__letter-spacing);
+      hyphens: auto;
+    }
+
+    & .graph-contributors {
+      display: inline-block;
+      color: var(--text-color--light);
+      max-height: 1.5em;
+      max-width: 100%;
+      /*overflow: hidden;*/
+      text-overflow: ellipsis;
+      line-height: 1.6rem;
+      margin-top: 1em;
+
+      & .menu-container {
+        display: inline-block;
+        position: relative;
+        vertical-align: text-bottom;
+        height: 16px;
+        margin-left: -16px; /* trick to keep icon with span */
+
+        & .menu {
+          min-width: 12px;
+        }
+        & .menu__header,
+        & .menu__header-container {
+          height: 16px;
+        }
+
+        & .iconoclass {
+          color: var(--text-color--light);
+        }
+      }
+
+      & li {
+        display: inline;
+        text-overflow: ellipsis;
+
+        & .value {
+          padding-right: 18px; /* space for icon */
+        }
+        &::after {
+          content: ', ';
+        }
+
+        &:last-of-type::after {
+          content: '';
+        }
+      }
+    }
+  }
+
+  &__section-label {
+    flex: 0 0 12rem;
+    display: block;
+    box-sizing: border-box;
+    padding-right: var(--sgrd);
+  }
+
+  &__section-summary {
+    flex: 1 1 auto;
+    overflow: hidden;
+    display: flex;
+    text-overflow: ellipsis;
+    /* make sure text-overflow to elipsis even when there are children */
+    & * {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &__column-label {
+    flex: 0 0 25%;
+    display: block;
+    box-sizing: border-box;
+    padding-right: var(--sgrd);
+  }
+
+  &__process-section {
+    font: var(--ui-type);
+    color: var(--ui-type__color);
+    letter-spacing: var(--ui-type__letter-spacing);
+    & .expansion-panel {
+      border-top: 0; /* override the default expansion panel border style */
+    }
+  }
+  &__process-section-content {
+    padding: var(--xsgrd) var(--mgrd) var(--sgrd);
+  }
+
+  &__process-title {
+    font: var(--ui-type--subhead-3);
+    color: var(--ui-type--subhead-3__color);
+    letter-spacing: var(--ui-type--subhead-3__letter-spacing);
+    padding-bottom: var(--xsgrd);
+    display: block;
+  }
+
+  &__process-description {
+    padding-bottom: var(--xsgrd);
+  }
+  &__abstract-preview {
+    width: 100%;
+  }
+  &__abstract-preview-text {
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex-grow: 0;
+    overflow: hidden;
+    transition: opacity 0.2s;
+
+    & * {
+      display: inline !important;
+      white-space: nowrap !important;
+      text-overflow: ellipsis !important;
+      overflow: hidden !important;
+      font: var(--ui-type);
+      color: var(--ui-type__color);
+      letter-spacing: var(--ui-type__letter-spacing);
+    }
+    & h1,
+    & h2,
+    & h3,
+    & h4,
+    & h5,
+    & p,
+    & br {
+      &:after {
+        content: ' – ';
+      }
+    }
+  }
+
+  &__abstract-text {
+    font: var(--serif-body-type);
+    color: var(--serif-body-type__color);
+    letter-spacing: var(--serif-body-type __letter-spacing);
+
+    padding: var(--xsgrd) var(--mgrd) var(--mgrd) var(--mgrd);
+    overflow-x: hidden;
+    transition: all 0.2s;
+    display: block;
+
+    /* reset the list styles cleared by .dashboard
+    TODO: don't use global list styles in dashboard */
+    & ul {
+      list-style-type: disc;
+      list-style-position: outside;
+      padding-left: 2ch;
+    }
+    & ol {
+      list-style-type: decimal;
+      list-style-position: outside;
+      padding-left: 2ch;
+    }
+    & ul ul,
+    & ol ul {
+      list-style-type: circle;
+      padding-left: 2ch;
+    }
+    & ol ol,
+    & ul ol {
+      list-style-type: lower-latin;
+      padding-left: 2ch;
+    }
+  }
+
+  &__resources {
+    @media (--tablet) {
+      width: 64px;
+      height: 64px;
+      font-size: 11px;
+      margin-right: 24px;
+    }
+    @media (--mobile) {
+      display: none;
+    }
+  }
+
+  &__funding-section-content {
+    padding: 0 var(--sgrd) var(--sgrd);
+    & .rdfa-funding-table__table-head {
+      border-top: 1px solid var(--ruling-color--minor);
+    }
+  }
+
+  & .expansion-panel__preview {
+    width: 100%;
+    overflow: hidden;
+
+    & .peer-review-badge {
+      margin-left: auto;
+    }
+  }
+
+  & .expansion-panel & {
+    &__preview-item {
+      opacity: 1;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    &__preview-list {
+      display: inline;
+      transition: opacity 0.2s;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    &__preview-list-item {
+      padding-right: var(--sgrd);
+      box-sizing: border-box;
+      display: inline;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
+  & .expansion-panel--expanded & {
+    &__preview-item--vanishing {
+      opacity: 0;
+    }
+    &__abstract-preview-text {
+      opacity: 0;
+    }
+    &__preview-list--vanishing {
+      opacity: 0;
+    }
+  }
+
+  &__footer {
+    background-color: var(--grey-50);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-top: 1px solid var(--ruling-color--minor);
+    min-height: var(--xlgrd);
+    padding: var(--xsgrd) var(--mgrd);
+    font: var(--ui-type);
+    letter-spacing: var(--ui-type__letter-spacing);
+    color: var(--text-color--light);
+
+    & :any-link {
+      color: var(--text-color--light);
+    }
+  }
+}

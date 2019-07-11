@@ -1,0 +1,41 @@
+.workflow-editor {
+  border-top: 1px solid var(--ruling-color);
+  margin-left: -2.4rem;
+  margin-right: -2.4rem;
+  box-shadow: inset 0 8px 9px -10px rgba(0, 0, 0, 0.8);
+
+  &__header {
+    padding-bottom: var(--mgrd);
+  }
+
+  &__title {
+    font: var(--ui-type--subhead-2);
+    color: var(--ui-type--subhead-2__color);
+    letter-spacing: var(--ui-type--subhead-2__letter-spacing);
+  }
+
+  &__section {
+    padding: var(--lgrd);
+    border-bottom: 1px solid var(--ruling-color--major);
+
+    &--controls {
+      border-bottom: none;
+      padding: var(--xsgrd) var(--lgrd) 0 var(--lgrd);
+    }
+  }
+
+  &__single-stage-control {
+    margin-bottom: var(--mgrd);
+  }
+
+  &__public-audience-matrix-wrapper {
+    padding: 0 var(--mgrd);
+  }
+
+  &__form-group {
+    background-color: var(--grey-50);
+    padding: var(--sgrd);
+    &--metadata {
+    }
+  }
+}

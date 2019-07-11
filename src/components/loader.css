@@ -1,0 +1,10 @@
+.loader {
+  background-color: #EEEEEE;
+  height: calc(100vh);
+    overflow:auto;
+}
+
+.loader__body {
+  margin-top: var(--header-height);
+  color: var(--text-color--light);
+}

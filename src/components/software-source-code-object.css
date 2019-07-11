@@ -1,0 +1,42 @@
+.software-source-code-object {
+  font: var(--mono-type);
+  color: var(--mono-type__color);
+  letter-spacing: var(--mono-type__letter-spacing);
+  padding-left: var(--xsgrd);
+  /*margin: var(--sgrd) var(--xsgrd);*/
+  background-color: rgba(0, 0, 0, 0.02);
+  border-left: 3px solid var(--ruling-color--minor);
+
+  white-space: normal;
+
+  &__line {
+    color: var(--grey-400);
+
+    white-space: pre;
+
+    &__code {
+      color: var(--mono-type__color);
+    }
+  }
+
+  & .hljs {
+    background-color: transparent;
+  }
+}
+
+/* print overwrite */
+.software-source-code-object--print {
+  font: var(--mono-print-type--em);
+  color: var(--mono-print-type__color);
+  padding: 0.5em;
+  & .software-source-code-object {
+    &__line {
+      font: var(--mono-print-type--em);
+      color: var(--grey-400);
+    }
+  }
+}
+
+.software-source-code-object--print .software-source-code-object__line {
+  white-space: pre-wrap;
+}

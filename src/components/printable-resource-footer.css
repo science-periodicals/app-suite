@@ -1,0 +1,35 @@
+.printable-resource-footer {
+  font: var(--ui-type--subhead-3);
+  flex: 0 0 auto;
+  background-color: var(--accent-color);
+  color: white;
+  padding: 0 var(--sgrd);
+  align-items: center;
+  height: var(--lgrd);
+  line-height: var(--lgrd);
+  white-space: nowrap;
+
+  letter-spacing: var(--ui-type--subhead-3__letter-spacing);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  align-items: center;
+
+  &__bg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid transparent; /* this, mysteriously, fixes an issue in Edge in which the footer disapears */
+    color: var(--accent-color);
+  }
+  &__bg-svg-rect {
+    fill: var(--accent-color);
+  }
+}

@@ -1,0 +1,61 @@
+.journal-page {
+  &__page-nav {
+    utline: 2px solid green;
+    padding: var(--mgrd) var(--sgrd);
+  }
+  &__page-nav-list {
+    list-style: none;
+    padding: 0;
+  }
+  &__page-nav-list-item {
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+    & > :any-link {
+      color: black;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &__page-nav-list-icon {
+    margin-right: var(--xsgrd);
+  }
+
+  &__page-body {
+    padding: 0 var(--sgrd);
+    margin-bottom: var(--lgrd);
+  }
+
+  /* this appears in right margin on desktop but is inlined on mobile */
+  &__featured-content {
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    padding-top: var(--xsgrd);
+    padding-bottom: var(--footer-height);
+    & > * {
+      margin: var(--sgrd);
+    }
+  }
+
+  & .app-layout__mobile-inlined-right &__featured-content {
+    display: flex;
+    box-sizing: border-box;
+    width: fit-content;
+    min-width: 100%;
+    align-items: stretch;
+
+    margin-bottom: var(--mgrd);
+    padding: 0 var(--xsgrd);
+
+    & > * {
+      margin: var(--xsgrd);
+      min-width: 240px;
+      max-width: 100%;
+      flex: 1 1 30%;
+    }
+  }
+}

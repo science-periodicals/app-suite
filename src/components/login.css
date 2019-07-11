@@ -1,0 +1,10 @@
+.login {
+  margin: var(--lgrd);
+  &__content {
+    padding: var(--lgrd);
+  }
+
+  &__row {
+    padding: var(--sgrd) 0;
+  }
+}

@@ -1,0 +1,108 @@
+.user-page {
+  &__content-card {
+    margin-top: var(--mgrd);
+    font: var(--ui-type--big);
+    color: var(--ui-type--big__color);
+    letter-spacing: var(--ui-type--big__letter-spacing);
+  }
+  &__content {
+    &__header {
+      display: flex;
+      align-items: center;
+      padding-bottom: var(--mgrd);
+      padding: var(--mgrd);
+      border-bottom: 1px solid var(--ruling-color);
+    }
+    &__title {
+      font: var(--ui-type--headline);
+      color: var(--ui-type--headline__color);
+      letter-spacing: var(--ui-type--headline__letter-spacing);
+      margin-left: var(--sgrd);
+    }
+
+    &__sub-title {
+      font: var(--ui-type--subhead-1);
+      color: var(--text-color--light);
+      letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+      /* border-bottom: 2px solid var(--grey-300); */
+      padding-bottom: 0.4rem;
+    }
+
+    &__section {
+      padding: var(--mgrd);
+      border-bottom: 1px solid var(--ruling-color);
+    }
+
+    &__list {
+      margin: var(--xsgrd) 0;
+    }
+    &__list-item {
+      display: flex;
+      align-items: center;
+      & .iconoclass {
+        margin-right: var(--xsgrd);
+        color: var(--grey-400);
+      }
+    }
+  }
+
+  &__role-title {
+    font: var(--ui-type--subhead-2);
+    border-bottom: 2px solid var(--ruling-color--major);
+    margin: var(--mgrd) 0;
+    padding-bottom: var(--xsgrd);
+    display: flex;
+    align-items: center;
+
+    & .iconoclass {
+      margin-right: var(--xsgrd);
+      color: var(--text-color--light);
+    }
+  }
+
+  &__journal-badge-title {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--ruling-color);
+    padding-bottom: var(--xsgrd);
+    margin-bottom: var(--xsgrd);
+    & .journal-badge {
+      margin-right: var(--xsgrd);
+    }
+  }
+
+  &__user-role-list {
+    font: var(--ui-type);
+    margin-bottom: var(--sgrd);
+    padding-left: var(--lgrd);
+    list-style-position: inside;
+  }
+
+  &__activity-table {
+    width: 100%;
+    border-collapse: collapse;
+    &__header {
+      &__cell {
+        font: var(--ui-type--subhead-3);
+        color: var(--ui-type--subhead-3__color);
+        letter-spacing: var(--ui-type--subhead-3__letter-spacing);
+        text-transform: lowercase;
+        font-variant: small-caps;
+        padding: var(--xsgrd);
+        border-bottom: 2px solid var(--ruling-color--major);
+        text-align: left;
+      }
+    }
+
+    &__body {
+      &__cell {
+        padding: var(--xsgrd);
+        border-bottom: 1px solid var(--ruling-color);
+      }
+    }
+
+    &__status-icon-container {
+      text-align: right;
+    }
+  }
+}

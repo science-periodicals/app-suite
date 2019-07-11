@@ -1,0 +1,847 @@
+html {
+  --meta-margin__dark-highlight-color: var(--hl-blue-3-a);
+  --meta-margin__light-highlight-color: var(--hl-blue-1-a);
+}
+.meta-margin {
+  position: relative;
+
+  counter-reset: tag-counter--inline tag-counter--margin citation-count--inline;
+
+  &--void-empty-white-space {
+    background-size: 16px 16px !important;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTZweCIgaGVpZ2h0PSI5NnB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+DQogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+DQogICAgICAgIDxwYXRoIGQ9Ik0xLjI5Mjg5MzIyLDcuNjU2NjM1NzRlLTE2IEwyLjcwNzEwNjc4LDcuNjU2NjM1NzRlLTE2IEwyNCwyMS4yOTI4OTMyIEwyNCwyMi43MDcxMDY4IEwxLjY0MTAxMjQ3LDAuMzQ4MTE5MjUgTDEuMjkyODkzMjIsNy41NDgyMTU1MmUtMTYgWiBNOS4yOTI4OTMyMiw3LjY1NjYzNTc0ZS0xNiBMMTAuNzA3MTA2OCw3LjY1NjYzNTc0ZS0xNiBMMjQsMTMuMjkyODkzMiBMMjQsMTQuNzA3MTA2OCBMMjMuNjU1MzY3LDE0LjM2MjQ3MzggTDkuNjM4MTE5OTIsMC4zNDUyMjY3MDQgTDkuMjkyODkzMjIsMS4zNjg5MTM2NmUtMTUgWiBNLTQuODQ4NTUyMTJlLTE2LDUuMjkyODkzMjIgTDAuMzQ2MjAyMDM5LDUuNjM5MDk1MjYgTDE4LjM2MDQ5MzcsMjMuNjUzMzg2OSBMMTguNzA3MTA2OCwyNCBMMTcuMjkyODkzMiwyNCBMLTMuODQ2NzQ5MzFlLTE2LDYuNzA3MTA2NzggTC0zLjE1Mjg1OTkyZS0xNiw1LjI5Mjg5MzIyIFogTTE3LjI5Mjg5MzIsNy42NTY2MzU3NGUtMTYgTDE4LjcwNzEwNjgsNy42NTY2MzU3NGUtMTYgTDI0LDUuMjkyODkzMjIgTDI0LDYuNzA3MTA2NzggTDIzLjY2NzE4MjYsNi4zNzQyODkzOSBMMTcuNjI4NjUxOCwwLjMzNTc1ODU0OCBMMTcuMjkyODkzMiwxLjQ1MzQ4MTQzZS0xNSBaIE0tNC4yNjMwODI5NGUtMTYsMjEuMjkyODkzMiBMMC4zNTM1NTMzOTEsMjEuNjQ2NDQ2NiBMMi40MTUxMDYyLDIzLjcwNzk5OTQgTDIuNzA3MTA2NzgsMjQgTDEuMjkyODkzMjIsMjQgTC00LjI2MzA4Mjk0ZS0xNiwyMi43MDcxMDY4IEwtMy4xNTI4NTk5MmUtMTYsMjEuMjkyODkzMiBaIE0tNS43NjM2MTg3NWUtMTYsMTMuMjkyODkzMiBMMC4zNDE2NTUzNywxMy42MzQ1NDg2IEwxMC4zNjYwMzA4LDIzLjY1ODkyNCBMMTAuNzA3MTA2OCwyNCBMOS4yOTI4OTMyMiwyNCBMMS4xMDAyNDgzNmUtMTUsMTQuNzA3MTA2OCBMLTMuMTUyODU5OTJlLTE2LDEzLjI5Mjg5MzIgWiIgaWQ9IkNvbWJpbmVkLVNoYXBlIiBmaWxsPSIjZWVlIj48L3BhdGg+DQogICAgPC9nPg0KPC9zdmc+');
+  }
+
+  & small {
+    font-size: inherit;
+  }
+
+  &__list {
+    list-style: none;
+    padding-left: 0; /* 10px to account for tag width */
+
+    & li {
+      margin-bottom: var(--xsgrd);
+      text-align: left;
+
+      @media print {
+        margin-bottom: 0.3em;
+      }
+    }
+  }
+
+  &__inline-list {
+    padding: 0;
+    list-style: none;
+
+    &--icon {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+
+      & meta-margin__list-item {
+        display: inline-flex;
+        flex-wrap: wrap;
+        min-height: 16px;
+        padding-right: var(--xsgrd);
+
+        & > * {
+          display: inline-flex;
+          align-items: center;
+        }
+      }
+    }
+  }
+
+  &__list-item {
+    &--icon {
+      vertical-align: middle;
+
+      & .iconoclass {
+        margin-right: 4px;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  &__link-source {
+    &--hidden {
+      display: none;
+    }
+    &:any-link {
+      @media print {
+        color: var(--serif-body-print-type__color);
+      }
+    }
+  }
+
+  /* tag counters for inline links */
+  &__link-source-tag {
+    /* only count tags with links */
+    &[href],
+    & [href] {
+      text-decoration: none;
+      counter-increment: tag-counter--inline;
+      position: relative;
+      &--tag-only {
+        color: red;
+        border: 1px solid pink;
+        & * {
+          color: red;
+          border: 1px solid pink;
+        }
+      }
+      margin-right: 12px;
+      position: relative;
+
+      &:after {
+        font: var(--ui-type);
+        font-weight: bold;
+        content: counter(tag-counter--inline);
+        background: var(--grey-600);
+        color: white !important;
+        font-size: 5pt;
+        line-height: 10px;
+        text-align: center;
+        vertical-align: middle;
+        border-radius: 0 5px 5px 0;
+        display: inline-block;
+        height: 10px;
+        margin-left: 2px;
+        margin-bottom: 1px;
+        box-sizing: border-box;
+        padding: 0 3px 0 2px;
+
+        /* keep tag from wrapping away from parent */
+        margin-right: -12px;
+
+        @media print {
+          height: 6pt;
+
+          line-height: 6pt;
+          font-size: 4pt;
+        }
+      }
+    }
+    @media print {
+      color: var(--serif-body-print-type__color) !important;
+      text-decoration: none;
+    }
+  }
+
+  /* corresponding tag counters for the margin */
+  &__link-target-tag {
+    counter-increment: tag-counter--margin;
+    position: relative; /* this is needed to give context to the absolutetly positioned :before below */
+    &:before {
+      position: absolute; /* this must be absolute so that there is no possibility of white space wrapping at start of text */
+      font: var(--ui-type);
+      font-weight: bold;
+      content: counter(tag-counter--margin);
+      /* border: 1px solid var(--grey-600); */
+      box-sizing: border-box;
+      background: var(--grey-600);
+      color: white !important;
+      font-size: 6px;
+      line-height: 10px;
+      text-align: center;
+      vertical-align: top;
+      border-radius: 5px 0 0 5px;
+
+      height: 10px;
+      margin-left: -15px;
+      margin-right: 5px;
+      margin-bottom: 1px;
+      box-sizing: border-box;
+      padding: 0 2px 0 3px;
+      display: inline-block;
+
+      top: 3px;
+      overflow: hidden;
+      @media print {
+        height: 6pt;
+        line-height: 6pt;
+        font-size: 4pt;
+      }
+    }
+
+    &--link-citation {
+      font: var(--sans-body-type--small--short);
+      @media print {
+        font: var(--sans-body-print-type--small);
+      }
+    }
+  }
+
+  &__permalink {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    max-width: var(--rdfa-scholarly-article__meta-margin-width);
+    overflow: hidden;
+
+    @media print {
+      height: 25px; /* match qr code height */
+    }
+
+    &--big {
+      @media print {
+        height: 50px; /* match qr code height */
+      }
+    }
+
+    &--hovered {
+    }
+    &--hovered .permalink {
+      background-color: var(--meta-margin__light-highlight-color) !important;
+      padding-left: var(--xsgrd) !important;
+    }
+
+    & .permalink {
+      /* for when the highlight is visible */
+      padding-left: 0;
+      transition: padding 0.2s;
+
+      right: 0;
+      text-align: left;
+      display: inline-block;
+      position: relative;
+      border-radius: 12px;
+
+      & .menu {
+        max-width: 100%;
+
+        &__header-container {
+          max-width: 100%;
+        }
+
+        &__header {
+          max-width: 100%;
+        }
+
+        &__header-title {
+          flex: 0 1 auto;
+          padding-right: 0;
+          &::after {
+            content: '#';
+          }
+          @media screen {
+            display: none;
+          }
+        }
+        &__header-icon {
+          flex: 0 0 auto;
+          padding-right: var(--xsgrd);
+        }
+      }
+    }
+
+    &__qrcode {
+      visibility: hidden;
+      border-right: var(--rdfa-scholarly-article__right-margin--print) solid
+        var(--accent-color);
+      padding: 0 2px;
+
+      @media print {
+        visibility: visible;
+        height: 25px;
+      }
+      &--big {
+        @media print {
+          height: 50px;
+        }
+      }
+    }
+  }
+
+  &--highlight &__permalink .permalink {
+    background-color: var(--meta-margin__light-highlight-color);
+    padding-left: var(--xsgrd) !important;
+  }
+
+  &--inline &__permalink {
+    display: none;
+  }
+
+  &__print-locator {
+    /* background: var(--accent-color); */
+    width: calc(100% - 65px);
+
+    position: relative;
+
+    font: var(--sans-body-print-type--small);
+    letter-spacing: var(--sans-body-print-type--small__letter-spacing);
+    font-stretch: condensed;
+
+    &__hash {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding-right: var(--xsgrd);
+      box-sizing: border-box;
+      color: black;
+      position: absolute;
+    }
+
+    &__section-block {
+      /* this is made visible in the counter area below */
+      display: none;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    &__layout {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      padding: var(--xsgrd);
+      box-sizing: border-box;
+    }
+
+    &__url {
+      display: flex;
+    }
+
+    &__bg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent-color);
+    }
+
+    & .printable-color-text {
+      color: white;
+
+      &__chunk {
+        height: 1.35em;
+      }
+    }
+
+    &__permalink--big &__print-locator {
+      width: calc(100% - 90px);
+    }
+
+    /* &__text {
+      font: var(--sans-body-print-type--small);
+      color: white;
+      letter-spacing: var(--sans-body-print-type--small__letter-spacing);
+      font-stretch: condensed;
+    } */
+  }
+
+  &__locator {
+    font: var(--ui-type);
+
+    font-size: 10px;
+    letter-spacing: 0.05em;
+
+    /* text-align: right; */
+    width: 100%;
+    /*max-width: calc(var(--rdfa-scholarly-article__meta-margin-width) - 65px);*/
+    padding: 0;
+    box-sizing: border-box;
+    /* color: var(--text-color--light); */
+    display: inline-flex;
+    overflow: hidden;
+
+    /* ensure that print-only font is loaded at time of print */
+    &:before {
+      position: absolute;
+      content: '|';
+      width: 0;
+      overflow: hidden;
+      display: block;
+      font-family: 'Roboto Condensed';
+    }
+    @media print {
+      justify-content: flex-end;
+      font-family: 'Roboto Condensed', sans-serif;
+      letter-spacing: 0;
+      height: 25px;
+      line-height: 25px;
+      opacity: 1;
+    }
+
+    &__counter {
+      height: 25px;
+      line-height: 25px;
+      color: var(--text-color);
+
+      /* TODO @halmos this is now handled in JS so we can remove the CSS counters
+      &:before {
+        @media print {
+           url with hash is hidden by default so add this to make it always vis in print
+          content: '#';
+        }
+      }
+      &:after {
+        content: counter(section-level-1-counter) '.'
+          counter(section-level-2-counter) '.' counter(section-level-3-counter);
+      }*/
+    }
+
+    & .permalink__menu {
+      position: relative;
+    }
+
+    &__purl {
+      /* this is sometime made visible in the counter section above
+      or on hover of meta-margin */
+      text-align: right;
+      opacity: 0;
+      max-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      height: 25px;
+      line-height: 25px;
+      transition: max-width 0.7s ease-in-out, opacity 0.5s;
+      white-space: nowrap;
+      padding-left: 0;
+
+      @media print {
+        opacity: 1;
+        /* the purl is split into spans so we can ensure last part is always visible */
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-end;
+        justify-content: flex-end;
+        overflow: hidden;
+      }
+
+      /*&:after {
+        content: '#';
+      }*/
+    }
+
+    &:hover .__purl {
+      opacity: 1;
+      max-width: 32rem;
+    }
+  }
+
+  &--highlight &__highlight {
+    position: absolute;
+    top: -8px;
+    left: -56px;
+    right: -32px;
+    bottom: 0;
+    z-index: 12;
+    border-radius: 12px;
+    border-left: 24px solid var(--meta-margin__dark-highlight-color);
+    /* background-color: var(--meta-margin__dark-highlight-color); */
+    animation-name: fade-out-bg-keyframes;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+  }
+
+  /* We want the margin to push down content so we use a float + clearfix */
+  &__children {
+    background-color: var(--reader-bg-color);
+    box-sizing: border-box;
+    /*max-width: 75%;*/
+    width: 100%;
+    float: left;
+    z-index: 10;
+    position: relative;
+  }
+  &--highlight &__children {
+    /* the highlight needs to be an alpha color so that it will work with
+    different theme bg's. therefor we cannot set the bg color here as it will
+    cause a doubled transparency layer with the __highlight layer above */
+    /* background-color: var(--meta-margin__dark-highlight-color); */
+    /* animation-name: fade-out-bg-keyframes;
+    animation-duration: 1s;
+    animation-fill-mode: forwards; */
+  }
+
+  &__margin {
+    @media screen {
+      opacity: 0.6;
+      transition: opacity 0.5s;
+    }
+  }
+  &:hover &__margin,
+  &--highlight &__margin {
+    @media screen {
+      opacity: 1;
+    }
+  }
+
+  &__margin {
+    position: relative;
+
+    font: var(--sans-body-type--small);
+    box-sizing: border-box;
+    padding: 0;
+    max-width: var(--rdfa-scholarly-article__meta-margin-width);
+    z-index: 0;
+    float: right;
+    width: 100%;
+
+    /* TODO: better account for variable margins */
+    margin-right: calc(
+      (
+          var(--rdfa-scholarly-article__meta-margin-width) +
+            var(--rdfa-scholarly-article__gutter)
+        ) * -1
+    );
+
+    @media screen {
+      top: -4px; /* account for section divider ruling line thickness */
+    }
+    & .meta-margin-citations {
+      list-style: none;
+
+      & li {
+        counter-increment: citation-count--margin;
+        &:before {
+          font: var(--ui-type);
+          font-weight: bold;
+          content: counter(citation-count--margin);
+          background: var(--grey-600);
+          display: inline-block;
+          color: white !important;
+          font-size: 5pt;
+          line-height: 10px;
+          text-align: center;
+          vertical-align: middle;
+          border-radius: 5px 0 0 5px;
+          width: 10px;
+          height: 10px;
+          margin-left: -15px;
+          margin-right: 5px;
+          margin-bottom: 1px;
+          box-sizing: border-box;
+          padding: 0 2px;
+        }
+      }
+    }
+  }
+
+  /* in some cases we want to flow the margin under the content - eg - urls inside of tables */
+  &--inline &__margin {
+    float: left;
+    background: white;
+    max-width: none;
+    padding-top: var(--sgrd);
+  }
+
+  &--no-margin &__children,
+  &--inline &__children,
+  &--inline &__margin {
+    /* expand to full width in print */
+    @media print {
+      width: calc(
+        100% +
+          (
+            var(--rdfa-scholarly-article__meta-margin-width) +
+              var(--rdfa-scholarly-article__gutter) -
+              var(--rdfa-scholarly-article__right-margin--print)
+          )
+      );
+    }
+  }
+
+  &__mobile-margin {
+    opacity: 0.6;
+    display: inline-flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: var(--xsgrd);
+    box-sizing: border-box;
+    margin-right: calc(
+      (
+          var(--rdfa-scholarly-article__right-margin--mobile) +
+            var(--rdfa-scholarly-article__meta-margin-width--mobile)
+        ) * -1
+    );
+    float: right;
+    font: var(--ui-type--short);
+    letter-spacing: var(--ui-type--short__letter-spacing);
+    font-size: 10px;
+
+    & .permalink {
+      width: var(--lgrd);
+    }
+    /* TODO delete the following ? */
+    /* & .meta-margin__locator {
+      border: none;
+      padding: none;
+      overflow: hidden;
+
+      &__counter {
+        padding-right: 0.4rem;
+      }
+    } */
+
+    /* & .share-menu {
+      height: 18px;
+    }
+
+    & .iconoclass {
+      color: var(--grey-400);
+    } */
+  }
+
+  &:hover &__mobile-margin {
+    opacity: 1;
+  }
+
+  &__overflow-divider {
+    width: calc(
+      100vw - var(--rdfa-scholarly-article__meta-margin-width) -
+        var(--rdfa-scholarly-article__left-margin)
+    );
+    z-index: -1;
+    /* border-right: 1px solid var(--ruling-color); */
+    position: absolute;
+
+    /* this covers the margin background pattern to make space and also hide for shorter blocks */
+    border-bottom: 25px solid var(--reader-bg-color);
+
+    right: calc(
+      var(--rdfa-scholarly-article__meta-margin-width) +
+        var(--rdfa-scholarly-article__gutter)
+    );
+    top: 0;
+    bottom: 0;
+    /*  &:after {
+      border-left: 10px solid red;
+      content: '';
+      left: -1px;
+      top: -1px;
+      border-top: 10px solid white;
+      border-right: 10px solid white;
+      border-left: 10px solid #149e4b;
+      border-bottom: 10px solid white;
+    }*/
+  }
+
+  &::after {
+    /* clearfix */
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+@media (--up-to-small-desktop) {
+  /* meta margin is not displayed on mobile so we remove float */
+  /*.meta-margin__children {
+    float: none;
+    max-width: 100%;
+  }*/
+}
+
+/**
+ * Manage All Meta Margin Counters
+ */
+.rdfa-scholarly-article {
+  & .rdfa-article-front-matter {
+    /* The very first URL on the article */
+    & > .meta-margin:first-of-type {
+      & .meta-margin__margin {
+        /* opacity: 1; */
+      }
+      & .meta-margin__print-locator__section-block {
+        display: block;
+      }
+      & .meta-margin__locator {
+        margin-bottom: var(--sgrd);
+        /*&__counter {
+          display: none;
+        }*/
+
+        &__purl {
+          @media print {
+            text-align: left;
+            max-width: 100%;
+            opacity: 1;
+            padding-right: 0;
+            padding-left: 0;
+
+            &:after {
+              content: '';
+            }
+            color: white !important;
+            padding-left: var(--xsgrd);
+          }
+        }
+
+        &__counter {
+          @media print {
+            color: white;
+          }
+        }
+        @media print {
+          background-color: var(--accent-color);
+          color: white;
+        }
+      }
+    }
+  }
+  & .rdfa-article-body {
+    & > .rdfa-article-body-section {
+      & > .meta-margin {
+        /* top level section special handeling */
+        &:first-of-type {
+          & .meta-margin__children {
+            padding-top: var(--xlgrd);
+          }
+          & .meta-margin__permalink {
+            @media print {
+              margin-top: var(--xlgrd);
+            }
+          }
+          & .meta-margin__print-locator__section-block {
+            display: block;
+          }
+
+          & .meta-margin__locator {
+            /* handle section level counter dividers */
+            border-top: 4px solid var(--ruling-color);
+            padding-top: var(--xlgrd);
+
+            @media print {
+              background-color: var(--accent-color);
+              border: none;
+              color: white;
+              padding-top: 0;
+            }
+
+            & .permalink {
+              max-width: 100%;
+            }
+
+            & .permalink__menu {
+              position: relative;
+            }
+
+            &__purl {
+              opacity: 1;
+              padding-left: 0;
+              @media print {
+                max-width: 100%;
+                color: white;
+                padding-left: var(--xsgrd);
+              }
+            }
+
+            &__counter {
+              @media print {
+                color: white;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  & .rdfa-article-back-matter {
+    & section > .meta-margin {
+      &:first-of-type {
+        & .meta-margin__children {
+          padding-top: 24px;
+        }
+        & .meta-margin__print-locator__section-block {
+          display: block;
+        }
+        & .meta-margin__locator {
+          /* handle section level counter dividers */
+          border-top: 4px solid var(--ruling-color);
+          padding-top: var(--mgrd);
+
+          @media print {
+            background-color: var(--accent-color);
+            border: none;
+            color: white;
+            padding-top: 0;
+            padding-left: var(--xsgrd);
+          }
+
+          &__purl {
+            opacity: 1;
+            @media print {
+              max-width: 100%;
+              color: white;
+            }
+          }
+
+          &__counter {
+            @media print {
+              color: white;
+            }
+          }
+        }
+      }
+    }
+
+    &__citations {
+      & .meta-margin-content {
+        @media print {
+          padding-top: 4px;
+          padding-bottom: 8px;
+        }
+      }
+    }
+  }
+}
+
+/* Position inline user contact menus */
+.meta-margin .contributor-info-menu {
+  display: inline;
+  vertical-align: baseline;
+  width: 12px;
+  height: 12px;
+  margin-left: 2px;
+  margin-bottom: -1px;
+
+  & .menu {
+    /* override the menu defaults for themeing */
+    color: var(--text-color);
+  }
+
+  &__portal {
+    & .user-contact-sheet {
+      color: black;
+    }
+  }
+
+  @media print {
+    display: none;
+  }
+}
+
+@keyframes fade-out-bg-keyframes {
+  0% {
+    background-color: rgba(255, 255, 255, 0);
+  }
+
+  10% {
+    background-color: var(--meta-margin__light-highlight-color);
+  }
+
+  25% {
+    background-color: var(--meta-margin__dark-highlight-color);
+  }
+
+  100% {
+    background-color: var(--meta-margin__light-highlight-color);
+  }
+}
+
+@keyframes fade-out-border-keyframes {
+  0% {
+    border-left-color: var(--meta-margin__light-highlight-color);
+  }
+
+  25% {
+    border-left-color: var(--meta-margin__dark-highlight-color);
+  }
+}

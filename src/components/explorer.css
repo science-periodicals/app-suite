@@ -1,0 +1,103 @@
+.explorer {
+  height: calc(100% - 56px);
+  box-sizing: border-box;
+
+  @media only screen and (height <= 1024px) {
+    padding-bottom: 0;
+  }
+
+  & * {
+    box-sizing: border-box;
+  }
+
+  & ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    -webkit-margin-after: 0;
+    -webkit-margin-before: 0;
+  }
+
+  &__search-pseudo-tag-menu {
+    height: var(--mgrd);
+    border-radius: 12px;
+    background-color: var(--grey-300);
+    padding: 0 8px 0 2px;
+    font-size: 12px;
+
+    & .menu__header-title {
+      padding-right: 4px;
+    }
+  }
+
+  &__logo-container {
+    padding: 4px var(--sgrd) 4px 0;
+    width: 200px;
+    max-height: 100%;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    & > a,
+    & > span {
+      display: contents;
+    }
+  }
+  &__header-logo {
+    max-height: calc(var(--header-height) - 8px);
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  &__header-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  &__content-list {
+    padding: var(--sgrd);
+  }
+
+  &__content-list-item {
+    margin-top: var(--sgrd);
+  }
+
+  &__controls {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  /* this appears in right margin on desktop but is inlined on mobile */
+  &__featured-content {
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    padding-top: var(--sgrd);
+    padding-bottom: var(--footer-height);
+    & > * {
+      margin: var(--sgrd);
+    }
+
+    &:empty {
+      /* we don't wan't any white space if it's not in use. */
+      display: none;
+    }
+  }
+
+  /* journal nav gets moved from right margin to left margin on mobile */
+  &__left-nav {
+    padding: var(--sgrd);
+  }
+
+  &__more-button-container {
+    width: 100%;
+    text-align: center;
+    padding-top: var(--mgrd);
+    padding-bottom: var(--mgrd);
+  }
+}

@@ -1,0 +1,7 @@
+.meta-margin-figure {
+  display: flex;
+  align-items: center;
+  & .iconoclass {
+    margin-right: 4px;
+  }
+}

@@ -1,0 +1,95 @@
+.rfa-snippet {
+  &__header {
+    min-height: var(--xlgrd);
+    display: flex;
+    justify-content: space-between;
+    padding: var(--sgrd) var(--sgrd) var(--sgrd) var(--mgrd);
+    align-items: center;
+  }
+  &__rfa-icon {
+    margin-right: var(--xsgrd);
+    color: var(--text-color--light);
+  }
+  &__title {
+    font: var(--ui-type--headline);
+    color: var(--ui-type--headline__color);
+    letter-spacing: var(--ui-type--headline__letter-spacing);
+    line-height: 1.3em;
+    hyphens: auto;
+    display: flex;
+    align-items: center;
+
+    @media (--up-to-xlarge-desktop) {
+      font: var(--ui-type--subhead-1);
+      letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+    }
+  }
+
+  &__sub-title {
+    font: var(--ui-type);
+    color: var(--text-color--light);
+  }
+
+  &__body {
+    padding: 0 var(--mgrd) var(--sgrd) var(--mgrd);
+  }
+
+  &__text {
+    font: var(--serif-body-type);
+    color: var(--serif-body-type__color);
+    letter-spacing: var(--serif-body-type __letter-spacing);
+
+    & ul,
+    & ol {
+      margin: 0;
+      padding-left: var(--sgrd);
+      padding-bottom: 1em;
+    }
+
+    & ul {
+      list-style: circle;
+    }
+  }
+
+  &__text-preview {
+    padding: 0 var(--xsgrd);
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  &__subjects-section {
+    margin-top: var(--sgrd);
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    background-color: var(--grey-50);
+
+    border-top: 1px solid var(--ruling-color--minor);
+    min-height: var(--xlgrd);
+    padding: var(--xsgrd) var(--mgrd);
+    font: var(--ui-type);
+    letter-spacing: var(--ui-type__letter-spacing);
+    color: var(--text-color--light);
+
+    & :any-link {
+      color: var(--text-color--light);
+    }
+
+    &__journal-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-right: 1em;
+
+      & .journal-badge {
+        margin-right: 1em;
+      }
+    }
+
+    &__controls {
+      margin-left: auto;
+    }
+  }
+}

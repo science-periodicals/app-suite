@@ -1,0 +1,199 @@
+.app-layout--reader {
+  background: var(--reader-bg-color);
+}
+.reader {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--reader-bg-color);
+
+  position: relative;
+  padding: 0;
+
+  @media print {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* chrome wont display fonts in print if they're not preloaded on screen.
+  this guarantees the font files are instatiated in the dom before print time */
+  &__guarantee-print-fonts {
+    width: 0;
+    position: absolute;
+    top: 0;
+    height: 0;
+    overflow: hidden;
+    &__sans {
+      font: var(--sans-body-print-type);
+    }
+    &__sans-italic {
+      font: var(--sans-body-print-type);
+      font-style: italic;
+    }
+    &__sans-bold {
+      font: var(--sans-body-print-type);
+      font-weight: bold;
+    }
+    &__sans-bold-italic {
+      font: var(--sans-body-print-type);
+      font-weight: bold;
+      font-style: italic;
+    }
+    &__sans-condensed {
+      font: var(--sans-body-print-type);
+      font-stretch: condensed;
+    }
+    &__serif {
+      font: var(--serif-body-print-type);
+    }
+    &__serif-italic {
+      font: var(--serif-body-print-type);
+      font-style: italic;
+    }
+    &__serif-bold {
+      font: var(--serif-body-print-type);
+      font-weight: bold;
+    }
+    &__serif-bold-italic {
+      font: var(--serif-body-print-type);
+      font-weight: bold;
+      font-style: italic;
+    }
+  }
+
+  &__theme-select {
+    height: 24px;
+    margin-left: 1.2rem;
+    & .iconoclass {
+      color: var(--text-color);
+    }
+  }
+  &__left-toc-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+
+    & .share-menu {
+      /* TODO: share-menu has default position of absolute for use mobile view margin - propably should avoid that */
+      position: relative;
+    }
+  }
+
+  &__content {
+    /* TODO - check if display really needs to be set to flex */
+    display: flex;
+    overflow: hidden;
+    width: 100vw;
+    max-width: 100vw;
+
+    & > div {
+      flex: 0 0 100%;
+      /*max-width: 1080px;*/
+    }
+
+    @media print {
+      /* display flex cuases firefox bug where only first page is printed */
+      display: block;
+    }
+  }
+
+  &__right-margin {
+    flex: 1 0 25%;
+    min-width: 25%;
+    display: none;
+  }
+
+  /* the structure of the markup is used to emulate the strucure of app-layout so that shell position remains in sync with content */
+  &__shell-positioner {
+    z-index: 50;
+    width: 100vw;
+    left: 0px;
+    bottom: 0;
+    display: flex;
+    position: fixed;
+    overflow: hidden;
+    min-width: 0;
+  }
+
+  &__shell-positioner-right {
+    display: flex;
+    flex: 1 1 100%;
+  }
+
+  &__shell-left-spacer {
+    flex: 1 1 auto;
+
+    @media (--beyond-xlarge-desktop) {
+      /* app-layout mode 'auto', the left-margin expands as needed so we need to remove the shell's left-spacer influence */
+      max-width: 0;
+    }
+  }
+
+  &__shell-container {
+    box-sizing: border-box;
+    padding-right: var(--rdfa-scholarly-article__meta-margin-width);
+    width: var(--rdfa-scholarly-article__width);
+    max-width: 100%;
+    @media (--up-to-small-desktop) {
+      padding-right: 0;
+      width: 100%;
+    }
+  }
+
+  &__shell-right-spacer {
+    flex: 1 1 auto;
+    @media (--up-to-small-desktop) {
+      max-width: 0;
+    }
+  }
+}
+
+.reader .shell__content {
+  padding-bottom: 56px; /* compensate for footer */
+}
+.reader .shell__content .image img,
+.reader .shell__content .video video,
+.reader .shell__content .audio audio {
+  max-height: 75vh;
+  max-width: 100%;
+  display: block;
+  margin: var(--sgrd) auto;
+}
+.reader .shell__content .dataset {
+  margin-top: var(--sgrd);
+}
+.reader .shell__content .dataset .dataset__list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* TODO update shell media queries */
+/* !!left value and width should be the same as the one defined in resource-view.css TODO: create variables */
+@media (min-width: 0px) {
+  /*sm*/
+  .reader .shell_old {
+    z-index: 20; /* ToC must be on top of shell */
+    width: 100vw;
+    left: 0px;
+  }
+}
+
+@media (min-width: 1440px) {
+  /*md*/
+  .reader .shell_old {
+    /* center verticaly */
+    z-index: 1000; /* shell on top of ToC */
+    left: 50%;
+    transform: translateX(calc(0 - 50% - 28px));
+    max-width: calc(
+      var(--rdfa-scholarly-article__width) -
+        var(--rdfa-scholarly-article__meta-margin-width) + var(--lgrd)
+    );
+  }
+
+  .app-layout--left-collapsed .reader .shell_old {
+    transform: translateX(calc(0 - 50% - 180px));
+  }
+}

@@ -1,0 +1,5 @@
+.pre-submission-comment {
+  font: var(--ui-type--big);
+  color: var(--ui-type--big__color);
+  letter-spacing: var(--ui-type--big__letter-spacing);
+}

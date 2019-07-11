@@ -1,0 +1,231 @@
+.rdfa-article-front-matter {
+  & :any-link,
+  & a {
+    @media print {
+      color: var(--serif-body-print-type__color);
+    }
+  }
+  & section {
+    padding-top: var(--mgrd);
+  }
+
+  &__margin-issue-title {
+    font: var(--sans-body-type--big);
+    color: var(--sans-body-type--big__color);
+    letter-spacing: var(--sans-body-type--big__letter-spacing);
+
+    @media print {
+      font: var(--sans-body-print-type);
+      color: var(--sans-body-print-type__color);
+      letter-spacing: var(--sans-body-print-type__letter-spacing);
+    }
+  }
+
+  /* special print layout for the article title. This will cause the title to be vertically centered in any white space */
+  &__meta-margin-title-container {
+    @media print {
+      display: flex;
+      align-items: center;
+    }
+    & .meta-margin__children {
+      @media print {
+        margin-right: 0.5in;
+      }
+    }
+  }
+
+  &__subtitle {
+    font: var(--serif-body-type--big--subhead-1);
+    color: var(--serif-body-type--big--subhead-1__color);
+    letter-spacing: var(--serif-body-type--big--subhead-1__letter-spacing);
+    text-align: center;
+
+    @media print {
+      font: var(--serif-body-print-type--subhead-1);
+      color: var(--serif-body-print-type--subhead-1__color);
+      letter-spacing: var(--serif-body-print-type--subhead-1__letter-spacing);
+    }
+  }
+
+  & h3.rdfa-article-front-matter__journal-name {
+    font: var(--sans-body-type--subhead-2);
+    line-height: 1.1em;
+    text-transform: lowercase; /* is set to SMCP in h3 */
+    color: var(--sans-body-type--subhead-2__color);
+    letter-spacing: var(--sans-body-type--subhead-2__letter-spacing);
+    margin-top: var(--xsgrd);
+    margin-bottom: var(--xsgrd);
+    text-align: left;
+  }
+
+  &__logo {
+    /* only visible in print */
+    max-height: 0.375in;
+    max-width: 100%;
+    object-fit: contain;
+    margin: var(--xsgrd) 0;
+  }
+
+  &__authors-list {
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+  }
+
+  /* prevent author info menu from wrapping away from name */
+  &__authors-list-item {
+    display: inline-block !important;
+    position: relative;
+
+    & .rdfa-person-or-organization {
+      @media screen {
+        margin-left: 4px;
+        &:not(.rdfa-article-front-matter--blinded) {
+          /* when blinded we do not show the contact sheet so we don't want the extra spacing */
+          margin-right: 16px;
+        }
+      }
+      @media print {
+        margin-left: 4px;
+      }
+    }
+
+    & .contributor-info-menu {
+      position: relative;
+      left: -14px;
+      display: inline-block;
+      width: 1px;
+    }
+
+    &:last-of-type {
+      &:after {
+        /* need maintain spacing on last item (that doesn't have comma after it) for the info-menu */
+        content: '\00a0' !important;
+      }
+    }
+  }
+
+  &__affiliation-list {
+    list-style-type: lower-roman;
+    padding-bottom: var(--xsgrd);
+  }
+
+  &__affiliation-label-list {
+    font: var(--ui-type--small);
+    padding-left: 2px;
+  }
+
+  &__affiliations {
+    font: var(--serif-body-type--short);
+    letter-spacing: var(--serif-body-type--short__letter-spacing);
+
+    @media print {
+      font: var(--serif-body-print-type);
+      color: var(--serif-body-print-type__color);
+      letter-spacing: var(--serif-body-print-type__letter-spacing);
+    }
+  }
+
+  &__splash-image {
+    height: 300px;
+    width: calc(100% + 0.5in);
+    margin-left: -0.25in;
+    background-color: grey;
+
+    @media print {
+      margin-left: 0;
+      width: calc(
+        100vw - var(--rdfa-scholarly-article__left-margin--print) -
+          var(--rdfa-scholarly-article__right-margin--print)
+      );
+    }
+  }
+
+  &__article-margin-info {
+    & li {
+      margin-bottom: 0.4rem;
+    }
+  }
+
+  & section.rdfa-article-front-matter__abstract {
+    /* styles for first occurance of __abstract */
+    padding-top: 5.6rem;
+
+    & ~ .rdfa-article-front-matter__abstract {
+      /* styles for subsequent occurance of __abstract */
+      padding-top: var(--lgrd);
+    }
+  }
+
+  &__abstract-title {
+    &--impact {
+      font: var(--serif-body-type--big--callout);
+      letter-spacing: var(--serif-body-type--big__letter-spacing--callout);
+
+      font-weight: bold !important;
+
+      @media (--beyond-large-desktop) {
+        margin-left: -1.6rem !important;
+        margin-right: -1.6rem !important;
+      }
+
+      @media print {
+        font: var(--serif-body-print-type--big--callout);
+        color: var(--serif-body-print-type--big__color);
+        letter-spacing: var(
+          --serif-body-print-type--big__letter-spacing--callout
+        );
+        margin-left: 0 !important;
+      }
+    }
+  }
+
+  &__abstract-content,
+  &__abstract-content p {
+    &--impact {
+      font: var(--serif-body-type--big--callout);
+      letter-spacing: var(--serif-body-type--big__letter-spacing--callout);
+
+      @media (--beyond-large-desktop) {
+        margin-left: -1.6rem !important;
+        margin-right: -1.6rem !important;
+      }
+
+      @media print {
+        font: var(--serif-body-print-type--big--callout) !important;
+        letter-spacing: var(
+          --serif-body-print-type--big__letter-spacing--callout
+        );
+        margin-left: 0;
+      }
+    }
+  }
+
+  &__editorial-team {
+    /* border: 2px solid var(--ruling-color); */
+    font: var(--ui-type);
+    color: var(--ui-type__color);
+    letter-spacing: var(--ui-type__letter-spacing);
+    background-color: var(--grey-50);
+    margin: var(--xsgrd) 0;
+    &__row {
+      display: flex;
+      align-items: center;
+
+      border-bottom: 2px solid white;
+      padding: var(--xsgrd) var(--sgrd);
+      &:last-of-type {
+        border-bottom: none;
+      }
+    }
+
+    &__label {
+      font: var(--ui-type--label);
+      color: var(--ui-type--label__color);
+      letter-spacing: var(--ui-type--label__letter-spacing);
+      flex: 0 0 8rem;
+      text-transform: lowercase;
+      font-variant: small-caps;
+    }
+  }
+}

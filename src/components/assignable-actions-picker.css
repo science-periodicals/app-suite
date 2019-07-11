@@ -1,0 +1,26 @@
+.assignable-actions-picker {
+  &__title {
+    font: var(--ui-type--subhead-2);
+    color: var(--ui-type--subhead-2__color);
+    letter-spacing: var(--ui-type--subhead-2__letter-spacing);
+    padding: var(--sgrd) 0;
+  }
+
+  & .paper-checkbox label {
+    width: 100%;
+  }
+
+  &__item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    & .iconoclass {
+      margin-right: var(--xsgrd);
+    }
+
+    & .action-identifier {
+      margin-left: auto;
+    }
+  }
+}

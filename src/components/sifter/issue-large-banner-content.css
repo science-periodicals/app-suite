@@ -1,0 +1,61 @@
+.issue-large-banner-content {
+  padding: var(--lgrd) 0;
+  height: 100%;
+  display: flex;
+  width: 100%;
+
+  &__middle {
+    flex-basis: 50%;
+    flex-grow: 1;
+    max-width: calc(100% - var(--lgrd));
+  }
+
+  &__margin {
+    flex-grow: 1;
+    flex-shrink: 2;
+    min-width: var(--sgrd);
+
+    @media (--small-desktop) {
+      max-width: var(--lgrd);
+    }
+  }
+
+  &__title-label {
+    font: var(--sans-body-type);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    line-height: 1em;
+    margin-bottom: var(--xsgrd);
+  }
+
+  &__content-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__title {
+    font: var(--sans-body-type--big--headline);
+    letter-spacing: var(--sans-body-type--big--headline__letter-spacing);
+
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    white-space: pre-wrap;
+    flex-wrap: wrap;
+  }
+
+  &__date {
+    font: var(--sans-body-type--big--headline);
+    letter-spacing: var(--sans-body-type--big--headline__letter-spacing);
+  }
+
+  &__description {
+    padding: var(--mgrd) 0;
+    font: var(--sans-body-type--large);
+    font-size: 18px;
+    line-height: 1.5em;
+    letter-spacing: 0.005em;
+  }
+}

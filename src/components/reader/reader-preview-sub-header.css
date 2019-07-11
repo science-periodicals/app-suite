@@ -1,0 +1,22 @@
+.reader-preview-sub-header {
+  font: var(--ui-type--short);
+  color: var(--ui-type__color);
+  letter-spacing: var(--ui-type__letter-spacing);
+  background: var(--card-bg-color);
+  padding: 0 var(--sgrd);
+  display: flex;
+  align-items: center;
+  box-shadow: var(--mid-shadow);
+  border-bottom: 2px solid var(--status-warning-color);
+
+  &__icon {
+    margin-right: var(--xsgrd);
+    color: var(--text-color--light);
+  }
+
+  &__text {
+    margin: var(--xsgrd) 0;
+    display: flex;
+    align-items: center;
+  }
+}

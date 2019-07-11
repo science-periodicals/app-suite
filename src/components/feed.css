@@ -1,0 +1,14 @@
+.feed {
+  padding: 0 var(--sgrd);
+
+  &__list {
+    list-style: none;
+    padding: 0;
+  }
+}
+
+.feed__more button {
+  box-sizing: border-box;
+  width: 100%;
+  text-align: center;
+}

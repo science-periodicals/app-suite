@@ -1,0 +1,117 @@
+html {
+  --center-col-width: 50%;
+}
+
+/*.journal-home-page .header {
+  box-shadow: 2px 2px 5px #BCBCBC;
+  z-index: 1000;
+}*/
+
+.sifter-header {
+  background-color: white;
+  margin-top: 56px;
+  box-shadow: 2px 2px 5px #bcbcbc;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  min-height: 250px;
+  overflow: hidden;
+  justify-content: center;
+
+  /* render links in grey */
+  & :any-link {
+    color: var(--text-color--light);
+    &:hover {
+      color: var(--accent-color);
+    }
+  }
+
+  & * {
+    box-sizing: border-box;
+  }
+
+  &__margin {
+    flex-grow: 1;
+    flex-shrink: 2;
+    min-width: var(--sgrd);
+  }
+
+  &__content {
+    flex-basis: 50%;
+    flex-grow: 1;
+    max-width: calc(100% - var(--lgrd));
+  }
+
+  &__title-line {
+    position: relative;
+    width: 100%;
+    margin: 0px auto;
+    font: var(--serif-body-type);
+    font-weight: 400;
+    color: var(--banner-text-color, var(--text-color));
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  &__title-spacer {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: var(--sgrd);
+    padding: var(--mgrd);
+  }
+
+  &__title-text {
+    font: var(--serif-body-type);
+    font-size: 56px;
+    letter-spacing: 0.035em;
+
+    line-height: 1.25em;
+    margin-top: 0;
+    flex-basis: 50%;
+    flex-grow: 2;
+    text-align: center;
+
+    @media (--small-tablet) {
+      font-size: 48px;
+    }
+    @media (--mobile) {
+      font-size: 40px;
+    }
+  }
+
+  &__alert-button {
+    position: relative;
+    flex-grow: 1;
+    flex-shrink: 1;
+    text-align: right;
+    min-width: var(--lgrd);
+    padding: var(--mgrd);
+    margin-left: 16px;
+  }
+
+  &__description-line {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+  &__description-spacer {
+    flex-grow: 1;
+  }
+  &__description-text {
+    letter-spacing: 0.025em;
+    margin-top: 1em;
+    font-size: 18px;
+    line-height: 1.5em;
+    padding: 0;
+    flex-grow: 0;
+    flex-shrink: 1;
+    color: var(--banner-text-color, var(--text-color));
+
+    @media (--small-tablet) {
+      font-size: 16px;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+.issue-editor {
+  &__small-banner-title {
+    font: var(--sans-body-type--subhead-1);
+    letter-spacing: var(--sans-body-type--subhead-1__letter-spacing);
+    font-weight: 500;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__medum-banner-title {
+    font: var(--sans-body-type--subhead-1);
+    letter-spacing: var(--sans-body-type--subhead-1__letter-spacing);
+    font-weight: 500;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__large-banner-title {
+    font: var(--sans-body-type--headline);
+    letter-spacing: var(--sans-body-type--headline__letter-spacing);
+    font-weight: 500;
+  }
+
+  &__large-banner-description {
+    margin-top: var(--sgrd);
+    font: var(--sans-body-type--big);
+    letter-spacing: var(--sans-body-type--big__letter-spacing);
+  }
+}

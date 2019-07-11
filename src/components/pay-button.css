@@ -1,0 +1,19 @@
+.pay-button {
+  &__modal {
+    font: var(--ui-type);
+    color: var(--ui-type__color);
+    letter-spacing: var(--ui-type__letter-spacing);
+
+    width: 100vw;
+    min-width: 32rem;
+    max-width: 640px;
+    max-height: calc(100vh - 56px);
+    box-sizing: border-box;
+
+    &__content {
+      padding: var(--mgrd);
+      overflow-y: auto;
+      -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+  }
+}

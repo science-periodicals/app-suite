@@ -1,0 +1,47 @@
+.staging-discussion {
+  & h4 {
+    margin-bottom: var(--xsgrd);
+  }
+
+  & .paper-textarea-container {
+    width: 100%;
+  }
+
+  &__general-comment-item {
+    display: flex;
+    margin-bottom: 4px;
+    /*align-items: center;*/
+
+    box-shadow: var(--no-shadow);
+
+    /* &:hover {
+      box-shadow: var(--mid-shadow);
+      color: var(--text-color);
+    } */
+
+    &--new {
+      margin-top: var(--sgrd);
+    }
+
+    & .user-badge-menu {
+      margin-right: 1em;
+    }
+  }
+
+  &__in-context-comment-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+    background-color: var(--grey-25);
+    box-shadow: var(--no-shadow);
+
+    &:hover {
+      box-shadow: var(--mid-shadow);
+      color: var(--text-color);
+    }
+
+    & .user-badge-menu {
+      margin-right: 1em;
+    }
+  }
+}

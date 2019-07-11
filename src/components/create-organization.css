@@ -1,0 +1,36 @@
+.create-organization {
+  padding: var(--mgrd);
+
+  & legend {
+    font: var(--ui-type--headline);
+    color: var(--ui-type--headline__color);
+    letter-spacing: var(--ui-type--headline__letter-spacing);
+  }
+
+  &__form {
+    background: white;
+    padding: var(--lgrd);
+
+    position: relative;
+    box-shadow: var(--mid-shadow);
+    box-sizing: border-box;
+
+    & > fieldset {
+      border: none;
+    }
+  }
+
+  &__slug-input {
+    margin: var(--sgrd) 0;
+  }
+
+  &__name-input {
+    margin-bottom: var(--sgrd);
+  }
+
+  &__organization-badge {
+    position: absolute;
+    right: var(--mgrd);
+    top: var(--mgrd);
+  }
+}

@@ -1,0 +1,35 @@
+.annotable-review-action {
+  &__notice-text {
+    padding-right: var(--xsgrd);
+  }
+  &__notice-scroll-button {
+    margin-left: auto !important;
+  }
+
+
+  &__question {
+    padding-bottom: var(--xsgrd);
+
+    &__text{
+      padding: var(--xsgrd) 0;
+    }
+  }
+
+  &__answer {
+    padding-bottom: var(--sgrd);
+  }
+
+
+
+  &__add-general-comment {
+    display: flex;
+    margin-top: var(--sgrd);
+    & > * {
+      margin-left: auto;
+    }
+  }
+
+  & .comment-preview-list {
+    margin-top: var(--sgrd);
+  }
+}

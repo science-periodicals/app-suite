@@ -1,0 +1,23 @@
+.meta-margin-mixed-data {
+  list-style: none;
+  padding-left: var(--sgrd);
+
+  & .meta-margin__link-target-tag--link-orcid {
+    & .iconoclass {
+      margin-right: 4px;
+    }
+  }
+}
+
+/* this is to make it so that url lists dont' take up a lot of V space when inside of an inline margin */
+.meta-margin--inline .meta-margin-mixed-data .meta-margin__link-target-tag {
+  display: inline-block;
+  padding: 0 var(--xsgrd);
+  padding-right: var(--sgrd);
+  &:after {
+    content: ", ";
+  }
+  &:last-of-type:after {
+    content: "";
+  }
+}

@@ -1,0 +1,75 @@
+.annotable-reviewer-comment-list-item {
+  font: var(--ui-type) !important;
+  color: var(--ui-type__color) !important;
+  letter-spacing: var(--ui-type__letter-spacing) !important;
+  transition: background-color 0.2s, box-shadow 0.2s;
+
+  background-color: white;
+
+  &--disabled {
+    /*pointer-events: none;*/
+    background-color: transparent;
+  }
+
+  &__body-container {
+    padding: 0.4rem;
+    margin: var(--xsgrd) 0;
+  }
+
+  &__body {
+    padding: 1.2rem var(--xsgrd);
+
+    &:hover {
+      /* note: the color set here is what get's picked up when the element is d&ding */
+      background-color: rgba(255, 255, 255, 0.75);
+    }
+  }
+
+  &__value {
+    width: 100%;
+  }
+
+  &__value-text {
+    width: 100%;
+    font: var(--sans-body-type);
+    color: var(--sans-body-type__color);
+    letter-spacing: var(--sans-body-type__letter-spacing);
+
+    &--readonly {
+      & a[href^='#v'], & a[href^='http'] {
+        display: inline;
+        padding-right: 12px;
+        padding-bottom: 3px;
+        background-position: right center;
+        background-repeat: no-repeat;
+        background-size: 12px 12px;
+        background-image: url('/images/inline-icons__shell_grey.svg');
+      }
+
+      & a[href^='http'] {
+        background-image: url('/images/inline-icons__offsite_grey.svg');
+      }
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    padding-left: var(--xsgrd);
+    padding-right: 0.4rem;
+    background-color: var(--reviewer-comment-color);
+    box-sizing: border-box;
+    border-radius: 2px;
+    height: var(--mgrd);
+  }
+
+  &__controls {
+    margin-left: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    & .iconoclass {
+      margin-left: 0.4rem;
+    }
+  }
+}

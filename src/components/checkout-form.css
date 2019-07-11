@@ -1,0 +1,12 @@
+.checkout-form {
+  &__header {
+    font: var(--ui-type--subhead-1);
+    color: var(--ui-type--subhead-1__color);
+    letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+    margin-bottom: var(--mgrd);
+  }
+
+  &__info {
+    margin-bottom: var(--mgrd);
+  }
+}

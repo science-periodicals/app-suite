@@ -1,0 +1,292 @@
+@import 'normalize.css';
+@import '@scipe/resources';
+@import '@scipe/resources/fonts/roboto-condensed-regular';
+
+@import 'highlight.js/styles/github-gist.css';
+
+@import '@scipe/iconoclass';
+@import '@scipe/ui';
+
+@import './publisher-globals.css';
+@import './components/publisher/publisher-join-sub-header.css';
+
+@import './components/connected-user-badge-menu.css';
+@import './components/reader/reader.css';
+@import './components/reader/reader-toc.css';
+@import './components/reader/reader-preview-sub-header.css';
+@import './components/reader/graph-issues.css';
+
+@import './components/dashboard/dashboard.css';
+@import './components/dashboard/project-card.css';
+@import './components/dashboard/dashboard-facets.css';
+@import './components/facet.css';
+
+@import './components/action-tabs.css';
+
+@import './components/notice.css';
+@import './components/caption.css';
+@import './components/annotation.css';
+@import './components/annotation-header.css';
+
+@import './components/info.css';
+@import './components/info/typesetter-revision-request-info.css';
+
+@import './components/create-comment.css';
+@import './components/comment.css';
+@import './components/comment-thread.css';
+@import './components/comment-context.css';
+@import './components/shell.css';
+@import './components/shell-editor.css';
+@import './components/shell/shell-attachment.css';
+@import './components/shell/shell-link.css';
+@import './components/shell/shell-comments.css';
+@import './components/shell/shell-location.css';
+@import './components/shell/shell-editor-action-comment.css';
+@import './components/encoding.css';
+@import './components/annotable-encoding.css';
+@import './components/thumbnail.css';
+@import './components/buy-service-offer-modal.css';
+@import './components/pay-button.css';
+
+@import './components/annotable.css';
+@import './components/annotable-label.css';
+@import './components/highlight.css';
+
+@import './components/staging-discussion-wrapper.css';
+@import './components/staging-discussion.css';
+
+@import './components/citations.css';
+@import './components/article-front-matter.css';
+@import './components/annotable-contributor-list.css';
+@import './components/annotable-contributor-list-item.css';
+@import './components/annotable-revision-request-comment-list-item.css';
+@import './components/annotable-reviewer-comment-list-item.css';
+@import './components/article-back-matter.css';
+
+@import './components/article-body.css';
+@import './components/article-body-figure.css';
+@import './components/article-body-aside.css';
+@import './components/image.css';
+@import './components/dataset.css';
+@import './components/table.css';
+@import './components/text-box-object.css';
+@import './components/table-object.css';
+@import './components/software-source-code-object.css';
+@import './components/formula-object.css';
+@import './components/footnote.css';
+@import './components/contribute-action.css';
+@import './components/role-affiliation.css';
+
+@import './components/progress-logger.css';
+
+@import './components/resource-view.css';
+@import './components/document-loader.css';
+@import './components/dropzone-row.css';
+@import './components/thumbnail.css';
+@import './components/comment-is-based-on-editor.css';
+@import './components/is-based-on-editor.css';
+@import './components/is-based-on.css';
+
+@import './components/submission-form.css';
+
+@import './components/feed.css';
+@import './components/feed-active-comments.css';
+@import './components/feed-active-check-actions.css';
+@import './components/feed-active-invites.css';
+
+@import './components/loader.css';
+
+@import './components/create-journal.css';
+@import './components/create-organization.css';
+
+@import './components/apply-modal.css';
+
+@import './components/sifter/sifter.css';
+@import './components/explorer.css';
+@import './components/explorer-nav.css';
+@import './components/explorer-facets.css';
+@import './components/article-snippet.css';
+@import './components/journal-snippet.css';
+@import './components/rfa-snippet.css';
+@import './components/sifter/issue-snippet.css';
+@import './components/sifter/publication-type-snippet.css';
+@import './components/sifter/journal-masthead.css';
+@import './components/sifter/journal-info.css';
+@import './components/sifter/sifter-header.css';
+@import './components/sifter/journal-nav.css';
+@import './components/sifter/sifter-facets.css';
+@import './components/sifter/journal-page.css';
+@import './components/sifter/pre-submission-comment.css';
+@import './components/sifter/pre-submission-comment-modal.css';
+@import './components/sifter/featured-article-card.css';
+@import './components/sifter/featured-article-banner-content.css';
+@import './components/sifter/featured-issue-card.css';
+@import './components/sifter/featured-issue-banner-content.css';
+@import './components/sifter/issue-medium-banner-content.css';
+@import './components/sifter/issue-large-banner-content.css';
+@import './components/sifter/journal-large-banner-content.css';
+
+@import './components/settings/settings.css';
+@import './components/settings/settings-panel.css';
+@import './components/settings/settings-profile.css';
+@import './components/settings/settings-profile-bio.css';
+@import './components/settings/settings-profile-subjects.css';
+@import './components/settings/settings-profile-affiliations.css';
+@import './components/settings/settings-email.css';
+@import './components/settings/settings-password.css';
+@import './components/settings/settings-journal.css';
+@import './components/settings/settings-journal-staff.css';
+@import './components/settings/settings-journal-style.css';
+@import './components/settings/settings-journal-metadata.css';
+@import './components/settings/settings-organization.css';
+@import './components/settings/settings-organization-admins.css';
+@import './components/settings/settings-organization-contact-points.css';
+@import './components/settings/settings-organization-service.css';
+@import './components/settings/settings-organization-billing.css';
+@import './components/invoice-list.css';
+@import './components/invoice-page.css';
+
+@import './components/banner-editor.css';
+@import './components/issue-editor';
+@import './components/workflow-editor.css';
+
+@import './components/searchable-article-list.css';
+@import './components/searchable-issue-list.css';
+@import './components/searchable-rfa-list.css';
+
+@import './components/settings/settings-journal-access.css';
+@import './components/settings/settings-journal-workflow.css';
+@import './components/settings/settings-journal-publication-types';
+
+@import './components/workflow-list.css';
+
+@import './components/email-composer-modal.css';
+@import './components/email-composer.css';
+
+@import './components/license-editor.css';
+@import './components/license.css';
+@import './components/programming-language-editor.css';
+@import './components/programming-language.css';
+
+@import './components/editable-resource.css';
+@import './components/resource-content.css';
+@import './components/annotable-action.css';
+@import './components/annotable-action-head.css';
+@import './components/annotable-assess-action.css';
+@import './components/annotable-create-release-action.css';
+@import './components/annotable-typesetting-action.css';
+@import './components/annotable-declare-action.css';
+@import './components/annotable-pay-action.css';
+@import './components/annotable-review-action.css';
+@import './components/annotable-author-response-list.css';
+@import './components/review-editor.css';
+
+@import './components/attachment.css';
+@import './components/received-attachment-container.css';
+@import './components/review-attachment.css';
+@import './components/files-attachment.css';
+@import './components/encoding-attachment.css';
+@import './components/assessment-attachment.css';
+
+@import './components/permalink.css';
+
+@import './components/meta-margin/meta-margin.css';
+@import './components/meta-margin/meta-margin-mixed-data.css';
+@import './components/meta-margin/meta-margin-citation-identifiers.css';
+@import './components/meta-margin/meta-margin-content.css';
+@import './components/meta-margin/meta-margin-figure.css';
+
+@import './components/rdfa/rdfa-scholarly-article.css';
+@import './components/rdfa/rdfa-article-back-matter.css';
+@import './components/rdfa/rdfa-article-front-matter.css';
+@import './components/rdfa/rdfa-figure.css';
+@import './components/rdfa/rdfa-article-body-element.css';
+@import './components/rdfa/rdfa-article-body-list.css';
+@import './components/rdfa/rdfa-article-notes.css';
+
+@import './components/publisher/publisher-sidebar.css';
+@import './components/publisher/publisher-sidebar-outline.css';
+@import './components/publisher/publisher-sidebar-participants.css';
+@import './components/publisher/publisher-sidebar-views.css';
+@import './components/publisher/publisher-sidebar-workflow.css';
+@import './components/publisher/publisher-sidebar-resources.css';
+
+@import './components/assignable-actions-picker.css';
+
+@import './components/print-pdf-progress-modal.css';
+@import './components/printable-resource.css';
+@import './components/printable-resource-body.css';
+@import './components/printable-resource-header.css';
+@import './components/printable-resource-caption.css';
+@import './components/printable-resource-footer.css';
+@import './components/printable-inline-resource.css';
+@import './components/online-resources.css';
+
+@import './components/checkout-form.css';
+
+@import './components/user-page.css';
+
+@import './components/action-annotation-preview-list.css';
+
+@import './components/reset-password-page.css';
+@import './components/login.css';
+@import './components/register.css';
+
+@import './components/release-notes-editor.css';
+
+@import './components/get-started-nav.css';
+
+@import './components/version-radio-buttons.css';
+
+@import './components/article-body-loader.css';
+@import './components/loading-page.css';
+@import './components/loading.css';
+
+@import './components/scroll-link.css';
+
+@import './components/shell/shell-submission.css';
+
+body {
+  background-color: var(--base-bg-color);
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+/* Quick and dirty hack so that the article go below the headers and footer as we set their z-index in JS (see dashboard.js)*/
+.header,
+.header-search {
+  z-index: 2003 !important;
+}
+
+.footer-container {
+  z-index: 2000 !important;
+}
+
+.facet-panel-container {
+  z-index: 1999 !important; /* when not fixed need to be below the footer except on mobile */
+  @media (--small-desktop) {
+    z-index: 2002 !important;
+  }
+}
+
+.facet-panel-container--fixed {
+  z-index: 2002 !important;
+  & .facet-panel {
+    /* this is a fix for edge bug - somehow when position fixed is set, the z-index
+    context get's dropped for the children - if facet-panel doesn't not have a
+    higher z-index than the container, it becomes onclickable. */
+    z-index: 2003 !important;
+  }
+}
+
+.dashboard__create-button {
+  z-index: 2001 !important;
+}
+
+/*
+.settings {
+  z-index: 2005 !important;
+} */
+
+.settings__panel-toggle {
+  z-index: 2005 !important;
+}

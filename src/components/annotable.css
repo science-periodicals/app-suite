@@ -1,0 +1,151 @@
+/* manage counters */
+/*
+.tag {
+  font: var(--ui-type);
+  font-size: 1rem;
+  letter-spacing: 0;
+  position: absolute;
+  width: var(--lgrd);
+  top: 0;
+  color: var(--grey-100);
+  display: block;
+  &:hover {
+    color: var(--text-color);
+  }
+
+  & .dropdown {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  & .menu-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+*/
+
+.annotable {
+  position: relative;
+  z-index: 0; /* required for the highlight to work as the highlight must be behind the annotable so that we can interact with form elements */
+  box-sizing: border-box;
+
+  &__theme-icon {
+    position: absolute;
+    left: -28px;
+    top: 8px;
+    color: var(--grey-200-a);
+  }
+}
+
+.select-bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: var(--hl-blue-1-a);
+  width: var(--oa-select-bar-width);
+  border-radius: 12px 1px 1px 12px;
+  z-index: 1;
+  /*
+	border-top: 2px solid var(--hl-blue-1-a);
+	border-left: 2px solid var(--hl-blue-1-a);
+	border-bottom: 2px solid var(--hl-blue-1-a);
+ */
+  min-height: var(--oa-select-bar-width);
+  display: flex;
+  align-items: center;
+
+  &.readonly {
+    visibility: hidden;
+  }
+
+  left: calc(-1 * (var(--oa-select-bar-width) + var(--oa-select-bar-spacing)));
+  @media (--small-tablet) {
+    width: var(--oa-select-bar-width--mobile);
+    left: calc(
+      -1 * (var(--oa-select-bar-width--mobile) +
+            var(--oa-select-bar-spacing--mobile))
+    );
+  }
+}
+
+.annotable.annotable--edited .select-bar.readonly {
+  visibility: visible;
+}
+
+.annotable--edited .select-bar {
+  color: white;
+  background-color: var(--accent-color);
+  justify-content: center;
+  &:not(.readonly):hover {
+    background-color: var(--accent-color--dark) !important;
+  }
+}
+
+.select-bar:not(.readonly) {
+  cursor: pointer;
+}
+
+.select-bar:not(.readonly):hover {
+  background-color: var(--hl-blue-2-a);
+}
+
+.selectable-indent {
+  /* 
+    NOTE: this has side-effects with:
+
+    permalink.css 
+      .resource-view__action .annotatable .permalink
+
+    article-body.css
+      .article-body-section::after
+      .article-body-section__marker-symbol
+      
+    editable-resource.css
+      .editable-resource::after
+      .editable-resource__paperclip-icon
+   */
+
+  padding-left: 5.6rem;
+  padding-right: 5.6rem;
+
+  @media (--tablet) {
+    padding-left: 4.8rem;
+    padding-right: 4.8rem;
+  }
+
+  @media (--small-tablet) {
+    padding-left: 3.2rem;
+    padding-right: 3.2rem;
+  }
+}
+
+/*
+  Container for annotation-label components. This provides horizontal position context. 
+*/
+.annotable__labels {
+  /* 
+  Note: this cannot have any position or it will effect the children with class
+  app-layout__virtual-right-margin-content
+  */
+
+  &__positioner {
+    position: absolute;
+    top: 0;
+    right: -5.6rem;
+
+    @media (--tablet) {
+      right: -4.8rem;
+    }
+
+    @media (--small-tablet) {
+      right: -3.2rem;
+    }
+  }
+}

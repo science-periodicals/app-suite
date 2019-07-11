@@ -1,0 +1,34 @@
+.meta-margin-citation-identifiers {
+  white-space: nowrap;
+
+  &--back-matter {
+    font-size: 9px;
+    & .meta-margin__list-item {
+      margin-bottom: 4px;
+    }
+  }
+  &__list {
+    /* padding-left: var(--sgrd); */
+  }
+  & abbr {
+    text-decoration: none;
+  }
+  &__label {
+    text-decoration: none;
+    &:after {
+      content: ': ';
+    }
+  }
+  &__list-item {
+    padding-bottom: var(--xsgrd);
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+  & a {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+}

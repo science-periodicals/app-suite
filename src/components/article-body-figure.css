@@ -1,0 +1,26 @@
+.article-body-figure {
+  /*z-index: 3 !important;*/
+
+  & .formula-object {
+    border: 2px solid var(--ruling-color--minor);
+  }
+
+  & .table {
+    &__footnotes {
+      font: var(--ui-type--caption);
+      color: var(--ui-type--caption__color);
+      letter-spacing: var(--ui-type--caption__letter-spacing);
+
+      & li {
+        margin-bottom: 1em;
+      }
+    }
+  }
+
+  & .dataset {
+    & .data-download {
+      list-style: none;
+      padding: 0;
+    }
+  }
+}

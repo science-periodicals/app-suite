@@ -1,0 +1,3 @@
+.shell-editor-action-comment {
+  padding-bottom: 200px; /* ensures that there is enough space for the location autocomplete */
+}

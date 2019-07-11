@@ -1,0 +1,11 @@
+.article-body-aside {
+  position: relative;
+  & aside {
+    border: 2px solid var(--ruling-color--minor);
+    padding: var(--xsgrd) 0;
+  }
+
+  & .rdfa-caption-metadata {
+    margin: 0 var(--sgrd);
+  }
+}

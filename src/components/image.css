@@ -1,0 +1,18 @@
+.image-part {
+  margin-top: var(--sgrd);
+  padding-top: var(--sgrd);
+}
+
+.image-part a {
+  padding: var(--xsgrd);
+  font-size: 15px;
+  line-height: 28px;
+  font-weight: normal;
+}
+
+.image__caption-list {
+  margin: 0;
+  list-style: none;
+  list-style: none;
+  padding: 0;
+}

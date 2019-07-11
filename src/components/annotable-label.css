@@ -1,0 +1,113 @@
+/* component used to label and annotate user-nmade selections in text spans */
+
+.annotable-label {
+  cursor: pointer;
+  height: 24px;
+  line-height: 24px;
+  margin-top: var(--highlight-selection-focus-line-v-offset);
+
+  /* weird hack to fix position of paragraph-level label */
+  &[style*='top: 0px;'] {
+    margin-top: var(--highlight-block-focus-line-v-offset);
+  }
+
+  padding: 0;
+  padding-left: 8px;
+  background-color: var(--hl-blue-3);
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  z-index: 100;
+  font-family: 'Roboto', sans-serif;
+  min-width: 24px;
+  border-radius: 0px 12px 12px 0px;
+  box-shadow: inset 4px 0px 2px -2px rgba(0, 0, 0, 0.1),
+    2px 2px 3px rgba(0, 0, 0, 0.1);
+
+  /* add the inset drop shadow to make it look like label is below the card */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    bottom: -5px;
+    left: 0;
+    right: -5px;
+    background: transparent;
+  }
+
+  &__multiple {
+    width: 16px;
+    height: 16px;
+    right: 0;
+    border-radius: 8px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 16px;
+    & .menu-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 105;
+    }
+  }
+
+  &__icon {
+    margin: 4px;
+    /*height: 24px;*/
+    position: absolute;
+    opacity: 0.5;
+
+    & .iconoclass {
+      right: 6px;
+    }
+  }
+
+  &.focused &__icon,
+  &:hover &__icon {
+    opacity: 1;
+  }
+
+  &:hover {
+    z-index: 102;
+  }
+
+  &.focused {
+    background-color: var(--hl-yellow-4);
+    z-index: 102;
+    width: var(--oa-label-width);
+    border-radius: 0px 12px 12px 0px;
+    /*border-top-right-radius: 12px;
+    border-bottom-right-radius:  12px;*/
+    transition: 0.2s;
+    box-shadow: 3px 2px 6px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      background-color: var(--hl-yellow-5);
+    }
+  }
+
+  &--with-comment {
+    background-color: var(--comment-color);
+  }
+
+  &--with-endorser-comment {
+    background-color: var(--endorser-comment-color);
+  }
+
+  &--with-reviewer-comment {
+    background-color: var(--reviewer-comment-color);
+  }
+
+  &--with-revision-request-comment {
+    background-color: var(--revision-request-comment-color);
+  }
+  &--with-warning {
+    background-color: var(--status-warning-color--light);
+  }
+
+  &--with-error {
+    background-color: var(--status-error-color--light);
+  }
+}

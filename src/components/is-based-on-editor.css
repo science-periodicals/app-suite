@@ -1,0 +1,21 @@
+.is-based-on-editor {
+  & > ul {
+    clear: both;
+    display: block;
+    margin-top: 12px;
+  }
+
+  &__list {
+    position: relative;
+    padding: 0;
+    list-style: none;
+  }
+  &__list-item {
+    position: relative;
+  }
+
+  &__input-list-item {
+    padding: var(--xsgrd);
+    height: 56px;
+  }
+}

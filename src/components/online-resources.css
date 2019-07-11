@@ -1,0 +1,42 @@
+/* Online Resources is only rendered in Print */
+.online-resources {
+  page-break-before: always;
+  margin: var(--mgrd) 0;
+  /* padding: var(--mgrd); */
+  width: 100%;
+  box-sizing: border-box;
+  /* background-color: var(--grey-50); */
+  font: var(--sans-body-print-type--small);
+  color: var(--sans-body-print-type__color);
+  letter-spacing: var(--sans-body-print-type__letter-spacing);
+
+  &__header {
+    font: var(--serif-body-print-type--subhead-1);
+    color: var(--serif-body-print-type--subhead-1__color);
+    letter-spacing: var(--serif-body-print-type--subhead-1__letter-spacing);
+    margin-bottom: 1em;
+    text-align: center;
+  }
+
+  &__list {
+    list-style: none;
+  }
+
+  &__list-item {
+    margin-bottom: 1em;
+    font: var(--sans-body-print-type--small);
+    color: var(--sans-body-print-type--small__color);
+    letter-spacing: var(--sans-body-print-type--small__letter-spacing);
+  }
+  &__title {
+    display: flex;
+    align-items: center;
+    margin-left: -1.2em;
+    & .iconoclass {
+      margin-right: 0.5em;
+    }
+  }
+  &__caption {
+    padding-left: 0.5em;
+  }
+}

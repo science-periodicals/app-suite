@@ -1,0 +1,108 @@
+.facet {
+  padding-bottom: var(--mgrd);
+  position: relative;
+
+  &__type-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  & .expansion-panel__preview-row {
+    padding: 0;
+    border-bottom: 1px solid var(--ruling-color--major);
+    height: var(--mgrd);
+  }
+
+  &__title {
+    font: var(--ui-type);
+    color: var(--ui-type__color);
+    letter-spacing: var(--ui-type__letter-spacing);
+
+    padding-bottom: 8px;
+    color: var(--grey-600);
+    text-transform: uppercase;
+  }
+
+  &__list {
+    padding-top: var(--sgrd) !important;
+    padding-left: 0;
+  }
+
+  & .paper-checkbox {
+    margin-right: var(--sgrd);
+    vertical-align: top;
+    width: 100%;
+  }
+
+  & .checkbox-label {
+    width: calc(100% - 26px);
+  }
+
+  &__toggle {
+    position: absolute;
+    right: 0;
+    top: -2px;
+
+    &__icon {
+      transition: transform 0.2s;
+
+      &--collapsed {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &__list-item {
+    font: var(--ui-type--caption);
+    color: var(--grey-600);
+    line-height: 1.25em;
+    min-height: var(--mgrd);
+    /* max-height: 2.5em; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    justify-content: space-between;
+    padding-bottom: var(--xsgrd);
+    display: flex;
+    align-items: center;
+    align-content: flex-start;
+  }
+
+  &__line-left {
+    margin-right: var(--xsgrd);
+    overflow: hidden; /* this is required to allow tag to shring to fit facet right spinner and counter */
+    text-overflow: ellipsis;
+    flex: 1 1 auto;
+
+    & .tag-list__tag {
+      /* we have to patch the tag's default flex layout to allow for text-overflow elipses. */
+      display: block;
+    }
+  }
+
+  &__id {
+    margin-left: var(--mgrd);
+    color: var(--text-color--light);
+  }
+
+  &__line-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 8px;
+    flex: 0 0 auto;
+  }
+
+  &__line-right .spinner {
+    margin-right: 6px !important;
+  }
+
+  &__line-right .iconoclass {
+    color: var(--text-color--light);
+  }
+
+  &__value {
+    min-width: 2.4rem;
+    text-align: right;
+  }
+}

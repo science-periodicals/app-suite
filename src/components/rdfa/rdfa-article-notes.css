@@ -1,0 +1,88 @@
+.rdfa-article-notes {
+  margin-top: var(--mgrd);
+
+  font: var(--sans-body-type--small--short);
+  color: var(--sans-body-type--small--short__color);
+  letter-spacing: var(--sans-body-type--small--short__letter-spacing);
+
+  @media print {
+    font: var(--sans-body-print-type--small);
+    color: var(--sans-body-print-type--small__color);
+    letter-spacing: var(--sans-body-print-type--small__letter-spacing);
+  }
+
+  &__counter {
+    position: absolute;
+    left: -4.5ch;
+    font: var(--sans-body-type);
+    letter-spacing: var(--sans-body-type__letter-spacing);
+    vertical-align: middle;
+    line-height: inherit;
+    /* &:after {
+      content: '.';
+    } */
+
+    padding-right: 14px;
+    /* margin-bottom: -3px; */
+    background-position: right 5px;
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-image: url('/images/inline-icons__anchor_blue.svg');
+
+    @media print {
+      left: -4ch;
+      &:after {
+        content: '.';
+      }
+    }
+  }
+  &__description {
+  }
+
+  &__anonymized-note {
+    &__icon {
+      color: var(--text-color--light);
+      vertical-align: middle;
+      margin-right: 0.4rem;
+
+      @media print {
+        color: inherit;
+      }
+    }
+  }
+
+  &__contact-points-title,
+  h5&__contact-points-title {
+    font: var(--sans-body-type--small);
+    color: var(--sans-body-type--small__color);
+    letter-spacing: var(--sans-body-type--small__letter-spacing);
+    font-weight: 600;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 0.5em;
+    @media print {
+      font: var(--sans-body-print-type--small);
+      color: var(--sans-body-print-type--small__color);
+      letter-spacing: var(--sans-body-print-type--small__letter-spacing);
+    }
+  }
+  &__notes-list {
+    list-style: none;
+    position: relative;
+
+    &__item {
+      position: relative;
+
+      & p {
+        &:last-child {
+          padding-bottom: 0;
+        }
+      }
+
+      @media print {
+        margin-bottom: 1em;
+      }
+    }
+  }
+}

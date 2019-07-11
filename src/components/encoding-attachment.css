@@ -1,0 +1,8 @@
+.encoding-attachment {
+  margin-top: var(--mgrd);
+  padding-bottom: var(--lgrd);
+
+  &__revision-request, &__encoding {
+    margin-top: var(--mgrd);
+  }
+}

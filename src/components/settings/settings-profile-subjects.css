@@ -1,0 +1,16 @@
+.settings-profile-subjects {
+  & .subject-editor {
+    margin-top: var(--sgrd);
+  }
+
+  & .semantic-tags {
+    padding: var(--xsgrd);
+    background-color: var(--grey-50);
+    border-radius: 12px;
+    margin: 0;
+  }
+
+  & .semantic-tags-autocomplete {
+    margin-top: var(--sgrd);
+  }
+}

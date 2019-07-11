@@ -1,0 +1,17 @@
+.settings-journal-workflow {
+  padding-top: var(--sgrd);
+  &__lock-icon {
+    color: var(--icon-status-color);
+  }
+
+  &__workflow-link {
+    padding-left: var(--xsgrd);
+    line-height: var(--mgrd);
+  }
+
+  &__add-workflow {
+    display: flex;
+    padding: var(--sgrd);
+    justify-content: flex-end;
+  }
+}

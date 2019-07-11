@@ -1,0 +1,95 @@
+.publisher-sidebar {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  padding-bottom: 5.6rem;
+  box-sizing: border-box;
+
+  & .expansion-panel {
+    border-top: none;
+  }
+
+  & .timeline {
+    height: auto;
+    /* background: rgba(255, 255, 255, 0.75); */
+    border-radius: 4px;
+    padding: 0;
+    margin-bottom: var(--mgrd);
+  }
+  &__section-title {
+    font: var(--ui-type--subhead-2);
+    color: var(--ui-type--subhead-2__color);
+    letter-spacing: var(--ui-type--subhead-2__letter-spacing);
+  }
+
+  &__info {
+    margin-left: auto;
+  }
+
+
+  &__section {
+    padding: var(--xsgrd) var(--sgrd) var(--mgrd);
+  }
+  &__section-divider {
+    border-bottom: 2px solid var(--grey-100-a);
+    position: absolute;
+    margin: 0 var(--sgrd);
+    bottom: 4px;
+    left: 0;
+    right: 0;
+  }
+  &__section-label {
+    font: var(--ui-type--label);
+    color: var(--ui-type--label__color);
+    letter-spacing: var(--ui-type--label__letter-spacing);
+    padding-bottom: var(--sgrd);
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__list-row {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.4rem;
+    padding: 4px 8px;
+    border-radius: 2px;
+    position: relative;
+    & :any-link {
+      color: var(--text-color--light);
+    }
+    &--active {
+      /* background-color: var(--grey-50-a); */
+      & :any-link {
+        color: var(--accent-color);
+      }
+    }
+  }
+
+  /* override the default styles of notice component */
+  &__notice {
+    background-color: var(--grey-500);
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: var(--grey-50);
+    border: 0;
+    margin-top: 0;
+    align-items: center;
+    & .iconoclass {
+      color: var(--grey-50);
+      margin-right: var(--sgrd);
+    }
+  }
+
+  & .control-panel__controls {
+    justify-content: space-between;
+  }
+}

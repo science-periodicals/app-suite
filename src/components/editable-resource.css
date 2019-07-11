@@ -1,0 +1,216 @@
+.editable-resource {
+  width: 100%;
+  height: calc(100% - var(--tabs-height));
+  margin-top: 0;
+  position: relative;
+  z-index: 0; /* establish a z-index context */
+
+  /* creates a white bar in the right gutter that spans the height of the resource section */
+  &:after {
+    height: 100%;
+    width: 35px;
+    /* border-left: 2px solid red; */
+    background: rgba(255, 255, 255, 0.35);
+    /* opacity: 0.35; */
+    position: absolute;
+    /* position is based on the .selectable-indent padding (see annotable.css)
+    - that padding changes according to media query */
+    right: calc((5.6rem + 35px) * -1);
+    @media (--tablet) {
+      right: calc((4.8rem + 35px) * -1);
+    }
+    @media (--small-tablet) {
+      right: calc((3.2rem + 35px) * -1);
+    }
+
+    display: block;
+    content: '';
+    z-index: -1;
+    /* border-bottom: 2px solid white;
+    border-top: 2px solid white; */
+    top: -4px;
+    box-sizing: border-box;
+    border-radius: 2px;
+  }
+
+  &--embedded {
+    margin-top: var(--lgrd);
+    border-top: 1px solid var(--ruling-color--major);
+  }
+
+  &--primary,
+  &--supporting {
+    /* top-level resources have different margins */
+    &:after {
+      right: -38px;
+      background: transparent;
+    }
+  }
+
+  &--supporting {
+    /*border-top: var(--mgrd) solid var(--grey-50);*/
+    padding-top: var(--lgrd);
+    margin-top: var(--lgrd);
+    box-shadow: var(--mid-inset-shadow);
+  }
+
+  &__header-title {
+    font: var(--ui-type--subhead-1) !important;
+    color: var(--ui-type--subhead-1__color) !important;
+    letter-spacing: var(--ui-type--subhead-1__letter-spacing) !important;
+    padding-top: var(--sgrd);
+    padding-bottom: var(--xsgrd);
+  }
+
+  &:first-of-type {
+    &__content {
+      border-top: 1px solid var(--ruling-color--major);
+    }
+  }
+
+  /* position the paperclip icon in the right gutter */
+  &__paperclip-icon {
+    position: absolute;
+    right: -16px;
+    color: var(--grey-400);
+  }
+
+  & .editable-resource {
+    &__paperclip-icon {
+      position: absolute;
+      /* position is based on the .selectable-indent padding (see annotable.css)
+         - that padding changes according to media query */
+      right: calc((5.6rem + 22px) * -1);
+      @media (--tablet) {
+        right: calc((4.8rem + 22px) * -1);
+      }
+      @media (--small-tablet) {
+        right: calc((3.2rem + 22px) * -1);
+      }
+
+      color: var(--grey-400);
+    }
+  }
+
+  &--primary,
+  &--supporting {
+    & > .editable-resource__paperclip-icon {
+      position: absolute;
+      right: -24px;
+      color: var(--grey-400);
+    }
+  }
+
+  &__content {
+    padding-top: var(--sgrd);
+    position: relative; /* z-index context */
+  }
+
+  &__scroll-context {
+    position: relative;
+    height: 100%;
+    margin-top: -112px;
+    transition: margin 0.2s;
+    transition-delay: 0s;
+  }
+
+  &--header-collapsed {
+    & .resource-view__scroll-context {
+      transition: margin 0.2s;
+      transition-delay: 0s;
+      margin-top: 0;
+    }
+  }
+
+  &__body {
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    overflow-x: hidden;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 5.6rem;
+    left: 0;
+    z-index: 0;
+    padding-top: 11.2rem;
+    transition: padding 0.2s;
+  }
+
+  &__body-card {
+    background-color: white; /* TODO check */
+    max-width: 1280px;
+    margin-bottom: 42px;
+
+    @media (--beyond-tablet) {
+      width: 66vw;
+    }
+
+    @media (--beyond-large-desktop) {
+      width: 50vw;
+    }
+  }
+
+  &--header-collapsed {
+    & .resource-view__body {
+      padding-top: 0;
+    }
+  }
+
+  &__metadata {
+    font: var(--ui-type);
+    color: var(--ui-type__color);
+    letter-spacing: var(--ui-type__letter-spacing);
+    position: relative; /* z-index context */
+    margin-top: var(--mgrd);
+    /* padding-top: var(--mgrd); */
+    /* border-top: 1px solid var(--ruling-color--major); */
+  }
+
+  &__metadata-content {
+    position: relative;
+    padding-bottom: var(--mgrd);
+  }
+
+  & .resource-view__content {
+    position: relative;
+    padding-top: var(--xlgrd);
+    padding-bottom: var(--xlgrd);
+  }
+
+  & .image img,
+  & .video video,
+  & .audio audio {
+    max-height: 75vh;
+    max-width: 100%;
+    display: block;
+    margin: var(--sgrd) auto;
+  }
+
+  & .dataset {
+    margin-top: var(--sgrd);
+
+    &__list {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+  }
+
+  &__bg {
+    background-color: var(--base-bg-color);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    @media (--beyond-small-desktop) {
+      width: 66vw;
+    }
+
+    @media (--beyond-large-desktop) {
+      width: 50vw;
+    }
+  }
+}

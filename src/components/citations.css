@@ -1,0 +1,9 @@
+.citations {
+  &__item {
+    padding: var(--xsgrd) 0;
+  }
+
+  &__annotable {
+    z-index: 10 !important;
+  }
+}

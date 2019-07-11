@@ -1,0 +1,41 @@
+.print-pdf-progress-modal {
+  font: var(--ui-type--big);
+  color: var(--ui-type--big__color);
+  letter-spacing: var(--ui-type--big__letter-spacing);
+
+  &__content {
+    min-width: 32rem;
+  }
+
+  &__header {
+    padding: var(--sgrd) var(--mgrd);
+    border-bottom: 1px solid var(--ruling-color);
+  }
+  &__title {
+    font: var(--ui-type--subhead-1);
+    color: var(--ui-type--subhead-1__color);
+    letter-spacing: var(--ui-type--subhead-1__letter-spacing);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    & .iconoclass {
+      margin-left: var(--xsgrd);
+    }
+  }
+
+  &__body {
+    padding: var(--mgrd);
+  }
+
+  &__progress-list {
+    padding: 0;
+  }
+
+  &__progress-list-item {
+    height: var(--mgrd);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text-color--light);
+  }
+}

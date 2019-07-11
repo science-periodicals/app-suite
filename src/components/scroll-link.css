@@ -1,0 +1,28 @@
+.scroll-link {
+  padding-right: 14px;
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  background-image: url('/images/inline-icons__anchor_blue.svg');
+
+  &--button {
+    text-transform: uppercase;
+  }
+
+  @media print {
+    font: var(--sans-body-print-type--small);
+    color: var(--sans-body-print-type--small__color);
+    letter-spacing: var(--sans-body-print-type--small__letter-spacing);
+    background: none;
+    padding-right: 0;
+  }
+}
+
+/* Don't show the scrol icon in the TOC */
+.reader-toc,
+.publisher-sidebar-outline {
+  & .scroll-link {
+    background: none;
+    padding-right: 0;
+  }
+}

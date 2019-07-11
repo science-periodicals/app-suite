@@ -1,0 +1,18 @@
+.info {
+  &__body {
+    padding: var(--xsgrd) var(--sgrd);
+  }
+
+  &__description {
+    & p {
+      padding-top: 1em;
+    }
+
+    & p:first-of-type {
+      padding-top: 0;
+    }
+    & p:last-of-type {
+      padding-bottom: 0;
+    }
+  }
+}

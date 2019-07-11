@@ -1,0 +1,5 @@
+.settings-profile-bio {
+  & .control-panel {
+    padding: var(--mgrd) var(--lgrd);
+  }
+}

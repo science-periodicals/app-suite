@@ -1,0 +1,11 @@
+.dashboard-facets {
+  padding: var(--mgrd);
+  height: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+
+  & .expansion-panel {
+    border: 0;
+  }
+}

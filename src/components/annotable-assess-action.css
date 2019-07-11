@@ -1,0 +1,35 @@
+.annotable-assess-action {
+  &__attachments__item {
+    display: flex;
+    align-items: center;
+    line-height: 3.2rem;
+
+    & .paper-checkbox {
+      margin-right: var(--xsgrd);
+      & > * {
+        /* Overwrite `vertical-align` of checkbox-container */
+        /* TODO @halmost maybe fix upstream ? */
+        vertical-align: middle !important;
+      }
+    }
+  }
+
+  &__attachments__preview-link-icon {
+    color: var(--text-color--light);
+    vertical-align: middle;
+    margin-right: 2px;
+  }
+
+  &__add-revision-request {
+    display: flex;
+    margin-top: var(--sgrd);
+    & > * {
+      margin-left: auto;
+    }
+  }
+
+  & .comment-preview-list {
+    margin-top: var(--sgrd);
+  }
+
+}

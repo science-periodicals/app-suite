@@ -1,0 +1,10 @@
+.shell-submission {
+  padding: var(--xsgrd) var(--lgrd) var(--sgrd);
+  font: var(--ui-type);
+
+  &__title {
+    font: var(--ui-type--subhead-1);
+    text-align: center;
+    margin-bottom: var(--mgrd);
+  }
+}

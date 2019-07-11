@@ -1,0 +1,31 @@
+.received-attachment-container {
+  &__icon {
+    color: var(--grey-400);
+  }
+
+  &__title {
+    color: var(--grey-400);
+    font: var(--ui-type--label);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 16px 4px 24px;
+    background-color: var(--grey-100);
+
+    border-radius: 2px;
+    margin: var(--lgrd) -36px var(--xsgrd) 0;
+    /* background: linear-gradient(
+    //   to bottom,
+    //   var(--grey-100),
+    //   var(--grey-100) 22px,
+    //   transparent 100%
+    // );
+    // box-shadow: 0 -4px 4px var(--grey-25-a);*/
+  }
+
+  & .card {
+    margin-bottom: var(--mgrd);
+  }
+}

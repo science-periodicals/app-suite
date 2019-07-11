@@ -1,0 +1,58 @@
+.files-attachment {
+  margin-top: var(--mgrd);
+  padding-bottom: var(--lgrd);
+
+  &--previous-version {
+    /* opacity: 0.1; */
+    animation-name: fade-in-previous;
+    animation-duration: 2s;
+    animation-fill-mode: backwards;
+  }
+
+  &--current-version {
+    /* opacity: 0.1; */
+    /* animation-name: fade-in-keyframes; */
+    animation-name: fade-in-previous;
+    animation-duration: 2s;
+    animation-fill-mode: backwards;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+
+    &__version-menu {
+      margin-left: auto;
+      padding-top: var(--sgrd);
+    }
+  }
+
+  &__version {
+    padding: var(--xsgrd) var(--mgrd);
+    font: var(--ui-type);
+    color: var(--text-color--light);
+    background-color: var(--grey-50);
+    letter-spacing: var(--ui-type__letter-spacing);
+
+    display: flex;
+    align-items: center;
+
+    border-top: 1px solid var(--ruling-color);
+    border-bottom: 1px solid var(--ruling-color);
+
+    &__icon {
+      margin-right: var(--xsgrd);
+      &--warning {
+        /* color: var(--status-important-color); */
+      }
+    }
+  }
+}
+@keyframes fade-in-previous {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

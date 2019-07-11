@@ -1,0 +1,30 @@
+.publisher-sidebar-resources {
+  &__divider {
+    color: var(--grey-400);
+    font: var(--ui-type--label);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px var(--xsgrd);
+    background-color: var(--grey-100);
+    margin-bottom: var(--xsgrd);
+    border-radius: 2px;
+
+    &__icon.iconoclass {
+      color: var(--grey-400) !important;
+    }
+  }
+  &__name {
+    display: flex;
+    align-items: center;
+    & .iconoclass {
+      margin-right: 1em;
+    }
+  }
+  &__icon {
+    color: var(--grey-600) !important;
+  }
+
+}

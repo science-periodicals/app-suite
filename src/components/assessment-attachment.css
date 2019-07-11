@@ -1,0 +1,12 @@
+.assessment-attachment {
+  margin-top: var(--sgrd);
+
+  &__notice-text {
+    padding-right: var(--xsgrd);
+  }
+
+  &__notice-button {
+    margin-left: auto !important;
+  }
+
+}

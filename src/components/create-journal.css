@@ -1,0 +1,36 @@
+.create-journal {
+  padding: var(--mgrd);
+}
+
+.create-journal legend {
+  font: var(--ui-type--headline);
+  color: var(--ui-type--headline__color);
+  letter-spacing: var(--ui-type--headline__letter-spacing);
+}
+
+.create-journal__form {
+  background: white;
+  padding: var(--lgrd);
+
+  position: relative;
+  box-shadow: var(--mid-shadow);
+  box-sizing: border-box;
+}
+
+.create-journal__form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.create-journal__name-input {
+  margin: var(--sgrd) 0;
+}
+
+.create-journal__description-input {
+  margin-bottom: var(--sgrd);
+}
+
+.create-journal__form > fieldset {
+  border: none;
+}

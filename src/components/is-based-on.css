@@ -1,0 +1,84 @@
+.is-based-on {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 8px;
+
+  &:hover {
+    background-color: var(--grey-50);
+  }
+
+  &__primary-info {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 50%;
+    max-width: 50%;
+    margin-right: 16px;
+    /*overflow: hidden;*/
+
+    &__thumbnail-container {
+      /*background-image: linear-gradient(225deg, white, white 4px, whitesmoke 4px);
+      background-position: right top;*/
+      width: 40px;
+      height: 40px;
+      margin-right: 16px;
+      background-color: white;
+      overflow: visible;
+      border: 1px solid whitesmoke;
+      position: relative;
+
+      &  .iconoclass {
+        top: 4px;
+        left: 4px;
+      }
+    }
+
+    &__name {
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  &__title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 40%;
+    margin-right: 16px;
+
+
+    & p {
+      padding: 0;
+    }
+    & > div {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--text-color--light);
+    }
+    & > div a {
+      color: var(--text-color--light);
+    }
+    & > div a:hover {
+      color: var(--text-color--light);
+    }
+  }
+
+  &__file-type {
+    margin: 0 var(--sgrd);
+    display: inline-block;
+    width: 15%;
+    text-align: right;
+    color: var(--text-color--light);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+}
