@@ -26,6 +26,10 @@ export default class GraphIssues extends React.Component {
 
     const bem = BemTags();
 
+    if (!potentialIssues.length) {
+      return null;
+    }
+
     return (
       <div className={bem`graph-issues`}>
         <header className={bem`__header`}>Issues</header>
