@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
+import { ResourceDownloadMenu } from '@scipe/ui';
 import Iconoclass from '@scipe/iconoclass';
 
 export default class Notice extends React.Component {
@@ -180,11 +180,29 @@ export class NoRenderingNotice extends React.Component {
   static propTypes = {
     id: PropTypes.string,
     className: PropTypes.string,
-    'data-testid': PropTypes.string
+    'data-testid': PropTypes.string,
+    // Note: specifying `resource` will add a Download menu
+    // if `resource` is provided it must be hydrated (at least for `hasPart` in case of multi part figure and `encoding` | `distribution`
+    resource: PropTypes.shape({
+      '@type': PropTypes.string,
+      // `hasPart` is needed for multi part figures
+      hasPart: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.object),
+        PropTypes.object
+      ]),
+      encoding: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.object),
+        PropTypes.object
+      ]),
+      distribution: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.object),
+        PropTypes.object
+      ])
+    })
   };
 
   render() {
-    const { id, className } = this.props;
+    const { id, className, resource } = this.props;
 
     return (
       <Notice
@@ -193,6 +211,13 @@ export class NoRenderingNotice extends React.Component {
         data-testid={this.props['data-testid']}
       >
         No rendering available.
+        {!!resource && (
+          <ResourceDownloadMenu
+            className="no-rendering-notice__menu"
+            resource={resource}
+            title="Download"
+          />
+        )}
       </Notice>
     );
   }

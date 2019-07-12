@@ -134,7 +134,7 @@ class ScholarlyArticle extends React.Component {
             )}
           </Fragment>
         ) : (
-          <NoRenderingNotice />
+          <NoRenderingNotice resource={resource} />
         )}
       </div>
     );

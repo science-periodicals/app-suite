@@ -9,3 +9,9 @@
     margin-right: var(--xsgrd);
   }
 }
+
+.no-rendering-notice {
+  &__menu {
+    margin-left: auto
+  }
+}
