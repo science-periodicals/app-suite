@@ -14,6 +14,9 @@ import { fetchJournal } from '../actions/journal-action-creators';
 import bundlePaths from '../utils/bundle-paths';
 import vhostDataReader from './vhost-data-reader';
 
+// !! There will be a warning client side as the client side uses Suspense and
+// suspense is not yet supported for SSR
+
 /**
  * !! See also vhost-reader.js for the non SSR version
  */

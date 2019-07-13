@@ -15,6 +15,9 @@ import { fetchActiveInvites } from '../actions/invite-action-creators';
 import bundlePaths from '../utils/bundle-paths';
 import vhostDataSifter from './vhost-data-sifter';
 
+// !! There will be a warning client side as the client side uses Suspense and
+// suspense is not yet supported for SSR
+
 /**
  * !! This is the SSR version. See also vhost.js for the non SSR version for local dev...
  * check if the HOST is a journal hosted by sci.pe, if so serve it, otherwise pass down...
@@ -47,7 +50,7 @@ export default function vhostSifterSsr(req, res, next) {
       )
     ];
 
-    // TODO use matchPath and fetch the issue as well
+    // TODO use matchPath and fetch issue(s) or rfa(s) as well
     if (req.path === '/') {
       toFetch.push(
         store.dispatch(

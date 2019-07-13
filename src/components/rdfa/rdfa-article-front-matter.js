@@ -31,7 +31,6 @@ import { getOrderedAffiliationMap } from '../../utils/graph-utils';
 import { compareAbstracts } from '../../utils/sort';
 import MetaMargin, {
   StyleMetaMarginListItem,
-  StyleMetaMarginInlineList,
   StyleMetaMarginList
 } from '../meta-margin/meta-margin';
 import MetaMarginContent from '../meta-margin/meta-margin-content';

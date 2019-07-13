@@ -1364,6 +1364,10 @@ function makeSelector() {
                   actionMap
                 });
 
+                if (debug) {
+                  console.log(instrument);
+                }
+
                 if (instrument) {
                   if (instrument['@type'] === 'CreateReleaseAction') {
                     const createReleaseAction = instrument;
@@ -1454,6 +1458,8 @@ function makeSelector() {
 
       if (debug) {
         console.log({
+          hostAction,
+          matchingLevel,
           candidateAnnotations,
           actionAnnotations,
           selector,

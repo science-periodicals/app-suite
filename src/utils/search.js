@@ -387,9 +387,23 @@ export function getFacetUiMap(facets, facetMap, query) {
       value.duplicate = counts[value.name] > 1;
     });
 
-    // sort by count
+    // sort by count and by name or id if similar count
     if (!RANGE_FACETS.has(facet)) {
-      facetUiValues = facetUiValues.sort((a, b) => b.value - a.value);
+      facetUiValues = facetUiValues.sort((a, b) => {
+        if (a.value !== b.value) {
+          return b.value - a.value;
+        }
+
+        if (a.name && b.name && a.name !== b.name) {
+          return a.name.localeCompare(b.name);
+        }
+
+        if (getId(a) && getId(b) && getId(a) !== getId(b)) {
+          return getId(a).localeCompare(getId(b));
+        }
+
+        return 0;
+      });
     }
 
     data[facet] = facetUiValues;
