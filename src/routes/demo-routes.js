@@ -30,7 +30,7 @@ router.get(
     }
   },
   (req, res, next) => {
-    const { next: redirectUrl, username } = req.query;
+    const { next: redirectUrl, user: username } = req.query;
     if (!next || !username) {
       return next(createError(400, 'Invalid demo parameters'));
     }
@@ -50,7 +50,7 @@ router.get(
       req.session.resetPouchDB = true;
       res.cookie('AuthSession', token);
 
-      res.redirect(redirectUrl);
+      res.redirect(302, redirectUrl);
     });
   }
 );

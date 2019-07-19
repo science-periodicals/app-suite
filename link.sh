@@ -11,8 +11,9 @@ then
     (cd ../resources && npm link)
     npm link @scipe/resources
 else
-    echo "Linking API, ddoc, stories, librarian, ui and workers"
+    echo "Linking resources, API, ddoc, stories, librarian, ui and workers"
     # top level links
+    (cd ../resources && npm link)
     (cd ../ddoc && npm link)
     (cd ../stories && npm link)
     (cd ../librarian && npm link)
@@ -27,5 +28,5 @@ else
     (cd ../stories && npm link @scipe/librarian)
 
     # app-suite links
-    npm link @scipe/librarian @scipe/ui @scipe/api @scipe/workers @scipe/ddoc @scipe/stories
+    npm link @scipe/resources @scipe/librarian @scipe/ui @scipe/api @scipe/workers @scipe/ddoc @scipe/stories
 fi
