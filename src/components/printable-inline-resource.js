@@ -23,7 +23,8 @@ export default class PrintableInlineResource extends React.Component {
     mainEntity: PropTypes.object,
     object: PropTypes.shape({
       '@type': PropTypes.oneOf(['Formula', 'TextBox', 'SoftwareSourceCode'])
-        .isRequired
+        .isRequired,
+      alternateName: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
     }).isRequired,
     isPrinting: PropTypes.bool.isRequired,
     isPrintable: PropTypes.bool,

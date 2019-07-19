@@ -2,7 +2,7 @@ import { Router } from 'express';
 import csurf from 'csurf';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { StaticRouter, Route, Switch } from 'react-router';
+import { StaticRouter, Route, Switch, Redirect } from 'react-router';
 import { HelmetProvider } from 'react-helmet-async';
 import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -80,11 +80,13 @@ router.get(
                   })
                 );
                 break;
+
               case 'journals':
                 p = store.dispatch(
                   searchJournals({ query: req.query, cookie, baseUrl })
                 );
                 break;
+
               case 'articles':
                 p = store.dispatch(
                   searchArticles({
@@ -109,6 +111,11 @@ router.get(
                       context={routerContext}
                     >
                       <Switch>
+                        <Route
+                          exact={true}
+                          path="/explore"
+                          render={props => <Redirect to="/explore/rfas" />}
+                        />
                         <Route
                           exact={true}
                           path="/explore/journals"
@@ -154,6 +161,8 @@ router.get(
                   initialState: store.getState()
                 });
               }
+            }).catch(err => {
+              return next(err);
             });
           }
         });

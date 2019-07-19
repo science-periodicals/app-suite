@@ -441,7 +441,7 @@ class Reader extends React.Component {
       fetchEncodingStatus
     } = this.props;
 
-    const { isPrintable } = this.state;
+    const { isPrintable, theme } = this.state;
 
     const stillFetching = checkIfIsStillFetching(
       fetchableEncodings,
@@ -454,7 +454,7 @@ class Reader extends React.Component {
     const isPrinting = query.print === 'true' ? true : _isPrinting;
 
     const isMobile = !isPrinting && screenWidth <= CSS_SMALL_TABLET;
-    const customCssVars = getCustomVariables(journal, this.state.theme);
+    const customCssVars = getCustomVariables(journal, theme);
 
     return (
       <AppLayout
@@ -494,6 +494,7 @@ class Reader extends React.Component {
                 graph,
                 framedResource
               )}
+              theme={theme}
               logo={journal.logo}
               homeLink={{
                 to: {
@@ -532,23 +533,19 @@ class Reader extends React.Component {
                 align="right"
               >
                 <MenuItem
-                  iconName={
-                    this.state.theme === 'light' ? 'check' : 'brightnessLight'
-                  }
+                  iconName={theme === 'light' ? 'check' : 'brightnessLight'}
                   onClick={e => this.handleThemeChange('light')}
                 >
                   Light Mode
                 </MenuItem>
                 <MenuItem
-                  iconName={
-                    this.state.theme === 'dark' ? 'check' : 'brightnessDark'
-                  }
+                  iconName={theme === 'dark' ? 'check' : 'brightnessDark'}
                   onClick={e => this.handleThemeChange('dark')}
                 >
                   Dark Mode
                 </MenuItem>
                 <MenuItem
-                  iconName={this.state.theme === 'alt' ? 'check' : 'eye'}
+                  iconName={theme === 'alt' ? 'check' : 'eye'}
                   onClick={e => this.handleThemeChange('alt')}
                 >
                   Alternate Mode

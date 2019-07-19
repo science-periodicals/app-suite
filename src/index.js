@@ -11,6 +11,7 @@ import loginRoutes from './routes/login';
 import resetPasswordRoutes from './routes/reset-password-routes';
 import logoutRoutes from './routes/logout';
 import appRoutes from './routes/app';
+import demoRoutes from './routes/demo-routes';
 import userRoutes from './routes/user-routes';
 import purlRoutes from './routes/purl';
 import exploreRoutes from './routes/explore';
@@ -128,7 +129,9 @@ export function appSuite(config = {}) {
   // reset password
   app.use('/reset-password', validateBasicAuthCredentials, resetPasswordRoutes);
 
-  // app rorganizationIdute
+  // demos
+  app.use('/demo', validateBasicAuthCredentials, demoRoutes);
+
   app.use(
     '/new/:type(journal|submission|organization)',
     validateBasicAuthCredentials,
