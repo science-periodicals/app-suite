@@ -77,7 +77,6 @@ export default class RdfaFigure extends React.Component {
     className: PropTypes.string,
     url: PropTypes.object.isRequired,
     graphId: PropTypes.string.isRequired,
-    stageId: PropTypes.string,
     graph: PropTypes.object,
     mainEntity: PropTypes.object,
     object: PropTypes.object.isRequired,
@@ -163,7 +162,6 @@ export default class RdfaFigure extends React.Component {
       predicate,
       object,
       graph,
-      stageId,
       mainEntity,
       overwriteNodeMap,
       isPrinting,
@@ -336,7 +334,6 @@ export default class RdfaFigure extends React.Component {
                 />
                 <MetaMarginMixedData
                   graphId={getId(graph)}
-                  stageId={stageId}
                   domValues={domValues}
                   overwriteNodeMap={overwriteNodeMap}
                 />

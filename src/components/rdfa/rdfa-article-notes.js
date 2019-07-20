@@ -16,7 +16,6 @@ import ScrollLink from '../scroll-link';
 class RdfaArticleNotes extends React.Component {
   static propTypes = {
     graphId: PropTypes.string.isRequired,
-    stageId: PropTypes.string,
     graph: PropTypes.object,
     mainEntity: PropTypes.object,
     overwriteNodeMap: PropTypes.object,
@@ -35,7 +34,6 @@ class RdfaArticleNotes extends React.Component {
     const {
       graphId,
       graph,
-      stageId,
       overwriteNodeMap,
       mainEntity,
       footnotes,
@@ -136,7 +134,6 @@ class RdfaArticleNotes extends React.Component {
                   {domValues => (
                     <MetaMarginMixedData
                       graphId={getId(graph) || graphId}
-                      stageId={stageId}
                       overwriteNodeMap={overwriteNodeMap}
                       domValues={domValues}
                     />
@@ -174,7 +171,6 @@ class RdfaArticleNotes extends React.Component {
                   {domValues => (
                     <MetaMarginMixedData
                       graphId={getId(graph) || graphId}
-                      stageId={stageId}
                       overwriteNodeMap={overwriteNodeMap}
                       domValues={domValues}
                     />

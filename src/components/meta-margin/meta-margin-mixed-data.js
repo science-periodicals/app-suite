@@ -14,7 +14,6 @@ export default class MetaMarginMixedData extends React.Component {
     id: PropTypes.string,
     className: PropTypes.string,
     graphId: PropTypes.string.isRequired,
-    stageId: PropTypes.string,
     overwriteNodeMap: PropTypes.object,
     domValues: PropTypes.arrayOf(
       PropTypes.shape({
@@ -34,14 +33,7 @@ export default class MetaMarginMixedData extends React.Component {
   };
 
   render() {
-    const {
-      id,
-      className,
-      graphId,
-      stageId,
-      domValues,
-      overwriteNodeMap
-    } = this.props;
+    const { id, className, graphId, domValues, overwriteNodeMap } = this.props;
 
     /* avoid uncessary css padding if the list is empty */
     if (!domValues || domValues.length == 0) return null;
@@ -63,7 +55,6 @@ export default class MetaMarginMixedData extends React.Component {
               >
                 <MetaMarginFigure
                   graphId={graphId}
-                  stageId={stageId}
                   overwriteNodeMap={overwriteNodeMap}
                   value={value}
                 />
@@ -93,7 +84,6 @@ export default class MetaMarginMixedData extends React.Component {
               >
                 <MetaMarginCitation
                   graphId={graphId}
-                  stageId={stageId}
                   overwriteNodeMap={overwriteNodeMap}
                   value={value}
                 />

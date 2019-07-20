@@ -29,7 +29,6 @@ export default class PrintableResourceBody extends React.Component {
     id: PropTypes.string,
     className: PropTypes.string,
     graphId: PropTypes.string.isRequired,
-    stageId: PropTypes.string,
     graph: PropTypes.object,
     resource: PropTypes.object.isRequired,
     availableHeight: PropTypes.number.isRequired, // in pixels

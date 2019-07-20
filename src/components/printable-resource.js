@@ -16,7 +16,6 @@ class PrintableResource extends React.Component {
     issue: PropTypes.object,
     url: PropTypes.object.isRequired,
     graphId: PropTypes.string.isRequired,
-    stageId: PropTypes.string,
     graph: PropTypes.object,
     mainEntity: PropTypes.object,
     resource: PropTypes.object.isRequired,
@@ -132,7 +131,6 @@ class PrintableResource extends React.Component {
       url,
       resource,
       graphId,
-      stageId,
       graph,
       mainEntity,
       blindingData,
@@ -186,7 +184,6 @@ class PrintableResource extends React.Component {
               availableHeight={availableHeight}
               availableWidth={availableWidth}
               graphId={graphId}
-              stageId={stageId}
               graph={graph}
               resource={resource}
               preventPrintRescaling={preventPrintRescaling}
@@ -197,7 +194,6 @@ class PrintableResource extends React.Component {
                 journal={journal}
                 issue={issue}
                 graphId={graphId}
-                stageId={stageId}
                 graph={graph}
                 mainEntity={mainEntity}
                 resource={resource}

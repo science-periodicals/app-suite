@@ -6,9 +6,9 @@ import { RdfaCaption, RdfaCaptionMetadata, Label } from '@scipe/ui';
 import FormulaObject from './formula-object';
 import TextBoxObject from './text-box-object';
 import SoftwareSourceCodeObject from './software-source-code-object';
-
 import MetaMargin from './meta-margin/meta-margin';
 import MetaMarginContent from './meta-margin/meta-margin-content';
+import MetaMarginMixedData from './meta-margin/meta-margin-mixed-data';
 
 // For now this is only used to print equations and text box inline
 
@@ -18,8 +18,8 @@ export default class PrintableInlineResource extends React.Component {
     className: PropTypes.string,
     url: PropTypes.object.isRequired,
     graphId: PropTypes.string.isRequired,
-    stageId: PropTypes.string,
     graph: PropTypes.object,
+    overwriteNodeMap: PropTypes.object,
     mainEntity: PropTypes.object,
     object: PropTypes.shape({
       '@type': PropTypes.oneOf(['Formula', 'TextBox', 'SoftwareSourceCode'])
@@ -47,7 +47,8 @@ export default class PrintableInlineResource extends React.Component {
       isPrinting,
       isPrintable,
       isMobile,
-      blindingData
+      blindingData,
+      overwriteNodeMap
     } = this.props;
 
     const isBlinded = !blindingData.visibleRoleNames.has('author');
@@ -115,15 +116,25 @@ export default class PrintableInlineResource extends React.Component {
           )}
 
           <MetaMarginContent>
-            <RdfaCaptionMetadata
-              object={object}
-              mainEntity={mainEntity}
-              graphId={getId(graph)}
-              isBlinded={isBlinded}
-              blindingData={blindingData}
-              theme="print-list"
-              isPrinting={true}
-            />
+            {domValues => (
+              <div>
+                <RdfaCaptionMetadata
+                  object={object}
+                  mainEntity={mainEntity}
+                  graphId={getId(graph)}
+                  isBlinded={isBlinded}
+                  blindingData={blindingData}
+                  theme="print-list"
+                  isPrinting={true}
+                />
+
+                <MetaMarginMixedData
+                  graphId={getId(graph)}
+                  domValues={domValues}
+                  overwriteNodeMap={overwriteNodeMap}
+                />
+              </div>
+            )}
           </MetaMarginContent>
         </MetaMargin>
       </div>

@@ -42,7 +42,6 @@ export default class RdfaArticleFrontMatter extends React.Component {
   static propTypes = {
     id: PropTypes.string,
     graph: PropTypes.object,
-    stageId: PropTypes.string,
     journal: PropTypes.object,
     issue: PropTypes.object,
     object: PropTypes.object.isRequired,
@@ -62,7 +61,6 @@ export default class RdfaArticleFrontMatter extends React.Component {
       className,
       object,
       graph,
-      stageId,
       journal,
       issue,
       isPrinting,
@@ -329,7 +327,6 @@ export default class RdfaArticleFrontMatter extends React.Component {
                 {domValues => (
                   <MetaMarginMixedData
                     graphId={getId(graph)}
-                    stageId={stageId}
                     domValues={domValues}
                     overwriteNodeMap={overwriteNodeMap}
                   />
@@ -383,7 +380,6 @@ export default class RdfaArticleFrontMatter extends React.Component {
                 {domValues => (
                   <MetaMarginMixedData
                     graphId={getId(graph)}
-                    stageId={stageId}
                     domValues={domValues}
                   />
                 )}

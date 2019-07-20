@@ -33,7 +33,6 @@ class RdfaArticleBackMatter extends React.Component {
     journal: PropTypes.object,
     issue: PropTypes.object,
     graphId: PropTypes.string.isRequired,
-    stageId: PropTypes.string,
     graph: PropTypes.object,
     mainEntity: PropTypes.object,
     object: PropTypes.object.isRequired,
@@ -65,7 +64,6 @@ class RdfaArticleBackMatter extends React.Component {
       journal,
       issue,
       graphId,
-      stageId,
       graph,
       mainEntity,
       object,
@@ -157,7 +155,6 @@ class RdfaArticleBackMatter extends React.Component {
                         {domValues => (
                           <MetaMarginMixedData
                             graphId={getId(graph)}
-                            stageId={stageId}
                             domValues={domValues}
                             overwriteNodeMap={overwriteNodeMap}
                           />
@@ -249,7 +246,6 @@ class RdfaArticleBackMatter extends React.Component {
                     level={1}
                     counter={counter.increment({ level: 2 }).clone()}
                     graphId={graphId}
-                    stageId={stageId}
                     graph={graph}
                     mainEntity={mainEntity}
                     object={object}
@@ -270,7 +266,6 @@ class RdfaArticleBackMatter extends React.Component {
                     level={1}
                     counter={counter.increment({ level: 2 }).clone()}
                     graphId={graphId}
-                    stageId={stageId}
                     graph={graph}
                     mainEntity={mainEntity}
                     object={object}
@@ -295,7 +290,6 @@ class RdfaArticleBackMatter extends React.Component {
               level={1}
               counter={counter.increment({ level: 2 }).clone()}
               graphId={graphId}
-              stageId={stageId}
               graph={graph}
               mainEntity={mainEntity}
               object={object}
@@ -331,7 +325,6 @@ class RdfaArticleBackMatter extends React.Component {
                   issue={issue}
                   url={url}
                   graphId={graphId}
-                  stageId={stageId}
                   graph={graph}
                   mainEntity={mainEntity}
                   resource={resource}
@@ -376,7 +369,6 @@ class RdfaArticleBackMatter extends React.Component {
         <RdfaArticleNotes
           graphId={graphId}
           graph={graph}
-          stageId={stageId}
           mainEntity={mainEntity}
           overwriteNodeMap={overwriteNodeMap}
           counter={counter.increment({ level: 2 }).clone()}

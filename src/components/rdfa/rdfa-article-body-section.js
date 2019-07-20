@@ -21,7 +21,6 @@ export default class RdfaArticleBodySection extends React.Component {
     counter: PropTypes.object.isRequired,
     level: PropTypes.number.isRequired,
     graphId: PropTypes.string.isRequired,
-    stageId: PropTypes.string,
     graph: PropTypes.object,
     mainEntity: PropTypes.object,
     object: PropTypes.object.isRequired,
@@ -46,7 +45,6 @@ export default class RdfaArticleBodySection extends React.Component {
       object,
       content,
       graphId,
-      stageId,
       graph,
       mainEntity,
       overwriteNodeMap,
@@ -84,7 +82,6 @@ export default class RdfaArticleBodySection extends React.Component {
                 level={level + 1}
                 counter={level === 0 ? sectionCounter.clone() : sectionCounter}
                 graphId={graphId}
-                stageId={stageId}
                 graph={graph}
                 mainEntity={mainEntity}
                 object={object}
@@ -114,7 +111,6 @@ export default class RdfaArticleBodySection extends React.Component {
               >
                 <RdfaArticleBodyList
                   graphId={graphId}
-                  stageId={stageId}
                   graph={graph}
                   mainEntity={mainEntity}
                   object={object}
@@ -163,7 +159,6 @@ export default class RdfaArticleBodySection extends React.Component {
                         id={figureResourceId}
                         url={url}
                         graphId={graphId}
-                        stageId={stageId}
                         graph={graph}
                         mainEntity={mainEntity}
                         object={object}
@@ -172,6 +167,7 @@ export default class RdfaArticleBodySection extends React.Component {
                         isPrinting={isPrinting}
                         isPrintable={isPrintable}
                         blindingData={blindingData}
+                        overwriteNodeMap={overwriteNodeMap}
                       />
                     ) : null;
                   }
@@ -182,7 +178,6 @@ export default class RdfaArticleBodySection extends React.Component {
                       id={figureResourceId}
                       url={url}
                       graphId={graphId}
-                      stageId={stageId}
                       graph={graph}
                       mainEntity={mainEntity}
                       object={object}
@@ -215,7 +210,6 @@ export default class RdfaArticleBodySection extends React.Component {
             >
               <RdfaArticleBodyElement
                 graphId={graphId}
-                stageId={stageId}
                 graph={graph}
                 mainEntity={mainEntity}
                 object={object}
@@ -228,7 +222,6 @@ export default class RdfaArticleBodySection extends React.Component {
                 {domValues => (
                   <MetaMarginMixedData
                     graphId={getId(graph)}
-                    stageId={stageId}
                     overwriteNodeMap={overwriteNodeMap}
                     domValues={domValues}
                   />

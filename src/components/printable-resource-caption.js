@@ -28,7 +28,6 @@ export default class PrintableResourceCaption extends React.Component {
     issue: PropTypes.object,
     mainEntity: PropTypes.object,
     graphId: PropTypes.string.isRequired,
-    stageId: PropTypes.string,
     graph: PropTypes.object,
     resource: PropTypes.object.isRequired,
     blindingData: PropTypes.object.isRequired,

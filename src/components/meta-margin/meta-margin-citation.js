@@ -15,7 +15,6 @@ export default class MetaMarginCitation extends React.Component {
     id: PropTypes.string,
     className: PropTypes.string,
     graphId: PropTypes.string.isRequired,
-    stageId: PropTypes.string,
     overwriteNodeMap: PropTypes.object,
     value: PropTypes.shape({
       '@id': PropTypes.string,
@@ -32,20 +31,12 @@ export default class MetaMarginCitation extends React.Component {
   };
 
   render() {
-    const {
-      id,
-      graphId,
-      stageId,
-      className,
-      value,
-      overwriteNodeMap
-    } = this.props;
+    const { id, graphId, className, value, overwriteNodeMap } = this.props;
 
     return (
       <Node
         key={getId(value)}
         graphId={graphId}
-        stageId={stageId}
         node={getId(value)}
         embed={['citation', 'isPartOf']}
         nodeMap={overwriteNodeMap}

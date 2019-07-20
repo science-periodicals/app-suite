@@ -13,7 +13,6 @@ import Counter from '../utils/counter';
 class Citations extends React.Component {
   static propTypes = {
     graphId: PropTypes.string.isRequired,
-    stageId: PropTypes.string,
     resource: PropTypes.object.isRequired,
     counter: PropTypes.instanceOf(Counter).isRequired,
     createSelector: PropTypes.func.isRequired,
@@ -37,7 +36,6 @@ class Citations extends React.Component {
 
   render() {
     const {
-      stageId,
       graphId,
       resource,
       citations,
@@ -56,7 +54,6 @@ class Citations extends React.Component {
           .map(citation => (
             <li key={getId(citation)} className="citations__item">
               <Annotable
-                stageId={stageId}
                 graphId={graphId}
                 selector={createSelector({
                   '@type': 'NodeSelector',

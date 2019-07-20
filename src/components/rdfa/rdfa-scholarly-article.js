@@ -23,7 +23,6 @@ export default class RdfaScholarlyArticle extends React.Component {
     issue: PropTypes.object,
     content: PropTypes.object,
     graphId: PropTypes.string.isRequired,
-    stageId: PropTypes.string,
     preview: PropTypes.bool,
     graph: PropTypes.object,
     overwriteNodeMap: PropTypes.object,
@@ -68,7 +67,6 @@ export default class RdfaScholarlyArticle extends React.Component {
       object,
       graphId,
       preview,
-      stageId,
       graph,
       overwriteNodeMap,
       content,
@@ -125,7 +123,6 @@ export default class RdfaScholarlyArticle extends React.Component {
               issue={issue}
               graphId={graphId}
               graph={graph}
-              stageId={stageId}
               mainEntity={mainEntity}
               object={object}
               overwriteNodeMap={overwriteNodeMap}
@@ -149,7 +146,6 @@ export default class RdfaScholarlyArticle extends React.Component {
             <RdfaArticleBody
               graphId={graphId}
               graph={graph}
-              stageId={stageId}
               mainEntity={mainEntity}
               object={object}
               overwriteNodeMap={overwriteNodeMap}
@@ -178,7 +174,6 @@ export default class RdfaScholarlyArticle extends React.Component {
                 .getUrl()}
               graphId={graphId}
               graph={graph}
-              stageId={stageId}
               mainEntity={mainEntity}
               object={object}
               overwriteNodeMap={overwriteNodeMap}
@@ -195,7 +190,6 @@ export default class RdfaScholarlyArticle extends React.Component {
             graph={graph}
             issue={issue}
             mainEntity={mainEntity}
-            stageId={stageId}
             content={content}
             object={object}
             overwriteNodeMap={overwriteNodeMap}
