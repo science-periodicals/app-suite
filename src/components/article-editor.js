@@ -8,6 +8,8 @@ import ArticleLargeBannerContent from './sifter/article-large-banner-content';
 
 export default class ArticleEditor extends React.Component {
   static propTypes = {
+    disabled: PropTypes.bool.isRequired,
+    readOnly: PropTypes.bool,
     release: PropTypes.object.isRequired,
     updateRelease: PropTypes.func.isRequired,
     updateReleaseBanner: PropTypes.func.isRequired
@@ -42,7 +44,7 @@ export default class ArticleEditor extends React.Component {
   };
 
   render() {
-    const { release } = this.props;
+    const { release, disabled, readOnly } = this.props;
 
     return (
       <div className="article-editor">
@@ -56,6 +58,8 @@ export default class ArticleEditor extends React.Component {
           onStyleChange={this.handleBannerStyleChange}
           onFileChange={this.handleBannerFileChange}
           onReset={this.handleBannerReset}
+          disabled={disabled}
+          readOnly={readOnly}
         >
           <FeaturedArticleBannerContent release={release} />
         </BannerEditor>
@@ -68,6 +72,8 @@ export default class ArticleEditor extends React.Component {
           onStyleChange={this.handleBannerStyleChange}
           onFileChange={this.handleBannerFileChange}
           onReset={this.handleBannerReset}
+          disabled={disabled}
+          readOnly={readOnly}
         >
           <ArticleMediumBannerContent release={release} />
         </BannerEditor>
@@ -80,6 +86,8 @@ export default class ArticleEditor extends React.Component {
           onStyleChange={this.handleBannerStyleChange}
           onFileChange={this.handleBannerFileChange}
           onReset={this.handleBannerReset}
+          disabled={disabled}
+          readOnly={readOnly}
         >
           <ArticleLargeBannerContent release={release} />
         </BannerEditor>

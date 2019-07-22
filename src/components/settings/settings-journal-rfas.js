@@ -227,6 +227,7 @@ class SettingsJournalRfas extends React.Component {
           <StyleFormSet>
             <RfaEditor
               disabled={disabled}
+              readOnly={readOnly}
               journal={journal}
               rfa={editedRfa}
               onUpdate={this.handleUpdateRfa}

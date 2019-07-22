@@ -80,7 +80,6 @@ class Caption extends React.Component {
     } = this.props;
 
     // TODO show label in caption when using Value. This is mostly usefull for multipart figure. We could add a multiPart prop to flag that too but would be good to avoid at this is error prone!
-
     return (
       <div className="caption">
         {embedded && resource.alternateName && (

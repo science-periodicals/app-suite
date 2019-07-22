@@ -86,6 +86,7 @@ class SettingsJournalArticles extends React.Component {
     const {
       journal,
       disabled: _disabled,
+      readOnly,
       user,
       acl,
       droplets,
@@ -165,6 +166,8 @@ class SettingsJournalArticles extends React.Component {
         {openId != null && droplets[openId] && (
           <StyleFormSet>
             <ArticleEditor
+              disabled={disabled}
+              readOnly={readOnly}
               release={droplets[openId]}
               updateRelease={updateRelease}
               updateReleaseBanner={updateReleaseBanner}

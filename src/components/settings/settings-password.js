@@ -137,6 +137,7 @@ export default class SettingsPassword extends Component {
               type="password"
               name="oldPassword"
               value={oldPassword}
+              disabled={disabled}
               onChange={this.handleChange}
             />
             <PaperInput
@@ -144,6 +145,7 @@ export default class SettingsPassword extends Component {
               type="password"
               name="password"
               value={password}
+              disabled={disabled}
               onChange={this.handleChange}
             />
             <PaperInput
@@ -151,6 +153,7 @@ export default class SettingsPassword extends Component {
               type="password"
               name="confirmedPassword"
               value={confirmedPassword}
+              disabled={disabled}
               onChange={this.handleChange}
             />
 

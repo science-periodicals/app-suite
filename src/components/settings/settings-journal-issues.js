@@ -248,7 +248,7 @@ class SettingsJournalIssues extends React.Component {
                           behavior="toggle"
                           iconName="star"
                           checked={isFeatured}
-                          disabled={crudStatus.active}
+                          disabled={disabled || crudStatus.active}
                           onClick={this.handleToggleFeaturedIssue.bind(
                             this,
                             getId(issue),
@@ -261,7 +261,7 @@ class SettingsJournalIssues extends React.Component {
                         <Iconoclass
                           behavior="button"
                           iconName="trash"
-                          disabled={crudStatus.active}
+                          disabled={disabled || crudStatus.active}
                           onClick={this.handleDelete.bind(this, getId(issue))}
                         />
                       ) : (
@@ -327,6 +327,8 @@ class SettingsJournalIssues extends React.Component {
         {editedIssue != null && (
           <StyleFormSet>
             <IssueEditor
+              readOnly={readOnly}
+              disabled={disabled}
               issue={editedIssue}
               journal={journal}
               updateIssue={updateIssue}

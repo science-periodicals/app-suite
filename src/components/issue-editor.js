@@ -40,6 +40,7 @@ const ControledPaperInput = withOnSubmit(PaperInput);
 
 export default class IssueEditor extends React.Component {
   static propTypes = {
+    readOnly: PropTypes.bool,
     disabled: PropTypes.bool,
     journal: PropTypes.object.isRequired,
     issue: PropTypes.object.isRequired,
@@ -115,7 +116,7 @@ export default class IssueEditor extends React.Component {
   }
 
   render() {
-    const { journal, disabled, issue } = this.props;
+    const { journal, disabled, readOnly, issue } = this.props;
     const [, , flag] = parseIndexableString(issue._id);
 
     const canEditDatePublished =
@@ -140,6 +141,8 @@ export default class IssueEditor extends React.Component {
           <ControledPaperInput
             label="name"
             name="name"
+            disabled={disabled}
+            readOnly={readOnly}
             value={textify(issue.name)}
             onSubmit={this.handleUpdate}
           />
@@ -163,6 +166,7 @@ export default class IssueEditor extends React.Component {
                 label="Publication Time"
                 name="time"
                 disabled={disabled || !canEditDatePublished}
+                readOnly={readOnly}
                 onSubmit={this.handleDatePublished}
                 value={new Date(issue.datePublished)}
               >
@@ -188,6 +192,7 @@ export default class IssueEditor extends React.Component {
             defaultValue={issue.description}
             onSubmit={this.handleUpdate}
             disabled={disabled}
+            readOnly={readOnly}
           />
         </StyleRow>
 
@@ -198,6 +203,7 @@ export default class IssueEditor extends React.Component {
             label="Featured issue banner (small)"
             description="Displayed on the right panel of journal or issue homepages to emphasize featured issues"
             disabled={disabled}
+            readOnly={readOnly}
             recommendedWidth={700}
             recommendedHeight={500}
             cssVariables={issue.style}
@@ -215,6 +221,7 @@ export default class IssueEditor extends React.Component {
             label="Issue banner (medium)"
             description="Displayed to emphasize the issue in the context of search results"
             disabled={disabled}
+            readOnly={readOnly}
             cssVariables={issue.style}
             onStyleChange={this.handleBannerStyleChange}
             onFileChange={this.handleBannerFileChange}
@@ -234,6 +241,7 @@ export default class IssueEditor extends React.Component {
             label="Issue homepage banner (large)"
             description="Displayed in the main header of the issue page"
             disabled={disabled}
+            readOnly={readOnly}
             cssVariables={issue.style}
             onStyleChange={this.handleBannerStyleChange}
             onFileChange={this.handleBannerFileChange}
@@ -291,6 +299,7 @@ export default class IssueEditor extends React.Component {
                             <Iconoclass
                               behavior="toggle"
                               iconName="star"
+                              disabled={disabled}
                               checked={isFeatured}
                               onClick={this.handleToggleFeaturedArticle.bind(
                                 this,
@@ -310,6 +319,7 @@ export default class IssueEditor extends React.Component {
             <SpecialIssuePartsEditor
               issue={issue}
               disabled={disabled}
+              readOnly={readOnly}
               onUpdate={this.handlePartUpdate}
             />
           )}

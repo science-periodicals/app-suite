@@ -122,6 +122,7 @@ export default class SpecialIssuePartsEditor extends React.Component {
                         <Iconoclass
                           behavior="toggle"
                           iconName="star"
+                          disabled={disabled}
                           checked={isFeatured}
                           onClick={this.handleToggleFeaturedIssue.bind(
                             this,
@@ -136,6 +137,7 @@ export default class SpecialIssuePartsEditor extends React.Component {
                           <Iconoclass
                             behavior="button"
                             iconName="delete"
+                            disabled={disabled}
                             onClick={this.handleRemovePart.bind(this, part)}
                           />
                         )}

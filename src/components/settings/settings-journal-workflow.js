@@ -204,6 +204,7 @@ class SettingsJournalWorkflow extends Component {
           <WorkflowEditor
             journal={journal}
             disabled={disabled}
+            readOnly={readOnly}
             workflow={workflows.find(
               workflow => getId(workflow) === openWorkflowId
             )}

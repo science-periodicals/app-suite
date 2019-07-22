@@ -19,6 +19,7 @@ const ControledPaperInput = withOnSubmit(PaperInput);
 export default class RfaEditor extends React.Component {
   static propTypes = {
     disabled: PropTypes.bool,
+    readOnly: PropTypes.bool,
     journal: PropTypes.object.isRequired,
     rfa: PropTypes.object.isRequired,
     onUpdate: PropTypes.func.isRequired,
@@ -55,7 +56,7 @@ export default class RfaEditor extends React.Component {
   };
 
   render() {
-    const { disabled, rfa } = this.props;
+    const { disabled, readOnly, rfa } = this.props;
 
     return (
       <div className="issue-editor">
@@ -70,7 +71,7 @@ export default class RfaEditor extends React.Component {
             label="name"
             name="name"
             disabled={disabled || rfa.actionStatus === 'CompletedActionStatus'}
-            readOnly={rfa.actionStatus === 'CompletedActionStatus'}
+            readOnly={readOnly || rfa.actionStatus === 'CompletedActionStatus'}
             value={textify(rfa.name) || ''}
             onSubmit={this.handleUpdate}
           />
@@ -81,23 +82,31 @@ export default class RfaEditor extends React.Component {
             label="Description"
             name="description"
             disabled={disabled || rfa.actionStatus === 'CompletedActionStatus'}
-            readOnly={rfa.actionStatus === 'CompletedActionStatus'}
+            readOnly={readOnly || rfa.actionStatus === 'CompletedActionStatus'}
             defaultValue={rfa.description}
             onSubmit={this.handleUpdate}
           />
         </StyleRow>
 
-        <ControlPanel>
-          {!!(rfa.actionStatus === 'PotentialActionStatus') && (
-            <Fragment>
-              <PaperButton onClick={this.handleDelete}>Delete</PaperButton>
-              <PaperButton onClick={this.handleActivate}>Publish</PaperButton>
-            </Fragment>
-          )}
-          {rfa.actionStatus === 'ActiveActionStatus' && (
-            <PaperButton onClick={this.handleComplete}>Archive</PaperButton>
-          )}
-        </ControlPanel>
+        {!readOnly && (
+          <ControlPanel>
+            {!!(rfa.actionStatus === 'PotentialActionStatus') && (
+              <Fragment>
+                <PaperButton disabled={disabled} onClick={this.handleDelete}>
+                  Delete
+                </PaperButton>
+                <PaperButton disabled={disabled} onClick={this.handleActivate}>
+                  Publish
+                </PaperButton>
+              </Fragment>
+            )}
+            {rfa.actionStatus === 'ActiveActionStatus' && (
+              <PaperButton disabled={disabled} onClick={this.handleComplete}>
+                Archive
+              </PaperButton>
+            )}
+          </ControlPanel>
+        )}
       </div>
     );
   }

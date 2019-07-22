@@ -41,6 +41,7 @@ const ControledPaperInput = withOnSubmit(PaperInput);
 class WorkflowEditor extends Component {
   static propTypes = {
     disabled: PropTypes.bool.isRequired,
+    readOnly: PropTypes.bool,
     journal: PropTypes.object,
     workflow: PropTypes.shape({
       '@type': PropTypes.oneOf(['WorkflowSpecification'])
@@ -190,14 +191,13 @@ class WorkflowEditor extends Component {
       onClose,
       updateStatus,
       disabled,
+      readOnly,
       screenWidth
     } = this.props;
 
     if (!journal || !workflow) {
       return null;
     }
-
-    const readOnly = disabled;
 
     const bem = BemTags();
 
@@ -321,6 +321,7 @@ class WorkflowEditor extends Component {
           <div className={bem`__single-stage-control`}>
             <PaperCheckbox
               name="isSingleStage"
+              disabled={disabled}
               checked={isSingleStageWorkflow}
               onChange={this.handleToggleIsSingleStage}
             >
