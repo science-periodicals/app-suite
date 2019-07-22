@@ -251,7 +251,13 @@ export default class JournalMasthead extends PureComponent {
                                   <ul className="sa__clear-list-styles">
                                     {affiliations.map(affiliation => (
                                       <li
-                                        key={getId(affiliation)}
+                                        key={
+                                          getId(affiliation) ||
+                                          textify(
+                                            affiliation.name ||
+                                              affiliation.alternateName
+                                          )
+                                        }
                                         className={bem`__affiliation`}
                                       >
                                         <Iconoclass iconName="locationCity" />

@@ -5,7 +5,7 @@ import pick from 'lodash/pick';
 import { arrayify } from '@scipe/jsonld';
 import {
   PaperInput,
-  PaperTextarea,
+  RichTextarea,
   BemTags,
   ControlPanel,
   withOnSubmit,
@@ -16,7 +16,6 @@ import {
 import { StyleSection, StyleGroup, StyleSectionTitle } from './settings';
 
 const ControledPaperInput = withOnSubmit(PaperInput);
-const ControledPaperTextarea = withOnSubmit(PaperTextarea);
 
 export default class SettingsProfileBio extends Component {
   static propTypes = {
@@ -115,7 +114,6 @@ export default class SettingsProfileBio extends Component {
             name="username"
             label="username"
             autoComplete="off"
-            large={true}
             value={user.username}
             disabled={true}
             readOnly={true}
@@ -124,7 +122,6 @@ export default class SettingsProfileBio extends Component {
             name="givenName"
             label="given name"
             autoComplete="off"
-            large={true}
             value={profile.givenName}
             disabled={disabled}
             onSubmit={this.handleChange}
@@ -133,7 +130,6 @@ export default class SettingsProfileBio extends Component {
             name="familyName"
             label="family name"
             autoComplete="off"
-            large={true}
             value={profile.familyName}
             disabled={disabled}
             onSubmit={this.handleChange}
@@ -142,17 +138,15 @@ export default class SettingsProfileBio extends Component {
             name="name"
             label="display name"
             autoComplete="off"
-            large={true}
             value={profile.name}
             disabled={disabled}
             onSubmit={this.handleChange}
           />
-          <ControledPaperTextarea
+          <RichTextarea
             name="description"
             label="bio"
-            large={true}
             disabled={disabled}
-            value={profile.description}
+            defaultValue={profile.description}
             onSubmit={this.handleChange}
           />
           <ControledPaperInput
@@ -160,7 +154,6 @@ export default class SettingsProfileBio extends Component {
             label="homepage"
             autoComplete="off"
             type="url"
-            large={true}
             disabled={disabled}
             value={profile.url}
             error={
@@ -174,7 +167,6 @@ export default class SettingsProfileBio extends Component {
             label="ORCID URL"
             autoComplete="off"
             type="url"
-            large={true}
             disabled={disabled}
             value={orcidUrl}
             pattern="^http(s)?:\/\/(www\.)?orcid.org\/.*"

@@ -250,7 +250,6 @@ class ArticleFrontMatter extends React.PureComponent {
             >
               Authors
             </h2>
-            {/* we temporary disabled shell editor TODO? re-enable */}
             <AnnotableContributorList
               graphId={graphId}
               actionId={actionId}
@@ -279,10 +278,10 @@ class ArticleFrontMatter extends React.PureComponent {
             >
               Contributors
             </h2>
-            {/* we temporary disabled shell editor TODO? re-enable */}
             <AnnotableContributorList
               graphId={graphId}
               actionId={actionId}
+              action={action}
               resource={resource}
               property="contributor"
               counter={contributorsCounter}

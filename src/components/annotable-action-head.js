@@ -59,7 +59,7 @@ import {
   getWorkflowStatusIcon,
   checkIsAutoEndorsedAction
 } from '../utils/workflow';
-import { getPrice, isFree } from '../utils/payment-utils';
+import { isFree } from '../utils/payment-utils';
 import { openShell } from '../actions/ui-action-creators';
 import { getSelectorGraphParam } from '../utils/annotations';
 
