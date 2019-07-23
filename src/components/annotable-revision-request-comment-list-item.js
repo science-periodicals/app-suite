@@ -266,7 +266,9 @@ class AnnotableRevisionRequestCommentListItem extends React.Component {
                       <div className="annotable-revision-request-comment-list-item__controls">
                         <Iconoclass
                           iconName="shell"
-                          disabled={disabled}
+                          disabled={
+                            false /* not disabled, disabled will be applied within the shell controls  */
+                          }
                           behavior="button"
                           onClick={this.handleEdit}
                           size="18px"

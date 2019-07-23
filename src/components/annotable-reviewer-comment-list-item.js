@@ -211,7 +211,9 @@ class AnnotableReviewerCommentListItem extends React.Component {
                       <div className="annotable-reviewer-comment-list-item__controls">
                         <Iconoclass
                           iconName="shell"
-                          disabled={disabled}
+                          disabled={
+                            false /* not disabled, disabled will be applied within the shell controls  */
+                          }
                           behavior="button"
                           onClick={this.handleEdit}
                           size="18px"

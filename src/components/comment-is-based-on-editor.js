@@ -6,12 +6,7 @@ import { createSelector } from 'reselect';
 import { withRouter, Link } from 'react-router-dom';
 import Iconoclass from '@scipe/iconoclass';
 import { getNodeMap, arrayify, getId } from '@scipe/jsonld';
-import {
-  getDisplayName,
-  Menu,
-  MenuItem,
-  ActionIdentifier
-} from '@scipe/ui';
+import { getDisplayName, Menu, MenuItem, ActionIdentifier } from '@scipe/ui';
 import {
   createActionMapSelector,
   createGraphAclSelector
@@ -177,12 +172,7 @@ class CommentIsBasedOnEditor extends React.Component {
 
         {!readOnly && !!potentialReviewActions.length && (
           <div className="comment-is-based-on-editor__add">
-            <Menu
-              iconName="add"
-              iconSize={18}
-              disabled={disabled}
-              portal={portal}
-            >
+            <Menu iconName="add" iconSize={18} portal={portal}>
               {potentialReviewActions.map(reviewAction => (
                 <MenuItem
                   key={getId(reviewAction)}

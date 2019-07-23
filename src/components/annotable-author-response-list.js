@@ -4,11 +4,7 @@ import noop from 'lodash/noop';
 import Iconoclass from '@scipe/iconoclass';
 import { getId, arrayify } from '@scipe/jsonld';
 import { Value, RichTextarea } from '@scipe/ui';
-import {
-  createId,
-  getVersion,
-  getLocationIdentifier
-} from '@scipe/librarian';
+import { createId, getVersion, getLocationIdentifier } from '@scipe/librarian';
 import Annotable from './annotable';
 import Counter from '../utils/counter';
 import CommentIsBasedOnEditor from './comment-is-based-on-editor';
@@ -268,7 +264,9 @@ export default class AnnotableAuthorResponseList extends React.Component {
                         <div className="annotable-author-response-list__shell">
                           <Iconoclass
                             iconName="shell"
-                            disabled={disabled}
+                            disabled={
+                              false /* not disabled, disabled will be applied within the shell controls  */
+                            }
                             behavior="button"
                             className="annotable-author-response-list__shell-icon"
                             size="18px"

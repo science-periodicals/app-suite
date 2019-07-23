@@ -9,6 +9,7 @@ import { prettifyLocation } from '../utils/annotations';
 class ShellEditor extends React.Component {
   static propTypes = {
     connectedComponent: PropTypes.oneOfType([
+      PropTypes.object,
       PropTypes.element,
       PropTypes.func
     ]),

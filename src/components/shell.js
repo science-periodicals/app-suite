@@ -66,6 +66,7 @@ class Shell extends Component {
     ]),
     body: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
     connectedComponent: PropTypes.oneOfType([
+      PropTypes.object,
       PropTypes.element,
       PropTypes.func
     ]),
