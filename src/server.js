@@ -42,7 +42,7 @@ const config = {
     name: 'appSuite',
     level: 'error'
   },
-  cache: false, // TODO set to true to debug any potential cache bugs
+  cache: true, // Note set to `true` to debug cache bugs
   openRegistration: false,
   skipPayments: true, // set to false
   emailService: 'ses', // comment out to prevent email
