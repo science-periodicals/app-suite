@@ -70,7 +70,7 @@ export default class AnnotableEncoding extends React.Component {
   };
 
   render() {
-    const { resource } = this.props;
+    const { resource, counter, graphId } = this.props;
 
     // handle multi part figures
     const parts = arrayify(resource.hasPart);
@@ -91,6 +91,20 @@ export default class AnnotableEncoding extends React.Component {
               key={getId(resource)}
               {...this.props}
               resource={resource}
+              counter={
+                i === 0
+                  ? counter.freeze(
+                      `annotable-encoding-${getId(
+                        resource
+                      )}-${graphId}` /* we need graphId as user can toggle versions */
+                    )
+                  : counter.increment({
+                      level: 5,
+                      key: `annotable-encoding-${getId(
+                        resource
+                      )}-${graphId}` /* we need graphId as user can toggle versions */
+                    })
+              }
               isFromMultiPartImage={isFromMultiPartImage}
             />
           );

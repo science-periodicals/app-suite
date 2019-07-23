@@ -28,6 +28,9 @@ class FilesAttachment extends React.PureComponent {
     journalId: PropTypes.string.isRequired,
     graphId: PropTypes.string.isRequired,
     action: PropTypes.shape({
+      identifier: PropTypes.string.isRequired,
+      actionStatus: PropTypes.string.isRequired,
+      object: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
       '@type': PropTypes.oneOf([
         'CreateReleaseAction',
         'TypesettingAction',
