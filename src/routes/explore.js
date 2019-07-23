@@ -50,7 +50,8 @@ router.get(
             res.render('index', {
               escJSON,
               bundles,
-              initialState: { user }
+              initialState: { user },
+              resetPouchDB: req.session && req.session.resetPouchDB
             });
           } else {
             // SSR
@@ -158,7 +159,8 @@ router.get(
                   escJSON,
                   helmet,
                   html,
-                  initialState: store.getState()
+                  initialState: store.getState(),
+                  resetPouchDB: req.session && req.session.resetPouchDB
                 });
               }
             }).catch(err => {

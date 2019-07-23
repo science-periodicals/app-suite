@@ -275,7 +275,11 @@ class Publisher extends React.Component {
         </AppLayoutHeader>
 
         <AppLayoutSubHeader>
-          <PublisherJoinSubHeader history={history} graphId={graphId} />
+          <PublisherJoinSubHeader
+            disabled={_disabled}
+            history={history}
+            graphId={graphId}
+          />
         </AppLayoutSubHeader>
 
         <AppLayoutLeft backgroundOnDesktop={false}>

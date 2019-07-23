@@ -35,7 +35,7 @@ import config from '../../utils/config';
  */
 export default class SettingsOrganizationPayments extends React.Component {
   static propTypes = {
-    disabled: PropTypes.bool,
+    disabled: PropTypes.bool.isRequired,
     organization: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired
   };
@@ -307,6 +307,7 @@ export default class SettingsOrganizationPayments extends React.Component {
   };
 
   render() {
+    const { disabled } = this.props;
     const {
       fetching,
       posting,
@@ -391,7 +392,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                 label="type"
                 value={type}
                 required={!optionalProps.has('type')}
-                disabled={fetching || posting}
+                disabled={disabled || fetching || posting}
                 onChange={this.handleChange}
               >
                 <option value="individual">Individual</option>
@@ -416,7 +417,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                       type="text"
                       value={businessName}
                       required={!optionalProps.has('businessName')}
-                      disabled={fetching || posting}
+                      disabled={disabled || fetching || posting}
                       onChange={this.handleChange}
                     />
                   </LayoutWrapItem>
@@ -434,7 +435,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                         />
                       </StyleValidatedInput>
                       <PaperButton
-                        disabled={fetching || posting}
+                        disabled={disabled || fetching || posting}
                         onClick={this.handleReplaceSensitiveField.bind(
                           this,
                           'businessTaxId'
@@ -451,7 +452,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                         type="text"
                         value={businessTaxId}
                         required={!optionalProps.has('businessTaxId')}
-                        disabled={fetching || posting}
+                        disabled={disabled || fetching || posting}
                         onChange={this.handleChange}
                       />
                     </LayoutWrapItem>
@@ -477,7 +478,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                     type="text"
                     value={firstName}
                     required={!optionalProps.has('firstName')}
-                    disabled={fetching || posting}
+                    disabled={disabled || fetching || posting}
                     onChange={this.handleChange}
                   />
                 </LayoutWrapItem>
@@ -488,7 +489,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                     type="text"
                     value={lastName}
                     required={!optionalProps.has('lastName')}
-                    disabled={fetching || posting}
+                    disabled={disabled || fetching || posting}
                     onChange={this.handleChange}
                   />
                 </LayoutWrapItem>
@@ -507,7 +508,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                     </StyleValidatedInput>
                     <StyleSectionControls>
                       <PaperButton
-                        disabled={fetching || posting}
+                        disabled={disabled || fetching || posting}
                         onClick={this.handleReplaceSensitiveField.bind(
                           this,
                           'personalIdNumber'
@@ -528,7 +529,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                       pattern="\d{9}"
                       minLenght={9}
                       maxLenght={9}
-                      disabled={fetching || posting}
+                      disabled={disabled || fetching || posting}
                       onChange={this.handleChange}
                     />
                   </LayoutWrapItem>
@@ -555,7 +556,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                     min={1}
                     max={31}
                     step={1}
-                    disabled={fetching || posting}
+                    disabled={disabled || fetching || posting}
                     onChange={this.handleChange}
                   />
                 </LayoutWrapItem>
@@ -569,7 +570,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                     min={1}
                     max={12}
                     step={1}
-                    disabled={fetching || posting}
+                    disabled={disabled || fetching || posting}
                     onChange={this.handleChange}
                   />
                 </LayoutWrapItem>
@@ -581,7 +582,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                     value={dobYear}
                     required={!optionalProps.has('dobYear')}
                     pattern="\d{4}"
-                    disabled={fetching || posting}
+                    disabled={disabled || fetching || posting}
                     onChange={this.handleChange}
                   />
                 </LayoutWrapItem>
@@ -602,7 +603,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                 type="text"
                 value={addressLine1}
                 required={!optionalProps.has('addressLine1')}
-                disabled={fetching || posting}
+                disabled={disabled || fetching || posting}
                 onChange={this.handleChange}
                 floatLabel={false}
               />
@@ -613,7 +614,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                 type="text"
                 value={addressLine2}
                 required={!optionalProps.has('addressLine2')}
-                disabled={fetching || posting}
+                disabled={disabled || fetching || posting}
                 onChange={this.handleChange}
                 floatLabel={false}
               />
@@ -625,7 +626,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                     type="text"
                     value={addressPostalCode}
                     required={!optionalProps.has('addressPostalCode')}
-                    disabled={fetching || posting}
+                    disabled={disabled || fetching || posting}
                     onChange={this.handleChange}
                     floatLabel={false}
                   />
@@ -637,7 +638,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                     type="text"
                     value={addressState}
                     required={!optionalProps.has('addressState')}
-                    disabled={fetching || posting}
+                    disabled={disabled || fetching || posting}
                     onChange={this.handleChange}
                     floatLabel={false}
                   />
@@ -649,7 +650,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                     type="text"
                     value={addressCity}
                     required={!optionalProps.has('addressCity')}
-                    disabled={fetching || posting}
+                    disabled={disabled || fetching || posting}
                     onChange={this.handleChange}
                     floatLabel={false}
                   />
@@ -661,7 +662,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                     type="text"
                     value={addressCountry}
                     required={!optionalProps.has('addressCountry')}
-                    disabled={fetching || posting}
+                    disabled={disabled || fetching || posting}
                     onChange={this.handleChange}
                     floatLabel={false}
                   >
@@ -697,7 +698,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                   </div>
 
                   <PaperButton
-                    disabled={fetching || posting}
+                    disabled={disabled || fetching || posting}
                     onClick={this.handleReplaceBankAccount}
                   >
                     Replace
@@ -713,7 +714,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                         type="text"
                         value={accountNumber}
                         required={!optionalProps.has('accountNumber')}
-                        disabled={fetching || posting}
+                        disabled={disabled || fetching || posting}
                         onChange={this.handleChange}
                       />
                     </LayoutWrapItem>
@@ -724,7 +725,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                         type="text"
                         value={routingNumber}
                         required={!optionalProps.has('routingNumber')}
-                        disabled={fetching || posting}
+                        disabled={disabled || fetching || posting}
                         onChange={this.handleChange}
                       />
                     </LayoutWrapItem>
@@ -737,7 +738,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                         type="text"
                         value={accountHolderName}
                         required={!optionalProps.has('accountHolderName')}
-                        disabled={fetching || posting}
+                        disabled={disabled || fetching || posting}
                         onChange={this.handleChange}
                       />
                     </LayoutWrapItem>
@@ -747,7 +748,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                         label="type"
                         value={accountHolderType}
                         required={!optionalProps.has('accountHolderType')}
-                        disabled={fetching || posting}
+                        disabled={disabled || fetching || posting}
                         onChange={this.handleChange}
                       >
                         <option value="individual">Individual</option>
@@ -762,7 +763,7 @@ export default class SettingsOrganizationPayments extends React.Component {
                         label="Country"
                         value={accountCountry}
                         required={!optionalProps.has('accountCountry')}
-                        disabled={fetching || posting}
+                        disabled={disabled || fetching || posting}
                         onChange={this.handleChange}
                       >
                         <option value="CA">Canada</option>
@@ -791,7 +792,9 @@ export default class SettingsOrganizationPayments extends React.Component {
           <ControlPanel error={fetchError || postError}>
             <PaperButton
               type="submit"
-              disabled={account ? !(canSubmit && canUpdate) : !canSubmit}
+              disabled={
+                disabled || (account ? !(canSubmit && canUpdate) : !canSubmit)
+              }
               onClick={this[account ? 'handleUpdate' : 'handleSubmit']}
             >
               {`${

@@ -28,7 +28,8 @@ router.get(
 
       res.render('index', {
         escJSON,
-        bundles
+        bundles,
+        resetPouchDB: req.session && req.session.resetPouchDB
       });
     });
   }

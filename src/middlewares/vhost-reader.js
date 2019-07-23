@@ -16,7 +16,8 @@ export default function vhostReader(req, res, next) {
         isJournalSubdomain: true,
         escJSON,
         bundles,
-        initialState
+        initialState,
+        resetPouchDB: req.session && req.session.resetPouchDB
       });
     });
   });

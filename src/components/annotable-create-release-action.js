@@ -1,4 +1,5 @@
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import querystring from 'querystring';
@@ -7,12 +8,7 @@ import { createSelector } from 'reselect';
 import identity from 'lodash/identity';
 import { withRouter } from 'react-router-dom';
 import { getId, createValue, arrayify } from '@scipe/jsonld';
-import {
-  Dropzone,
-  CSS_HEADER_HEIGHT,
-  PaperButtonLink,
-  Card
-} from '@scipe/ui';
+import { Dropzone, CSS_HEADER_HEIGHT, PaperButtonLink, Card } from '@scipe/ui';
 import {
   getObjectId,
   getResultId,
@@ -144,7 +140,10 @@ class AnnotableCreateReleaseAction extends React.Component {
 
   handleScroll = e => {
     if (this.filesAttachmentRef.current) {
-      const rect = this.filesAttachmentRef.current.getBoundingClientRect();
+      const el =
+        findDOMNode(this.filesAttachmentRef.current) || // Note: this should not be needed but React.forwardRef doesn't seem to work here ??
+        this.filesAttachmentRef.current;
+      const rect = el.getBoundingClientRect();
       window.scroll({
         top: window.pageYOffset + rect.top - CSS_HEADER_HEIGHT,
         behavior: 'smooth'

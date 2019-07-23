@@ -213,7 +213,8 @@ router.get(
             res.render('index', {
               escJSON,
               bundles,
-              initialState
+              initialState,
+              resetPouchDB: req.session && req.session.resetPouchDB
             });
           }
         );

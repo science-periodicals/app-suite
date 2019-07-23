@@ -4,7 +4,7 @@ import { xhr, RE_LOCAL_HOST_OR_DEV } from '@scipe/librarian';
 import isClient from 'is-client';
 import { getId, unprefix } from '@scipe/jsonld';
 import { createEmailMessage } from '../utils/email-utils';
-import { createDb } from './pouch-action-creators';
+import { createUserPouchDb } from './pouch-action-creators';
 
 export const LOGIN = 'LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -30,7 +30,7 @@ export function login(username, password, { csrfToken, history, next = '/' }) {
       }
     })
       .then(({ body: user }) => {
-        return dispatch(createDb(getId(user))).then(db => {
+        return dispatch(createUserPouchDb(getId(user))).then(db => {
           return user;
         });
       })

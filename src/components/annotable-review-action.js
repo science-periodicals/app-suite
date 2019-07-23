@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import querystring from 'querystring';
@@ -102,7 +103,10 @@ class AnnotableReviewAction extends React.Component {
 
   handleScroll = e => {
     if (this.filesAttachmentRef.current) {
-      const rect = this.filesAttachmentRef.current.getBoundingClientRect();
+      const el =
+        findDOMNode(this.filesAttachmentRef.current) || // Note: this should not be needed but React.forwardRef doesn't seem to work here ??
+        this.filesAttachmentRef.current;
+      const rect = el.getBoundingClientRect();
       window.scroll({
         top: window.pageYOffset + rect.top - CSS_HEADER_HEIGHT,
         behavior: 'smooth'

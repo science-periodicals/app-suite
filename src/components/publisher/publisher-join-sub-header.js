@@ -29,6 +29,7 @@ class PublisherJoinSubHeader extends React.Component {
   static propTypes = {
     graphId: PropTypes.string,
     history: PropTypes.object.isRequired,
+    disabled: PropTypes.bool,
 
     // redux
     user: PropTypes.object.isRequired,
@@ -109,6 +110,7 @@ class PublisherJoinSubHeader extends React.Component {
   render() {
     const {
       user,
+      disabled,
       acl,
       graph,
       activeInviteActions,
@@ -151,7 +153,9 @@ class PublisherJoinSubHeader extends React.Component {
             write access
           </span>
           <ControlPanel>
-            <PaperButton onClick={this.handleJoin}>Join</PaperButton>
+            <PaperButton disabled={disabled} onClick={this.handleJoin}>
+              Join
+            </PaperButton>
           </ControlPanel>
         </div>
       );
@@ -169,8 +173,12 @@ class PublisherJoinSubHeader extends React.Component {
           />
           <span className={bem`__text`}>You are credited as a contributor</span>
           <ControlPanel>
-            <PaperButton onClick={this.handleDeny}>Deny</PaperButton>
-            <PaperButton onClick={this.handleSign}>Confirm</PaperButton>
+            <PaperButton disabled={disabled} onClick={this.handleDeny}>
+              Deny
+            </PaperButton>
+            <PaperButton disabled={disabled} onClick={this.handleSign}>
+              Confirm
+            </PaperButton>
           </ControlPanel>
         </div>
       );
@@ -195,6 +203,7 @@ class PublisherJoinSubHeader extends React.Component {
                   <span>Reject As…</span>
                   {activeInviteActions.map(inviteAction => (
                     <MenuItem
+                      disabled={disabled}
                       key={getId(inviteAction)}
                       onClick={this.handleRejectInvite.bind(this, inviteAction)}
                     >
@@ -207,6 +216,7 @@ class PublisherJoinSubHeader extends React.Component {
                   <span>Accept As…</span>
                   {activeInviteActions.map(inviteAction => (
                     <MenuItem
+                      disabled={disabled}
                       key={getId(inviteAction)}
                       onClick={this.handleAcceptInvite.bind(this, inviteAction)}
                     >
@@ -235,6 +245,7 @@ class PublisherJoinSubHeader extends React.Component {
 
               <ControlPanel>
                 <PaperButton
+                  disabled={disabled}
                   onClick={this.handleRejectInvite.bind(
                     this,
                     activeInviteActions[0]
@@ -243,6 +254,7 @@ class PublisherJoinSubHeader extends React.Component {
                   Reject
                 </PaperButton>
                 <PaperButton
+                  disabled={disabled}
                   onClick={this.handleAcceptInvite.bind(
                     this,
                     activeInviteActions[0]

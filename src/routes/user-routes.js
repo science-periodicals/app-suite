@@ -40,7 +40,8 @@ router.get('/:userId', addDbVersion, addLibrarian, (req, res, next) => {
             escJSON,
             initialState: store.getState(),
             bundles,
-            prefetchManifest: req.app.locals.config.prefetchManifest
+            prefetchManifest: req.app.locals.config.prefetchManifest,
+            resetPouchDB: req.session && req.session.resetPouchDB
           });
         } else {
           const html = renderToString(
@@ -76,7 +77,8 @@ router.get('/:userId', addDbVersion, addLibrarian, (req, res, next) => {
               html,
               initialState: store.getState(),
               bundles,
-              prefetchManifest: req.app.locals.config.prefetchManifest
+              prefetchManifest: req.app.locals.config.prefetchManifest,
+              resetPouchDB: req.session && req.session.resetPouchDB
             });
           }
         }

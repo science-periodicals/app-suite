@@ -1,7 +1,7 @@
 import omit from 'lodash/omit';
 import {
   STOP_SYNC,
-  CREATE_DB,
+  CREATE_USER_POUCH_DB,
   START_CHANGES,
   STOP_CHANGES,
   START_REMOTE_CHANGES,
@@ -22,7 +22,7 @@ import {
 
 export function pouch(state = {}, action) {
   switch (action.type) {
-    case CREATE_DB:
+    case CREATE_USER_POUCH_DB:
       return Object.assign({}, state, { db: action.payload });
 
     case START_REPLICATION_FROM_COUCH_TO_POUCH:

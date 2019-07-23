@@ -88,7 +88,8 @@ export default function vhostReaderSsr(req, res, next) {
               html,
               initialState: store.getState(),
               bundles,
-              prefetchManifest: req.app.locals.config.prefetchManifest
+              prefetchManifest: req.app.locals.config.prefetchManifest,
+              resetPouchDB: req.session && req.session.resetPouchDB
             });
           });
         }

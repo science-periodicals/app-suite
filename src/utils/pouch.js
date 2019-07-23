@@ -1,25 +1,46 @@
+import { getId } from '@scipe/jsonld';
 import { xhr, merge } from '@scipe/librarian';
 import PouchDB from 'pouchdb';
 
-export function createDb(config, opts) {
-  opts = Object.assign({ auto_compaction: true }, opts);
+export function createDb(
+  userId, // can be undefiend
+  dbVersion,
+  reset = false
+) {
+  const name = `${process.env.DB_NAME || 'scienceai'}-${[
+    getId(userId),
+    dbVersion
+  ]
+    .filter(Boolean)
+    .join('-')}`;
 
-  const db = new PouchDB(config.db, opts);
-  if (config.resetPouchDB) {
-    console.info('resetting PouchDB');
+  const opts = {
+    auto_compaction: true,
+    fetch: function(url, opts) {
+      opts.credentials = 'include';
+      opts.headers.set('X-PouchDB', 'true');
+      return PouchDB.fetch(url, opts);
+    }
+  };
+
+  const db = new PouchDB(name, opts);
+
+  if (reset) {
+    console.info(`resetting PouchDB ${name}`);
     return db
       .destroy()
       .then(res => {
         return xhr({
-          url: '/session/pouch',
-          method: 'POST'
+          url: '/pouch/status',
+          method: 'POST',
+          json: { reseted: true }
         });
       })
       .catch(err => {
         console.error(err);
       })
       .then(() => {
-        return new PouchDB(config.db, opts);
+        return new PouchDB(name, opts);
       });
   } else {
     return Promise.resolve(db);

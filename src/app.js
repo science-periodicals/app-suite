@@ -9,7 +9,7 @@ import { createLogger } from 'redux-logger';
 import PouchDB from 'pouchdb';
 import pouchdbUpsert from 'pouchdb-upsert';
 import { getId } from '@scipe/jsonld';
-
+import { createDb } from './utils/pouch';
 import onChangeMiddleware from './middlewares/on-change-middleware';
 import annotationMiddleware from './middlewares/annotation-middleware';
 import createSocketIoMiddleware from './middlewares/create-socket-io-middleware';
@@ -67,75 +67,66 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
 
-  const state = Object.assign(initialState, {
-    pouch: {
-      db: new PouchDB(
-        `${process.env.DB_NAME || 'scienceai'}-${[
-          getId(initialState.user),
-          config.DB_VERSION
-        ]
-          .filter(Boolean)
-          .join('-')}`,
-        {
-          auto_compaction: true,
-          fetch: function(url, opts) {
-            opts.credentials = 'include';
-            opts.headers.set('X-PouchDB', 'true');
-            return PouchDB.fetch(url, opts);
-          }
+  createDb(getId(initialState.user), config.DB_VERSION, config.resetPouchDB)
+    .then(db => {
+      const state = Object.assign(initialState, {
+        pouch: {
+          db,
+          remote: new PouchDB(
+            `${window.location.origin}/${process.env.DB_NAME ||
+              'scienceai'}__${config.DB_VERSION || ''}__`,
+            {
+              fetch: function(url, opts) {
+                opts.credentials = 'include';
+                opts.headers.set('X-PouchDB', 'true');
+                return PouchDB.fetch(url, opts);
+              }
+            }
+          )
         }
-      ),
-      remote: new PouchDB(
-        `${window.location.origin}/${process.env.DB_NAME ||
-          'scienceai'}__${config.DB_VERSION || ''}__`,
-        {
-          fetch: function(url, opts) {
-            opts.credentials = 'include';
-            opts.headers.set('X-PouchDB', 'true');
-            return PouchDB.fetch(url, opts);
-          }
+      });
+
+      const store = createStore(
+        rootReducer,
+        state,
+        applyMiddleware(...middlewares)
+      );
+
+      window.onbeforeunload = function() {
+        const {
+          pouch: { repFromPouchToCouchStatus }
+        } = store.getState();
+        if (
+          repFromPouchToCouchStatus &&
+          repFromPouchToCouchStatus !== 'paused' &&
+          repFromPouchToCouchStatus !== 'error'
+        ) {
+          return 'Documents still syncing. If you leave now, your latest changes will be saved but your collaborators (if any) will not be able to see them';
         }
-      )
-    }
-  });
+      };
 
-  const store = createStore(
-    rootReducer,
-    state,
-    applyMiddleware(...middlewares)
-  );
+      if (config.ci) {
+        window.addEventListener('load', e => {
+          // needed for backstop.js `readyEvent` prop
+          console.log('TEST_DATA_LOAD');
+        });
+      }
 
-  window.onbeforeunload = function() {
-    const {
-      pouch: { repFromPouchToCouchStatus }
-    } = store.getState();
-    if (
-      repFromPouchToCouchStatus &&
-      repFromPouchToCouchStatus !== 'paused' &&
-      repFromPouchToCouchStatus !== 'error'
-    ) {
-      return 'Documents still syncing. If you leave now, your latest changes will be saved but your collaborators (if any) will not be able to see them';
-    }
-  };
+      // Note: this is currently used in <Annotable /> to access the redux store (see <CtxFwd /> in `measure` method)
+      window.store = store;
 
-  if (config.ci) {
-    window.addEventListener('load', e => {
-      // needed for backstop.js `readyEvent` prop
-      console.log('TEST_DATA_LOAD');
+      if (module.hot) {
+        // See https://blog.isquaredsoftware.com/2016/11/practical-redux-part-3-project-planning-and-setup/
+        module.hot.accept('./app-provider', () => {
+          setTimeout(() => {
+            render(config, store);
+          }, 0);
+        });
+      }
+
+      render(config, store);
+    })
+    .catch(err => {
+      console.error(err);
     });
-  }
-
-  // Note: this is currently used in <Annotable /> to access the redux store (see <CtxFwd /> in `measure` method)
-  window.store = store;
-
-  if (module.hot) {
-    // See https://blog.isquaredsoftware.com/2016/11/practical-redux-part-3-project-planning-and-setup/
-    module.hot.accept('./app-provider', () => {
-      setTimeout(() => {
-        render(config, store);
-      }, 0);
-    });
-  }
-
-  render(config, store);
 });

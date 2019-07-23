@@ -6,8 +6,7 @@ import {
   SCIPE_FREE_OFFER_ID,
   SCIPE_EXPLORER_OFFER_ID,
   SCIPE_VOYAGER_OFFER_ID,
-  SCIPE_EXPLORER_ACTIVATION_PRICE_USD,
-  getResultId
+  SCIPE_EXPLORER_ACTIVATION_PRICE_USD
 } from '@scipe/librarian';
 import {
   PaperButton,
@@ -35,6 +34,7 @@ import InvoiceList from '../invoice-list';
 
 export default class SettingsOrganizationBilling extends React.Component {
   static propTypes = {
+    disabled: PropTypes.bool.isRequired,
     user: PropTypes.object.isRequired,
     organization: PropTypes.object.isRequired
   };
@@ -239,7 +239,7 @@ export default class SettingsOrganizationBilling extends React.Component {
   };
 
   render() {
-    const { user, organization } = this.props;
+    const { user, organization, disabled } = this.props;
     const {
       isFetching,
       activeSubscribeAction,
@@ -288,7 +288,7 @@ export default class SettingsOrganizationBilling extends React.Component {
                   {offerId === SCIPE_FREE_OFFER_ID ? 'Upgrade' : 'Change'}
                 </span>
                 <MenuItem
-                  disabled={offerId === SCIPE_EXPLORER_OFFER_ID}
+                  disabled={disabled || offerId === SCIPE_EXPLORER_OFFER_ID}
                   onClick={this.handleSelectPlan.bind(
                     this,
                     SCIPE_EXPLORER_OFFER_ID
@@ -297,7 +297,7 @@ export default class SettingsOrganizationBilling extends React.Component {
                   Explorer
                 </MenuItem>
                 <MenuItem
-                  disabled={offerId === SCIPE_VOYAGER_OFFER_ID}
+                  disabled={disabled || offerId === SCIPE_VOYAGER_OFFER_ID}
                   onClick={this.handleSelectPlan.bind(
                     this,
                     SCIPE_VOYAGER_OFFER_ID
@@ -308,6 +308,7 @@ export default class SettingsOrganizationBilling extends React.Component {
               </ButtonMenu>
             ) : offerId === SCIPE_EXPLORER_OFFER_ID ? (
               <PaperButton
+                disabled={disabled}
                 onClick={this.handleSelectPlan.bind(
                   this,
                   SCIPE_VOYAGER_OFFER_ID
@@ -319,7 +320,7 @@ export default class SettingsOrganizationBilling extends React.Component {
 
             {offerId !== SCIPE_FREE_OFFER_ID && (
               <PaperButton
-                disabled={isUpdating}
+                disabled={disabled || isUpdating}
                 onClick={this.handleSelectPlan.bind(this, SCIPE_FREE_OFFER_ID)}
               >
                 Cancel
@@ -485,6 +486,7 @@ export default class SettingsOrganizationBilling extends React.Component {
 
 class UpdatePaymentInfoButton extends React.Component {
   static propTypes = {
+    disabled: PropTypes.bool.isRequired,
     user: PropTypes.object.isRequired,
     planName: PropTypes.string
   };
@@ -550,7 +552,7 @@ class UpdatePaymentInfoButton extends React.Component {
   };
 
   render() {
-    const { user, planName } = this.props;
+    const { disabled, user, planName } = this.props;
     const { isUpdating, error } = this.state;
 
     return (
@@ -559,7 +561,7 @@ class UpdatePaymentInfoButton extends React.Component {
         user={user}
         mode="subscription"
         onToken={this.handleChangeCard}
-        disabled={isUpdating}
+        disabled={disabled || isUpdating}
         isProgressing={isUpdating}
         error={error}
         checkoutTitle="Update payment method"

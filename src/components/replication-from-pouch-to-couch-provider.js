@@ -31,7 +31,6 @@ class ReplicationFromPouchToCouchProvider extends React.Component {
 
   render() {
     const { children } = this.props;
-    // TODO history provider so that history is available as state of the store
 
     return children;
   }

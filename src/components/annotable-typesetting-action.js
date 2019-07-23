@@ -1,14 +1,11 @@
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { getId, unrole } from '@scipe/jsonld';
 import ds3Mime from '@scipe/ds3-mime';
-import {
-  getObject,
-  getResult,
-  getLocationIdentifier
-} from '@scipe/librarian';
+import { getObject, getResult, getLocationIdentifier } from '@scipe/librarian';
 import {
   Dropzone,
   CSS_HEADER_HEIGHT,
@@ -106,7 +103,10 @@ class AnnotableTypesettingAction extends React.Component {
     e.preventDefault();
 
     if (this.filesAttachmentRef.current) {
-      const rect = this.filesAttachmentRef.current.getBoundingClientRect();
+      const el =
+        findDOMNode(this.filesAttachmentRef.current) || // Note: this should not be needed but React.forwardRef doesn't seem to work here ??
+        this.filesAttachmentRef.current;
+      const rect = el.getBoundingClientRect();
       window.scroll({
         top: window.pageYOffset + rect.top - CSS_HEADER_HEIGHT,
         behavior: 'smooth'

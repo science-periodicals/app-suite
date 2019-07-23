@@ -1,5 +1,4 @@
 import querystring from 'querystring';
-import PouchDB from 'pouchdb';
 import flatten from 'lodash/flatten';
 import omit from 'lodash/omit';
 import { parseIndexableString, toIndexableString } from '@scipe/collate';
@@ -13,7 +12,7 @@ import {
   EDITABLE_OFFLINE_TYPES
 } from '@scipe/librarian';
 import { resetSubdomain } from '@scipe/ui';
-import { handleConflicts } from '../utils/pouch';
+import { handleConflicts, createDb } from '../utils/pouch';
 import { fetchGraph } from './graph-action-creators';
 import { fetchFeedItems } from './feed-action-creators';
 import config from '../utils/config';
@@ -22,29 +21,20 @@ import { hasUpdatedActiveRoles } from '../utils/user-utils';
 
 // TODO use history to redirect to /login and not window.location
 
-export const CREATE_DB = 'CREATE_DB';
-export function createDb(userId) {
+export const CREATE_USER_POUCH_DB = 'CREATE_USER_POUCH_DB';
+export function createUserPouchDb(userId) {
   return (dispatch, getState) => {
-    const dbName = `${process.env.DB_NAME || 'scienceai'}-${[
-      userId,
-      config.DB_VERSION
-    ]
-      .filter(Boolean)
-      .join('-')}`;
-    const dbOpts = { auto_compaction: true };
-
-    return new PouchDB(dbName, dbOpts)
-      .destroy()
-      .catch(err => {
-        console.error(err);
-      })
-      .then(() => {
-        const db = new PouchDB(dbName, dbOpts);
+    return createDb(userId, config.DB_VERSION, true)
+      .then(db => {
         dispatch({
-          type: CREATE_DB,
+          type: CREATE_USER_POUCH_DB,
           payload: db
         });
         return db;
+      })
+      .catch(err => {
+        console.error(err);
+        throw err;
       });
   };
 }
@@ -724,10 +714,10 @@ export function startReplicationFromPouchToCouch(since) {
   return (dispatch, getState) => {
     const {
       pouch: { db, remote, repFromPouchToCouch },
-      user: { username }
+      user: { username, roles = [] }
     } = getState();
 
-    if (!username) return; // user is not logged in so he can't access CouchDB.
+    if (!username || (roles && roles.includes('readOnlyUser'))) return; // user is not logged in so he can't access CouchDB.
     if (repFromPouchToCouch) return;
 
     // Live replication from PouchDB to CouchDB

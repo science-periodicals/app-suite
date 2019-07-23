@@ -125,7 +125,8 @@ export default function vhostSifterSsr(req, res, next) {
               html,
               bundles,
               prefetchManifest: req.app.locals.config.prefetchManifest,
-              initialState: store.getState()
+              initialState: store.getState(),
+              resetPouchDB: req.session && req.session.resetPouchDB
             });
           });
         }

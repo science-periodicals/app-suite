@@ -13,6 +13,7 @@ import logoutRoutes from './routes/logout';
 import appRoutes from './routes/app';
 import demoRoutes from './routes/demo-routes';
 import userRoutes from './routes/user-routes';
+import pouchRoutes from './routes/pouch-routes';
 import purlRoutes from './routes/purl';
 import exploreRoutes from './routes/explore';
 import vhostSifter from './middlewares/vhost-sifter';
@@ -128,6 +129,9 @@ export function appSuite(config = {}) {
 
   // reset password
   app.use('/reset-password', validateBasicAuthCredentials, resetPasswordRoutes);
+
+  // pouch
+  app.use('/pouch', validateBasicAuthCredentials, pouchRoutes);
 
   // demos
   app.use('/demo', validateBasicAuthCredentials, demoRoutes);

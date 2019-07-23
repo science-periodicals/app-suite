@@ -42,9 +42,7 @@ router.get(
         (err, action) => {
           if (err) {
             if (err.code === 404) {
-              err.message = `No active registration can be found for user ${
-                req.params.username
-              }. If you have already activated your registration try to log in otherwise try to register again.`;
+              err.message = `No active registration can be found for user ${req.params.username}. If you have already activated your registration try to log in otherwise try to register again.`;
               return res.status(404).json({
                 '@type': 'Error',
                 statusCode: 404,
@@ -192,7 +190,8 @@ router.get(
 
           res.render('index', {
             escJSON,
-            bundles
+            bundles,
+            resetPouchDB: req.session && req.session.resetPouchDB
           });
         });
       }
@@ -324,11 +323,7 @@ router.post(
 </p>
 <p>
   To confirm (and activate) your registration, visit:
-  <a href="${
-    req.headers.referer
-  }?action=<%= unprefix(getId(object)) %>&token=<%= unprefix(getId(registrationToken)) %>">${
-                req.headers.referer
-              }?action=<%= unprefix(getId(object)) %>&token=<%= unprefix(getId(registrationToken))  %></a>.
+  <a href="${req.headers.referer}?action=<%= unprefix(getId(object)) %>&token=<%= unprefix(getId(registrationToken)) %>">${req.headers.referer}?action=<%= unprefix(getId(object)) %>&token=<%= unprefix(getId(registrationToken))  %></a>.
 </p>
 <p>
   Thank you.
