@@ -100,7 +100,7 @@ function maybeDispatchFetchEncoding(store, doc, { graphId }) {
         reSoftwareSourceCodeObjectContentType.test(doc.fileFormat))) &&
     !(doc['@id'] in store.getState().contentMap)
   ) {
-    store.dispatch(fetchEncoding(graphId, doc));
+    store.dispatch(fetchEncoding(graphId, doc, { immediate: true }));
   }
 }
 

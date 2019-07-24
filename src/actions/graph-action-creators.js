@@ -71,7 +71,10 @@ export function createGraph(
       {
         '@type': 'CreateGraphAction',
         actionStatus: 'CompletedActionStatus',
-        agent: getId(user),
+        agent: {
+          roleName: 'author',
+          agent: getId(user)
+        },
         participant: getId(editorialOfficeRoleId),
         object: getId(workflowId),
         result: pickBy(

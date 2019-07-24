@@ -13,13 +13,13 @@ import { isSelectorEqual } from '../utils/annotations';
  *
  * Problem: each `<Annotable />` instance (a lot of them) fire
  * POSITION_ANNOTATIONS action so that the annotation are positioned. The
- * `AnnotableManager` class batch those and allow the caller to re-issue a
+ * `PositionManager` class batch those and allow the caller to re-issue a
  * batched POSITION_ANNOTATIONS that will reposition several annotation at once
  */
-class AnnotableManager {
+class PositionManager {
   constructor(delay = 2000) {
     this.delay = delay;
-    this.lastCallTime = new Date().getTime();
+    this.lastCallTime = null;
     this.positions = {};
     this.focusedId = null;
     this.timeoutId = null;
@@ -27,7 +27,8 @@ class AnnotableManager {
 
   position({ positions, focusedId }) {
     const now = new Date().getTime();
-    const lastCallTime = this.lastCallTime;
+    const lastCallTime =
+      this.timeoutId === null ? now : this.lastCallTime || now;
     this.lastCallTime = now;
 
     Object.assign(this.positions, positions);
@@ -43,26 +44,22 @@ class AnnotableManager {
       // Note: here we buffer based on time, another strategy would be to keep
       // track of the number of <Annotable /> instances and only dispatch when
       // _every_ instance has called `position()`
-      if (now - lastCallTime < this.delay && this.timeoutId == null) {
-        this.timeoutId = setTimeout(() => {
-          resolve({
-            payload: Object.assign(
-              { focusedId },
-              { positions: this.positions }
-            ),
-            consolidated: true
-          });
-          this.positions = {};
-          this.focusedId = null;
-          this.timeoutId = null;
-        }, this.delay);
-      } else if (this.timeoutId == null) {
-        resolve({
-          payload: Object.assign({ focusedId }, { positions: this.positions }),
-          consolidated: false
-        });
-        this.positions = {};
-        this.focusedId = null;
+      if (now - lastCallTime < this.delay || this.timeoutId == null) {
+        if (this.timeoutId == null) {
+          this.timeoutId = setTimeout(() => {
+            resolve({
+              payload: Object.assign(
+                { focusedId },
+                { positions: this.positions }
+              ),
+              consolidated: true
+            });
+            this.positions = {};
+            this.focusedId = null;
+            this.timeoutId = null;
+            this.lastCallTime = null;
+          }, this.delay);
+        }
       } else {
         resolve(null);
       }
@@ -70,14 +67,9 @@ class AnnotableManager {
   }
 }
 
-class Batcher {
-  constructor(delay = 200) {
+class AnnotationBatcher {
+  constructor(delay = 500) {
     this.delay = delay;
-    this.lastCallTime = new Date().getTime();
-    this.init();
-  }
-
-  init() {
     this.reset();
   }
 
@@ -90,12 +82,14 @@ class Batcher {
       },
       consolidated: true
     };
+    this.lastCallTime = null;
     this.timeoutId = null;
   }
 
   batch(action) {
     const now = new Date().getTime();
-    const lastCallTime = this.lastCallTime;
+    const lastCallTime =
+      this.timeoutId === null ? now : this.lastCallTime || now;
     this.lastCallTime = now;
 
     if (action.payload.bulkDelete) {
@@ -128,14 +122,13 @@ class Batcher {
       }
 
       // We buffer based on time
-      if (now - lastCallTime < this.delay && this.timeoutId == null) {
+      if (now - lastCallTime < this.delay || this.timeoutId == null) {
+        // incoming actions reset the timeout
+        clearTimeout(this.timeoutId);
         this.timeoutId = setTimeout(() => {
           resolve(this.consolidatedAction);
           this.reset();
         }, this.delay);
-      } else if (this.timeoutId == null) {
-        resolve(this.consolidatedAction);
-        this.reset();
       } else {
         resolve(null);
       }
@@ -150,10 +143,10 @@ class Batcher {
  * - reposition the annotation in response to any action that can change the _height_ of the page
  */
 export default function annotationMiddleware(store) {
-  const manager = new AnnotableManager();
-  const batcher = new Batcher();
+  const positioner = new PositionManager();
+  const batcher = new AnnotationBatcher();
 
-  let timeoutId;
+  let animId;
 
   return function(next) {
     return function(action) {
@@ -163,32 +156,36 @@ export default function annotationMiddleware(store) {
           return next(action);
         }
 
-        return manager
+        return positioner
           .position(action.payload)
           .then(data => {
             if (data) {
-              next({
-                type: POSITION_ANNOTATIONS,
-                payload: data.payload,
-                consolidated: data.consolidated
+              requestAnimationFrame(() => {
+                next({
+                  type: POSITION_ANNOTATIONS,
+                  payload: data.payload,
+                  consolidated: data.consolidated
+                });
+
+                // Note: for some reasons sometimes Annotable measure before the
+                // DOM node is there => height is 0 and some annotations are
+                // overlapping. this fixes that by triggering a force layout once
+                // everything has been positioned
+                const annotations = store.getState().annotations.annotations;
+                const hasZeroHeight =
+                  annotations.every(annotation => annotation.position) &&
+                  annotations.some(
+                    annotation =>
+                      annotation.position && annotation.position.height === 0
+                  );
+
+                if (hasZeroHeight) {
+                  cancelAnimationFrame(animId);
+                  animId = requestAnimationFrame(() =>
+                    store.dispatch(reLayoutAnnotations())
+                  );
+                }
               });
-
-              // Note: for some reasons sometimes Annotable measure before the DOM node is there => height is 0 and some annotations are overlapping. this fixes that by triggering a force layout once everything has been positioned
-              const annotations = store.getState().annotations.annotations;
-              const hasZeroHeight =
-                annotations.every(annotation => annotation.position) &&
-                annotations.some(
-                  annotation =>
-                    annotation.position && annotation.position.height === 0
-                );
-
-              if (hasZeroHeight) {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(
-                  () => store.dispatch(reLayoutAnnotations()),
-                  10
-                );
-              }
             }
           })
           .catch(console.error.bind(console));
@@ -204,28 +201,35 @@ export default function annotationMiddleware(store) {
           .batch(action)
           .then(consolidatedAction => {
             if (consolidatedAction) {
-              next(consolidatedAction);
+              requestAnimationFrame(() => {
+                next(consolidatedAction);
 
-              const annotations = store.getState().annotations.annotations;
-              const hasZeroHeight =
-                annotations.every(annotation => annotation.position) &&
-                annotations.some(
-                  annotation =>
-                    annotation.position && annotation.position.height === 0
-                );
+                // Note: for some reasons sometimes Annotable measure before the
+                // DOM node is there => height is 0 and some annotations are
+                // overlapping. this fixes that by triggering a force layout once
+                // everything has been positioned
+                const annotations = store.getState().annotations.annotations;
+                const hasZeroHeight =
+                  annotations.every(annotation => annotation.position) &&
+                  annotations.some(
+                    annotation =>
+                      annotation.position && annotation.position.height === 0
+                  );
 
-              if (hasZeroHeight) {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(
-                  () => store.dispatch(reLayoutAnnotations()),
-                  10
-                );
-              }
+                if (hasZeroHeight) {
+                  cancelAnimationFrame(animId);
+                  animId = requestAnimationFrame(() =>
+                    store.dispatch(reLayoutAnnotations())
+                  );
+                }
+              });
             }
           })
           .catch(console.error.bind(console));
       }
 
+      // if `action` triggered a significant change of height we reposition the
+      // annotations
       const prevState = store.getState();
       const prevHeight =
         prevState.$measurable && prevState.$measurable.scrollHeight;
@@ -243,9 +247,7 @@ export default function annotationMiddleware(store) {
       ) {
         store.dispatch(
           repositionAnnotations(null, {
-            caller: `annotationMiddleware on ${
-              action.type
-            } (${prevHeight} => ${height})`
+            caller: `annotationMiddleware on ${action.type} (${prevHeight} => ${height})`
           })
         );
       }

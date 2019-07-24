@@ -108,12 +108,14 @@ class ScholarlyArticle extends React.Component {
       <div className={classNames(className, 'scholarly-article')}>
         {canRender ? (
           <Fragment>
-            <ArticleFrontMatter
-              {...others}
-              graphId={graphId}
-              counter={frontMatterCounter}
-              resource={resource}
-            />
+            {
+              <ArticleFrontMatter
+                {...others}
+                graphId={graphId}
+                counter={frontMatterCounter}
+                resource={resource}
+              />
+            }
 
             {!hideContentForBackstopTests && (
               <ArticleBody

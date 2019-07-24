@@ -367,7 +367,7 @@ class Annotable extends React.Component {
           bulkAnnotations(
             { bulkCreate, bulkDelete },
             {
-              immediate: false,
+              // immediate: true,
               caller:
                 '<Annotable />, updateCommentAndActionAnnotationAnnotations'
             }
@@ -425,7 +425,7 @@ class Annotable extends React.Component {
           bulkAnnotations(
             { bulkCreate, bulkDelete },
             {
-              immediate: false,
+              // immediate: true,
               caller: `<Annotable /> updateInfoAnnotations ${caller}`
             }
           );

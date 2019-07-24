@@ -49,6 +49,7 @@ export function fetchEncoding(
   graphId,
   encoding,
   {
+    immediate = false,
     fetchedByHtmlElement = false, // used to indicate that the encoding is fetched by a browser `<img />`, `<audio />` or `<video />` tag
     loaded = false
   } = {}
@@ -73,6 +74,7 @@ export function fetchEncoding(
           dispatch({
             type: FETCH_ENCODING,
             payload: encoding,
+            immediate,
             meta: { graphId, encodingId, fetchedByHtmlElement }
           });
         }
@@ -88,6 +90,7 @@ export function fetchEncoding(
     dispatch({
       type: FETCH_ENCODING,
       payload: encoding,
+      immediate,
       meta: { graphId, encodingId }
     });
 
@@ -234,6 +237,7 @@ export function fetchEncoding(
       .catch(err => {
         dispatch({
           type: FETCH_ENCODING_ERROR,
+          immediate,
           error: err,
           meta: { graphId, encodingId, encoding }
         });

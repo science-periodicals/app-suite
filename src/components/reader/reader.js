@@ -303,7 +303,7 @@ class Reader extends React.Component {
         });
 
         toFetch.forEach(encoding => {
-          fetchEncoding(getId(graph), encoding);
+          fetchEncoding(getId(graph), encoding, { immediate: true });
         });
       }
     }

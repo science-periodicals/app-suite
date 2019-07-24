@@ -22,7 +22,8 @@ import {
 } from '../actions/workflow-action-creators';
 import {
   getAnnotableActionData,
-  getHydratedTopLevelResources
+  getHydratedTopLevelResources,
+  getOverwriteNodeMap
 } from '../utils/workflow';
 import Shell from './shell';
 import DocumentLoader from './document-loader';
@@ -51,7 +52,8 @@ class ResourceView extends React.PureComponent {
     isReady: PropTypes.bool.isRequired, // Used for backstop.js for now
     focusedActionData: PropTypes.shape({
       actionId: PropTypes.string,
-      refocus: PropTypes.bool
+      refocus: PropTypes.bool,
+      refocused: PropTypes.bool
     }),
     graph: PropTypes.object,
     acl: PropTypes.object.isRequired,
@@ -91,7 +93,41 @@ class ResourceView extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    this.state = {
+      isLoading: true
+    };
     this.counterCache = {};
+  }
+
+  componentDidMount() {
+    this._isMounted = true;
+    this.deferContentRendering();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.actionId !== prevProps.actionId) {
+      this.deferContentRendering();
+    }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+    cancelAnimationFrame(this.animId);
+  }
+
+  deferContentRendering() {
+    // We defer the content rendering to avoid blocking the UI during route transitions
+    clearTimeout(this.animId);
+    this.setState({ isLoading: true }, () => {
+      // wait for 2 animation frames before rendering
+      this.animId = requestAnimationFrame(() => {
+        this.animId = requestAnimationFrame(() => {
+          if (this._isMounted) {
+            this.setState({ isLoading: false });
+          }
+        });
+      });
+    });
   }
 
   handleLink = (e, $a, type, resourceId, parsed) => {
@@ -243,9 +279,7 @@ class ResourceView extends React.PureComponent {
       isReady
     } = this.props;
 
-    if (!action) {
-      return null;
-    }
+    const { isLoading } = this.state;
 
     const counter = this.createCounter();
 
@@ -268,7 +302,10 @@ class ResourceView extends React.PureComponent {
             />
           </div>
 
-          <DocumentLoader>
+          <DocumentLoader
+            forceLoading={!action || isLoading}
+            label={isLoading ? 'Loading…' : 'Syncing Documents…'}
+          >
             <div className="resource-view__action-type-groups reverse-z-index">
               <section
                 className={`resource-view__action ${
@@ -281,8 +318,8 @@ class ResourceView extends React.PureComponent {
                       }`
                     : 'resource-view__action--unfocused'
                 }`}
-                key={getId(action)}
-                id={getId(action)}
+                key={actionId}
+                id={actionId}
               >
                 <Permalink first={true} counter={counter} />
 
@@ -376,10 +413,18 @@ export default connect(
       commentMap = {},
       graphAcl
     ) => {
-      // TODO handle nodeMap overwrite
+      // TODO? get rid of hydratedTopLevelResources
+      const graph = graphData.graph;
+      const overwriteNodeMap = getOverwriteNodeMap(actionId, {
+        user,
+        actionMap,
+        acl: graphAcl
+      });
+      const nodeMap = overwriteNodeMap || graphData.nodeMap;
+
       const hydratedTopLevelResources = getHydratedTopLevelResources(
-        graphData.graph,
-        graphData.nodeMap
+        graph,
+        nodeMap
       );
 
       return {

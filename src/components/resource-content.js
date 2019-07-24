@@ -24,6 +24,7 @@ import {
   createGraphDataSelector
 } from '../selectors/graph-selectors';
 import { getWorkflowAction, getInstance } from '../utils/workflow';
+import Loading from './loading';
 
 /**
  * Note: this is what is used in the <Shell />
@@ -65,6 +66,48 @@ class ResourceContent extends React.PureComponent {
     createSelector: identity,
     action: {}
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true
+    };
+  }
+
+  componentDidMount() {
+    this._isMounted = true;
+    this.deferContentRendering();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.props.graphId !== prevProps.graphId ||
+      this.props.resourceId !== prevProps.resourceId ||
+      this.props.nodeMap !== prevProps.nodeMap
+    ) {
+      this.deferContentRendering();
+    }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+    cancelAnimationFrame(this.animId);
+  }
+
+  deferContentRendering() {
+    // We defer the content rendering to avoid blocking the UI
+    clearTimeout(this.timeoutId);
+    this.setState({ isLoading: true }, () => {
+      // wait for 2 animation frames before rendering
+      this.animId = requestAnimationFrame(() => {
+        this.animId = requestAnimationFrame(() => {
+          if (this._isMounted) {
+            this.setState({ isLoading: false });
+          }
+        });
+      });
+    });
+  }
 
   //  For debugging
   //  shouldComponentUpdate(nextProps, nextState) {
@@ -148,6 +191,8 @@ class ResourceContent extends React.PureComponent {
       matchingLevel
     } = this.props;
 
+    const { isLoading } = this.state;
+
     return (
       <div className={classNames('resource-content', className)}>
         {!shellified && (
@@ -170,13 +215,18 @@ class ResourceContent extends React.PureComponent {
           />
         )}
 
+        {/* if the action (typically the last CreateReleaseAction) is completed
+                    the pending service action are irrelevant as we are displaying old
+                    content already settled */}
         {(hasPendingServiceActions ||
           (!hasUploadAction && action['@type'] !== 'CreateReleaseAction')) &&
         action['@type'] !== 'PublishAction' &&
         (action.actionStatus === 'ActiveActionStatus' ||
-          action.actionStatus === 'StagedActionStatus') // if the action (typically the last CreateReleaseAction) is completed the pending service action are irrelevant as we are displaying old content already settled
-          ? null
-          : this.renderBody()}
+          action.actionStatus === 'StagedActionStatus') ? null : isLoading ? (
+          <Loading />
+        ) : (
+          this.renderBody()
+        )}
       </div>
     );
   }

@@ -622,6 +622,9 @@ export default connect(
         )
         .sort(compareCommentsByIdentifiersAndDateCreated);
 
+      // TODO fix
+      console.log({ commentActions, inContextCommentActions });
+
       const canComment =
         action.actionStatus === 'StagedActionStatus' &&
         (acl.checkPermission(user, 'PerformActionPermission', {

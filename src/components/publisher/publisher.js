@@ -338,7 +338,7 @@ class Publisher extends React.Component {
 export default connect(
   createSelector(
     (state, props) => props.user,
-    (state, props) => props.location,
+    (state, props) => props.location.search,
     (state, props) => state.screenWidth,
     state => state.pouch.isLoadingFromPouch,
     state => state.fetchEncodingStatus,
@@ -358,7 +358,7 @@ export default connect(
     }),
     (
       user,
-      location,
+      search,
       screenWidth,
       isLoadingFromPouch,
       fetchEncodingStatus,
@@ -366,7 +366,7 @@ export default connect(
       actionMap = {},
       acl
     ) => {
-      const query = querystring.parse(location.search.substring(1));
+      const query = querystring.parse(search.substring(1));
 
       const {
         graphId,
@@ -439,10 +439,16 @@ export default connect(
                 }))));
       }
 
+      // TODO fix isReady in case when we don't display body and SI
       let isReady = isLoadingFromPouch === false;
       if (isReady && canViewFilesAttachment) {
+        const displayedVersion = query.version;
+        const displayedGraphId = displayedVersion
+          ? `${getScopeId(graphId)}?version=${displayedVersion}`
+          : graphId;
+
         // We wait for all the fetchable encoding to have loaded
-        const graphData = graphMap[graphId];
+        const graphData = graphMap[displayedGraphId];
         if (graphData) {
           const overwriteNodeMap = getOverwriteNodeMap(actionId, {
             user,

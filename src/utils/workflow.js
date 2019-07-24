@@ -271,7 +271,7 @@ export function getAnnotableActionData(
 export function checkIsReadyToBeSubmitted(
   graph,
   action,
-  resources = [], // top level ld stars compliant hydrated resources
+  resources = [], // top level hydrated resources
   actionMap = {}
 ) {
   switch (action['@type']) {
@@ -630,12 +630,13 @@ export function getHydratedTopLevelResources(graph, nodeMap) {
           'encoding',
           'distribution',
           'hasPart',
-          // needed for blinding data
           'author',
           'contributor'
         ],
         blacklist: [
           'resourceOf',
+          'isNodeOf',
+          'exampleOfWork',
           'editor',
           'producer',
           'funder',

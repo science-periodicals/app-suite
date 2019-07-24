@@ -4,6 +4,10 @@
   height: 100%;
   width: 100%;
 
+  font: var(--ui-type);
+  color: var(--text-color--light);
+  letter-spacing: var(--ui-type__letter-spacing);
+
   @media (--beyond-tablet) {
     width: 66vw;
   }
