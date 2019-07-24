@@ -4,10 +4,9 @@ import classNames from 'classnames';
 import identity from 'lodash/identity';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { getId } from '@scipe/jsonld';
+import { getId, embed } from '@scipe/jsonld';
 import { schema, getStageId, getStageActions } from '@scipe/librarian';
 import Image from './image';
-import Node from './node';
 import Table from './table';
 import Dataset from './dataset';
 import Video from './video';
@@ -21,11 +20,10 @@ import AnnotableEncoding from './annotable-encoding';
 import Counter from '../utils/counter';
 import {
   createGraphAclSelector,
-  createActionMapSelector
+  createActionMapSelector,
+  createGraphDataSelector
 } from '../selectors/graph-selectors';
 import { getWorkflowAction, getInstance } from '../utils/workflow';
-
-// TODO move AnnotableEncoding directly in the Resource so that it can be right below the content for everything but the article...
 
 /**
  * Note: this is what is used in the <Shell />
@@ -35,7 +33,7 @@ class ResourceContent extends React.PureComponent {
     className: PropTypes.string,
     graphId: PropTypes.string.isRequired,
     actionId: PropTypes.string, // the `CreateReleaseAction` or `TypesettingAction` or `PublishAction` @id providing the resource (required if `shellified` is not true)
-    resource: PropTypes.object,
+    resourceId: PropTypes.string,
     canPerform: PropTypes.bool, // can the user perform `action`. Must be set if `action` is a CreateReleaseAction
     forceEnableUpdateMainEntityEncoding: PropTypes.bool, // for `TypesettingAction` we only allow to update the main entity encoding (not the parts) => we set `disabled` to `true` this props allows to overwrite that
 
@@ -58,67 +56,47 @@ class ResourceContent extends React.PureComponent {
 
     // redux
     action: PropTypes.object,
+    resource: PropTypes.object, // hydrated
     hasUploadAction: PropTypes.object,
     hasPendingServiceActions: PropTypes.bool
   };
 
   static defaultProps = {
     createSelector: identity,
-    resource: {},
     action: {}
   };
 
-  renderBody(resource, counter) {
+  //  For debugging
+  //  shouldComponentUpdate(nextProps, nextState) {
+  //    console.log(
+  //      Object.keys(this.props).filter(key => this.props[key] !== nextProps[key])
+  //    );
+  //    return true;
+  //  }
+
+  renderBody() {
     const {
+      resourceId,
+      resource,
       action: { releaseRequirement }
     } = this.props;
 
     // string can happen during document worker reconciliation
-    if (!resource || typeof resource === 'string') return null;
+    if (!resourceId || !resource) return null;
 
     let body;
     if (schema.is(resource['@type'], 'Image')) {
-      body = (
-        <Image
-          {...this.props}
-          resource={resource}
-          counter={counter}
-          releaseRequirement={releaseRequirement}
-        />
-      );
+      body = <Image {...this.props} releaseRequirement={releaseRequirement} />;
     } else if (schema.is(resource['@type'], 'Audio')) {
-      body = (
-        <Audio
-          {...this.props}
-          resource={resource}
-          counter={counter}
-          releaseRequirement={releaseRequirement}
-        />
-      );
+      body = <Audio {...this.props} releaseRequirement={releaseRequirement} />;
     } else if (schema.is(resource['@type'], 'Video')) {
-      body = (
-        <Video
-          {...this.props}
-          resource={resource}
-          counter={counter}
-          releaseRequirement={releaseRequirement}
-        />
-      );
+      body = <Video {...this.props} releaseRequirement={releaseRequirement} />;
     } else if (schema.is(resource['@type'], 'Table')) {
-      body = (
-        <Table
-          {...this.props}
-          resource={resource}
-          counter={counter}
-          releaseRequirement={releaseRequirement}
-        />
-      );
+      body = <Table {...this.props} releaseRequirement={releaseRequirement} />;
     } else if (schema.is(resource['@type'], 'Article')) {
       body = (
         <ScholarlyArticle
           {...this.props}
-          resource={resource}
-          counter={counter}
           releaseRequirement={releaseRequirement}
         />
       );
@@ -126,54 +104,34 @@ class ResourceContent extends React.PureComponent {
       body = (
         <SoftwareSourceCode
           {...this.props}
-          resource={resource}
-          counter={counter}
           releaseRequirement={releaseRequirement}
         />
       );
     } else if (schema.is(resource['@type'], 'Formula')) {
       body = (
-        <Formula
-          {...this.props}
-          resource={resource}
-          counter={counter}
-          releaseRequirement={releaseRequirement}
-        />
+        <Formula {...this.props} releaseRequirement={releaseRequirement} />
       );
     } else if (schema.is(resource['@type'], 'Dataset')) {
       body = (
-        <Dataset
-          {...this.props}
-          resource={resource}
-          counter={counter}
-          releaseRequirement={releaseRequirement}
-        />
+        <Dataset {...this.props} releaseRequirement={releaseRequirement} />
       );
     } else if (schema.is(resource['@type'], 'TextBox')) {
       body = (
-        <TextBox
-          {...this.props}
-          resource={resource}
-          counter={counter}
-          releaseRequirement={releaseRequirement}
-        />
+        <TextBox {...this.props} releaseRequirement={releaseRequirement} />
       );
     } else {
       body = (
-        <CreativeWork
-          {...this.props}
-          resource={resource}
-          counter={counter}
-          releaseRequirement={releaseRequirement}
-        />
+        <CreativeWork {...this.props} releaseRequirement={releaseRequirement} />
       );
     }
     return body;
   }
 
-  renderHydratedResource = resource => {
+  render() {
     const {
       graphId,
+      resource,
+      className,
       action,
       shellified,
       hasPendingServiceActions,
@@ -190,9 +148,8 @@ class ResourceContent extends React.PureComponent {
       matchingLevel
     } = this.props;
 
-    // TODO if is embedded: display the label first like in reader (Annotable on the alternateName) but not a PaperInput (will be edited in the shell editor)
     return (
-      <div>
+      <div className={classNames('resource-content', className)}>
         {!shellified && (
           <AnnotableEncoding
             graphId={graphId}
@@ -219,61 +176,66 @@ class ResourceContent extends React.PureComponent {
         (action.actionStatus === 'ActiveActionStatus' ||
           action.actionStatus === 'StagedActionStatus') // if the action (typically the last CreateReleaseAction) is completed the pending service action are irrelevant as we are displaying old content already settled
           ? null
-          : this.renderBody(resource, counter)}
-      </div>
-    );
-  };
-
-  render() {
-    const { graphId, resource, className, nodeMap } = this.props;
-
-    const embed = ['encoding', 'distribution'].concat(
-      schema.is(resource['@type'], 'Image')
-        ? ['hasPart'] // multi part figures
-        : []
-    );
-
-    return (
-      <div className={classNames('resource-content', className)}>
-        <Node
-          graphId={graphId}
-          node={resource}
-          nodeMap={nodeMap}
-          embed={embed}
-          omit={[
-            'about',
-            'potentialAction',
-            'creator',
-            'author',
-            'contributor',
-            'producer',
-            'editor',
-            'license',
-            'encodesCreativeWork',
-            'exampleOfWork',
-            'isBasedOn',
-            'isPartOf',
-            'funder',
-            'sponsor',
-            'citation',
-            'copyrightHolder',
-            'mainEntity'
-          ]}
-        >
-          {this.renderHydratedResource}
-        </Node>
+          : this.renderBody()}
       </div>
     );
   }
 }
 
-export default connect(
-  createSelector(
+function makeSelector() {
+  const resourceSelector = createSelector(
+    (state, props) => props.resourceId,
+    (state, props) => props.nodeMap,
+    createGraphDataSelector(),
+    (resourceId, nodeMap, graphData = {}) => {
+      nodeMap = nodeMap || graphData.nodeMap || {};
+
+      const node = nodeMap[getId(resourceId)];
+      const hydrated = embed(node, nodeMap, {
+        keys: [
+          'encoding',
+          'distribution',
+          'detailedDescription',
+          'license',
+          'author',
+          'contributor',
+          'creator',
+          'editor',
+          'reviewer',
+          'producer',
+          'about',
+          'funder',
+          'sponsor',
+          'citation',
+          'copyrightHolder',
+          'encodesCreativeWork',
+          'exampleOfWork',
+          'isBasedOn'
+        ].concat(
+          schema.is(node['@type'], 'Image')
+            ? ['hasPart'] // multi part figures
+            : []
+        ),
+        blacklist: [
+          'resourceOf',
+          'isNodeOf',
+          'potentialAction',
+          'isPartOf',
+          'mainEntity'
+        ]
+      });
+
+      return hydrated;
+    }
+  );
+
+  return createSelector(
     state => state.user,
     createGraphAclSelector(),
     (state, props) => props.actionId,
     createActionMapSelector(),
-    (user, acl, actionId, actionMap) => {
+    resourceSelector,
+    (user, acl, actionId, actionMap, resource) => {
       let action, hasPendingServiceActions, hasUploadAction;
 
       if (actionId) {
@@ -309,10 +271,21 @@ export default connect(
       }
 
       return {
+        acl,
         action,
         hasUploadAction,
-        hasPendingServiceActions
+        hasPendingServiceActions,
+        resource
       };
     }
-  )
-)(ResourceContent);
+  );
+}
+
+function makeMapStateToProps() {
+  const s = makeSelector();
+  return (state, props) => {
+    return s(state, props);
+  };
+}
+
+export default connect(makeMapStateToProps)(ResourceContent);

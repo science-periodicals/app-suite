@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import identity from 'lodash/identity';
 import classNames from 'classnames';
 import Iconoclass from '@scipe/iconoclass';
-import Node from './node';
 import ResourceContent from './resource-content';
 import Counter from '../utils/counter';
 
@@ -19,7 +18,6 @@ export default class EditableResource extends React.Component {
 
     counter: PropTypes.instanceOf(Counter).isRequired,
     embedded: PropTypes.bool,
-    shellified: PropTypes.bool,
 
     readOnly: PropTypes.bool.isRequired,
     disabled: PropTypes.bool.isRequired,
@@ -41,10 +39,9 @@ export default class EditableResource extends React.Component {
     createSelector: identity
   };
 
-  renderHydratedResource = resource => {
+  render() {
     const {
       embedded,
-      shellified,
       resourceId,
       className,
       id,
@@ -71,7 +68,7 @@ export default class EditableResource extends React.Component {
       <div
         id={id || resourceId}
         className={classNames('editable-resource reverse-z-index', className, {
-          'editable-resource--embedded': embedded && !shellified
+          'editable-resource--embedded': !!embedded
         })}
       >
         <Iconoclass
@@ -82,7 +79,7 @@ export default class EditableResource extends React.Component {
 
         <div
           className={classNames('editable-resource__content', {
-            'selectable-indent': !embedded || shellified
+            'selectable-indent': !embedded
           })}
         >
           <ResourceContent
@@ -92,11 +89,10 @@ export default class EditableResource extends React.Component {
             forceEnableUpdateMainEntityEncoding={
               forceEnableUpdateMainEntityEncoding
             }
-            resource={resource}
+            resourceId={resourceId}
             counter={counter}
             nodeMap={nodeMap}
-            shellified={shellified}
-            embedded={embedded && !shellified}
+            embedded={embedded}
             readOnly={readOnly}
             disabled={disabled}
             annotable={annotable}
@@ -108,28 +104,6 @@ export default class EditableResource extends React.Component {
           />
         </div>
       </div>
-    );
-  };
-
-  render() {
-    const { graphId, resourceId, nodeMap } = this.props;
-
-    return (
-      <Node
-        graphId={graphId}
-        node={resourceId}
-        nodeMap={nodeMap}
-        embed={['encoding', 'distribution', 'license']}
-        omit={[
-          'potentialAction',
-          'isPartOf',
-          'encodesCreativeWork',
-          'isBasedOn',
-          'exampleOfWork'
-        ]}
-      >
-        {this.renderHydratedResource}
-      </Node>
     );
   }
 }

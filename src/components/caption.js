@@ -5,9 +5,8 @@ import { createSelector } from 'reselect';
 import { updateGraph } from '../actions/graph-action-creators';
 import { getId, embed } from '@scipe/jsonld';
 import Annotable from './annotable';
-import { RichTextarea, Value, RdfaCaptionMetadata } from '@scipe/ui';
+import { Value, RdfaCaptionMetadata } from '@scipe/ui';
 import Counter from '../utils/counter';
-import Node from './node';
 import { createGraphDataSelector } from '../selectors/graph-selectors';
 
 class Caption extends React.Component {
@@ -15,13 +14,9 @@ class Caption extends React.Component {
     graphId: PropTypes.string.isRequired,
     actionId: PropTypes.string, // the CreateReleaseAction or TypesettingAction @id providing the resource (required when editable)
     resource: PropTypes.object.isRequired,
-    embedded: PropTypes.bool,
-    label: PropTypes.string,
     nodeMap: PropTypes.object,
     counter: PropTypes.instanceOf(Counter).isRequired,
     blindingData: PropTypes.object.isRequired,
-    readOnly: PropTypes.bool.isRequired,
-    disabled: PropTypes.bool.isRequired,
     displayAnnotations: PropTypes.bool.isRequired,
     displayPermalink: PropTypes.bool,
     annotable: PropTypes.bool,
@@ -34,55 +29,23 @@ class Caption extends React.Component {
     updateGraph: PropTypes.func.isRequired
   };
 
-  static defaultProps = {
-    label: 'caption'
-  };
-
-  handleSubmit = e => {
-    const { graphId, actionId } = this.props;
-
-    if (e.preventDefault) {
-      e.preventDefault();
-    }
-
-    this.props.updateGraph(
-      graphId,
-      actionId,
-      {
-        '@graph': [
-          {
-            '@id': this.props.resource['@id'],
-            [e.target.name]: e.target.value
-          }
-        ]
-      },
-      { mergeStrategy: 'ReconcileMergeStrategy' }
-    );
-  };
-
   render() {
     const {
       graphId,
       resource,
       counter,
-      embedded,
-      label,
-      readOnly,
-      disabled,
       createSelector,
       matchingLevel,
       annotable,
-      nodeMap,
       blindingData,
       displayAnnotations,
       displayPermalink,
       mainEntity
     } = this.props;
 
-    // TODO show label in caption when using Value. This is mostly usefull for multipart figure. We could add a multiPart prop to flag that too but would be good to avoid at this is error prone!
     return (
       <div className="caption">
-        {embedded && resource.alternateName && (
+        {!!resource.alternateName && (
           <Annotable
             graphId={graphId}
             selector={createSelector(
@@ -111,7 +74,7 @@ class Caption extends React.Component {
           </Annotable>
         )}
 
-        {embedded && !resource.caption ? null : (
+        {!resource.caption ? null : (
           <Annotable
             graphId={graphId}
             selector={createSelector(
@@ -132,71 +95,24 @@ class Caption extends React.Component {
                 resource
               )}-${graphId}` /* we need graphId as user can toggle versions */
             })}
-            selectable={embedded}
+            selectable={true}
             annotable={annotable}
             displayAnnotations={displayAnnotations}
             displayPermalink={displayPermalink}
           >
             <div>
-              {embedded ? (
-                <Value className="caption__body caption__body--embedded">
-                  {resource.caption}
-                </Value>
-              ) : (
-                <RichTextarea
-                  className="caption__body"
-                  name="caption"
-                  label={label}
-                  defaultValue={resource.caption}
-                  onSubmit={this.handleSubmit}
-                  readOnly={readOnly}
-                  disabled={disabled}
-                />
-              )}
+              <Value className="caption__body caption__body--embedded">
+                {resource.caption}
+              </Value>
 
-              <Node
+              <RdfaCaptionMetadata
+                object={resource}
                 graphId={graphId}
-                node={resource}
-                nodeMap={nodeMap}
-                embed={[
-                  'about',
-                  'creator',
-                  'author',
-                  'reviewer',
-                  'contributor',
-                  'producer',
-                  'editor',
-                  'license',
-                  'encodesCreativeWork',
-                  'exampleOfWork',
-                  'isBasedOn',
-                  'funder',
-                  'hasPart',
-                  'sponsor',
-                  'citation',
-                  'copyrightHolder'
-                ]}
-                omit={[
-                  'potentialAction',
-                  'isPartOf',
-                  'resourceOf',
-                  'isNodeOf',
-                  'mainEntity'
-                ]}
-              >
-                {resource => {
-                  return typeof resource === 'string' ? null : (
-                    <RdfaCaptionMetadata
-                      object={resource}
-                      graphId={graphId}
-                      mainEntity={mainEntity}
-                      displayParts={false}
-                      isBlinded={!blindingData.visibleRoleNames.has('author')}
-                      blindingData={blindingData}
-                    />
-                  );
-                }}
-              </Node>
+                mainEntity={mainEntity}
+                displayParts={false}
+                isBlinded={!blindingData.visibleRoleNames.has('author')}
+                blindingData={blindingData}
+              />
             </div>
           </Annotable>
         )}
@@ -215,7 +131,14 @@ export default connect(
         let mainEntity = nodeMap[getId(graphData.graph.mainEntity)];
         if (mainEntity) {
           mainEntity = embed(mainEntity, nodeMap, {
-            keys: ['author', 'contributor', 'roleAffiliation', 'roleAction']
+            keys: ['author', 'contributor', 'roleAffiliation', 'roleAction'],
+            blacklist: [
+              'resourceOf',
+              'isNodeOf',
+              'potentialAction',
+              'isPartOf',
+              'mainEntity'
+            ]
           });
         }
 

@@ -94,11 +94,10 @@ class ShellLocation extends React.Component {
           <ResourceContent
             graphId={graphId}
             shellified={true}
-            resource={contentResource}
+            resourceId={getId(contentResource)}
             readOnly={true}
             disabled={true}
             counter={counter}
-            embedded={true}
             annotable={false}
             displayAnnotations={false}
             displayPermalink={false}
@@ -131,7 +130,6 @@ class ShellLocation extends React.Component {
               readOnly={true}
               disabled={true}
               counter={counter}
-              embedded={true}
               annotable={false}
               displayAnnotations={false}
               displayPermalink={false}

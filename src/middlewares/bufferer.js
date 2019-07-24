@@ -1,6 +1,14 @@
 import { POUCH_DATA_DELETED } from '../actions/pouch-action-creators';
 import { WORKER_DATA } from '../actions/worker-action-creators';
+import {
+  FETCH_ENCODING,
+  FETCH_ENCODING_SUCCESS,
+  FETCH_ENCODING_ERROR
+} from '../actions/encoding-action-creators';
 
+/**
+ * Batch together action of type `type` by chunk of `delay` ms
+ */
 class Bufferer {
   constructor(type, delay = 200) {
     this.type = type;
@@ -45,6 +53,9 @@ class Bufferer {
 
 const workerBufferer = new Bufferer(WORKER_DATA);
 const deletionBufferer = new Bufferer(POUCH_DATA_DELETED, 1000);
+const fetchEncodingBufferer = new Bufferer(FETCH_ENCODING_SUCCESS, 200);
+const fetchEncodingSuccessBufferer = new Bufferer(FETCH_ENCODING_SUCCESS, 1000);
+const fetchEncodingErrorBufferer = new Bufferer(FETCH_ENCODING_ERROR, 1000);
 
 // debugging convenience
 if (
@@ -53,6 +64,7 @@ if (
 ) {
   window.workerBufferer = workerBufferer;
   window.deletionBufferer = deletionBufferer;
+  window.fetchEncodingSuccessBufferer = fetchEncodingSuccessBufferer;
 }
 
 export default function(store) {
@@ -65,6 +77,18 @@ export default function(store) {
           }
         } else if (action.type === WORKER_DATA) {
           if (workerBufferer.buffer(action, next)) {
+            return;
+          }
+        } else if (action.type === FETCH_ENCODING) {
+          if (fetchEncodingBufferer.buffer(action, next)) {
+            return;
+          }
+        } else if (action.type === FETCH_ENCODING_SUCCESS) {
+          if (fetchEncodingSuccessBufferer.buffer(action, next)) {
+            return;
+          }
+        } else if (action.type === FETCH_ENCODING_ERROR) {
+          if (fetchEncodingErrorBufferer.buffer(action, next)) {
             return;
           }
         }

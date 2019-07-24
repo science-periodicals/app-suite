@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { getId, embed, getSubNodeMap } from '@scipe/jsonld';
 import { createGraphDataSelector } from '../selectors/graph-selectors';
 
-class Node extends React.PureComponent {
+class Node extends React.Component {
   static propTypes = {
     graphId: PropTypes.string.isRequired,
     debug: PropTypes.bool,
@@ -22,6 +22,8 @@ class Node extends React.PureComponent {
       PropTypes.string
     ]), // can take special '*' value for all
     omit: PropTypes.arrayOf(PropTypes.string),
+
+    // redux
     hydrated: PropTypes.object.isRequired
   };
 

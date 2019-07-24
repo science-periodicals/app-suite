@@ -2,12 +2,10 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import pick from 'lodash/pick';
-import { getId, arrayify } from '@scipe/jsonld';
+import { getId, arrayify, getNodeMap } from '@scipe/jsonld';
 import { updateGraph } from '../actions/graph-action-creators';
 import { SubjectEditor } from '@scipe/ui';
 import Annotable from './annotable';
-import { createGraphDataSelector } from '../selectors/graph-selectors';
-import createListShallowEqualSelector from '../selectors/create-list-shallow-equal-selector';
 import Counter from '../utils/counter';
 
 class AboutEditor extends PureComponent {
@@ -30,7 +28,6 @@ class AboutEditor extends PureComponent {
     displayPermalink: PropTypes.bool,
 
     // redux
-    semanticTagsMap: PropTypes.object.isRequired,
     updateGraph: PropTypes.func.isRequired
   };
 
@@ -81,7 +78,6 @@ class AboutEditor extends PureComponent {
     const {
       graphId,
       resource,
-      semanticTagsMap,
       readOnly,
       disabled,
       counter,
@@ -92,6 +88,13 @@ class AboutEditor extends PureComponent {
       createSelector,
       matchingLevel
     } = this.props;
+
+    const semanticTagsMap = getNodeMap(
+      arrayify(resource.about).filter(subject => {
+        const subjectId = getId(subject);
+        return subjectId && subjectId.startsWith('subjects:');
+      })
+    );
 
     return (
       <div className="about">
@@ -131,46 +134,8 @@ class AboutEditor extends PureComponent {
   }
 }
 
-function makeSelector() {
-  const graphDataSelector = createGraphDataSelector();
-  return createListShallowEqualSelector(
-    (state, props) => {
-      const nodeMap =
-        props.nodeMap || (graphDataSelector(state, props) || {}).nodeMap;
-
-      if (props.resource && props.resource.about && nodeMap) {
-        return arrayify(props.resource.about)
-          .filter(aboutId => {
-            const tag = nodeMap[aboutId];
-            const tagId = getId(tag);
-            return tagId && tagId.startsWith('subjects:');
-          })
-          .map(aboutId => nodeMap[aboutId]);
-      }
-    },
-    semanticTags => {
-      return {
-        semanticTagsMap: arrayify(semanticTags).reduce(
-          (semanticTagsMap, semanticTag) => {
-            semanticTagsMap[semanticTag['@id']] = semanticTag;
-            return semanticTagsMap;
-          },
-          {}
-        )
-      };
-    }
-  );
-}
-
-function makeMapStateToProps() {
-  const s = makeSelector();
-  return (state, props) => {
-    return s(state, props);
-  };
-}
-
 export default connect(
-  makeMapStateToProps,
+  null,
   {
     updateGraph
   }

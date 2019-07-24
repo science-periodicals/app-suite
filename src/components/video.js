@@ -18,9 +18,6 @@ export default class Video extends Component {
     matchingLevel: PropTypes.number,
     nodeMap: PropTypes.object,
 
-    embedded: PropTypes.bool,
-    readOnly: PropTypes.bool.isRequired,
-    disabled: PropTypes.bool.isRequired,
     annotable: PropTypes.bool,
     displayAnnotations: PropTypes.bool.isRequired,
     displayPermalink: PropTypes.bool,
@@ -38,9 +35,6 @@ export default class Video extends Component {
       actionId,
       nodeMap,
       counter,
-      embedded,
-      readOnly,
-      disabled,
       annotable,
       displayAnnotations,
       displayPermalink,
@@ -89,9 +83,6 @@ export default class Video extends Component {
             counter={counter}
             createSelector={createSelector}
             matchingLevel={matchingLevel}
-            embedded={embedded}
-            readOnly={readOnly}
-            disabled={disabled}
             annotable={annotable}
             displayAnnotations={displayAnnotations}
             displayPermalink={displayPermalink}

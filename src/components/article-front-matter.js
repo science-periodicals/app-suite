@@ -1,11 +1,8 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
 import slug from 'slug';
-import { arrayify, getId, embed, textify } from '@scipe/jsonld';
+import { arrayify, getId, textify } from '@scipe/jsonld';
 import { Value, RdfaAbstractText, H1 } from '@scipe/ui';
-import { createGraphDataSelector } from '../selectors/graph-selectors';
 import { compareAbstracts } from '../utils/sort';
 import Annotable from './annotable';
 import AnnotableContributorList from './annotable-contributor-list';
@@ -13,7 +10,7 @@ import Counter from '../utils/counter';
 import LicenseEditor from './license-editor';
 import AboutEditor from './about-editor';
 
-class ArticleFrontMatter extends React.PureComponent {
+export default class ArticleFrontMatter extends React.PureComponent {
   static propTypes = {
     graphId: PropTypes.string.isRequired,
     actionId: PropTypes.string.isRequired, // the `CreateReleaseAction` or `TypesettingAction` or `PublishAction` @id providing the resource
@@ -34,16 +31,12 @@ class ArticleFrontMatter extends React.PureComponent {
     createSelector: PropTypes.func.isRequired,
     matchingLevel: PropTypes.number,
 
-    readOnly: PropTypes.bool,
-    disabled: PropTypes.bool,
-
     annotable: PropTypes.bool,
     displayAnnotations: PropTypes.bool,
     displayPermalink: PropTypes.bool,
     blindingData: PropTypes.object.isRequired,
 
-    // redux
-    resource: PropTypes.object.isRequired // Note: enriched by redux
+    resource: PropTypes.object.isRequired // hydrated
   };
 
   render() {
@@ -55,8 +48,6 @@ class ArticleFrontMatter extends React.PureComponent {
       counter,
       createSelector,
       matchingLevel,
-      readOnly,
-      disabled,
       blindingData,
       nodeMap,
       annotable,
@@ -353,23 +344,3 @@ class ArticleFrontMatter extends React.PureComponent {
     );
   }
 }
-
-export default connect(
-  createSelector(
-    (state, props) => props.resource,
-    (state, props) => props.nodeMap,
-    createGraphDataSelector(),
-    (resource, nodeMap, graphData = {}) => {
-      nodeMap = nodeMap || graphData.nodeMap || {};
-
-      // TODO add graphContributorIdentities (based on user profile data present in the droplets)
-
-      return {
-        resource: embed(resource, nodeMap, {
-          keys: ['detailedDescription', 'author', 'contributor'],
-          blacklist: ['isPartOf', 'resourceOf']
-        })
-      };
-    }
-  )
-)(ArticleFrontMatter);

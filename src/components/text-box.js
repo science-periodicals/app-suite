@@ -17,9 +17,6 @@ export default class TextBox extends Component {
     counter: PropTypes.instanceOf(Counter).isRequired,
     createSelector: PropTypes.func,
     matchingLevel: PropTypes.number,
-    embedded: PropTypes.bool,
-    readOnly: PropTypes.bool.isRequired,
-    disabled: PropTypes.bool.isRequired,
     annotable: PropTypes.bool,
     displayAnnotations: PropTypes.bool.isRequired,
     displayPermalink: PropTypes.bool
@@ -35,12 +32,9 @@ export default class TextBox extends Component {
       actionId,
       resource,
       nodeMap,
-      embedded,
       counter,
       createSelector,
       matchingLevel,
-      readOnly,
-      disabled,
       annotable,
       displayAnnotations,
       displayPermalink,
@@ -58,9 +52,6 @@ export default class TextBox extends Component {
             createSelector={createSelector}
             matchingLevel={matchingLevel}
             counter={counter}
-            embedded={embedded}
-            readOnly={readOnly}
-            disabled={disabled}
             annotable={annotable}
             displayAnnotations={displayAnnotations}
             displayPermalink={displayPermalink}

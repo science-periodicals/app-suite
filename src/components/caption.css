@@ -30,9 +30,6 @@
     color: var(--text-color--light);
     margin-bottom: 1em;
 
-    &--embedded {
-      /*margin: 0 var(--sgrd); this is now in shell.css*/
-    }
     /*& > * {
       padding: 0 !important;
     }*/

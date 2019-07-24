@@ -1,16 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import uniqBy from 'lodash/uniqBy';
-import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
-import { arrayify, getId, embed, unrole } from '@scipe/jsonld';
+import { arrayify, getId, unrole } from '@scipe/jsonld';
 import { RdfaCitation } from '@scipe/ui';
-import { createGraphDataSelector } from '../selectors/graph-selectors';
 import { compareCitations } from '../utils/sort';
 import Annotable from './annotable';
 import Counter from '../utils/counter';
 
-class Citations extends React.Component {
+export default class Citations extends React.PureComponent {
   static propTypes = {
     graphId: PropTypes.string.isRequired,
     resource: PropTypes.object.isRequired,
@@ -22,12 +19,7 @@ class Citations extends React.Component {
 
     annotable: PropTypes.bool,
     displayAnnotations: PropTypes.bool,
-    displayPermalink: PropTypes.bool,
-
-    // redux
-    citations: PropTypes.arrayOf(
-      PropTypes.oneOfType([PropTypes.object, PropTypes.string])
-    )
+    displayPermalink: PropTypes.bool
   };
 
   static defaultProps = {
@@ -38,7 +30,6 @@ class Citations extends React.Component {
     const {
       graphId,
       resource,
-      citations,
       counter,
       annotable,
       displayAnnotations,
@@ -46,6 +37,11 @@ class Citations extends React.Component {
       createSelector,
       matchingLevel
     } = this.props;
+
+    const citations = uniqBy(
+      arrayify(resource.citation).map(citation => unrole(citation, 'citation')),
+      citation => getId(citation)
+    ).sort(compareCitations);
 
     return (
       <ol className="citations sa__clear-list-styles">
@@ -81,29 +77,3 @@ class Citations extends React.Component {
     );
   }
 }
-
-export default connect(
-  createSelector(
-    (state, props) => props.resource,
-    (state, props) => props.nodeMap,
-    createGraphDataSelector(),
-    (resource, nodeMap, graphData = {}) => {
-      nodeMap = nodeMap || graphData.nodeMap || {};
-
-      resource = embed(resource, nodeMap, {
-        keys: ['citation']
-      });
-
-      const citations = uniqBy(
-        arrayify(resource.citation).map(citation =>
-          unrole(citation, 'citation')
-        ),
-        citation => getId(citation)
-      ).sort(compareCitations);
-
-      return {
-        citations
-      };
-    }
-  )
-)(Citations);

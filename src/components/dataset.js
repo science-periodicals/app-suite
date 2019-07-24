@@ -17,14 +17,11 @@ class Dataset extends Component {
     actionId: PropTypes.string, // the CreateReleaseAction or TypesettingAction @id providing the resource (required when editable)
     resource: PropTypes.object.isRequired,
     nodeMap: PropTypes.object,
-    embedded: PropTypes.bool,
     blindingData: PropTypes.object.isRequired,
     counter: PropTypes.instanceOf(Counter).isRequired,
     createSelector: PropTypes.func,
     matchingLevel: PropTypes.number,
 
-    readOnly: PropTypes.bool.isRequired,
-    disabled: PropTypes.bool.isRequired,
     annotable: PropTypes.bool,
     displayAnnotations: PropTypes.bool.isRequired,
     displayPermalink: PropTypes.bool,
@@ -193,9 +190,6 @@ class Dataset extends Component {
       counter,
       createSelector,
       matchingLevel,
-      embedded,
-      readOnly,
-      disabled,
       annotable,
       displayAnnotations,
       displayPermalink,
@@ -219,9 +213,6 @@ class Dataset extends Component {
             createSelector={createSelector}
             matchingLevel={matchingLevel}
             counter={counter}
-            embedded={embedded}
-            readOnly={readOnly}
-            disabled={disabled}
             annotable={annotable}
             displayAnnotations={displayAnnotations}
             displayPermalink={displayPermalink}

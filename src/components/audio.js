@@ -12,15 +12,12 @@ export default class Audio extends Component {
     graphId: PropTypes.string.isRequired,
     actionId: PropTypes.string, // the CreateReleaseAction or TypesettingAction @id providing the resource (required when editable)
     resource: PropTypes.object.isRequired,
-    embedded: PropTypes.bool,
     blindingData: PropTypes.object.isRequired,
     counter: PropTypes.instanceOf(Counter).isRequired,
     createSelector: PropTypes.func,
     matchingLevel: PropTypes.number,
     nodeMap: PropTypes.object,
 
-    readOnly: PropTypes.bool.isRequired,
-    disabled: PropTypes.bool.isRequired,
     annotable: PropTypes.bool,
     displayAnnotations: PropTypes.bool.isRequired,
     displayPermalink: PropTypes.bool
@@ -38,9 +35,6 @@ export default class Audio extends Component {
       annotable,
       displayAnnotations,
       displayPermalink,
-      embedded,
-      readOnly,
-      disabled,
       counter,
       createSelector,
       matchingLevel,
@@ -87,9 +81,6 @@ export default class Audio extends Component {
             counter={counter}
             createSelector={createSelector}
             matchingLevel={matchingLevel}
-            embedded={embedded}
-            readOnly={readOnly}
-            disabled={disabled}
             annotable={annotable}
             displayAnnotations={displayAnnotations}
             displayPermalink={displayPermalink}

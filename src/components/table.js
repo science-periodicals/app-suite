@@ -15,14 +15,11 @@ class Table extends Component {
     actionId: PropTypes.string, // the CreateReleaseAction or TypesettingAction @id providing the resource (required when editable)
     nodeMap: PropTypes.object,
     resource: PropTypes.object.isRequired,
-    embedded: PropTypes.bool,
     blindingData: PropTypes.object.isRequired,
     counter: PropTypes.instanceOf(Counter).isRequired,
     createSelector: PropTypes.func,
     matchingLevel: PropTypes.number,
 
-    readOnly: PropTypes.bool.isRequired,
-    disabled: PropTypes.bool.isRequired,
     annotable: PropTypes.bool,
     displayAnnotations: PropTypes.bool.isRequired,
     displayPermalink: PropTypes.bool,
@@ -43,9 +40,6 @@ class Table extends Component {
       actionId,
       nodeMap,
       content,
-      embedded,
-      readOnly,
-      disabled,
       annotable,
       counter,
       displayAnnotations,
@@ -91,12 +85,9 @@ class Table extends Component {
             actionId={actionId}
             nodeMap={nodeMap}
             resource={resource}
-            embedded={embedded}
             counter={counter}
             createSelector={createSelector}
             matchingLevel={matchingLevel}
-            readOnly={readOnly}
-            disabled={disabled}
             annotable={annotable}
             displayAnnotations={displayAnnotations}
             displayPermalink={displayPermalink}

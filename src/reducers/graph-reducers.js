@@ -398,17 +398,18 @@ export function scopeMap(state = {}, action) {
 }
 
 function createGraphMapEntry(graph, prevGraphData = {}) {
-  let nodeMap;
-
-  if ('@graph' in graph) {
-    nodeMap = getNodeMap(graph);
-  } else {
-    nodeMap = prevGraphData.nodeMap;
+  if (
+    graph._rev &&
+    prevGraphData.graph &&
+    graph._rev === prevGraphData.graph._rev &&
+    prevGraphData.nodeMap
+  ) {
+    return prevGraphData;
   }
 
   return {
     graph,
-    nodeMap: nodeMap || {}
+    nodeMap: getNodeMap(graph)
   };
 }
 

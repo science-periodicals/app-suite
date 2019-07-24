@@ -56,12 +56,32 @@ export function fetchEncoding(
   return (dispatch, getState) => {
     const encodingId = getId(encoding);
 
+    const { fetchEncodingStatus } = getState();
+    const status = fetchEncodingStatus[getId(encoding)];
+
     if (fetchedByHtmlElement) {
-      dispatch({
-        type: loaded ? FETCH_ENCODING_SUCCESS : FETCH_ENCODING,
-        payload: encoding,
-        meta: { graphId, encodingId, fetchedByHtmlElement }
-      });
+      if (loaded) {
+        if (!status || status.active) {
+          dispatch({
+            type: FETCH_ENCODING_SUCCESS,
+            payload: encoding,
+            meta: { graphId, encodingId, fetchedByHtmlElement }
+          });
+        }
+      } else {
+        if (!status) {
+          dispatch({
+            type: FETCH_ENCODING,
+            payload: encoding,
+            meta: { graphId, encodingId, fetchedByHtmlElement }
+          });
+        }
+      }
+
+      return Promise.resolve({});
+    }
+
+    if (status) {
       return Promise.resolve({});
     }
 

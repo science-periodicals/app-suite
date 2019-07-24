@@ -13,15 +13,12 @@ export default class Image extends PureComponent {
     graphId: PropTypes.string.isRequired,
     actionId: PropTypes.string, // the CreateReleaseAction or TypesettingAction @id providing the resource (required when editable)
     resource: PropTypes.object.isRequired,
-    embedded: PropTypes.bool,
     counter: PropTypes.instanceOf(Counter).isRequired,
     blindingData: PropTypes.object.isRequired,
     createSelector: PropTypes.func,
     matchingLevel: PropTypes.number,
     nodeMap: PropTypes.object,
 
-    readOnly: PropTypes.bool.isRequired,
-    disabled: PropTypes.bool.isRequired,
     annotable: PropTypes.bool,
     displayAnnotations: PropTypes.bool.isRequired,
     displayPermalink: PropTypes.bool
@@ -39,9 +36,6 @@ export default class Image extends PureComponent {
       annotable,
       displayAnnotations,
       displayPermalink,
-      embedded,
-      readOnly,
-      disabled,
       counter,
       createSelector,
       matchingLevel,
@@ -127,9 +121,6 @@ export default class Image extends PureComponent {
             nodeMap={nodeMap}
             createSelector={createSelector}
             matchingLevel={matchingLevel}
-            embedded={embedded}
-            readOnly={readOnly}
-            disabled={disabled}
             annotable={annotable}
             displayAnnotations={displayAnnotations}
             displayPermalink={displayPermalink}
@@ -140,7 +131,7 @@ export default class Image extends PureComponent {
           <ul className="image__caption-list">
             {resource.hasPart &&
               resource.hasPart
-                .filter(part => !embedded || (embedded && part.caption))
+                .filter(part => part.alternateName || part.caption)
                 .map(part => {
                   return (
                     <li key={getId(part)}>
@@ -152,9 +143,6 @@ export default class Image extends PureComponent {
                         nodeMap={nodeMap}
                         createSelector={createSelector}
                         matchingLevel={matchingLevel}
-                        embedded={embedded}
-                        readOnly={readOnly}
-                        disabled={disabled}
                         annotable={annotable}
                         displayAnnotations={displayAnnotations}
                         displayPermalink={displayPermalink}

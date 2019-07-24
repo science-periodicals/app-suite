@@ -10,6 +10,12 @@ import {
 
 // store encoding by encodingId
 export function contentMap(state = {}, action) {
+  if (action.buffered) {
+    return action.payload.reduce((state, action) => {
+      return contentMap(state, action);
+    }, state);
+  }
+
   switch (action.type) {
     case FETCH_ENCODING:
       return Object.assign({}, state, {
@@ -36,6 +42,12 @@ export function contentMap(state = {}, action) {
 }
 
 export function fetchEncodingStatus(state = {}, action) {
+  if (action.buffered) {
+    return action.payload.reduce((state, action) => {
+      return fetchEncodingStatus(state, action);
+    }, state);
+  }
+
   switch (action.type) {
     case FETCH_ENCODING:
       return Object.assign({}, state, {

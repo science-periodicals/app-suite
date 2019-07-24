@@ -299,12 +299,11 @@ class Shell extends Component {
           <ResourceContent
             graphId={graphId}
             shellified={true}
-            resource={body}
+            resourceId={getId(body)}
             nodeMap={nodeMap}
             readOnly={true}
             disabled={true}
             counter={counter}
-            embedded={true}
             annotable={false}
             displayAnnotations={false}
             displayPermalink={false}

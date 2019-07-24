@@ -13,14 +13,10 @@ export default class SoftwareSourceCode extends Component {
     actionId: PropTypes.string, // the CreateReleaseAction or TypesettingAction @id providing the resource (required when editable)
     nodeMap: PropTypes.object,
     resource: PropTypes.object.isRequired,
-    embedded: PropTypes.bool,
     blindingData: PropTypes.object.isRequired,
     counter: PropTypes.instanceOf(Counter).isRequired,
     createSelector: PropTypes.func,
     matchingLevel: PropTypes.number,
-
-    readOnly: PropTypes.bool.isRequired,
-    disabled: PropTypes.bool.isRequired,
 
     annotable: PropTypes.bool,
     displayAnnotations: PropTypes.bool.isRequired,
@@ -37,9 +33,6 @@ export default class SoftwareSourceCode extends Component {
       actionId,
       nodeMap,
       resource,
-      embedded,
-      readOnly,
-      disabled,
       annotable,
       counter,
       displayAnnotations,
@@ -89,9 +82,6 @@ export default class SoftwareSourceCode extends Component {
             blindingData={blindingData}
             createSelector={createSelector}
             matchingLevel={matchingLevel}
-            embedded={embedded}
-            readOnly={readOnly}
-            disabled={disabled}
             annotable={annotable}
             displayAnnotations={displayAnnotations}
             displayPermalink={displayPermalink}

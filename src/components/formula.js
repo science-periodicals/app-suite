@@ -17,9 +17,6 @@ export default class Formula extends PureComponent {
     createSelector: PropTypes.func,
     matchingLevel: PropTypes.number,
     blindingData: PropTypes.object.isRequired,
-    embedded: PropTypes.bool,
-    readOnly: PropTypes.bool.isRequired,
-    disabled: PropTypes.bool.isRequired,
     annotable: PropTypes.bool,
     displayAnnotations: PropTypes.bool.isRequired,
     displayPermalink: PropTypes.bool
@@ -35,9 +32,6 @@ export default class Formula extends PureComponent {
       actionId,
       nodeMap,
       resource,
-      embedded,
-      readOnly,
-      disabled,
       annotable,
       counter,
       createSelector,
@@ -86,9 +80,6 @@ export default class Formula extends PureComponent {
             counter={counter}
             createSelector={createSelector}
             matchingLevel={matchingLevel}
-            embedded={embedded}
-            readOnly={readOnly}
-            disabled={disabled}
             annotable={annotable}
             displayAnnotations={displayAnnotations}
             displayPermalink={displayPermalink}
