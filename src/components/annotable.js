@@ -244,12 +244,15 @@ class Annotable extends React.Component {
 
     const { annotations, bulkAnnotations } = this.props;
 
-    bulkAnnotations(
-      {
-        bulkDelete: new Set(annotations.map(a => a.id).filter(Boolean))
-      },
-      { reason: '<Annotable />, componentWillUnmount' }
-    );
+    const bulkDelete = new Set(annotations.map(a => a.id).filter(Boolean));
+    if (bulkDelete.size) {
+      bulkAnnotations(
+        {
+          bulkDelete: new Set(annotations.map(a => a.id).filter(Boolean))
+        },
+        { reason: '<Annotable />, componentWillUnmount' }
+      );
+    }
   }
 
   replaceAnnotations(prevAnnotations, currentAnnotations) {

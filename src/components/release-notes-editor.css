@@ -1,4 +1,5 @@
 .release-notes-editor {
+  position: relative;
   &__text-editor {
     padding-top: 0;
     padding-bottom: var(--sgrd);

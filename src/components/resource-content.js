@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import identity from 'lodash/identity';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { getId, embed } from '@scipe/jsonld';
+import { getId, embed, nodeify } from '@scipe/jsonld';
 import { schema, getStageId, getStageActions } from '@scipe/librarian';
 import Image from './image';
 import Table from './table';
@@ -240,7 +240,7 @@ function makeSelector() {
     (resourceId, nodeMap, graphData = {}) => {
       nodeMap = nodeMap || graphData.nodeMap || {};
 
-      const node = nodeMap[getId(resourceId)];
+      const node = nodeMap[getId(resourceId)] || nodeify(resourceId);
       const hydrated = embed(node, nodeMap, {
         keys: [
           'encoding',
@@ -262,7 +262,7 @@ function makeSelector() {
           'exampleOfWork',
           'isBasedOn'
         ].concat(
-          schema.is(node['@type'], 'Image')
+          node && schema.is(node['@type'], 'Image')
             ? ['hasPart'] // multi part figures
             : []
         ),

@@ -633,8 +633,6 @@ export function startReplicationFromCouchToPouch(
           user
         } = getState();
 
-        console.log(user);
-
         if (repFromCouchToPouch) {
           if (force) {
             dispatch(stopReplicationFromCouchToPouch());

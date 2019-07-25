@@ -283,9 +283,11 @@ class FilesAttachment extends React.PureComponent {
         {canView && graph && resourceId ? (
           <EditableResource
             key={
-              isViewingPrevVersion
-                ? getId(graph)
-                : graphId /* This is important so that react trash the previous tree when we toggle versions */
+              `${isViewingPrevVersion ? getId(graph) : graphId}-${
+                isViewingPrevVersion
+                  ? getId(prevCreateReleaseAction)
+                  : getId(action)
+              }` /* This is important so that react trash the previous tree when we toggle versions */
             }
             className="editable-resource--primary"
             graphId={isViewingPrevVersion ? getId(graph) : graphId}

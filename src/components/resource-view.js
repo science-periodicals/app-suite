@@ -306,6 +306,9 @@ class ResourceView extends React.PureComponent {
 
                 <div className="resource-view__action-content">
                   <AnnotableAction
+                    key={
+                      actionId /* needed so that react doesn't try to reconcile on stage / actin transition (too costly given the annotation need to change) */
+                    }
                     user={user}
                     graphId={graphId}
                     journalId={journalId}
