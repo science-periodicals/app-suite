@@ -146,7 +146,7 @@ export default function annotationMiddleware(store) {
   const positioner = new PositionManager();
   const batcher = new AnnotationBatcher();
 
-  let animId;
+  let animReLayoutId;
 
   return function(next) {
     return function(action) {
@@ -180,8 +180,8 @@ export default function annotationMiddleware(store) {
                   );
 
                 if (hasZeroHeight) {
-                  cancelAnimationFrame(animId);
-                  animId = requestAnimationFrame(() =>
+                  cancelAnimationFrame(animReLayoutId);
+                  animReLayoutId = requestAnimationFrame(() =>
                     store.dispatch(reLayoutAnnotations())
                   );
                 }
@@ -217,8 +217,8 @@ export default function annotationMiddleware(store) {
                   );
 
                 if (hasZeroHeight) {
-                  cancelAnimationFrame(animId);
-                  animId = requestAnimationFrame(() =>
+                  cancelAnimationFrame(animReLayoutId);
+                  animReLayoutId = requestAnimationFrame(() =>
                     store.dispatch(reLayoutAnnotations())
                   );
                 }
@@ -246,8 +246,8 @@ export default function annotationMiddleware(store) {
         Math.abs(height - prevHeight) > 10
       ) {
         store.dispatch(
-          repositionAnnotations(null, {
-            caller: `annotationMiddleware on ${action.type} (${prevHeight} => ${height})`
+          repositionAnnotations({
+            reason: `annotationMiddleware on ${action.type} (${prevHeight} => ${height})`
           })
         );
       }

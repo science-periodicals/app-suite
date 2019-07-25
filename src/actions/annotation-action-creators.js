@@ -61,7 +61,7 @@ export const BULK_ANNOTATIONS = 'BULK_ANNOTATIONS';
 
 export function bulkAnnotations(
   { bulkCreate, bulkDelete }, // { bulkDelete: new Set(annotationIds), bulkCreate: [annotations] }
-  { immediate = false, caller } = {}
+  { immediate = false, reason } = {}
 ) {
   return (dispatch, getState) => {
     const { queuedFocusActionAnnotationId } = getState();
@@ -83,7 +83,7 @@ export function bulkAnnotations(
       type: BULK_ANNOTATIONS,
       payload: { bulkCreate, bulkDelete },
       immediate,
-      meta: { caller }
+      meta: { reason }
     });
   };
 }
@@ -218,17 +218,12 @@ export const REPOSITION_ANNOTATIONS = 'REPOSITION_ANNOTATIONS';
 /**
  * This removes the `position` of the annotations so that  <Annotable /> remeasure them
  */
-export function repositionAnnotations(
-  annotations, // for debugging purpose
-  {
-    caller, // function or component calling this action creator (for debugging purpose)
-    method // (for debugging purpose)
-  } = {}
-) {
-  // console.log('meta', meta); // note that meta will be removed by annotation middleware so won't be visible with redux logger...
+export function repositionAnnotations({
+  reason // (for debugging purpose)
+} = {}) {
   return {
     type: REPOSITION_ANNOTATIONS,
-    meta: { annotations, caller, method } // mostly for debugging purpose
+    meta: { reason } //  debugging purpose note that meta will be removed by annotation middleware so won't be visible with redux logger...
   };
 }
 

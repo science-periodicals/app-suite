@@ -130,7 +130,9 @@ class Publisher extends React.Component {
         prevProps.screenWidth > CSS_TABLET) // only matter if screen width is larger than Tablet otherwise the side bar overlays on top instead of "pushing" the content
     ) {
       this.timeoutId = setTimeout(() => {
-        this.props.repositionAnnotations(null, { caller: 'publisher' });
+        this.props.repositionAnnotations({
+          reason: 'publisher (pannel toggle)'
+        });
       }, 210); // the CSS transition is 0.2 sec (see app-layout.css in UI)
     }
   }

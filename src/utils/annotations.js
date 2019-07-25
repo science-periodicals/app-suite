@@ -4,6 +4,7 @@ import { rangeFromOffsets } from 'web-verse';
 import slug from 'slug';
 import { getId, arrayify, unprefix, reUuid } from '@scipe/jsonld';
 import {
+  getScopeId,
   getStageActions,
   getObjectId,
   getResultId,
@@ -1098,7 +1099,10 @@ export function checkIfSelectorTargetExists(
   _parentSelector
 ) {
   if (selector['@type'] == 'NodeSelector') {
-    const graphData = graphMap[getId(selector.graph)] || {};
+    const graphData =
+      graphMap[getId(selector.graph)] ||
+      graphMap[getScopeId(selector.graph)] ||
+      {}; // When the user make a comment in the context of an active CreateReleaseAction the `selector.graph` point to a graph that doesn't exists yet => we fallback to the live graph
     if (!_nodeMap) {
       _nodeMap = graphData.nodeMap || {};
     }

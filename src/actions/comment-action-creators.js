@@ -139,16 +139,18 @@ export function createCommentAction(
       })
       .catch(err => {
         // if that fails because user if offline, save as draft in PouchDB
+        const draftCommentAction = Object.assign({}, commentAction, {
+          actionStatus: 'PotentialActionStatus' // draft
+        });
+
         return db
-          .put(
-            Object.assign({}, commentAction, {
-              actionStatus: 'PotentialActionStatus' // draft
-            })
-          )
+          .put(draftCommentAction)
           .then(resp => {
             dispatch({
               type: CREATE_COMMENT_ACTION_SUCCESS,
-              payload: Object.assign({}, commentAction, { _rev: resp.rev }),
+              payload: Object.assign({}, draftCommentAction, {
+                _rev: resp.rev
+              }),
               meta
             });
           })

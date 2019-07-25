@@ -208,6 +208,7 @@ export function fetchEncoding(
           dispatch({
             type: FETCH_ENCODING_SUCCESS,
             payload,
+            immediate,
             meta: { graphId, encodingId, encoding, webWorker: true } // webWorker is used for the fetchEncodingStatus reducer
           });
 
@@ -224,12 +225,14 @@ export function fetchEncoding(
           dispatch({
             type: FETCH_ENCODING_SUCCESS,
             payload,
+            immediate,
             meta: { graphId, encodingId, encoding, images: $imgs.length }
           });
         } else {
           dispatch({
             type: FETCH_ENCODING_SUCCESS,
             payload,
+            immediate,
             meta: { graphId, encodingId, encoding }
           });
         }

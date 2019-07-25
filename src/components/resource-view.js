@@ -50,11 +50,6 @@ class ResourceView extends React.PureComponent {
 
     // redux
     isReady: PropTypes.bool.isRequired, // Used for backstop.js for now
-    focusedActionData: PropTypes.shape({
-      actionId: PropTypes.string,
-      refocus: PropTypes.bool,
-      refocused: PropTypes.bool
-    }),
     graph: PropTypes.object,
     acl: PropTypes.object.isRequired,
     annotableActionData: PropTypes.shape({
@@ -248,7 +243,6 @@ class ResourceView extends React.PureComponent {
       disabled,
       readOnly,
       displayAnnotations,
-      focusedActionData,
       graph,
       displayedVersion,
       acl,
@@ -307,20 +301,7 @@ class ResourceView extends React.PureComponent {
             label={isLoading ? 'Loading…' : 'Syncing Documents…'}
           >
             <div className="resource-view__action-type-groups reverse-z-index">
-              <section
-                className={`resource-view__action ${
-                  focusedActionData.actionId === getId(action) &&
-                  canPerform &&
-                  !isBlocked &&
-                  action.actionStatus !== 'CompletedActionStatus'
-                    ? `resource-view__action--${
-                        focusedActionData.refocused ? 'refocused' : 'focused'
-                      }`
-                    : 'resource-view__action--unfocused'
-                }`}
-                key={actionId}
-                id={actionId}
-              >
+              <section className="resource-view__action" id={actionId}>
                 <Permalink first={true} counter={counter} />
 
                 <div className="resource-view__action-content">
@@ -331,7 +312,6 @@ class ResourceView extends React.PureComponent {
                     stageId={stageId}
                     displayedVersion={displayedVersion}
                     counter={counter}
-                    focusedActionData={focusedActionData}
                     stage={stage}
                     action={action}
                     nComments={nComments}
@@ -380,6 +360,8 @@ class ResourceView extends React.PureComponent {
                 : graphId
             }
             stageId={stageId}
+            readOnly={readOnly}
+            disabled={disabled}
             counter={counter}
             actionId={actionId}
             blindingData={blindingData}
@@ -396,7 +378,6 @@ class ResourceView extends React.PureComponent {
 export default connect(
   createSelector(
     state => state.user,
-    state => state.focusedActionData,
     (state, props) => props.stageId,
     (state, props) => props.actionId,
     createGraphDataSelector(),
@@ -405,7 +386,6 @@ export default connect(
     createGraphAclSelector(),
     (
       user,
-      focusedActionData,
       stageId,
       actionId,
       graphData = {},
@@ -428,7 +408,6 @@ export default connect(
       );
 
       return {
-        focusedActionData,
         graph: graphData.graph,
         acl: graphAcl,
         annotableActionData: getAnnotableActionData(

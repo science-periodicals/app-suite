@@ -248,7 +248,7 @@ class Annotable extends React.Component {
       {
         bulkDelete: new Set(annotations.map(a => a.id).filter(Boolean))
       },
-      { caller: '<Annotable />, componentWillUnmount' }
+      { reason: '<Annotable />, componentWillUnmount' }
     );
   }
 
@@ -267,7 +267,7 @@ class Annotable extends React.Component {
           bulkCreate: [],
           bulkDelete
         },
-        { caller: '<Annotable />, replaceAnnotations' }
+        { reason: '<Annotable />, replaceAnnotations' }
       );
     }
   }
@@ -368,7 +368,7 @@ class Annotable extends React.Component {
             { bulkCreate, bulkDelete },
             {
               // immediate: true,
-              caller:
+              reason:
                 '<Annotable />, updateCommentAndActionAnnotationAnnotations'
             }
           );
@@ -426,7 +426,7 @@ class Annotable extends React.Component {
             { bulkCreate, bulkDelete },
             {
               // immediate: true,
-              caller: `<Annotable /> updateInfoAnnotations ${caller}`
+              reason: `<Annotable /> updateInfoAnnotations ${caller}`
             }
           );
         }
@@ -596,7 +596,7 @@ class Annotable extends React.Component {
       a => !a.position || a.isBeingRepositioned
     );
 
-    //TODO also check that content is present in case of content annotation
+    // TODO also check that content is present in case of content annotation
     if (!unpositionedAnnotations.length) return;
 
     const positions = unpositionedAnnotations.reduce(
@@ -902,12 +902,12 @@ class Annotable extends React.Component {
   }
 
   handleChildResize(height, prevHeight) {
-    const { annotations, repositionAnnotations } = this.props;
+    const { repositionAnnotations } = this.props;
     // re-render highlight for component that resizes
     if (height == null || prevHeight == null || height !== prevHeight) {
       this.renderHighlights();
       if (height < prevHeight) {
-        repositionAnnotations(annotations, { caller: 'Annotable' });
+        repositionAnnotations({ reason: 'Annotable handleChildResize' });
       }
     }
   }

@@ -18,7 +18,6 @@ import { createActionMapSelector } from '../selectors/graph-selectors';
 import { getSelectorGraphParam } from '../utils/annotations';
 import { getDisplayVersion } from '../utils/graph-utils';
 import Permalink from './permalink';
-import { repositionAnnotations } from '../actions/annotation-action-creators';
 import VersionRadioButtons from './version-radio-buttons';
 
 class FilesAttachment extends React.PureComponent {
@@ -63,8 +62,7 @@ class FilesAttachment extends React.PureComponent {
     // redux
     // Note: those variables will be for the prev versions if we are viewing the prev version
     graph: PropTypes.object,
-    hasUploadAction: PropTypes.bool,
-    repositionAnnotations: PropTypes.func.isRequired
+    hasUploadAction: PropTypes.bool
   };
 
   static defaultProps = {
@@ -80,7 +78,7 @@ class FilesAttachment extends React.PureComponent {
   }
 
   handleToggleVersion = nextVersion => {
-    const { history, location, repositionAnnotations } = this.props;
+    const { history, location } = this.props;
 
     history.push({
       pathname: location.pathname,
@@ -90,8 +88,6 @@ class FilesAttachment extends React.PureComponent {
         })
       )}`
     });
-
-    repositionAnnotations(null, { caller: '<FilesAttachment />' });
   };
 
   createCounter(isViewingPrevVersion, query) {
@@ -375,9 +371,6 @@ export default withRouter(
           hasUploadAction
         };
       }
-    ),
-    {
-      repositionAnnotations
-    }
+    )
   )(FilesAttachment)
 );

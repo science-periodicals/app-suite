@@ -194,14 +194,6 @@ export function closeShell() {
   };
 }
 
-export const FOCUS_ACTION = 'FOCUS_ACTION';
-export function focusAction(actionId) {
-  return {
-    type: FOCUS_ACTION,
-    payload: getId(actionId)
-  };
-}
-
 export const SET_SCREEN_DIM = 'SET_SCREEN_DIM';
 export function setScreenDim(screenWidth, screenHeight) {
   return {

@@ -232,7 +232,7 @@ class StagingDiscussion extends React.Component {
       <div className={bem``}>
         <Notice>
           <div>
-            Comments{' '}
+            Staging discussion comments{' '}
             {generalCommentActions.length || inContextCommentActions.length
               ? 'are'
               : 'will be'}{' '}
@@ -621,9 +621,6 @@ export default connect(
             )
         )
         .sort(compareCommentsByIdentifiersAndDateCreated);
-
-      // TODO fix
-      console.log({ commentActions, inContextCommentActions });
 
       const canComment =
         action.actionStatus === 'StagedActionStatus' &&

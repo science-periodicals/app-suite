@@ -17,7 +17,7 @@ export default function withAnnotable(ComposedComponent) {
 
       this.handleClick = this.handleClick.bind(this);
       this.handleLoad = this.handleLoad.bind(this);
-      this.handleResize = debounce(this.handleResize.bind(this), 200);
+      this.handleResize = debounce(this.handleResize.bind(this), 1000);
     }
 
     measurableRef($el) {
@@ -42,16 +42,14 @@ export default function withAnnotable(ComposedComponent) {
     }
 
     handleLoad() {
-      this.props.repositionAnnotations(null, {
-        caller: 'withAnnotable',
-        method: 'handleLoad'
+      this.props.repositionAnnotations({
+        reason: 'withAnnotable handleLoad'
       });
     }
 
     handleResize() {
-      this.props.repositionAnnotations(null, {
-        caller: 'withAnnotable',
-        method: 'handleResize'
+      this.props.repositionAnnotations({
+        reason: 'withAnnotable handleResize'
       });
     }
 

@@ -11,7 +11,6 @@ import {
   OPEN_PRINT_PROGRESS_MODAL,
   CLOSE_PRINT_PROGRESS_MODAL,
   UPDATE_IS_OFFLINE,
-  FOCUS_ACTION,
   OPEN_READER_PREVIEW,
   CLOSE_READER_PREVIEW,
   SCROLL_TO_HASH,
@@ -187,22 +186,6 @@ export function shell(
         connectedComponent: null,
         params: null
       };
-
-    default:
-      return state;
-  }
-}
-
-export function focusedActionData(state = {}, action) {
-  switch (action.type) {
-    case FOCUS_ACTION: {
-      const actionId = action.payload;
-      return {
-        actionId,
-        refocused:
-          state && state.actionId === actionId ? !state.refocused : false // we toggle refocused to retrigger the CSS transition
-      };
-    }
 
     default:
       return state;

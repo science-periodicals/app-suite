@@ -47,6 +47,10 @@ class Shell extends Component {
     renderingContextPathname: PropTypes.string,
     renderingContextSearch: PropTypes.string,
 
+    // enriched from redux
+    disabled: PropTypes.bool, // injected from the ui reducer state
+    readOnly: PropTypes.bool,
+
     // redux
     selector: PropTypes.object, // injected from the ui reducer state
     type: PropTypes.oneOf([
@@ -73,8 +77,6 @@ class Shell extends Component {
     nodeMap: PropTypes.object,
     params: PropTypes.object,
     hash: PropTypes.string, // the hash (id) of the content being edited (to provide scroll back link)
-    disabled: PropTypes.bool, // injected from the ui reducer state
-    readOnly: PropTypes.bool,
     isOpen: PropTypes.bool,
     closeShell: PropTypes.func.isRequired
   };
@@ -415,6 +417,8 @@ class Shell extends Component {
 export default connect(
   createSelector(
     state => state.user,
+    (state, props) => props.disabled,
+    (state, props) => props.readOnly,
     state => state.shell,
     (state, props) => props.actionId,
     state => state.annotations,
@@ -424,6 +428,8 @@ export default connect(
     createCommentMapSelector(),
     (
       user,
+      disabled,
+      readOnly,
       shell = {},
       actionId,
       annotations = {},
@@ -479,8 +485,8 @@ export default connect(
         body,
         selector: shell.selector,
         isOpen: shell.isOpen,
-        disabled: shell.disabled,
-        readOnly: shell.readOnly,
+        disabled: disabled || shell.disabled,
+        readOnly: readOnly || shell.readOnly,
         hash: shell.hash,
         connectedComponent: shell.connectedComponent,
         params: shell.params
