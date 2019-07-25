@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { Helmet } from 'react-helmet-async';
-import { getId, unprefix } from '@scipe/jsonld';
+import { getId, unprefix, arrayify } from '@scipe/jsonld';
 import { getScopeId, getAgentId, getStageActions } from '@scipe/librarian';
 import Iconoclass from '@scipe/iconoclass';
 import {
@@ -48,6 +48,7 @@ import {
 } from '../../utils/encoding-utils';
 import withShowPanel from '../../hoc/with-show-panel';
 import PublisherJoinSubHeader from './publisher-join-sub-header';
+import config from '../../utils/config';
 
 class Publisher extends React.Component {
   static propTypes = {
@@ -70,7 +71,7 @@ class Publisher extends React.Component {
     onTogglePanel: PropTypes.func.isRequired,
 
     // redux
-    isReady: PropTypes.bool.isRequired, // Used for backstop.js for now
+    isReadyForVisualRegressionTesting: PropTypes.bool.isRequired, // Used for backstop.js for now
     canViewFilesAttachment: PropTypes.bool,
     isPreviewOutdated: PropTypes.bool,
     screenWidth: PropTypes.oneOf([
@@ -219,7 +220,7 @@ class Publisher extends React.Component {
       onPanelClick,
       onTogglePanel,
       canViewFilesAttachment,
-      isReady
+      isReadyForVisualRegressionTesting
     } = this.props;
 
     const disabled = _disabled || isBeingInvited;
@@ -318,7 +319,9 @@ class Publisher extends React.Component {
             stageIndex != null &&
             actionIndex != null && (
               <ResourceView
-                isReady={isReady}
+                isReadyForVisualRegressionTesting={
+                  isReadyForVisualRegressionTesting
+                }
                 displayedVersion={displayedVersion}
                 user={user}
                 journalId={journalId}
@@ -398,7 +401,6 @@ export default connect(
           stage => getId(stage) === stageId
         );
 
-        // TODO get file action for instrument unless it is a publish action in this case fileAction is the publish action ?
         const fileAction = getFileAction(action, { user, actionMap, acl });
 
         let latestFileAction;
@@ -441,39 +443,47 @@ export default connect(
                 }))));
       }
 
-      // TODO fix isReady in case when we don't display body and SI
-      let isReady = isLoadingFromPouch === false;
-      if (isReady && canViewFilesAttachment) {
-        const displayedVersion = query.version;
-        const displayedGraphId = displayedVersion
-          ? `${getScopeId(graphId)}?version=${displayedVersion}`
-          : graphId;
-
-        // We wait for all the fetchable encoding to have loaded
-        const graphData = graphMap[displayedGraphId];
-        if (graphData) {
-          const overwriteNodeMap = getOverwriteNodeMap(actionId, {
-            user,
-            acl,
-            actionMap
-          });
-
-          const fetchableEncodings = getFetchableEncodings(
-            graphData.graph,
-            overwriteNodeMap || graphData.nodeMap
+      let isReadyForVisualRegressionTesting = isLoadingFromPouch === false;
+      if (isReadyForVisualRegressionTesting && canViewFilesAttachment) {
+        const hideContentForBackstopTests =
+          config.ci &&
+          config.backstop &&
+          !arrayify(config.backstop.graphIdsNeedingFullContent).includes(
+            getScopeId(graphId)
           );
 
-          const isStillFetching = checkIfIsStillFetching(
-            fetchableEncodings,
-            fetchEncodingStatus
-          );
+        if (!hideContentForBackstopTests) {
+          const displayedVersion = query.version;
+          const displayedGraphId = displayedVersion
+            ? `${getScopeId(graphId)}?version=${displayedVersion}`
+            : graphId;
 
-          isReady = !isStillFetching;
+          // We wait for all the fetchable encoding to have loaded
+          const graphData = graphMap[displayedGraphId];
+          if (graphData) {
+            const overwriteNodeMap = getOverwriteNodeMap(actionId, {
+              user,
+              acl,
+              actionMap
+            });
+
+            const fetchableEncodings = getFetchableEncodings(
+              graphData.graph,
+              overwriteNodeMap || graphData.nodeMap
+            );
+
+            const isStillFetching = checkIfIsStillFetching(
+              fetchableEncodings,
+              fetchEncodingStatus
+            );
+
+            isReadyForVisualRegressionTesting = !isStillFetching;
+          }
         }
       }
 
       return {
-        isReady,
+        isReadyForVisualRegressionTesting: true,
         isPreviewOutdated,
         canViewFilesAttachment,
         screenWidth,

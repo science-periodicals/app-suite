@@ -59,6 +59,7 @@ export function createGraphStatus(state = {}, action) {
 }
 
 // NOTE we don't use POST_WORKFLOW_ACTION_SUCCESS as the triggers it can lead to regression (result of POST_WORKFLOW_ACTION_SUCCESS is older than what get replicated)
+// TODO ^^ should no longer be true so bring back to reduce latency ?
 export function scopeMap(state = {}, action) {
   if (action.buffered) {
     return action.payload.reduce((state, action) => {

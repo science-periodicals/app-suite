@@ -1,8 +1,9 @@
 import { createSelector } from 'reselect';
 import { getId, arrayify } from '@scipe/jsonld';
-import { getScopeId, createId, Acl, getRootPartId } from '@scipe/librarian';
+import { getScopeId, Acl, getRootPartId, getObjectId } from '@scipe/librarian';
 import config from '../utils/config';
 import { getLocationOptions } from '../utils/document-object';
+import createListShallowEqualSelector from './create-list-shallow-equal-selector';
 
 /**
  * Get a Graph @id (including version) based on the state and user permissions
@@ -82,31 +83,49 @@ export function createActionMapSelector(graphIdMapper) {
 }
 
 export function createGraphAclSelector(graphIdMapper) {
-  return createSelector(
+  const liveGraphSelector = createSelector(
     createGraphIdSelector(graphIdMapper),
     state => state.scopeMap,
     (graphId, scopeMap) => {
       const scopeId = getScopeId(graphId);
       const scopeData = scopeMap[scopeId];
 
-      let graph, inviteActions;
       if (scopeData) {
-        const { graphMap, actionMap } = scopeData;
+        const { graphMap } = scopeData;
         if (graphMap) {
           // if live graph is not available, try the graphId which may be a versionned graphId
-          const graphData =
-            graphMap[createId('graph', scopeId)['@id']] || graphMap[graphId];
+          const graphData = graphMap[scopeId] || graphMap[graphId];
           if (graphData) {
-            graph = graphData.graph;
+            return graphData.graph;
           }
         }
-        if (actionMap) {
-          inviteActions = Object.values(actionMap).filter(
-            action => action['@type'] === 'InviteAction'
-          );
-        }
       }
+    }
+  );
 
+  const aclInviteActionsSelector = createSelector(
+    createGraphIdSelector(graphIdMapper),
+    createActionMapSelector(graphIdMapper),
+    (graphId, actionMap) => {
+      const scopeId = getScopeId(graphId);
+
+      if (actionMap) {
+        return Object.values(actionMap).filter(
+          action =>
+            action['@type'] === 'InviteAction' &&
+            (action.actionStatus === 'PotentialActionStatus' ||
+              action.actionStatus === 'ActiveActionStatus') &&
+            getScopeId(getObjectId(action)) === scopeId
+        );
+      }
+    }
+  );
+
+  // we make sure that a new instance is only recomputed if `graph` or `inviteActions` changes
+  return createListShallowEqualSelector(
+    liveGraphSelector,
+    aclInviteActionsSelector,
+    (graph, inviteActions) => {
       return new Acl(graph, inviteActions);
     }
   );

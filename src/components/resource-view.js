@@ -49,7 +49,7 @@ class ResourceView extends React.PureComponent {
     displayedVersion: PropTypes.string,
 
     // redux
-    isReady: PropTypes.bool.isRequired, // Used for backstop.js for now
+    isReadyForVisualRegressionTesting: PropTypes.bool.isRequired, // Used for backstop.js for now
     graph: PropTypes.object,
     acl: PropTypes.object.isRequired,
     annotableActionData: PropTypes.shape({
@@ -270,7 +270,7 @@ class ResourceView extends React.PureComponent {
       blindingData,
       saveWorkflowAction,
       postWorkflowAction,
-      isReady
+      isReadyForVisualRegressionTesting
     } = this.props;
 
     const { isLoading } = this.state;
@@ -285,7 +285,7 @@ class ResourceView extends React.PureComponent {
         <div
           className="resource-view__body"
           id="resource-view__portal-context"
-          data-test-ready={isReady.toString()}
+          data-test-ready={isReadyForVisualRegressionTesting.toString()}
         >
           <div className="resource-view__outbound-divider">
             <span>Outbound Resources</span>

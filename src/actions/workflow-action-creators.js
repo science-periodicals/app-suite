@@ -127,7 +127,7 @@ export function postWorkflowAction(
         } else {
           // find the first matching role and use it
           const { user } = state;
-          const acl = createGraphAclSelector(state, { graphId });
+          const acl = createGraphAclSelector()(state, { graphId });
           const userRoles = acl.getActiveRoles(user);
           action.agent = getId(
             userRoles.find(
