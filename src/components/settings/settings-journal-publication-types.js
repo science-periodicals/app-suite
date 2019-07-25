@@ -16,7 +16,7 @@ import {
   PaperSwitch,
   PaperActionButton,
   PaperInput,
-  PaperTextarea,
+  RichTextarea,
   AuthorGuidelinesEditor,
   withOnSubmit,
   BemTags,
@@ -47,7 +47,6 @@ import { fetchDroplet } from '../../actions/droplet-action-creators';
 import { compareDefinedNames } from '../../utils/sort';
 
 const ControledPaperInput = withOnSubmit(PaperInput);
-const ControledPaperTextarea = withOnSubmit(PaperTextarea);
 
 // TODO ObjectSpecificationEditor
 
@@ -347,13 +346,13 @@ class SettingsJournalPublicationTypes extends React.Component {
                 onSubmit={this.handlePublicationTypeChange}
                 value={getValue(publicationType.name) || ''}
               />
-              <ControledPaperTextarea
+              <RichTextarea
                 label="Description"
                 name="description"
                 disabled={disabled}
                 readOnly={readOnly}
                 onSubmit={this.handlePublicationTypeChange}
-                value={getValue(publicationType.description) || ''}
+                defaultValue={publicationType.description}
               />
             </div>
 

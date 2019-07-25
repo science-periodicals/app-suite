@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import identity from 'lodash/identity';
 import { createSelector } from 'reselect';
 import flatten from 'lodash/flatten';
-import { withRouter } from 'react-router-dom';
 import {
   getStageId,
   getStageActions,
@@ -128,9 +127,7 @@ class AuthorNotesAttachment extends React.PureComponent {
     return (
       <Attachment
         id={
-          `${
-            createReleaseAction.identifier
-          }-inbound` /* used for the Resources ToC and needed to disambiguate from the Files attachment */
+          `${createReleaseAction.identifier}-inbound` /* used for the Resources ToC and needed to disambiguate from the Files attachment */
         }
         className="author-notes-attachment"
         user={user}
@@ -206,63 +203,61 @@ class AuthorNotesAttachment extends React.PureComponent {
   }
 }
 
-export default withRouter(
-  connect(
-    createSelector(
-      state => state.user,
-      (state, props) => props.acl,
-      (state, props) => props.createReleaseActionId,
-      createActionMapSelector(),
-      (user, acl, createReleaseActionId, actionMap) => {
-        const createReleaseAction = getWorkflowAction(createReleaseActionId, {
+export default connect(
+  createSelector(
+    state => state.user,
+    (state, props) => props.acl,
+    (state, props) => props.createReleaseActionId,
+    createActionMapSelector(),
+    (user, acl, createReleaseActionId, actionMap) => {
+      const createReleaseAction = getWorkflowAction(createReleaseActionId, {
+        actionMap,
+        user,
+        acl
+      });
+
+      const assessAction = getWorkflowAction(
+        getId(createReleaseAction && createReleaseAction.instrument),
+        {
           actionMap,
           user,
           acl
-        });
+        }
+      );
 
-        const assessAction = getWorkflowAction(
-          getId(createReleaseAction && createReleaseAction.instrument),
-          {
-            actionMap,
-            user,
-            acl
-          }
-        );
+      const { stageIndex, actionIndex } = getAnnotableQueryParameters(
+        {
+          actionId: getId(createReleaseAction),
+          stageId: getStageId(createReleaseAction)
+        },
+        actionMap
+      );
 
-        const { stageIndex, actionIndex } = getAnnotableQueryParameters(
-          {
-            actionId: getId(createReleaseAction),
-            stageId: getStageId(createReleaseAction)
-          },
-          actionMap
-        );
-
-        let authorizeActions;
-        const stage = actionMap[getStageId(createReleaseAction)];
-        if (stage) {
-          const stageActions = getStageActions(stage);
-          authorizeActions = flatten(
-            stageActions.map(action =>
-              arrayify(action.potentialAction).filter(
-                action =>
-                  action['@type'] === 'AuthorizeAction' &&
-                  action.actionStatus !== 'CompletedActionStatus' &&
-                  getObjectId(action) === getId(createReleaseAction)
-              )
+      let authorizeActions;
+      const stage = actionMap[getStageId(createReleaseAction)];
+      if (stage) {
+        const stageActions = getStageActions(stage);
+        authorizeActions = flatten(
+          stageActions.map(action =>
+            arrayify(action.potentialAction).filter(
+              action =>
+                action['@type'] === 'AuthorizeAction' &&
+                action.actionStatus !== 'CompletedActionStatus' &&
+                getObjectId(action) === getId(createReleaseAction)
             )
           )
-            .filter(Boolean)
-            .map(action => actionMap[getId(action)] || action);
-        }
-
-        return {
-          createReleaseAction,
-          assessAction,
-          createReleaseActionAuthorizeActions: authorizeActions,
-          createReleaseActionStageIndex: stageIndex,
-          createReleaseActionActionIndex: actionIndex
-        };
+        )
+          .filter(Boolean)
+          .map(action => actionMap[getId(action)] || action);
       }
-    )
-  )(AuthorNotesAttachment)
-);
+
+      return {
+        createReleaseAction,
+        assessAction,
+        createReleaseActionAuthorizeActions: authorizeActions,
+        createReleaseActionStageIndex: stageIndex,
+        createReleaseActionActionIndex: actionIndex
+      };
+    }
+  )
+)(AuthorNotesAttachment);

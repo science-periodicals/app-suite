@@ -755,136 +755,125 @@ class AnnotableActionHead extends Component {
           )}
 
           {/* Reschedule / Cancel row */}
-          {action.actionStatus !== 'CompletedActionStatus' &&
-            action.actionStatus !== 'CanceledActionStatus' &&
-            action.actionStatus !== 'EndorsedActionStatus' && (
-              <Annotable
-                graphId={graphId}
-                counter={counter.increment({
-                  value: getLocationIdentifier(
-                    action['@type'],
-                    'expectedDuration'
-                  ),
-                  level: 3,
-                  key: `annotabe-action-head-${getId(action)}-expectedDuration`
-                })}
-                selector={{
-                  '@type': 'NodeSelector',
-                  graph: getSelectorGraphParam(action),
-                  node: getId(action),
-                  selectedProperty: 'expectedDuration'
-                }}
-                selectable={false}
-                annotable={annotable && canComment}
-                displayAnnotations={displayAnnotations}
+
+          <Annotable
+            graphId={graphId}
+            counter={counter.increment({
+              value: getLocationIdentifier(action['@type'], 'expectedDuration'),
+              level: 3,
+              key: `annotabe-action-head-${getId(action)}-expectedDuration`
+            })}
+            selector={{
+              '@type': 'NodeSelector',
+              graph: getSelectorGraphParam(action),
+              node: getId(action),
+              selectedProperty: 'expectedDuration'
+            }}
+            selectable={false}
+            annotable={annotable && canComment}
+            displayAnnotations={displayAnnotations}
+          >
+            <div className="annotable-action-head__schedule">
+              <PaperDateInput
+                data-test-now="true"
+                label="Due date"
+                name="date"
+                showCalendar="menu"
+                value={dueDateTime}
+                readOnly={readOnly || !canReschedule}
+                disabled={disabled || !canReschedule}
+                onChange={this.handleDueDateTimeChange}
+                portal={true}
+              />
+              <PaperTimeInput
+                data-test-now="true"
+                label="Due time"
+                name="time"
+                readOnly={readOnly || !canReschedule}
+                disabled={disabled || !canReschedule}
+                onChange={this.handleDueDateTimeChange}
+                value={dueDateTime}
               >
-                <div className="annotable-action-head__schedule">
-                  <PaperDateInput
-                    data-test-now="true"
-                    label="Due date"
-                    name="date"
-                    showCalendar="menu"
-                    value={dueDateTime}
-                    readOnly={readOnly || !canReschedule}
-                    disabled={disabled || !canReschedule}
-                    onChange={this.handleDueDateTimeChange}
-                    portal={true}
-                  />
-                  <PaperTimeInput
-                    data-test-now="true"
-                    label="Due time"
-                    name="time"
-                    readOnly={readOnly || !canReschedule}
-                    disabled={disabled || !canReschedule}
-                    onChange={this.handleDueDateTimeChange}
-                    value={dueDateTime}
-                  >
-                    <MenuItem value="09:00">
-                      <span style={{ color: 'grey' }}>09:00 AM </span> Morning
-                    </MenuItem>
-                    <MenuItem value="12:00">
-                      <span style={{ color: 'grey' }}>12:00 PM </span> Afternoon
-                    </MenuItem>
-                    <MenuItem value="18:00">
-                      <span style={{ color: 'grey' }}>06:00 PM </span> Evening
-                    </MenuItem>
-                  </PaperTimeInput>
+                <MenuItem value="09:00">
+                  <span style={{ color: 'grey' }}>09:00 AM </span> Morning
+                </MenuItem>
+                <MenuItem value="12:00">
+                  <span style={{ color: 'grey' }}>12:00 PM </span> Afternoon
+                </MenuItem>
+                <MenuItem value="18:00">
+                  <span style={{ color: 'grey' }}>06:00 PM </span> Evening
+                </MenuItem>
+              </PaperTimeInput>
 
-                  {!readOnly && (canReschedule || canCancel) && (
-                    <ControlPanel>
-                      {!!canCancel && (
-                        <Fragment>
-                          {adminUserRoles.length === 1 ? (
-                            <PaperButton
+              {!readOnly && (canReschedule || canCancel) && (
+                <ControlPanel>
+                  {!!canCancel && (
+                    <Fragment>
+                      {adminUserRoles.length === 1 ? (
+                        <PaperButton
+                          disabled={disabled}
+                          onClick={this.handleCancel.bind(
+                            this,
+                            adminUserRoles[0]
+                          )}
+                        >
+                          Cancel
+                        </PaperButton>
+                      ) : (
+                        <ButtonMenu disabled={disabled}>
+                          <span>Cancel As…</span>
+                          {adminUserRoles.map(role => (
+                            <MenuItem
+                              key={getId(role)}
                               disabled={disabled}
-                              onClick={this.handleCancel.bind(
-                                this,
-                                adminUserRoles[0]
-                              )}
+                              onClick={this.handleCancel.bind(this, role)}
                             >
-                              Cancel
-                            </PaperButton>
-                          ) : (
-                            <ButtonMenu disabled={disabled}>
-                              <span>Cancel As…</span>
-                              {adminUserRoles.map(role => (
-                                <MenuItem
-                                  key={getId(role)}
-                                  disabled={disabled}
-                                  onClick={this.handleCancel.bind(this, role)}
-                                >
-                                  {role.name
-                                    ? `${role.name} (${role.roleName})`
-                                    : role.roleName}
-                                </MenuItem>
-                              ))}
-                            </ButtonMenu>
-                          )}
-                        </Fragment>
+                              {role.name
+                                ? `${role.name} (${role.roleName})`
+                                : role.roleName}
+                            </MenuItem>
+                          ))}
+                        </ButtonMenu>
                       )}
-
-                      {!!canReschedule && (
-                        <Fragment>
-                          {adminUserRoles.length === 1 ? (
-                            <PaperButton
-                              disabled={disabled || !canSubmitNewDueDateTime}
-                              onClick={this.handleReschedule.bind(
-                                this,
-                                adminUserRoles[0]
-                              )}
-                            >
-                              Reschedule
-                            </PaperButton>
-                          ) : (
-                            <ButtonMenu
-                              disabled={disabled || !canSubmitNewDueDateTime}
-                            >
-                              <span>Reschedule As…</span>
-                              {adminUserRoles.map(role => (
-                                <MenuItem
-                                  key={getId(role)}
-                                  disabled={
-                                    disabled || !canSubmitNewDueDateTime
-                                  }
-                                  onClick={this.handleReschedule.bind(
-                                    this,
-                                    role
-                                  )}
-                                >
-                                  {role.name
-                                    ? `${role.name} (${role.roleName})`
-                                    : role.roleName}
-                                </MenuItem>
-                              ))}
-                            </ButtonMenu>
-                          )}
-                        </Fragment>
-                      )}
-                    </ControlPanel>
+                    </Fragment>
                   )}
-                </div>
-              </Annotable>
-            )}
+
+                  {!!canReschedule && (
+                    <Fragment>
+                      {adminUserRoles.length === 1 ? (
+                        <PaperButton
+                          disabled={disabled || !canSubmitNewDueDateTime}
+                          onClick={this.handleReschedule.bind(
+                            this,
+                            adminUserRoles[0]
+                          )}
+                        >
+                          Reschedule
+                        </PaperButton>
+                      ) : (
+                        <ButtonMenu
+                          disabled={disabled || !canSubmitNewDueDateTime}
+                        >
+                          <span>Reschedule As…</span>
+                          {adminUserRoles.map(role => (
+                            <MenuItem
+                              key={getId(role)}
+                              disabled={disabled || !canSubmitNewDueDateTime}
+                              onClick={this.handleReschedule.bind(this, role)}
+                            >
+                              {role.name
+                                ? `${role.name} (${role.roleName})`
+                                : role.roleName}
+                            </MenuItem>
+                          ))}
+                        </ButtonMenu>
+                      )}
+                    </Fragment>
+                  )}
+                </ControlPanel>
+              )}
+            </div>
+          </Annotable>
         </div>
       </header>
     );

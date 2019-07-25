@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
 import identity from 'lodash/identity';
-import { withRouter } from 'react-router-dom';
 import flatten from 'lodash/flatten';
 import { getId, unprefix, arrayify } from '@scipe/jsonld';
 import {
@@ -48,10 +47,7 @@ class AssessmentAttachment extends React.PureComponent {
     // redux
     assessActionStageIndex: PropTypes.number,
     assessActionActionIndex: PropTypes.number,
-    assessActionAuthorizeActions: PropTypes.arrayOf(PropTypes.object),
-
-    // react router
-    location: PropTypes.object.isRequired
+    assessActionAuthorizeActions: PropTypes.arrayOf(PropTypes.object)
   };
 
   static defaultProps = {
@@ -200,44 +196,42 @@ class AssessmentAttachment extends React.PureComponent {
   }
 }
 
-export default withRouter(
-  connect(
-    createSelector(
-      (state, props) => props.action,
-      createActionMapSelector(),
-      (assessAction, actionMap) => {
-        const { stageIndex, actionIndex } = getAnnotableQueryParameters(
-          {
-            actionId: getId(assessAction),
-            stageId: getStageId(assessAction)
-          },
-          actionMap
-        );
+export default connect(
+  createSelector(
+    (state, props) => props.action,
+    createActionMapSelector(),
+    (assessAction, actionMap) => {
+      const { stageIndex, actionIndex } = getAnnotableQueryParameters(
+        {
+          actionId: getId(assessAction),
+          stageId: getStageId(assessAction)
+        },
+        actionMap
+      );
 
-        let authorizeActions;
-        const stage = actionMap[getStageId(assessAction)];
-        if (stage) {
-          const stageActions = getStageActions(stage);
-          authorizeActions = flatten(
-            stageActions.map(action =>
-              arrayify(action.potentialAction).filter(
-                action =>
-                  action['@type'] === 'AuthorizeAction' &&
-                  action.actionStatus !== 'CompletedActionStatus' &&
-                  getObjectId(action) === getId(assessAction)
-              )
+      let authorizeActions;
+      const stage = actionMap[getStageId(assessAction)];
+      if (stage) {
+        const stageActions = getStageActions(stage);
+        authorizeActions = flatten(
+          stageActions.map(action =>
+            arrayify(action.potentialAction).filter(
+              action =>
+                action['@type'] === 'AuthorizeAction' &&
+                action.actionStatus !== 'CompletedActionStatus' &&
+                getObjectId(action) === getId(assessAction)
             )
           )
-            .filter(Boolean)
-            .map(action => actionMap[getId(action)] || action);
-        }
-
-        return {
-          assessActionAuthorizeActions: authorizeActions,
-          assessActionStageIndex: stageIndex,
-          assessActionActionIndex: actionIndex
-        };
+        )
+          .filter(Boolean)
+          .map(action => actionMap[getId(action)] || action);
       }
-    )
-  )(AssessmentAttachment)
-);
+
+      return {
+        assessActionAuthorizeActions: authorizeActions,
+        assessActionStageIndex: stageIndex,
+        assessActionActionIndex: actionIndex
+      };
+    }
+  )
+)(AssessmentAttachment);
