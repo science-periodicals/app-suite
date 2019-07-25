@@ -248,7 +248,7 @@ class Annotable extends React.Component {
     if (bulkDelete.size) {
       bulkAnnotations(
         {
-          bulkDelete: new Set(annotations.map(a => a.id).filter(Boolean))
+          bulkDelete
         },
         { reason: '<Annotable />, componentWillUnmount' }
       );

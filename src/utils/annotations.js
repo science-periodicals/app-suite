@@ -653,17 +653,40 @@ export function getPosition(annotation) {
 /**
  * Check if `selector` targets a Graph encoding / resource
  */
-export function isFilesAttachmentSelector(selector = {}) {
+export function isFilesAttachmentSelector(
+  selector = {},
+  _hasObjectOrResultParentNodeSelector = false // for recursion
+) {
   const nodeId = getId(selector.node);
 
-  // Note: the check on `node:` should be sufficient as anything targeting a
-  // file should do it through a resource (hence the `node:` prefix)
-  if (typeof nodeId === 'string' && nodeId.startsWith('node:')) {
+  // Files are targetted from action through the `object` or `result` prop
+  if (
+    nodeId &&
+    nodeId.startsWith('action:') &&
+    (selector.selectedProperty === 'object' ||
+      selector.selectedProperty === 'result') &&
+    selector.hasSubSelector
+  ) {
+    return isFilesAttachmentSelector(selector.hasSubSelector, true);
+  }
+
+  // Everything targetting a file does it through a resource with a node: CURIE
+  if (
+    _hasObjectOrResultParentNodeSelector &&
+    nodeId &&
+    nodeId.startsWith('node:')
+  ) {
     return true;
   }
+
   if (selector.hasSubSelector) {
-    return isFilesAttachmentSelector(selector.hasSubSelector);
+    return isFilesAttachmentSelector(
+      selector.hasSubSelector,
+      _hasObjectOrResultParentNodeSelector
+    );
   }
+
+  return false;
 }
 
 export function getAnnotationLabel(annotation) {
