@@ -162,7 +162,7 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.5.5",
-    "@scipe/ddoc": "^1.0.1",
+    "@scipe/ddoc": "^1.0.2",
     "@scipe/ddoc-auth": "^1.0.0",
     "@scipe/eslint-config": "^1.0.0",
     "@scipe/express-logger": "^1.0.0",
