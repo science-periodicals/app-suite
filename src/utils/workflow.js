@@ -315,10 +315,6 @@ export function checkIsReadyToBeSubmitted(
         _action => _action.actionStatus === 'ActiveActionStatus'
       );
 
-      const hasCompletedUploadActions = uploadActions.some(
-        _action => _action.actionStatus === 'CompletedActionStatus'
-      );
-
       const hasAllContentUrl = resources.every(resource => {
         const parts = getParts(resource);
         return ![resource].concat(parts).some(resource => {
@@ -395,26 +391,9 @@ export function checkIsReadyToBeSubmitted(
 
     case 'AssessAction': {
       const hasDecision = !!action.result;
+      const hasResultReason = !!getValue(action.resultReason);
 
-      // validate decision letter
-      const informAction = Object.values(actionMap).find(_action => {
-        return (
-          _action['@type'] === 'InformAction' &&
-          getId(action.result) &&
-          getId(_action.ifMatch) === getId(action.result)
-        );
-      });
-
-      if (!informAction) {
-        return hasDecision;
-      }
-
-      const emailMessage = informAction.instrument;
-      if (!emailMessage) {
-        return hasDecision;
-      }
-
-      return hasDecision && !!getValue(emailMessage.text);
+      return hasDecision && hasResultReason;
     }
 
     case 'DeclareAction':

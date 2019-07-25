@@ -17,7 +17,8 @@ import {
   getStageId,
   getObjectId,
   getVersion,
-  getScopeId
+  getScopeId,
+  compareActions
 } from '@scipe/librarian';
 import Iconoclass from '@scipe/iconoclass';
 import {
@@ -410,7 +411,7 @@ export default connect(state =>
         blindingData,
         action,
         actionHasStagingDiscussion,
-        instruments,
+        instruments: instruments.sort(compareActions),
         filesProviderAction,
         graph: graphData.graph
       };

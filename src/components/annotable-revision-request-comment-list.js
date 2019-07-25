@@ -122,16 +122,16 @@ class AnnotableRevisionRequestCommentList extends React.Component {
 
     return (
       <ol className="annotable-revision-request-comment-list sa__clear-list-styles">
-        {items.map(item => (
+        {items.map((item, i) => (
           <AnnotableRevisionRequestCommentListItem
             key={getId(item)}
             {...others}
             action={action}
             counter={listCounter.increment({
               level: 4,
-              key: `annotable-revision-request-comment-list-${getId(
-                action
-              )}-${getId(item)}`
+              key: `annotable-revision-request-comment-list-${getId(action)}-${
+                i /* Note: `i` and not `getId(item)` so that the counter doesn't change when we re-order */
+              }`
             })}
             disabled={disabled}
             readOnly={readOnly}

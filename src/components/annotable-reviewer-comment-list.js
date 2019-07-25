@@ -123,16 +123,16 @@ class AnnotableReviewerCommentList extends React.Component {
 
     return (
       <ol className="annotable-reviewer-comment-list sa__clear-list-styles">
-        {items.map(item => (
+        {items.map((item, i) => (
           <AnnotableReviewerCommentListItem
             key={getId(item)}
             {...others}
             action={action}
             counter={listCounter.increment({
               level: 4,
-              key: `annotable-reviewer-comment-list-${getId(action)}-${getId(
-                item
-              )}`
+              key: `annotable-reviewer-comment-list-${getId(action)}-${
+                i /* Note: `i` and not `getId(item)` so that the counter doesn't change when we re-order */
+              }`
             })}
             disabled={disabled}
             readOnly={readOnly}
