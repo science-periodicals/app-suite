@@ -5,9 +5,7 @@ import debounce from 'lodash/debounce';
 import querystring from 'querystring';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
-import flatten from 'lodash/flatten';
-import { Link } from 'react-router-dom';
-import { getScopeId, Acl, createId } from '@scipe/librarian';
+import { createId } from '@scipe/librarian';
 import { getId, arrayify } from '@scipe/jsonld';
 import {
   BemTags,
@@ -26,12 +24,8 @@ import {
   AppLayoutRight,
   AppLayoutMiddle,
   AppLayoutFooter,
-  AppLayoutStickyList,
-  AppLayoutStickyListItem,
-  AppLayoutListItem,
   Hyperlink,
   Logo,
-  PaperButton,
   CSS_TABLET,
   StartMenu
 } from '@scipe/ui';
@@ -46,14 +40,9 @@ import ConnectedUserBadgeMenu from '../connected-user-badge-menu';
 import { SIFTER_FACETS } from '../../constants';
 import FeaturedArticleCard from './featured-article-card';
 import FeaturedIssueCard from './featured-issue-card';
-import ArticleSnippet from '../article-snippet';
-import IssueSnippet from './issue-snippet';
-import PublicationTypeSnippet from './publication-type-snippet';
 import Droplet from '../droplet';
-import PrintPdfProgressModal from '../print-pdf-progress-modal';
-import Notice from '../notice';
 import withShowPanel from '../../hoc/with-show-panel';
-import RfaSnippet from '../rfa-snippet';
+import SifterList from './sifter-list';
 
 /**
  * This is used to provide:
@@ -85,6 +74,7 @@ class Sifter extends React.Component {
 
     // redux
     screenWidth: PropTypes.string,
+    query: PropTypes.object,
     user: PropTypes.object,
     journal: PropTypes.object,
     issue: PropTypes.object,
@@ -107,7 +97,6 @@ class Sifter extends React.Component {
       error: PropTypes.instanceOf(Error)
     }).isRequired,
 
-    droplets: PropTypes.object.isRequired,
     searchGraphs: PropTypes.func.isRequired,
     searchIssues: PropTypes.func.isRequired,
     searchRfas: PropTypes.func.isRequired
@@ -115,8 +104,7 @@ class Sifter extends React.Component {
 
   static defaultProps = {
     issue: {},
-    graphSearchResults: {},
-    droplets: {}
+    graphSearchResults: {}
   };
 
   constructor(props) {
@@ -153,17 +141,16 @@ class Sifter extends React.Component {
   search({ reset, nextQuery, nextUrl } = {}) {
     const {
       history,
-      location,
       searchGraphs,
       searchIssues,
       searchRfas,
       mode,
       journal,
+      query,
       match: {
         params: { issueId } // Note: when the component mount `issue` may not be defined yet
       }
     } = this.props;
-    const query = querystring.parse(location.search.substring(1));
 
     switch (mode) {
       case 'journal':
@@ -216,8 +203,7 @@ class Sifter extends React.Component {
   };
 
   handleDebouncedSearch(value) {
-    const { location } = this.props;
-    const query = querystring.parse(location.search.substring(1));
+    const { query } = this.props;
 
     const nextQuery = value
       ? Object.assign({}, query, { search: value })
@@ -243,9 +229,9 @@ class Sifter extends React.Component {
     });
   };
 
-  handleMore(nextUrl) {
+  handleMore = nextUrl => {
     this.search({ nextUrl });
-  }
+  };
 
   render() {
     const { searchValue } = this.state;
@@ -259,16 +245,11 @@ class Sifter extends React.Component {
       graphSearchResults,
       issueSearchResults,
       rfasSearchResults,
-      droplets,
       screenWidth,
       showPanel,
-      onTogglePanel
+      onTogglePanel,
+      query
     } = this.props;
-
-    const query = querystring.parse(location.search.substring(1));
-
-    const acl = new Acl(journal);
-    const canWrite = acl.checkPermission(user, 'WritePermission');
 
     const isSearched =
       !!searchValue || SIFTER_FACETS.some(facet => !!query[facet]);
@@ -276,209 +257,29 @@ class Sifter extends React.Component {
     // we reshape into a list of items
     // if we are in search mode (`isSearched` is true), we don't display the issues
 
-    const items = arrayify(graphSearchResults.graphIds)
-      .map(graphId => droplets[graphId])
-      .filter(Boolean);
-
-    let results, featured, isSearching, nextUrl;
+    let featured, isSearching;
     switch (mode) {
       case 'requests': {
-        const requests = rfasSearchResults.rfaIds
-          .map(rfaId => droplets[rfaId])
-          .filter(Boolean);
-
         featured = [];
-        results = [{ '@id': `${mode}-search`, hasPart: requests }];
         isSearching = rfasSearchResults.isActive;
-        nextUrl =
-          rfasSearchResults.nextUrl &&
-          rfasSearchResults.rfaIds.length < rfasSearchResults.numberOfItems
-            ? rfasSearchResults.nextUrl
-            : null;
         break;
       }
 
       case 'issues': {
-        const issues = issueSearchResults.issueIds
-          .map(id => droplets[id])
-          .filter(Boolean);
-
         featured = arrayify(journal.workFeatured);
-        results = [{ '@id': `${mode}-search`, hasPart: issues }];
         isSearching = issueSearchResults.active;
-        nextUrl =
-          issueSearchResults.nextUrl &&
-          issueSearchResults.issueIds.length < issueSearchResults.numberOfItems
-            ? issueSearchResults.nextUrl
-            : null;
         break;
       }
 
       case 'issue': {
-        const articles = graphSearchResults.graphIds
-          .map(id => droplets[id])
-          .filter(Boolean);
-
         featured = arrayify(issue.workFeatured);
         isSearching = graphSearchResults.status === 'active'; // TODO update reducer so that it isues active boolean instead of `status`
-        nextUrl =
-          graphSearchResults.nextUrl &&
-          graphSearchResults.graphIds.length < graphSearchResults.numberOfItems
-            ? graphSearchResults.nextUrl
-            : null;
-
-        if (isSearched) {
-          results = [{ '@id': `${mode}-search`, hasPart: articles }];
-        } else {
-          // group by publication type (`additionalType`)
-          const typeMap = articles.reduce((typeMap, article) => {
-            const types = arrayify(article.additionalType);
-            types.forEach(type => {
-              const typeId = getId(type);
-
-              if (typeId) {
-                if (typeof type === 'string') {
-                  type = { '@id': typeId };
-                }
-
-                if (typeMap[typeId]) {
-                  // merge data
-                  typeMap[typeId] = Object.assign({}, typeMap[typeId], type);
-                } else {
-                  typeMap[typeId] = type;
-                }
-              }
-            });
-            return typeMap;
-          }, {});
-
-          results = Object.keys(typeMap).map(typeId => {
-            const type = droplets[typeId] || typeMap[typeId];
-
-            return {
-              '@id': typeId,
-              type: type,
-              hasPart: articles
-                .filter(article =>
-                  arrayify(article.additionalType).some(
-                    type => getId(type) === typeId
-                  )
-                )
-                .sort((a, b) =>
-                  a.datePublished < b.datePublished
-                    ? 1
-                    : a.datePublished > b.datePublished
-                    ? -1
-                    : 0
-                )
-            };
-          });
-        }
         break;
       }
 
       case 'journal':
         featured = arrayify(journal.workFeatured);
         isSearching = graphSearchResults.status === 'active'; // TODO update
-        nextUrl =
-          graphSearchResults.nextUrl &&
-          graphSearchResults.graphIds.length < graphSearchResults.numberOfItems
-            ? graphSearchResults.nextUrl
-            : null;
-
-        if (isSearched) {
-          results = [{ '@id': `${mode}-search`, hasPart: items }];
-        } else {
-          // We group graphs by issue with a special `unalocated` key for graphs not part of a sequential issue _yet_ (those would be first).
-          // Those issues (and virtual issue) will be sorted chronologically
-          // get set of issues
-          const issueIds = new Set(
-            Array.from(
-              new Set(
-                flatten(
-                  items.map(graph => arrayify(graph.isPartOf).map(getId))
-                ).filter(issueId => issueId && issueId.startsWith('issue:'))
-              )
-            )
-              .map(issueId => droplets[issueId])
-              .filter(issue => issue)
-              .map(getId)
-          );
-
-          const byIssueId = items.reduce((byIssueId, graph) => {
-            let hasSequentialIssue;
-            for (const part of arrayify(graph.isPartOf)) {
-              if (issueIds.has(getId(part))) {
-                const issue = droplets[getId(part)];
-                if (issue['@type'] === 'PublicationIssue') {
-                  hasSequentialIssue = true;
-                }
-                if (!byIssueId[getId(part)]) {
-                  byIssueId[getId(part)] = [];
-                }
-                byIssueId[getId(part)].push(graph);
-              }
-            }
-            if (!hasSequentialIssue) {
-              if (!byIssueId.unalocated) {
-                byIssueId.unalocated = [];
-              }
-              byIssueId.unalocated.push(graph);
-            }
-
-            return byIssueId;
-          }, {});
-
-          results = Object.keys(byIssueId)
-            .map(issueId => {
-              const issue = droplets[issueId];
-
-              let parts;
-              if (issue && issue['@type'] === 'SpecialPublicationIssue') {
-                // we resort the Graphs for sequential issue but keep the original issue order for Special issues
-                // !! the special issue list the parts with ?version=latest => won't be present in droplets => we create a byScopeId map to circumvent that
-                const byScopeId = byIssueId[issueId].reduce((map, graph) => {
-                  map[getScopeId(graph)] = graph;
-                  return map;
-                }, {});
-
-                parts = arrayify(issue.hasPart)
-                  .map(part => byScopeId[getScopeId(part)])
-                  .filter(Boolean);
-              } else {
-                parts = byIssueId[issueId]
-                  .filter(Boolean)
-                  .sort((a, b) =>
-                    a.datePublished < b.datePublished
-                      ? 1
-                      : a.datePublished > b.datePublished
-                      ? -1
-                      : 0
-                  );
-              }
-
-              return {
-                '@id': issueId,
-                issue,
-                hasPart: parts
-              };
-            })
-            .sort((a, b) => {
-              // sort chronologicaly
-              const datePublishedA = a.issue
-                ? a.issue.datePublished
-                : a.hasPart[0].datePublished;
-              const datePublishedB = b.issue
-                ? b.issue.datePublished
-                : b.hasPart[0].datePublished;
-
-              return datePublishedA < datePublishedB
-                ? 1
-                : datePublishedA > datePublishedB
-                ? -1
-                : 0;
-            });
-        }
         break;
 
       default:
@@ -588,155 +389,14 @@ class Sifter extends React.Component {
           </AppLayoutLeft>
 
           <AppLayoutMiddle widthMode="auto">
-            <div className={bem`__notices`}>
-              {!isSearching &&
-              (results.length === 0 ||
-                (results.length === 1 &&
-                  results[0].hasPart &&
-                  results[0].hasPart.length === 0)) ? (
-                isSearched ? (
-                  <Notice>No search results</Notice>
-                ) : mode === 'issues' ? (
-                  <Notice>
-                    The journal hasn‘t published issues yet. Please check back
-                    later.
-                  </Notice>
-                ) : mode === 'requests' ? (
-                  <Notice>
-                    The journal hasn‘t published requests for articles (
-                    <abbr title="Request For Articles">RFA</abbr>s) yet. Please
-                    check back later.
-                  </Notice>
-                ) : (
-                  <Notice>
-                    <div>
-                      The journal has no published articles yet, please check
-                      back later. To learn about the journal or to submit a new
-                      manuscript to the journal, visit the{' '}
-                      <Link
-                        to={{
-                          pathname: '/about/journal',
-                          search: query.hostname
-                            ? `?hostname=${query.hostname}`
-                            : undefined
-                        }}
-                      >
-                        about
-                      </Link>
-                      ,{' '}
-                      <Link
-                        to={{
-                          pathname: '/about/staff',
-                          search: query.hostname
-                            ? `?hostname=${query.hostname}`
-                            : undefined
-                        }}
-                      >
-                        staff
-                      </Link>
-                      , or{' '}
-                      <Link
-                        to={{
-                          pathname: '/rfas',
-                          search: query.hostname
-                            ? `?hostname=${query.hostname}`
-                            : undefined
-                        }}
-                      >
-                        <abbr title="Request for Article">RFA</abbr>s
-                      </Link>{' '}
-                      sections .
-                    </div>
-                  </Notice>
-                )
-              ) : null}
-            </div>
-            <div className={bem`__content-list`}>
-              {results.map(result => (
-                <AppLayoutStickyList
-                  key={getId(result)}
-                  className={bem`__issue-sticky-list`}
-                >
-                  {result.issue || result.type ? (
-                    <AppLayoutStickyListItem
-                      id={`${mode || ''}-${getId(result)}`}
-                    >
-                      {(sticking, displayMode) =>
-                        result.issue ? (
-                          <IssueSnippet
-                            canWrite={canWrite}
-                            user={user}
-                            disabled={disabled}
-                            journal={journal}
-                            issue={result.issue}
-                            query={query}
-                            sticking={sticking}
-                            displayMode={displayMode}
-                          />
-                        ) : (
-                          <PublicationTypeSnippet
-                            user={user}
-                            disabled={disabled}
-                            journal={journal}
-                            publicationType={result.type}
-                            sticking={sticking}
-                            displayMode={displayMode}
-                          />
-                        )
-                      }
-                    </AppLayoutStickyListItem>
-                  ) : null}
-
-                  {result.hasPart.map(part => (
-                    <AppLayoutListItem key={getId(part)}>
-                      {part['@type'] === 'Graph' ? (
-                        <ArticleSnippet
-                          canWrite={canWrite}
-                          isFeatured={arrayify(journal.workFeatured)
-                            .concat(arrayify(issue && issue.workFeatured))
-                            .some(
-                              work => getScopeId(work) === getScopeId(part)
-                            )}
-                          user={user}
-                          disabled={disabled}
-                          journal={journal}
-                          issue={mode === 'issue' ? issue : result.issue}
-                          graph={part}
-                          workflow={droplets[getId(part.workflow)]}
-                          query={query}
-                        />
-                      ) : mode === 'requests' ? (
-                        <RfaSnippet
-                          user={user}
-                          journal={journal}
-                          rfa={part}
-                          reset={true}
-                        />
-                      ) : (
-                        <IssueSnippet
-                          canWrite={canWrite}
-                          user={user}
-                          disabled={disabled}
-                          journal={journal}
-                          issue={part}
-                          query={query}
-                          sticking={false}
-                        />
-                      )}
-                    </AppLayoutListItem>
-                  ))}
-                </AppLayoutStickyList>
-              ))}
-
-              {nextUrl && (
-                <div className={bem`__more-button-container`}>
-                  <PaperButton onClick={this.handleMore.bind(this, nextUrl)}>
-                    More
-                  </PaperButton>
-                </div>
-              )}
-            </div>
-            <PrintPdfProgressModal />
+            <SifterList
+              mode={mode}
+              issue={issue}
+              hostname={query.hostname}
+              disabled={disabled}
+              isSearched={isSearched}
+              onMore={this.handleMore}
+            />
           </AppLayoutMiddle>
 
           <AppLayoutRight backgroundOnDesktop={false}>
@@ -746,7 +406,7 @@ class Sifter extends React.Component {
                   <JournalNav
                     user={user}
                     journal={journal}
-                    location={location}
+                    hostname={query.hostname}
                   />
                 </Card>
               )}
@@ -785,6 +445,7 @@ class Sifter extends React.Component {
 export default connect(
   createSelector(
     state => state.screenWidth,
+    (state, props) => props.location.search,
     (state, props) => props.match.params.issueId,
     state => state.user,
     state => state.homepage,
@@ -795,6 +456,7 @@ export default connect(
     state => state.droplets,
     (
       screenWidth,
+      search,
       issueId,
       user,
       homepage,
@@ -807,16 +469,17 @@ export default connect(
       if (issueId) {
         issueId = createId('issue', issueId, homepage)['@id'];
       }
+
       return {
         screenWidth,
         user,
+        query: querystring.parse(location.search.substring(1)),
         issue: droplets[issueId],
         disabled,
         journal: homepage,
         issueSearchResults,
         graphSearchResults,
-        rfasSearchResults,
-        droplets
+        rfasSearchResults
       };
     }
   ),

@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import querystring from 'querystring';
 import { NavLink } from 'react-router-dom';
 import Iconoclass from '@scipe/iconoclass';
 import { Logo, BemTags, ShareMenu } from '@scipe/ui';
 import StartSubmissionButton from '../start-submission-button';
 
-export default class JournalNav extends React.Component {
+export default class JournalNav extends React.PureComponent {
   static propTypes = {
     user: PropTypes.object,
     journal: PropTypes.object,
-    location: PropTypes.object.isRequired
+    hostname: PropTypes.string
   };
 
   static defaultProps = {
@@ -26,10 +25,7 @@ export default class JournalNav extends React.Component {
   }
 
   render() {
-    const { user, journal, location } = this.props;
-
-    const query = querystring.parse(location.search.substring(1));
-    const { hostname } = query;
+    const { user, journal, hostname } = this.props;
 
     const bem = BemTags();
 

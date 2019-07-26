@@ -10,7 +10,7 @@ import {
   EXPLORER_RFAS_FACETS
 } from '../../constants';
 
-class SifterFacets extends React.Component {
+class SifterFacets extends React.PureComponent {
   static propTypes = {
     mode: PropTypes.oneOf([
       'journal', // journal homepage, search for articles

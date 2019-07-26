@@ -102,6 +102,7 @@
 @import './components/apply-modal.css';
 
 @import './components/sifter/sifter.css';
+@import './components/sifter/sifter-list.css';
 @import './components/explorer.css';
 @import './components/explorer-nav.css';
 @import './components/explorer-facets.css';

@@ -22,10 +22,17 @@ class PrintPdfProgressModal extends React.Component {
 
   receiveMessage = e => {
     // we receive messages from the print iframe
-    if (e.origin === window.location.origin) {
+    // !! react devtool use the postmessage API so be sure to only handle the
+    // messages that we care about
+    if (
+      e.origin === window.location.origin &&
+      e.data &&
+      e.data.type === 'scipe-print-message' &&
+      e.data.payload
+    ) {
       this.setState({
-        fetchEncodingStatus: e.data.fetchEncodingStatus,
-        fetchableEncodings: e.data.fetchableEncodings
+        fetchEncodingStatus: e.data.payload.fetchEncodingStatus,
+        fetchableEncodings: e.data.payload.fetchableEncodings
       });
     }
   };

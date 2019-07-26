@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Iconoclass from '@scipe/iconoclass';
-import { Card, Banner, Hyperlink, Span, BemTags } from '@scipe/ui';
+import { Card, Banner, Hyperlink, Span } from '@scipe/ui';
 import IssueMediumBannerContent from './issue-medium-banner-content';
 
 export default class IssueSnippet extends React.Component {

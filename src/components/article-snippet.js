@@ -43,7 +43,7 @@ import PrintPdfMenuItem from './print-pdf-menu-item';
 
 // TODO @halmos style for when the article is featured (different drop shadow ?) (see `isFeatured` prop)
 
-export default class ArticleSnippet extends React.Component {
+export default class ArticleSnippet extends React.PureComponent {
   static propTypes = {
     isFeatured: PropTypes.bool,
     ctx: PropTypes.oneOf(['explorer', 'sifter']),

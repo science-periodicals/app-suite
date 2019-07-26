@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { helmetify } from '@scipe/librarian';
 import { Helmet } from 'react-helmet-async';
@@ -7,7 +7,7 @@ import JournalLargeBannerContent from './journal-large-banner-content';
 import IssueLargeBannerContent from './issue-large-banner-content';
 import { getCustomVariables } from '../../utils/style-utils';
 
-export default class SifterHeader extends Component {
+export default class SifterHeader extends React.PureComponent {
   static propTypes = {
     mode: PropTypes.oneOf([
       'journal', // journal homepage, search for articles

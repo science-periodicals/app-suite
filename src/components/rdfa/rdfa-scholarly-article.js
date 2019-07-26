@@ -15,7 +15,7 @@ import Counter from '../../utils/counter';
  * Note: We also use this component to render graph containing only images, or
  * video so that they look like an article...
  */
-export default class RdfaScholarlyArticle extends React.Component {
+export default class RdfaScholarlyArticle extends React.PureComponent {
   static propTypes = {
     id: PropTypes.string,
     className: PropTypes.string,

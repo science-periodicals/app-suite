@@ -56,17 +56,6 @@
     justify-content: flex-end;
   }
 
-  &__notices {
-    padding: 0 var(--sgrd);
-  }
-
-  &__content-list {
-    padding: 0 var(--sgrd);
-
-    & .rfa-snippet {
-      margin-bottom: var(--sgrd);
-    }
-  }
 
   &__controls {
     width: 100%;
@@ -161,9 +150,5 @@
     }
   }
 
-  &__more-button-container {
-    width: 100%;
-    text-align: center;
-    padding-bottom: var(--mgrd);
-  }
+
 }

@@ -231,7 +231,10 @@ class Reader extends React.Component {
 
         // we are in an iframe we post the loading status to the parent window
         window.parent.postMessage(
-          { fetchableEncodings, fetchEncodingStatus },
+          {
+            type: 'scipe-print-message',
+            payload: { fetchableEncodings, fetchEncodingStatus }
+          },
           window.location.origin
         );
 
