@@ -225,12 +225,20 @@ class AnnotableReviewerCommentListItem extends React.Component {
                           onClick={this.handleDelete}
                           size="18px"
                         />
-                        <Iconoclass
-                          iconName="reorder"
-                          behavior="button"
-                          disabled={disabled}
-                          size="18px"
-                        />
+                        {/* We only allow re-ordering when the action is active
+                        so that NO comments can be attached to it. This is
+                        because re-ordering also moves the comments (as the
+                        comment selector only knows about the selectedItem but
+                        then we have an outdated (hard coded) selector
+                        identifier that is sensitive to the index */}
+                        {!!(action.actionStatus === 'ActiveActionStatus') && (
+                          <Iconoclass
+                            iconName="reorder"
+                            behavior="button"
+                            disabled={disabled}
+                            size="18px"
+                          />
+                        )}
                       </div>
                     )}
                   </header>
@@ -298,7 +306,17 @@ export default DragSource(
       };
     },
     canDrag(props, monitor) {
-      return !props.readOnly && !props.disabled;
+      // We only allow re-ordering when the action is active so that NO comments
+      // can be attached to it. This is because re-ordering also moves the comments
+      // (as the comment selector only knows about the selectedItem but then we
+      // have an outdated (hard coded) selector identifier that is sensitive to the
+      // index
+      return (
+        !props.readOnly &&
+        !props.disabled &&
+        props.action &&
+        props.action.actionStatus === 'ActiveActionStatus'
+      );
     }
   },
   (connect, monitor) => ({
@@ -361,7 +379,12 @@ export default DragSource(
         }
       },
       canDrop(props, monitor) {
-        return !props.readOnly && !props.disabled;
+        return (
+          !props.readOnly &&
+          !props.disabled &&
+          props.action &&
+          props.action.actionStatus === 'ActiveActionStatus'
+        );
       }
     },
     (connect, monitor) => ({

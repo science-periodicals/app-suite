@@ -24,7 +24,7 @@ import {
   ViewIdentityPermissionEditor,
   PublicViewIdentityPermissionEditor,
   PaperButton,
-  PaperTextarea,
+  RichTextarea,
   PaperInput,
   ControlPanel,
   BemTags,
@@ -35,7 +35,6 @@ import {
 import { updateWorkflowSpecification } from '../actions/workflow-action-creators';
 import Search from './search';
 
-const ControledPaperTextarea = withOnSubmit(PaperTextarea);
 const ControledPaperInput = withOnSubmit(PaperInput);
 
 class WorkflowEditor extends Component {
@@ -44,7 +43,10 @@ class WorkflowEditor extends Component {
     readOnly: PropTypes.bool,
     journal: PropTypes.object,
     workflow: PropTypes.shape({
-      '@type': PropTypes.oneOf(['WorkflowSpecification'])
+      '@type': PropTypes.oneOf(['WorkflowSpecification']),
+      name: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+      description: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+      expectedDuration: PropTypes.string
     }), // a WorkflowSpecification
     updateStatus: PropTypes.object,
     onClose: PropTypes.func,
@@ -257,14 +259,13 @@ class WorkflowEditor extends Component {
               large={true}
             />
 
-            <ControledPaperTextarea
+            <RichTextarea
               label="Description"
               name="description"
-              value={getValue(workflow.description || '')}
+              defaultValue={workflow.description}
               onSubmit={this.handleChangeMetadata}
               disabled={disabled}
               readOnly={readOnly}
-              large={true}
             />
 
             <ControledPaperInput
@@ -280,7 +281,6 @@ class WorkflowEditor extends Component {
               onSubmit={this.handleChangeMetadata}
               disabled={disabled}
               readOnly={readOnly}
-              large={true}
             />
           </div>
         </section>

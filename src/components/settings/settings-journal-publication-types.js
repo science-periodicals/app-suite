@@ -340,6 +340,7 @@ class SettingsJournalPublicationTypes extends React.Component {
               <ControledPaperInput
                 label="Name"
                 name="name"
+                large={true}
                 autoComplete="off"
                 disabled={disabled}
                 readOnly={readOnly}
