@@ -393,7 +393,13 @@ export function checkIsReadyToBeSubmitted(
       const hasDecision = !!action.result;
       const hasResultReason = !!getValue(action.resultReason);
 
-      return hasDecision && hasResultReason;
+      return (
+        hasDecision &&
+        hasResultReason &&
+        arrayify(action.comment).every(comment => {
+          return comment && getValue(comment.text);
+        })
+      );
     }
 
     case 'DeclareAction':
@@ -421,6 +427,9 @@ export function checkIsReadyToBeSubmitted(
             answer.parentItem['@type'] === 'Question' &&
             !answer.text
           );
+        }) &&
+        arrayify(action.comment).every(comment => {
+          return comment && getValue(comment.text);
         })
       );
 

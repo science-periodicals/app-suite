@@ -471,7 +471,9 @@ export default class Comment extends React.Component {
           revisionRequestComment
         ) && (
           <div className={bem`__request-context`}>
-            <Value>{revisionRequestComment.text}</Value>
+            <Value locationLinksType="shell" className="sa__ui-user-type">
+              {revisionRequestComment.text}
+            </Value>
             <CommentIsBasedOnEditor
               graphId={graphId}
               assessAction={revisionRequestCommentHostAction}
@@ -516,7 +518,7 @@ export default class Comment extends React.Component {
           </div>
         ) : isRespondingToRevisionRequest ? null : (
           <div className={bem`__comment-text`}>
-            <Value>
+            <Value locationLinksType="shell" className="sa__ui-user-type">
               {value || comment.text /* value is to fake optimistic updates */}
             </Value>
             {comment['@type'] === 'RevisionRequestComment' && (

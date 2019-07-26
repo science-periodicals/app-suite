@@ -145,8 +145,8 @@ class AuthorNotesAttachment extends React.PureComponent {
           counter={counter}
           action={createReleaseAction}
           canComment={canComment}
-          readOnly={readOnly}
-          disabled={disabled}
+          readOnly={true}
+          disabled={true}
           annotable={annotable}
           displayAnnotations={displayAnnotations}
           displayPermalink={displayPermalink}
