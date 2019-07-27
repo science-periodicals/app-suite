@@ -113,6 +113,7 @@
     }
   }
 
+
   /* journal nav gets moved from right margin to left margin on mobile */
   &__left-journal-nav {
     padding: var(--sgrd);
@@ -149,6 +150,5 @@
       }
     }
   }
-
 
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
-import debounce from 'lodash/debounce';
 import querystring from 'querystring';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
@@ -43,6 +42,7 @@ import FeaturedIssueCard from './featured-issue-card';
 import Droplet from '../droplet';
 import withShowPanel from '../../hoc/with-show-panel';
 import SifterList from './sifter-list';
+import Loading from '../loading';
 
 /**
  * This is used to provide:
@@ -79,23 +79,9 @@ class Sifter extends React.Component {
     journal: PropTypes.object,
     issue: PropTypes.object,
     disabled: PropTypes.bool.isRequired,
-    graphSearchResults: PropTypes.shape({
-      numberOfItems: PropTypes.number,
-      nextUrl: PropTypes.string,
-      status: PropTypes.oneOf(['active', 'success', 'error']),
-      graphIds: PropTypes.array.isRequired,
-      newGraphIds: PropTypes.array.isRequired,
-      error: PropTypes.instanceOf(Error)
-    }).isRequired,
-    issueSearchResults: PropTypes.object.isRequired, // same shape as `graphSearchResults`
-
-    rfasSearchResults: PropTypes.shape({
-      numberOfItems: PropTypes.number,
-      nextUrl: PropTypes.string,
-      isActive: PropTypes.bool,
-      rfaIds: PropTypes.array.isRequired,
-      error: PropTypes.instanceOf(Error)
-    }).isRequired,
+    graphSearchIsActive: PropTypes.bool.isRequired,
+    issueSearchIsActive: PropTypes.bool.isRequired,
+    rfasSearchIsActive: PropTypes.bool.isRequired,
 
     searchGraphs: PropTypes.func.isRequired,
     searchIssues: PropTypes.func.isRequired,
@@ -107,17 +93,27 @@ class Sifter extends React.Component {
     graphSearchResults: {}
   };
 
+  static getDerivedStateFromProps(props, state) {
+    const nextIsSearched =
+      !!props.query.search || SIFTER_FACETS.some(facet => !!props.query[facet]);
+
+    return {
+      isSearched: nextIsSearched,
+      lastIsSearched: state.isSearched
+    };
+  }
+
   constructor(props) {
     super(props);
 
-    this.state = {
-      searchValue: ''
-    };
+    const isSearched =
+      !!props.query.search || SIFTER_FACETS.some(facet => !!props.query[facet]);
 
-    this.handleDebouncedSearch = debounce(
-      this.handleDebouncedSearch.bind(this),
-      300
-    );
+    this.state = {
+      searchValue: props.query.search,
+      isSearched,
+      lastIsSearched: isSearched
+    };
   }
 
   componentDidMount() {
@@ -132,10 +128,18 @@ class Sifter extends React.Component {
         this.props.mode === 'journal' || this.props.mode === 'issue';
       this.search({ reset });
     }
-  }
 
-  componentWillUnmount() {
-    this.handleDebouncedSearch.cancel();
+    // rescroll to top when we switch modes or change search
+    if (
+      this.props.mode !== prevProps.mode ||
+      this.state.isSearched !== prevState.isSearched ||
+      (this.props.query.search !== prevProps.query.search ||
+        SIFTER_FACETS.some(
+          facet => this.props.query[facet] !== prevProps.query[facet]
+        ))
+    ) {
+      window.scrollTo(0, 0);
+    }
   }
 
   search({ reset, nextQuery, nextUrl } = {}) {
@@ -197,20 +201,21 @@ class Sifter extends React.Component {
   }
 
   handleChangeSearch = e => {
-    const value = e.target.value && e.target.value.trim();
     this.setState({ searchValue: e.target.value });
-    this.handleDebouncedSearch(value);
   };
 
-  handleDebouncedSearch(value) {
+  handleSubmitSearch = e => {
+    const value = e.target.value && e.target.value.trim();
     const { query } = this.props;
 
-    const nextQuery = value
-      ? Object.assign({}, query, { search: value })
-      : omit(query, ['search']);
+    if (value !== query.search) {
+      const nextQuery = value
+        ? Object.assign({}, query, { search: value })
+        : omit(query, ['search']);
 
-    this.search({ nextQuery });
-  }
+      this.search({ nextQuery });
+    }
+  };
 
   handleToggleFacet = nextQuery => {
     this.search({ nextQuery });
@@ -234,7 +239,7 @@ class Sifter extends React.Component {
   };
 
   render() {
-    const { searchValue } = this.state;
+    const { searchValue, isSearched, lastIsSearched } = this.state;
     const {
       location,
       disabled,
@@ -242,44 +247,40 @@ class Sifter extends React.Component {
       mode,
       journal,
       issue,
-      graphSearchResults,
-      issueSearchResults,
-      rfasSearchResults,
+      graphSearchIsActive,
+      issueSearchIsActive,
+      rfasSearchIsActive,
       screenWidth,
       showPanel,
       onTogglePanel,
       query
     } = this.props;
 
-    const isSearched =
-      !!searchValue || SIFTER_FACETS.some(facet => !!query[facet]);
-
     // we reshape into a list of items
     // if we are in search mode (`isSearched` is true), we don't display the issues
-
     let featured, isSearching;
     switch (mode) {
       case 'requests': {
         featured = [];
-        isSearching = rfasSearchResults.isActive;
+        isSearching = rfasSearchIsActive;
         break;
       }
 
       case 'issues': {
         featured = arrayify(journal.workFeatured);
-        isSearching = issueSearchResults.active;
+        isSearching = issueSearchIsActive;
         break;
       }
 
       case 'issue': {
         featured = arrayify(issue.workFeatured);
-        isSearching = graphSearchResults.status === 'active'; // TODO update reducer so that it isues active boolean instead of `status`
+        isSearching = graphSearchIsActive;
         break;
       }
 
       case 'journal':
         featured = arrayify(journal.workFeatured);
-        isSearching = graphSearchResults.status === 'active'; // TODO update
+        isSearching = graphSearchIsActive;
         break;
 
       default:
@@ -288,14 +289,18 @@ class Sifter extends React.Component {
 
     const bem = BemTags();
 
-    const isReady = !isSearching; // TODO take into account banners
+    const isReadyForBackstop = !isSearching; // TODO take into account banners image loading
 
     return (
-      <div className={bem`sifter`} data-test-ready={isReady.toString()}>
+      <div
+        className={bem`sifter`}
+        data-test-ready={isReadyForBackstop.toString()}
+      >
         <AppLayout leftExpanded={showPanel} rightExpanded={true}>
           <AppLayoutHeader>
             <HeaderSearch
               loading={isSearching}
+              onSubmitSearch={this.handleSubmitSearch}
               onChangeSearch={this.handleChangeSearch}
               searchValue={searchValue}
               onSearchMenuClick={onTogglePanel}
@@ -389,14 +394,20 @@ class Sifter extends React.Component {
           </AppLayoutLeft>
 
           <AppLayoutMiddle widthMode="auto">
-            <SifterList
-              mode={mode}
-              issue={issue}
-              hostname={query.hostname}
-              disabled={disabled}
-              isSearched={isSearched}
-              onMore={this.handleMore}
-            />
+            {/* re-rendering <SifterList /> is CPU intensive => we put a loader we we switch from journal homepage rendering to search rendering (`isSearched`). within a given value if `isSearched`, `<SifterList /> won't re-render based on isSearching so we can skip the <Loading /> and keep the list on screen  */}
+            {lastIsSearched !== isSearched && isSearching ? (
+              <Loading />
+            ) : (
+              <SifterList
+                mode={mode}
+                issue={issue}
+                hostname={query.hostname}
+                disabled={disabled}
+                isSearched={isSearched}
+                isSearching={isSearching}
+                onMore={this.handleMore}
+              />
+            )}
           </AppLayoutMiddle>
 
           <AppLayoutRight backgroundOnDesktop={false}>
@@ -450,9 +461,9 @@ export default connect(
     state => state.user,
     state => state.homepage,
     createReadOnlyUserSelector(),
-    state => state.graphSearchResults,
-    state => state.issueSearchResults,
-    state => state.rfasSearchResults,
+    state => state.graphSearchResults.status === 'active', // TODO update reducer so that it isues active boolean instead of `status`
+    state => state.issueSearchResults.active,
+    state => state.rfasSearchResults.isActive,
     state => state.droplets,
     (
       screenWidth,
@@ -461,9 +472,9 @@ export default connect(
       user,
       homepage,
       disabled,
-      graphSearchResults = {},
-      issueSearchResults = {},
-      rfasSearchResults,
+      graphSearchIsActive,
+      issueSearchIsActive,
+      rfasSearchIsActive,
       droplets
     ) => {
       if (issueId) {
@@ -477,9 +488,9 @@ export default connect(
         issue: droplets[issueId],
         disabled,
         journal: homepage,
-        issueSearchResults,
-        graphSearchResults,
-        rfasSearchResults
+        issueSearchIsActive,
+        graphSearchIsActive,
+        rfasSearchIsActive
       };
     }
   ),
