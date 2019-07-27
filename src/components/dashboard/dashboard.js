@@ -7,7 +7,6 @@ import { Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import omit from 'lodash/omit';
 import capitalize from 'lodash/capitalize';
-import debounce from 'lodash/debounce';
 import { getScopeId, getObjectId } from '@scipe/librarian';
 import Iconoclass from '@scipe/iconoclass';
 import {
@@ -87,6 +86,7 @@ class Dashboard extends PureComponent {
       status: PropTypes.oneOf(['active', 'success', 'error']),
       graphIds: PropTypes.array.isRequired,
       newGraphIds: PropTypes.array.isRequired,
+      deletedScopeIds: PropTypes.array.isRequired,
       error: PropTypes.instanceOf(Error)
     }),
     searchGraphs: PropTypes.func.isRequired,
@@ -115,11 +115,6 @@ class Dashboard extends PureComponent {
       searchValue: query.search || '',
       rightPanelType: 'notifications' // one of `notifications`, `comments` or `invites`
     };
-
-    this.handleDebouncedSearch = debounce(
-      this.handleDebouncedSearch.bind(this),
-      300
-    );
 
     this.handleMore = this.handleMore.bind(this);
     this.handleClickCreateGraph = this.handleClickCreateGraph.bind(this);
@@ -152,10 +147,6 @@ class Dashboard extends PureComponent {
     fetchActiveCommentActions();
     fetchActiveInvites({ reset: true });
     fetchActiveChecks();
-  }
-
-  componentWillUnmount() {
-    this.handleDebouncedSearch.cancel();
   }
 
   handleToggleRightPanel = e => {
@@ -247,12 +238,12 @@ class Dashboard extends PureComponent {
   }
 
   handleChangeSearch = e => {
-    const value = e.target.value && e.target.value.trim();
     this.setState({ searchValue: e.target.value });
-    this.handleDebouncedSearch(value);
   };
 
-  handleDebouncedSearch(value) {
+  handleSubmitSearch = e => {
+    const value = e.target.value && e.target.value.trim();
+
     const { history, location, searchGraphs } = this.props;
     const query = querystring.parse(location.search.substring(1));
     searchGraphs({
@@ -262,7 +253,7 @@ class Dashboard extends PureComponent {
         ? Object.assign({}, query, { search: value })
         : omit(query, ['search'])
     });
-  }
+  };
 
   handleAddTag = (graphId, tagName, audienceTypes, role) => {
     const { createTag } = this.props;
@@ -341,6 +332,7 @@ class Dashboard extends PureComponent {
             <HeaderSearch
               loading={status === 'active'}
               onChangeSearch={this.handleChangeSearch}
+              onSubmitSearch={this.handleSubmitSearch}
               searchValue={searchValue}
               onSearchMenuClick={onTogglePanel}
             >

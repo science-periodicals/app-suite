@@ -104,15 +104,6 @@ class Explorer extends React.Component {
     this.state = {
       searchValue: ''
     };
-
-    this.handleDebouncedSearch = debounce(
-      this.handleDebouncedSearch.bind(this),
-      300
-    );
-  }
-
-  componentWillUnmount() {
-    this.handleDebouncedSearch.cancel();
   }
 
   componentDidMount() {
@@ -134,12 +125,11 @@ class Explorer extends React.Component {
   };
 
   handleChangeSearch = e => {
-    const value = e.target.value && e.target.value.trim();
     this.setState({ searchValue: e.target.value });
-    this.handleDebouncedSearch(value);
   };
 
-  handleDebouncedSearch(value) {
+  handleSubmitSearch = e => {
+    const value = e.target.value && e.target.value.trim();
     const { location } = this.props;
     const query = querystring.parse(location.search.substring(1));
 
@@ -148,7 +138,7 @@ class Explorer extends React.Component {
       : omit(query, ['search']);
 
     this.search({ nextQuery });
-  }
+  };
 
   handleMore(nextUrl) {
     this.search({ nextUrl });
@@ -315,6 +305,7 @@ class Explorer extends React.Component {
           <AppLayoutHeader>
             <HeaderSearch
               loading={isSearching}
+              onSubmitSearch={this.handleSubmitSearch}
               onChangeSearch={this.handleChangeSearch}
               searchValue={searchValue}
               onSearchMenuClick={onTogglePanel}

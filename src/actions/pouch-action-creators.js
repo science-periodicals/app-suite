@@ -200,7 +200,7 @@ export function startRemoteChanges({ force, since, history } = {}) {
             // console.log(info);
           })
           .on('error', err => {
-            console.error(err);
+            console.error(err, err.status);
             if (err.status === 401) {
               window.location.replace(resetSubdomain('/login'));
             }
