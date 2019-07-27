@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import querystring from 'querystring';
-import debounce from 'lodash/debounce';
 import omit from 'lodash/omit';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';

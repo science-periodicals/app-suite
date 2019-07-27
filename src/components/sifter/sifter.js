@@ -484,7 +484,7 @@ export default connect(
       return {
         screenWidth,
         user,
-        query: querystring.parse(location.search.substring(1)),
+        query: querystring.parse(search.substring(1)),
         issue: droplets[issueId],
         disabled,
         journal: homepage,
