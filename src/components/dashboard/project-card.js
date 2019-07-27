@@ -55,7 +55,7 @@ import {
 } from '../../selectors/graph-selectors';
 import GraphContributors from '../graph-contributors';
 import config from '../../utils/config';
-import { compareAbstracts } from '../../utils/sort';
+import { compareAbstracts, compareDefinedNames } from '../../utils/sort';
 import ActionTabs from '../action-tabs';
 import { getMostRecentCompletedCreateReleaseAction } from '../../utils/workflow';
 
@@ -674,18 +674,19 @@ function makeSelector() {
         role => getAgentId(role) === getId(user)
       );
 
-      const tagActions = Object.values(actionMap).filter(action => {
-        return (
-          action['@type'] === 'TagAction' &&
-          getScopeId(getObjectId(action)) === getScopeId(graph) && // !! reviewer only have the latest release so we need to compare on the scopeId
-          action.result &&
-          action.result['@id'] &&
-          action.result.name &&
-          graphAcl.checkPermission(user, 'ViewActionPermission', {
-            action
-          })
-        );
-      });
+      const tagActions = Object.values(actionMap)
+        .filter(action => {
+          return (
+            action['@type'] === 'TagAction' &&
+            getScopeId(getObjectId(action)) === getScopeId(graph) && // !! reviewer only have the latest release so we need to compare on the scopeId
+            getId(action.result) &&
+            action.result.name &&
+            graphAcl.checkPermission(user, 'ViewActionPermission', {
+              action
+            })
+          );
+        })
+        .sort((a, b) => compareDefinedNames(a.result, b.result));
 
       const canTag =
         graphAcl.checkPermission(user, 'WritePermission') ||
