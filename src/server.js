@@ -40,7 +40,7 @@ const config = {
   anonymize: true,
   log: {
     name: 'appSuite',
-    level: 'error'
+    level: 'trace'
   },
   cache: false, // Note set to `true` to debug cache bugs
   openRegistration: false,

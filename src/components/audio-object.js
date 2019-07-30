@@ -25,7 +25,7 @@ export default class AudioObject extends React.PureComponent {
     const encodings = getAudioObjectDisplayEncodings(resource);
 
     if (!encodings.length) {
-      <NoRenderingNotice id={id} className="audio-object" />;
+      return <NoRenderingNotice id={id} className="audio-object" />;
     }
 
     return (

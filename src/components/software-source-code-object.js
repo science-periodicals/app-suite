@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { getId } from '@scipe/jsonld';
+import { NoRenderingNotice } from './notice';
 
 const DEFAULT_FONT_SIZE = 12; // TODO @halmost pick up right value
 
@@ -11,13 +12,15 @@ class SoftwareSourceCodeObject extends Component {
   static propTypes = {
     id: PropTypes.string,
     resource: PropTypes.object,
-    content: PropTypes.object,
 
     // print props
     preventPrintRescaling: PropTypes.bool,
     isPrinting: PropTypes.bool,
     availableWidth: PropTypes.number,
-    availableHeight: PropTypes.number
+    availableHeight: PropTypes.number,
+
+    // redux
+    content: PropTypes.object
   };
 
   static defaultProps = {
@@ -93,6 +96,7 @@ class SoftwareSourceCodeObject extends Component {
 
   render() {
     const {
+      id,
       isPrinting,
       content: { programmingLanguage, value }
     } = this.props;
@@ -102,6 +106,10 @@ class SoftwareSourceCodeObject extends Component {
       style.fontSize = fontSize;
     }
 
+    if (!value) {
+      return <NoRenderingNotice id={id} />;
+    }
+
     let parsedCode = wrapCodelines(value);
 
     return (
@@ -109,7 +117,7 @@ class SoftwareSourceCodeObject extends Component {
         className={classNames('software-source-code-object', {
           'software-source-code-object--print': isPrinting
         })}
-        id={this.props.id}
+        id={id}
       >
         <code
           style={style}

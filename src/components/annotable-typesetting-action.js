@@ -270,7 +270,7 @@ class AnnotableTypesettingAction extends React.Component {
                     '@type': 'NodeSelector',
                     node: getId(action),
                     graph: getSelectorGraphParam(action),
-                    selectedProperty: 'object',
+                    selectedProperty: 'targetedRelease',
                     hasSubSelector: deepSetGraph(
                       selector,
                       getSelectorGraphParam(action)
