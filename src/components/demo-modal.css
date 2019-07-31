@@ -1,0 +1,15 @@
+.demo-modal {
+  width: 51vw;
+  background-color: white;
+  position: relative;
+
+  @media (--small-desktop) {
+    width: 75vw;
+  }
+
+  @media (--small-tablet) {
+    width: 95vw;
+  }
+
+  padding: var(--mgrd);
+}

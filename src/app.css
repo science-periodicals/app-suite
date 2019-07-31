@@ -247,6 +247,8 @@
 
 @import './components/shell/shell-submission.css';
 
+@import './components/demo-modal.css';
+
 body {
   background-color: var(--base-bg-color);
   -ms-overflow-style: -ms-autohiding-scrollbar;

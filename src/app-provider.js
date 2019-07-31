@@ -5,7 +5,6 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { DragDropContextProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-
 import { StripeProvider } from 'react-stripe-elements';
 // Comment out for offline dev
 // function StripeProvider(props) {
@@ -16,6 +15,7 @@ import config from './utils/config';
 import Routes from './components/routes';
 import ScreenDimProvider from './components/screen-dim-provider';
 import IsOfflineProvider from './components/is-offline-provider';
+import DemoModal from './components/demo-modal';
 
 import './app.css';
 
@@ -36,6 +36,7 @@ class AppProvider extends Component {
                 <ScreenDimProvider>
                   <IsOfflineProvider>
                     <Routes />
+                    <DemoModal />
                   </IsOfflineProvider>
                 </ScreenDimProvider>
               </BrowserRouter>
