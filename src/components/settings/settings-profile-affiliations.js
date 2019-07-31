@@ -189,11 +189,11 @@ export default class SettingsProfileAffiliations extends React.Component {
     return (
       <section className={bem`settings-profile-affiliations`}>
         <StyleFormSetList>
-          {arrayify(profile.affiliation).map(affiliation => {
+          {arrayify(profile.affiliation).map((affiliation, i) => {
             return (
               <StyleFormSetListItem
                 active={getId(affiliation) === openAffiliationId}
-                key={getId(affiliation)}
+                key={getId(affiliation) || i}
               >
                 <StyleFormSetListItemGroup>
                   <Spinner

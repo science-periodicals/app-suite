@@ -69,6 +69,9 @@
   & .value {
     padding-bottom: 0.4rem;
     color: var(--grey-500); /* This is defined in annotation.css but overwritten by the `sa__ui-user-type` class so we force it back here */
+    & > * {
+      color: var(--grey-500) !important;
+    }
   }
 
   &__request-context {
