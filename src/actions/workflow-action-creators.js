@@ -4,7 +4,6 @@ import {
   createId,
   getObjectId,
   xhr,
-  escapeLucene,
   getDefaultGraphDigitalDocumentPermissions,
   DEFAULT_CREATE_WORKFLOW_STAGE_ACTION,
   ALL_AUDIENCES
@@ -268,9 +267,7 @@ export function fetchPeriodicalWorkflowSpecifications(
 
     // we exclude archived workflow specification (treated as deleted in the app-suite)
     const qs = {
-      query: `isPotentialWorkflowOf:"${escapeLucene(
-        periodicalId
-      )}" NOT workflowSpecificationStatus:"ArchivedWorkflowSpecificationStatus"`,
+      query: `isPotentialWorkflowOf:"${periodicalId}" NOT workflowSpecificationStatus:"ArchivedWorkflowSpecificationStatus"`,
       includeDocs: true
     };
 

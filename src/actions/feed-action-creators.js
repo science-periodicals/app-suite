@@ -1,6 +1,7 @@
 import isClient from 'is-client';
 import querystring from 'querystring';
-import { escapeLucene, xhr } from '@scipe/librarian';
+import { getId } from '@scipe/jsonld';
+import { xhr } from '@scipe/librarian';
 import { FEED_ITEM_TYPES } from '../constants';
 
 export const FETCH_FEED_ITEMS = 'FETCH_FEED_ITEMS';
@@ -27,19 +28,18 @@ export function fetchFeedItems({
     } else {
       append = false;
 
-      const escUser = escapeLucene(user['@id']);
       const types = FEED_ITEM_TYPES.map(type => `@type:${type}`).join(' OR ');
 
       const scope = [
-        `agentId:"${escUser}"`,
-        `recipientId:"${escUser}"`,
-        `participantId:"${escUser}"`
+        `agentId:"${getId(user)}"`,
+        `recipientId:"${getId(user)}"`,
+        `participantId:"${getId(user)}"`
       ].join(' OR ');
 
       const qs = {
         sort: JSON.stringify('-endTime'),
         query: `(${types}) AND (${scope}) AND actionStatus:CompletedActionStatus`,
-        addActiveRoleIds: true, 
+        addActiveRoleIds: true,
         hydrate: JSON.stringify([
           'object',
           'result',

@@ -1,6 +1,6 @@
 import isClient from 'is-client';
 import querystring from 'querystring';
-import { escapeLucene, xhr, createId } from '@scipe/librarian';
+import { xhr, createId } from '@scipe/librarian';
 import { getId, unprefix } from '@scipe/jsonld';
 import config from '../utils/config';
 
@@ -43,19 +43,15 @@ export function fetchActiveInvites({
     } else {
       let query;
       if (periodicalId) {
-        query = `@type:InviteAction AND objectId:"${escapeLucene(
-          periodicalId
-        )}" AND actionStatus:ActiveActionStatus`;
+        query = `@type:InviteAction AND objectId:"${periodicalId}" AND actionStatus:ActiveActionStatus`;
         ifMatch = periodicalId;
       } else if (organizationId) {
-        query = `@type:InviteAction AND objectId:"${escapeLucene(
-          organizationId
-        )}" AND actionStatus:ActiveActionStatus`;
+        query = `@type:InviteAction AND objectId:"${organizationId}" AND actionStatus:ActiveActionStatus`;
         ifMatch = organizationId;
       } else {
-        query = `@type:InviteAction AND recipientId:"${escapeLucene(
+        query = `@type:InviteAction AND recipientId:"${
           user['@id']
-        )}" AND actionStatus:ActiveActionStatus`;
+        }" AND actionStatus:ActiveActionStatus`;
         ifMatch = getId(user);
       }
 

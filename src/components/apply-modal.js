@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { getId, arrayify, unprefix } from '@scipe/jsonld';
-import { escapeLucene, getActiveRoles, getAgentId } from '@scipe/librarian';
+import { getActiveRoles, getAgentId } from '@scipe/librarian';
 import {
   Modal,
   Card,
@@ -306,9 +306,9 @@ class ApplyModal extends React.Component {
         <Card className={bem``}>
           <Search
             index="action"
-            query={`@type:"ApplyAction" AND actionStatus:"ActiveActionStatus" AND objectId:${escapeLucene(
-              getId(journal)
-            )} AND agentId:${escapeLucene(getId(user))}`}
+            query={`@type:"ApplyAction" AND actionStatus:"ActiveActionStatus" AND objectId:"${getId(
+              journal
+            )}" AND agentId:"${getId(user)}"`}
           >
             {({ items, isActive }) => {
               if (isActive) {

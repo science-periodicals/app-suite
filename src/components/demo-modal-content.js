@@ -15,7 +15,7 @@ export default class DemoModalContent extends React.Component {
 
     let body = (
       <p>
-        This demo illustrates <TextLogo /> user interface.
+        This demo showcases <TextLogo /> user interface.
       </p>
     );
 
@@ -27,14 +27,21 @@ export default class DemoModalContent extends React.Component {
             body = (
               <Fragment>
                 <p>
-                  This demo illustrates the user interface available to editors
-                  to configure journals.
+                  This demo showcases the user interface available to editors to
+                  configure journals.
                 </p>
                 <p>
                   Explore the various settings and be sure to check out how{' '}
                   <TextLogo /> allows you to create flexible editorial workflows
-                  and easily manage multiple article types and forms of peer
-                  review.
+                  (with arbitrary anonymity control){' '}
+                  <Iconoclass
+                    tagName="span"
+                    iconName="dispatch"
+                    iconSize={10}
+                  />{' '}
+                  and easily manage multiple article types{' '}
+                  <Iconoclass tagName="span" iconName="label" iconSize={10} />{' '}
+                  each with a dedicated style guide.
                 </p>
               </Fragment>
             );
@@ -53,7 +60,7 @@ export default class DemoModalContent extends React.Component {
                 <p>
                   Links decorated with the{' '}
                   <Iconoclass tagName="span" iconName="shell" iconSize={10} />{' '}
-                  icon allows you to open resources in context to minize context
+                  icon allow you to open resources in context to minize context
                   switch.
                 </p>
                 <p>
@@ -139,6 +146,12 @@ export default class DemoModalContent extends React.Component {
                     published / rejected) as well as quickly see the latest
                     activity (notification panel{' '}
                     <Iconoclass tagName="span" iconName="alert" iconSize={10} />
+                    ) and active comments (active comments panel{' '}
+                    <Iconoclass
+                      tagName="span"
+                      iconName="comment"
+                      iconSize={10}
+                    />
                     ).
                   </p>
                   <p>
@@ -152,40 +165,86 @@ export default class DemoModalContent extends React.Component {
 
           case '/demo/editor-assesses-reviewed-submission/submission':
             body = (
-              <p>
-                This demo illustrates the user interface available to editors to
-                assess a submission that has been reviewed. The editor has
-                access to the author manuscript and release notes as well as all
-                the reviewer reviews in context. The editor needs to assess the
-                submission and has the ability to justify their assessment. In
-                cases where the editor requests a revision (like in this demo),
-                the editor can write general revision requests and contextual
-                ones (as annotations). Each revision request can precisely
-                reference specific locations of the manuscript as well as
-                indicate on which reviewer reviews they were based on (if any).
-                The <abbr title="User Interface">UI</abbr> offers editors the
-                option to open the various resources in a shell to minimize
-                context switch.
-              </p>
+              <Fragment>
+                <p>
+                  This demo showcases the user interface available to editors to
+                  collaboratively assess a submission that has been reviewed.
+                </p>
+
+                <p>
+                  The editor needs to assess the submission and has the ability
+                  to justify the assessment with general and contextual comments
+                  (annotations) made directly in the margin of the article.
+                </p>
+
+                <p>
+                  Each revision request can precisely reference specific
+                  locations of the manuscript as well as indicate on which
+                  reviewer reviews they were based on (if any).
+                </p>
+
+                <p>
+                  The editorial team can work collaboratively by adding staging
+                  discussion commens (both general or in context, as
+                  annotations).
+                </p>
+
+                <p>
+                  The editor has access to the author release notes as well as
+                  all the reviewer reviews in context (inbound resources{' '}
+                  <Iconoclass tagName="span" iconName="inbound" iconSize={10} />
+                  ).
+                </p>
+
+                <p>
+                  The <abbr title="User Interface">UI</abbr> is designed to
+                  allow editors to view several resources at the same time while
+                  minimizing context switch. In particular:
+                </p>
+
+                <ul>
+                  <li>
+                    Links decorated with a{' '}
+                    <Iconoclass tagName="span" iconName="shell" iconSize={10} />{' '}
+                    icon allow to open resources in context to minize context
+                    switch.
+                  </li>
+                  <li>
+                    Links decorated with a{' '}
+                    <Iconoclass
+                      tagName="span"
+                      iconName="anchor"
+                      iconSize={10}
+                    />{' '}
+                    icon allow to scroll to the relevant content.
+                  </li>
+                </ul>
+              </Fragment>
             );
             break;
 
-          case '/demo/editor-endorses-apc-discount-action/submission':
+          case '/demo/editor-endorses-apc-discount/submission':
             body = (
-              <p>
-                This demo illustrates the user interface available to editors
-                when they need to endorse (approve) a request for a discount
-                made by the authors. The editor has the ability to engage with
-                authors with contextual comments (annotations) or general ones.
-              </p>
+              <Fragment>
+                <p>
+                  This demo showcases the user interface available to editors
+                  when they need to endorse (approve) a request for an{' '}
+                  <abbr title="Article Processing Charges">APC</abbr> discount
+                  made by the authors.
+                </p>
+                <p>
+                  The editor has the ability to engage with authors with
+                  contextual comments (annotations) or general ones.
+                </p>
+              </Fragment>
             );
             break;
 
           case '/demo/editor-assesses-revised-submission/submission':
             body = (
               <p>
-                This demo illustrates the user interface available to editors
-                when they need to assess a _revised_ submission that has been
+                This demo showcases the user interface available to editors when
+                they need to assess a _revised_ submission that has been
                 reviewed. The editor has access to both versions of the
                 manuscript as well as the author responses made to the previous
                 revision requests. The editor needs to assess the submission and
@@ -198,9 +257,9 @@ export default class DemoModalContent extends React.Component {
           case '/demo/editor-publishes-submission/submission':
             body = (
               <p>
-                This demo illustrates the user interface available to editors
-                when they need to publish a submission that has been accepted.
-                The editors have the ability to work collaboratively to set the
+                This demo showcases the user interface available to editors when
+                they need to publish a submission that has been accepted. The
+                editors have the ability to work collaboratively to set the
                 publication date and other properties required to publish the
                 submission. Editors have access to general and in context
                 (annotations) comments to coordinate their work.
@@ -249,7 +308,7 @@ export default class DemoModalContent extends React.Component {
           case '/demo/typesetter-assesses-document-to-typeset/submission':
             body = (
               <p>
-                This demo illustrates the user interface available to producers
+                This demo showcases the user interface available to producers
                 when they need to typeset a document. The producers have access
                 to the document to typeset and have the ability to request
                 changes from the author before proceeding with their work.
@@ -260,7 +319,7 @@ export default class DemoModalContent extends React.Component {
           case '/demo/typesetter-typesets-document/submission':
             body = (
               <p>
-                This demo illustrates the user interface available to producers
+                This demo showcases the user interface available to producers
                 when they need to typeset a document. Here a typesetter has
                 uploaded the typeset document and has the ability to engage with
                 other typesetters through general or contextual comments
@@ -323,8 +382,8 @@ export default class DemoModalContent extends React.Component {
           case '/demo/reviewer-accepts-invitation/submission':
             body = (
               <p>
-                This demo illustrates the user interface available to reviewers
-                to accept an invitation to review a submission. Reviewers can
+                This demo showcases the user interface available to reviewers to
+                accept an invitation to review a submission. Reviewers can
                 preview the submission and all the associated resources before
                 deciding to accept or decline the invitation.
               </p>
@@ -334,13 +393,13 @@ export default class DemoModalContent extends React.Component {
           case '/demo/reviewer-reviews-submission/submission':
             body = (
               <p>
-                This demo illustrates the user interface available to reviewers
-                to review a submission. The reviewer has access to the
-                submission and all its associated resources (previous editors
-                assessment, release notes etc.) in context. The reviewer needs
-                to review the submission and can write general and contextual
-                (annotations) reviewer notes. Each reviewer note can precisely
-                reference specific locations of the manuscript. The{' '}
+                This demo showcases the user interface available to reviewers to
+                review a submission. The reviewer has access to the submission
+                and all its associated resources (previous editors assessment,
+                release notes etc.) in context. The reviewer needs to review the
+                submission and can write general and contextual (annotations)
+                reviewer notes. Each reviewer note can precisely reference
+                specific locations of the manuscript. The{' '}
                 <abbr title="User Interface">UI</abbr> offers the option to open
                 the various resources in a shell to minimize context switching.
               </p>
@@ -350,8 +409,8 @@ export default class DemoModalContent extends React.Component {
           case '/demo/reviewer-reviews-revised-submission/submission':
             body = (
               <p>
-                This demo illustrates the user interface available to reviewers
-                to review a _revised_ submission. The reviewer has access to
+                This demo showcases the user interface available to reviewers to
+                review a _revised_ submission. The reviewer has access to
                 revised version of the submission as well as the previous one
                 annotated with the editors revision requests. The reviewer needs
                 to review the revised submission and can write general and
@@ -448,12 +507,11 @@ export default class DemoModalContent extends React.Component {
           case '/demo/author-prepares-submission/submission':
             body = (
               <p>
-                This demo illustrates the user interface available to authors
-                when they submit a manuscript. Authors need to upload their
-                files and provide release notes (akin to a cover letter). No
-                other form needs to be filled. A direct link to the style guide
-                required by the journal for this type of submission is provided
-                in context.
+                This demo showcases the user interface available to authors when
+                they submit a manuscript. Authors need to upload their files and
+                provide release notes (akin to a cover letter). No other form
+                needs to be filled. A direct link to the style guide required by
+                the journal for this type of submission is provided in context.
               </p>
             );
             break;
@@ -461,7 +519,7 @@ export default class DemoModalContent extends React.Component {
           case '/demo/author-makes-declarations/submission':
             body = (
               <p>
-                This demo illustrates the user interface available to authors to
+                This demo showcases the user interface available to authors to
                 answer any questions or declarations required by the journal.
                 Authors can work collaboratively and have access to general and
                 in context (annotations) comments to coordinate their work.
@@ -472,7 +530,7 @@ export default class DemoModalContent extends React.Component {
           case '/demo/author-prepares-revision/submission':
             body = (
               <p>
-                This demo illustrates the user interface available to authors to
+                This demo showcases the user interface available to authors to
                 submit a _revised_ version of a manuscript as requested by the
                 editor. Authors have access to the previous version of the
                 submission, the editor assessment, the revision requests and the
@@ -491,7 +549,7 @@ export default class DemoModalContent extends React.Component {
           case '/demo/author-requests-apc-discount/submission':
             body = (
               <p>
-                This demo illustrates the user interface available to authors to
+                This demo showcases the user interface available to authors to
                 request a discount on the article processing charges set by the
                 journal. Authors have the ability to requests a discounted price
                 and engage with the editor to reach an agreed price. The
@@ -504,7 +562,7 @@ export default class DemoModalContent extends React.Component {
           case '/demo/author-confirms-contribution-and-identity/submission':
             body = (
               <p>
-                This demo illustrates the user interface available to authors to
+                This demo showcases the user interface available to authors to
                 confirm their contribution and identity to a manuscript. The
                 author can confirm or deny their participation by digitally
                 signing the manuscript.

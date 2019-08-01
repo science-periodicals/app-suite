@@ -1,12 +1,7 @@
 import isClient from 'is-client';
 import querystring from 'querystring';
 import { getId } from '@scipe/jsonld';
-import {
-  xhr,
-  escapeLucene,
-  createId,
-  createAuthorGuidelines
-} from '@scipe/librarian';
+import { xhr, createId, createAuthorGuidelines } from '@scipe/librarian';
 
 export const FETCH_PERIODICAL_PUBLICATION_TYPES =
   'FETCH_PERIODICAL_PUBLICATION_TYPES';
@@ -30,9 +25,7 @@ export function fetchPeriodicalPublicationTypes(
     }
 
     const qs = {
-      query: `isPublicationTypeOf:"${escapeLucene(
-        periodicalId
-      )}" NOT publicationTypeStatus:"ArchivedPublicationTypeStatus"`,
+      query: `isPublicationTypeOf:"${periodicalId}" NOT publicationTypeStatus:"ArchivedPublicationTypeStatus"`,
       includeDocs: true,
       hydrate: JSON.stringify(['eligibleWorkflow'])
     };

@@ -12,7 +12,6 @@ import {
   getNodeMap
 } from '@scipe/jsonld';
 import {
-  escapeLucene,
   DEFAULT_CREATE_WORKFLOW_STAGE_ACTION,
   DEFAULT_SINGLE_STAGE_CREATE_WORKFLOW_STAGE_ACTION,
   TYPESETTING_SERVICE_TYPE,
@@ -332,8 +331,8 @@ class WorkflowEditor extends Component {
           {journal && (
             <Search
               index="service"
-              query={`(audienceAudienceScope:"${escapeLucene(
-                getId(journal.publisher)
+              query={`(audienceAudienceScope:"${getId(
+                journal.publisher
               )}" AND serviceType:"${TYPESETTING_SERVICE_TYPE}" AND serviceStatus:"ActiveServiceStatus") OR (serviceType:"${DOI_REGISTRATION_SERVICE_TYPE}" AND serviceStatus:"ActiveServiceStatus")`}
               hydrate="provider"
             >

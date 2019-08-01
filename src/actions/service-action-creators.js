@@ -1,10 +1,6 @@
 import querystring from 'querystring';
 import { getId } from '@scipe/jsonld';
-import {
-  xhr,
-  escapeLucene,
-  getMetaActionParticipants
-} from '@scipe/librarian';
+import { xhr, getMetaActionParticipants } from '@scipe/librarian';
 
 export const BUY_SERVICE_OFFER = 'BUY_SERVICE_OFFER';
 export const BUY_SERVICE_OFFER_SUCCESS = 'BUY_SERVICE_OFFER_SUCCESS';
@@ -97,9 +93,7 @@ export function fetchOrganizationServices(organizationId) {
 
   return (dispatch, getState) => {
     const qs = querystring.stringify({
-      q: `brokerId:${escapeLucene(
-        organizationId
-      )} NOT serviceStatus:"ArchivedServiceStatus"`,
+      q: `brokerId:"${organizationId}" NOT serviceStatus:"ArchivedServiceStatus"`,
       includeDocs: true,
       hydrate: JSON.stringify(['brokeredService'])
     });

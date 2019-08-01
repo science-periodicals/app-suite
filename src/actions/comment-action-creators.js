@@ -9,7 +9,6 @@ import {
   handleUserReferences,
   flagDeleted,
   getMetaActionParticipants,
-  escapeLucene,
   xhr
 } from '@scipe/librarian';
 import { getId, arrayify, nodeify, unprefix } from '@scipe/jsonld';
@@ -588,11 +587,9 @@ export function fetchActiveCommentActions({
     } else {
       append = false;
 
-      const query = `@type:CommentAction AND (participantId:"${escapeLucene(
-        getId(user)
-      )}" OR agentId:"${escapeLucene(
-        getId(user)
-      )}") AND actionStatus:ActiveActionStatus`;
+      const query = `@type:CommentAction AND (participantId:"${getId(
+        user
+      )}" OR agentId:"${getId(user)}") AND actionStatus:ActiveActionStatus`;
 
       const qs = {
         sort: JSON.stringify('-startTime'),

@@ -49,7 +49,7 @@ class DemoModal extends React.Component {
           pathname !== '/settings/journal/demo/journal' &&
           pathname !== '/' &&
           pathname !== '/demo/editor-assesses-reviewed-submission/submission' &&
-          pathname !== '/demo/editor-endorses-apc-discount-action/submission' &&
+          pathname !== '/demo/editor-endorses-apc-discount/submission' &&
           pathname !== '/demo/editor-assesses-revised-submission/submission' &&
           pathname !== '/demo/editor-publishes-submission/submission' &&
           pathname !== '/payne2016a-demo'

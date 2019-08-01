@@ -23,7 +23,7 @@ export function fetchSettingsJournalList() {
     }
 
     const qs = {
-      query: `adminPermission:"${escapeLucene(getId(user))}"`,
+      query: `adminPermission:"${getId(user)}"`,
       includeDocs: false,
       sort: JSON.stringify('-dateCreated'),
       includeFields: JSON.stringify(['name', 'alternateName', '@type', 'url'])
@@ -73,7 +73,7 @@ export function fetchSettingsOrganizationList() {
     }
 
     const qs = {
-      query: `adminPermission:"${escapeLucene(getId(user))}"`,
+      query: `adminPermission:"${getId(user)}"`,
       includeDocs: false,
       sort: JSON.stringify('-foundingDate'),
       includeFields: JSON.stringify(['name', 'alternateName', '@type', 'url'])
@@ -134,9 +134,9 @@ export function searchSettingsArticleList(
     if (nextUrl) {
       url = nextUrl;
     } else {
-      const defaultQuery = `(journalId:${escapeLucene(
-        getId(periodical)
-      )} AND status:published) NOT version:null`;
+      const defaultQuery = `(journalId:"${getId(
+        periodical
+      )}" AND status:published) NOT version:null`;
 
       searchValue =
         typeof searchValue === 'string' ? searchValue.trim() : searchValue;
@@ -237,7 +237,7 @@ export function searchSettingsIssueList(
     if (nextUrl) {
       url = nextUrl;
     } else {
-      let defaultQuery = `journalId:${escapeLucene(getId(periodical))}`;
+      let defaultQuery = `journalId:"${getId(periodical)}"`;
       if (type) {
         defaultQuery += ` AND @type:${escapeLucene(type)}`;
       }
@@ -336,9 +336,9 @@ export function searchSettingsRfaList(
     if (nextUrl) {
       url = nextUrl;
     } else {
-      let defaultQuery = `objectId:${escapeLucene(
-        getId(periodical)
-      )} AND @type:RequestArticleAction`;
+      let defaultQuery = `objectId:"${getId(
+        periodical
+      )}" AND @type:RequestArticleAction`;
       if (actionStatus) {
         defaultQuery += ` AND actionStatus:"${actionStatus}"`;
       }

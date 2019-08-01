@@ -1,6 +1,6 @@
 import isClient from 'is-client';
 import querystring from 'querystring';
-import { escapeLucene, xhr } from '@scipe/librarian';
+import { xhr } from '@scipe/librarian';
 import { getId } from '@scipe/jsonld';
 
 export const FETCH_ACTIVE_CHECKS = 'FETCH_ACTIVES_CHECKS';
@@ -28,7 +28,7 @@ export function fetchActiveChecks({
       url = nextUrl;
       append = true;
     } else {
-      const query = `@type:"CheckAction" AND agentId:"${escapeLucene(
+      const query = `@type:"CheckAction" AND agentId:"${getId(
         user['@id']
       )}" AND actionStatus:"ActiveActionStatus"`;
 

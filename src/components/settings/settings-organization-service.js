@@ -533,8 +533,8 @@ class SettingsOrganizationService extends React.Component {
                 index="service"
                 query={`(audienceAudienceScope:"${escapeLucene(
                   'tmp:null'
-                )}" OR audienceAudienceScope:"${escapeLucene(
-                  getId(organization)
+                )}" OR audienceAudienceScope:"${getId(
+                  organization
                 )}") AND serviceType:"typesetting" AND serviceStatus:"ActiveServiceStatus" AND allowBroker:"true"`}
                 hydrate="provider"
               >

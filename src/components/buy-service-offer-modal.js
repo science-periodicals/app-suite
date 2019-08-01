@@ -12,12 +12,7 @@ import {
   Modal
 } from '@scipe/ui';
 import { getId, arrayify } from '@scipe/jsonld';
-import {
-  escapeLucene,
-  remapRole,
-  getStageActions,
-  getEligibleOffer
-} from '@scipe/librarian';
+import { remapRole, getStageActions, getEligibleOffer } from '@scipe/librarian';
 import {
   createGraphDataSelector,
   createActionMapSelector,
@@ -121,7 +116,7 @@ class BuyServiceOfferModal extends React.Component {
       <Search
         index="service"
         query={potentialServiceIds
-          .map(serviceId => `@id: ${escapeLucene(serviceId)}`)
+          .map(serviceId => `@id:"${serviceId}"`)
           .join(' OR ')}
         hydrate="provider"
       >

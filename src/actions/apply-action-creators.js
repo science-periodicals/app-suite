@@ -1,7 +1,7 @@
 import isClient from 'is-client';
 import querystring from 'querystring';
 import { getId } from '@scipe/jsonld';
-import { escapeLucene, xhr, createId } from '@scipe/librarian';
+import { xhr, createId } from '@scipe/librarian';
 
 export const FETCH_ACTIVE_APPLICATIONS = 'FETCH_ACTIVES_APPLICATIONS';
 export const FETCH_ACTIVE_APPLICATIONS_SUCCESS =
@@ -31,9 +31,7 @@ export function fetchActiveApplications({
       append = false;
       const qs = {
         sort: JSON.stringify('-startTime'),
-        query: `@type:ApplyAction AND objectId:"${escapeLucene(
-          journalId
-        )}" AND actionStatus:ActiveActionStatus`,
+        query: `@type:ApplyAction AND objectId:"${journalId}" AND actionStatus:ActiveActionStatus`,
         includeDocs: true
       };
       const pathname = `/action?${querystring.stringify(qs)}`;
