@@ -242,30 +242,100 @@ export default class DemoModalContent extends React.Component {
 
           case '/demo/editor-assesses-revised-submission/submission':
             body = (
-              <p>
-                This demo showcases the user interface available to editors when
-                they need to assess a _revised_ submission that has been
-                reviewed. The editor has access to both versions of the
-                manuscript as well as the author responses made to the previous
-                revision requests. The editor needs to assess the submission and
-                has the ability to justify their assessment. Here the editor
-                decides to accept the submission and send it to production.
-              </p>
+              <Fragment>
+                <p>
+                  This demo showcases the user interface available to editors
+                  when they need to assess a <em>revised</em> submission.
+                </p>
+
+                <p>
+                  The editor has access to both versions of the manuscript
+                  (revised{' '}
+                  <Iconoclass tagName="span" iconName="version" iconSize={10} />{' '}
+                  and previous{' '}
+                  <Iconoclass
+                    tagName="span"
+                    iconName="versionPast"
+                    iconSize={10}
+                  />
+                  ) as well as the author responses made to the previous
+                  revision requests.
+                </p>
+
+                <p>
+                  The editorial team can work collaboratively by adding staging
+                  discussion commens (both general or in context, as
+                  annotations).
+                </p>
+
+                <p>
+                  The <abbr title="User Interface">UI</abbr> is designed to
+                  allow editors to view several resources at the same time while
+                  minimizing context switch. In particular:
+                </p>
+
+                <ul>
+                  <li>
+                    Links decorated with a{' '}
+                    <Iconoclass tagName="span" iconName="shell" iconSize={10} />{' '}
+                    icon allow to open resources in context to minize context
+                    switch.
+                  </li>
+                  <li>
+                    Links decorated with a{' '}
+                    <Iconoclass
+                      tagName="span"
+                      iconName="anchor"
+                      iconSize={10}
+                    />{' '}
+                    icon allow to scroll to the relevant content.
+                  </li>
+                </ul>
+              </Fragment>
             );
             break;
 
           case '/demo/editor-publishes-submission/submission':
             body = (
-              <p>
-                This demo showcases the user interface available to editors when
-                they need to publish a submission that has been accepted. The
-                editors have the ability to work collaboratively to set the
-                publication date and other properties required to publish the
-                submission. Editors have access to general and in context
-                (annotations) comments to coordinate their work.
-              </p>
+              <Fragment>
+                <p>
+                  This demo showcases the user interface available to editors
+                  when they need to publish a submission that has been accepted.
+                </p>
+                <p>
+                  The editors have the ability to work collaboratively to set
+                  the publication date and other properties required to publish
+                  the submission. Editors have access to general and in context
+                  (annotations) comments to coordinate their work.
+                </p>
+
+                <p>
+                  The <abbr title="User Interface">UI</abbr> is designed to
+                  allow editors to view several resources at the same time while
+                  minimizing context switch. In particular:
+                </p>
+
+                <ul>
+                  <li>
+                    Links decorated with a{' '}
+                    <Iconoclass tagName="span" iconName="shell" iconSize={10} />{' '}
+                    icon allow to open resources in context to minize context
+                    switch.
+                  </li>
+                  <li>
+                    Links decorated with a{' '}
+                    <Iconoclass
+                      tagName="span"
+                      iconName="anchor"
+                      iconSize={10}
+                    />{' '}
+                    icon allow to scroll to the relevant content.
+                  </li>
+                </ul>
+              </Fragment>
             );
             break;
+
           default:
             break;
         }
@@ -294,7 +364,9 @@ export default class DemoModalContent extends React.Component {
                   The dashboard allows producers to keep track of submissions
                   requiring their attention as well as the latest activity
                   (notification panel{' '}
-                  <Iconoclass tagName="span" iconName="alert" iconSize={10} />
+                  <Iconoclass tagName="span" iconName="alert" iconSize={10} />)
+                  and active comments (active comments panel{' '}
+                  <Iconoclass tagName="span" iconName="comment" iconSize={10} />
                   ).
                 </p>
                 <p>
@@ -318,16 +390,21 @@ export default class DemoModalContent extends React.Component {
 
           case '/demo/typesetter-typesets-document/submission':
             body = (
-              <p>
-                This demo showcases the user interface available to producers
-                when they need to typeset a document. Here a typesetter has
-                uploaded the typeset document and has the ability to engage with
-                other typesetters through general or contextual comments
-                (annotations) before sending the typeset document to the
-                authors.
-              </p>
+              <Fragment>
+                <p>
+                  This demo showcases the user interface available to producers
+                  when they need to typeset a document.
+                </p>
+                <p>
+                  Here a typesetter has uploaded the typeset document and has
+                  the ability to engage with other typesetters through general
+                  or contextual comments (annotations) before sending the
+                  typeset document to the authors.
+                </p>
+              </Fragment>
             );
             break;
+
           default:
             break;
         }
