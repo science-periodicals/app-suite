@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { TextLogo } from '@scipe/ui';
+import Iconoclass from '@scipe/iconoclass';
 
 export default class DemoModalContent extends React.Component {
   static propTypes = {
@@ -23,15 +24,132 @@ export default class DemoModalContent extends React.Component {
       case 'user:engelbart-demo':
         switch (pathname) {
           case '/settings/journal/demo/journal':
+            body = (
+              <Fragment>
+                <p>
+                  This demo illustrates the user interface available to editors
+                  to configure journals.
+                </p>
+                <p>
+                  Explore the various settings and be sure to check out how{' '}
+                  <TextLogo /> allows you to create flexible editorial workflows
+                  and easily manage multiple article types and forms of peer
+                  review.
+                </p>
+              </Fragment>
+            );
             break;
+
+          case '/payne2016a-demo':
+            body = (
+              <Fragment>
+                <p>
+                  This demo showcases a published article on <TextLogo />.
+                </p>
+                <p>
+                  Each paragraph and resource comes with a <em>mnemonic</em>{' '}
+                  identifier and a share menu for easy sharing.
+                </p>
+                <p>
+                  Links decorated with the{' '}
+                  <Iconoclass tagName="span" iconName="shell" iconSize={10} />{' '}
+                  icon allows you to open resources in context to minize context
+                  switch.
+                </p>
+                <p>
+                  The Download menu on the left side bar let you print a web
+                  first PDF generated on the fly from the content of the web
+                  version of the article or download the article rich metada in{' '}
+                  <a href="https://www.w3.org/TR/json-ld/">JSON-LD</a>.
+                </p>
+                <p>
+                  The{' '}
+                  <Iconoclass
+                    tagName="span"
+                    iconName="brightnessLight"
+                    iconSize={10}
+                  />{' '}
+                  icon in the header let you switch in between various themes
+                  (dark, light and alt) for additional reading comfort.
+                </p>
+                <p>
+                  Articles are fully responsive and work well on mobile, tablet
+                  and desktop environment.
+                </p>
+                <p>
+                  Under the hood, the markup (HTML +{' '}
+                  <a href="https://www.w3.org/TR/rdfa-primer/">RDFa</a>) in
+                  sprinkled with <a href="https://schema.org">schema.org</a>{' '}
+                  terms to guarantee a good discoverability by all the major
+                  search engines.
+                </p>
+              </Fragment>
+            );
+            break;
+
           case '/':
+            if (isJournalSubdomain) {
+              // journal homepage demo
+              body = (
+                <Fragment>
+                  <p>This demo showcases a journal homepage.</p>
+                  <p>
+                    Journal homepages are fully responsive and work well on
+                    mobile, tablet and desktop environment.
+                  </p>
+                  <p>
+                    Articles can be found using faceted search (left panel) or
+                    full text search (header). An additional toggle in the
+                    header search bar also allows to switch to a view listing
+                    the issues and request for articles published by the
+                    journal.
+                  </p>
+                  <p>
+                    Articles (and the journal homepage) can easily be shared
+                    using the share menu represented with a{' '}
+                    <Iconoclass tagName="span" iconName="share" iconSize={10} />{' '}
+                    icon. The share menu also provides a quick access to a PDF
+                    version of each article (generated on the fly from the
+                    content of the web version of the article).
+                  </p>
+                  <p>
+                    A series of links take you to the journal staff page and
+                    journal information (About).
+                  </p>
+                  <p>
+                    Last, the{' '}
+                    <Iconoclass
+                      tagName="span"
+                      iconName="logoSciAlt"
+                      iconSize={10}
+                    />{' '}
+                    menu in the header allows to access platform level features
+                    and navigate back to the documentation.
+                  </p>
+                </Fragment>
+              );
+            } else {
+              // dashboard demo
+              body = (
+                <Fragment>
+                  <p>This demo showcases the editor dasbhoard.</p>
+                  <p>
+                    The dashboard acts like a <em>publishing inbox</em> and
+                    allows editor to track submission (new, in progress or
+                    published / rejected) as well as quickly see the latest
+                    activity (notification panel{' '}
+                    <Iconoclass tagName="span" iconName="alert" iconSize={10} />
+                    ).
+                  </p>
+                  <p>
+                    Submission can be tagged and filtered using faceted search
+                    (left side panel) or full text search (header).
+                  </p>
+                </Fragment>
+              );
+            }
             break;
-          case '/rfas':
-            break;
-          case '/issues':
-            break;
-          case '/ceballos2017a-demo':
-            break;
+
           case '/demo/editor-assesses-reviewed-submission/submission':
             body = (
               <p>

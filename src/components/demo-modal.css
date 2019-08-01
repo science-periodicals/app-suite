@@ -1,4 +1,6 @@
 .demo-modal {
+  box-sizing: border-box;
+
   width: 51vw;
   background-color: white;
   position: relative;
