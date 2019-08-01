@@ -7,6 +7,7 @@ import { getId } from '@scipe/jsonld';
 import config from '../utils/config';
 import Loading from './loading';
 import { Modal, Card, ControlPanel, PaperButton } from '@scipe/ui';
+import Iconoclass from '@scipe/iconoclass';
 
 const DemoModalContent = React.lazy(() =>
   import(/* webpackChunkName: "DemoModalContent" */ './demo-modal-content')
@@ -42,6 +43,7 @@ class DemoModal extends React.Component {
     }
 
     // early returns
+
     switch (userId) {
       // editor demos
       case 'user:engelbart-demo':
@@ -107,10 +109,13 @@ class DemoModal extends React.Component {
 
     return (
       <Modal>
-        <Card className="demo-modal sa__ui-user-type">
-          <h2>Welcome</h2>
+        <Card className="demo-modal">
+          <h2 className="demo-modal__header">
+            Welcome{' '}
+            <Iconoclass iconName="info" className="demo-modal__header-icon" />
+          </h2>
 
-          <div className="demo-modal__content">
+          <div className="demo-modal__content sa__ui-user-type">
             <Suspense fallback={<Loading />}>
               <DemoModalContent
                 userId={userId}

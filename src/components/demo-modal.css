@@ -5,6 +5,26 @@
   background-color: white;
   position: relative;
 
+  &__header {
+    font: var(--ui-type--headline);
+    color: var(--ui-type--headline__color);
+    letter-spacing: var(--ui-type--headline__letter-spacing);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__header-icon {
+    color: var(--text-color--light);
+  }
+
+  &__content {
+    & .demo-modal-content > * {
+      /* temporary workaround to increase fontsize of .sa__ui-user-type */
+      font: var(--ui-type--big) !important;
+    }
+  }
+
   @media (--small-desktop) {
     width: 75vw;
   }
