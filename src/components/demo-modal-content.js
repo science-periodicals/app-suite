@@ -132,10 +132,10 @@ export default class DemoModalContent extends React.Component {
               // dashboard demo
               body = (
                 <Fragment>
-                  <p>This demo showcases the editor dasbhoard.</p>
+                  <p>This demo showcases an editor dasbhoard.</p>
                   <p>
                     The dashboard acts like a <em>publishing inbox</em> and
-                    allows editor to track submission (new, in progress or
+                    allows editor to track submissions (new, in progress or
                     published / rejected) as well as quickly see the latest
                     activity (notification panel{' '}
                     <Iconoclass tagName="span" iconName="alert" iconSize={10} />
@@ -169,6 +169,7 @@ export default class DemoModalContent extends React.Component {
               </p>
             );
             break;
+
           case '/demo/editor-endorses-apc-discount-action/submission':
             body = (
               <p>
@@ -179,6 +180,7 @@ export default class DemoModalContent extends React.Component {
               </p>
             );
             break;
+
           case '/demo/editor-assesses-revised-submission/submission':
             body = (
               <p>
@@ -192,6 +194,7 @@ export default class DemoModalContent extends React.Component {
               </p>
             );
             break;
+
           case '/demo/editor-publishes-submission/submission':
             body = (
               <p>
@@ -213,9 +216,36 @@ export default class DemoModalContent extends React.Component {
       case 'user:taylor-demo':
         switch (pathname) {
           case '/settings/organization/demo-org/services':
+            body = (
+              <Fragment>
+                <p>
+                  This demo showcases <TextLogo /> services settings where
+                  administrators can setup services that will be offered to
+                  authors during the execution of editorial workflows.
+                </p>
+              </Fragment>
+            );
             break;
+
           case '/':
+            body = (
+              <Fragment>
+                <p>This demo showcases a producer dasbhoard.</p>
+                <p>
+                  The dashboard allows producers to keep track of submissions
+                  requiring their attention as well as the latest activity
+                  (notification panel{' '}
+                  <Iconoclass tagName="span" iconName="alert" iconSize={10} />
+                  ).
+                </p>
+                <p>
+                  Submission can be tagged and filtered using faceted search
+                  (left side panel) or full text search (header).
+                </p>
+              </Fragment>
+            );
             break;
+
           case '/demo/typesetter-assesses-document-to-typeset/submission':
             body = (
               <p>
@@ -226,6 +256,7 @@ export default class DemoModalContent extends React.Component {
               </p>
             );
             break;
+
           case '/demo/typesetter-typesets-document/submission':
             body = (
               <p>
@@ -247,11 +278,48 @@ export default class DemoModalContent extends React.Component {
       case 'user:licklider-demo':
         switch (pathname) {
           case '/settings/profile/bio':
+            body = (
+              <p>
+                This demo showcases the user interface available to reviewers to
+                setup their profile.
+              </p>
+            );
             break;
+
           case '/':
+            body = (
+              <Fragment>
+                <p>This demo showcases a reviewer dasbhoard.</p>
+                <p>
+                  The dashboard acts like a <em>publishing inbox</em> and allows
+                  reviewers to track submission as well as quickly see the
+                  latest activity (notification panel{' '}
+                  <Iconoclass tagName="span" iconName="alert" iconSize={10} />)
+                  and pending invites ( invites panel{' '}
+                  <Iconoclass
+                    tagName="span"
+                    iconName="personAdd"
+                    iconSize={10}
+                  />
+                  ) .
+                </p>
+                <p>
+                  Submissions can be tagged and filtered using faceted search
+                  (left side panel) or full text search (header).
+                </p>
+              </Fragment>
+            );
             break;
+
           case '/about/licklider-demo':
+            body = (
+              <p>
+                This demo shows a reviewer public profile and includes a summary
+                of the reviewer participation and activity.
+              </p>
+            );
             break;
+
           case '/demo/reviewer-accepts-invitation/submission':
             body = (
               <p>
@@ -262,6 +330,7 @@ export default class DemoModalContent extends React.Component {
               </p>
             );
             break;
+
           case '/demo/reviewer-reviews-submission/submission':
             body = (
               <p>
@@ -277,6 +346,7 @@ export default class DemoModalContent extends React.Component {
               </p>
             );
             break;
+
           case '/demo/reviewer-reviews-revised-submission/submission':
             body = (
               <p>
@@ -301,9 +371,80 @@ export default class DemoModalContent extends React.Component {
       case 'user:hamilton-demo':
         switch (pathname) {
           case '/':
+            body = (
+              <Fragment>
+                <p>This demo showcases an author dasbhoard.</p>
+                <p>
+                  The dashboard acts like a <em>publishing inbox</em> and allows
+                  authors to track submissions (new, in progress or published /
+                  rejected) as well as quickly see the latest activity
+                  (notification panel{' '}
+                  <Iconoclass tagName="span" iconName="alert" iconSize={10} />
+                  ), pending digital signatures (digital signatures panel{' '}
+                  <Iconoclass
+                    tagName="span"
+                    iconName="signature"
+                    iconSize={10}
+                  />
+                  ) or active comments (comments panel{' '}
+                  <Iconoclass tagName="span" iconName="comment" iconSize={10} />
+                  ).
+                </p>
+                <p>
+                  Submission can be tagged and filtered using faceted search
+                  (left side panel) or full text search (header).
+                </p>
+              </Fragment>
+            );
             break;
+
           case '/payne2016a-demo':
+            body = (
+              <Fragment>
+                <p>
+                  This demo showcases a published article on <TextLogo />.
+                </p>
+                <p>
+                  Each paragraph and resource comes with a <em>mnemonic</em>{' '}
+                  identifier and a share menu for easy sharing.
+                </p>
+                <p>
+                  Links decorated with the{' '}
+                  <Iconoclass tagName="span" iconName="shell" iconSize={10} />{' '}
+                  icon allows you to open resources in context to minize context
+                  switch.
+                </p>
+                <p>
+                  The Download menu on the left side bar let you print a web
+                  first PDF generated on the fly from the content of the web
+                  version of the article or download the article rich metada in{' '}
+                  <a href="https://www.w3.org/TR/json-ld/">JSON-LD</a>.
+                </p>
+                <p>
+                  The{' '}
+                  <Iconoclass
+                    tagName="span"
+                    iconName="brightnessLight"
+                    iconSize={10}
+                  />{' '}
+                  icon in the header let you switch in between various themes
+                  (dark, light and alt) for additional reading comfort.
+                </p>
+                <p>
+                  Articles are fully responsive and work well on mobile, tablet
+                  and desktop environment.
+                </p>
+                <p>
+                  Under the hood, the markup (HTML +{' '}
+                  <a href="https://www.w3.org/TR/rdfa-primer/">RDFa</a>) in
+                  sprinkled with <a href="https://schema.org">schema.org</a>{' '}
+                  terms to guarantee a good discoverability by all the major
+                  search engines.
+                </p>
+              </Fragment>
+            );
             break;
+
           case '/demo/author-prepares-submission/submission':
             body = (
               <p>
@@ -316,6 +457,7 @@ export default class DemoModalContent extends React.Component {
               </p>
             );
             break;
+
           case '/demo/author-makes-declarations/submission':
             body = (
               <p>
@@ -326,6 +468,7 @@ export default class DemoModalContent extends React.Component {
               </p>
             );
             break;
+
           case '/demo/author-prepares-revision/submission':
             body = (
               <p>
@@ -344,6 +487,7 @@ export default class DemoModalContent extends React.Component {
               </p>
             );
             break;
+
           case '/demo/author-requests-apc-discount/submission':
             body = (
               <p>
@@ -356,6 +500,7 @@ export default class DemoModalContent extends React.Component {
               </p>
             );
             break;
+
           case '/demo/author-confirms-contribution-and-identity/submission':
             body = (
               <p>

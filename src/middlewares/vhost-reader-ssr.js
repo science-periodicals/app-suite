@@ -33,6 +33,7 @@ export default function vhostReaderSsr(req, res, next) {
       state,
       applyMiddleware(thunkMiddleware)
     );
+
     const baseUrl = `${req.protocol}://${req.headers['x-ssr-host'] ||
       req.app.locals.config['X-SSR-Host'] ||
       req.headers.host}`; // x-ssr-host is used for testing
