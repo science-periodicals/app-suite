@@ -381,16 +381,16 @@ class Sifter extends React.Component {
           </AppLayoutBanner>
 
           <AppLayoutLeft backgroundOnDesktop={false}>
-            {screenWidth <= CSS_TABLET && (
-              <div className={bem`__left-journal-nav`}>
+            <div className={bem`__left-journal-nav`}>
+              {screenWidth <= CSS_TABLET && (
                 <JournalNav user={user} journal={journal} location={location} />
-              </div>
-            )}
-            <SifterFacets
-              mode={mode}
-              query={query}
-              onToggleFacet={this.handleToggleFacet}
-            />
+              )}
+              <SifterFacets
+                mode={mode}
+                query={query}
+                onToggleFacet={this.handleToggleFacet}
+              />
+            </div>
           </AppLayoutLeft>
 
           <AppLayoutMiddle widthMode="auto">
