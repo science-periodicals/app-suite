@@ -52,7 +52,7 @@ class SifterListContentList extends React.PureComponent {
       droplets,
       hostname
     } = this.props;
-    const query = { hostname };
+    const query = hostname ? { hostname } : undefined;
 
     const acl = new Acl(journal);
     const canWrite = acl.checkPermission(user, 'WritePermission');
@@ -189,7 +189,6 @@ class SifterList extends React.Component {
       isSearched,
       isSearching
     } = this.props;
-    const query = { hostname };
 
     // we reshape into a list of items
     // if we are in search mode (`isSearched` is true), we don't display the issues
@@ -262,7 +261,7 @@ class SifterList extends React.Component {
           issue={issue}
           results={results}
           journal={journal}
-          hostname={query.hostname}
+          hostname={hostname}
           disabled={disabled}
           droplets={droplets}
         />

@@ -8,21 +8,24 @@ export default class PublicationTypeSnippet extends React.Component {
   static propTypes = {
     canWrite: PropTypes.bool,
     journal: PropTypes.object,
-    issue: PropTypes.object,
+    publicationType: PropTypes.shape({
+      name: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+      alternateName: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+      description: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+    }),
     query: PropTypes.object,
     sticking: PropTypes.bool,
     displayMode: PropTypes.string
   };
 
   static defaultProps = {
-    journal: {},
-    type: {},
+    publicationType: {},
     query: {},
     displayMode: 'unsticky'
   };
 
   render() {
-    const { journal, publicationType, sticking, displayMode } = this.props;
+    const { publicationType, sticking, displayMode } = this.props;
 
     let displayName;
     if (publicationType.name || publicationType.alternateName) {
