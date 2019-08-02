@@ -430,8 +430,10 @@ export default class DemoModalContent extends React.Component {
                   The dashboard acts like a <em>publishing inbox</em> and allows
                   reviewers to track submission as well as quickly see the
                   latest activity (notification panel{' '}
-                  <Iconoclass tagName="span" iconName="alert" iconSize={10} />)
-                  and pending invites ( invites panel{' '}
+                  <Iconoclass tagName="span" iconName="alert" iconSize={10} />
+                  ), active comments (active comments panel{' '}
+                  <Iconoclass tagName="span" iconName="comment" iconSize={10} />
+                  ) and pending invites (invites panel{' '}
                   <Iconoclass
                     tagName="span"
                     iconName="personAdd"
@@ -458,28 +460,69 @@ export default class DemoModalContent extends React.Component {
 
           case '/demo/reviewer-accepts-invitation/submission':
             body = (
-              <p>
-                This demo showcases the user interface available to reviewers to
-                accept an invitation to review a submission. Reviewers can
-                preview the submission and all the associated resources before
-                deciding to accept or decline the invitation.
-              </p>
+              <Fragment>
+                <p>
+                  This demo showcases the user interface available to reviewers
+                  to accept an invitation to review a submission.
+                </p>
+                <p>
+                  Reviewers can preview the submission and all the associated
+                  resources before deciding to accept or decline the invitation.
+                </p>
+              </Fragment>
             );
             break;
 
           case '/demo/reviewer-reviews-submission/submission':
             body = (
-              <p>
-                This demo showcases the user interface available to reviewers to
-                review a submission. The reviewer has access to the submission
-                and all its associated resources (previous editors assessment,
-                release notes etc.) in context. The reviewer needs to review the
-                submission and can write general and contextual (annotations)
-                reviewer notes. Each reviewer note can precisely reference
-                specific locations of the manuscript. The{' '}
-                <abbr title="User Interface">UI</abbr> offers the option to open
-                the various resources in a shell to minimize context switching.
-              </p>
+              <Fragment>
+                <p>
+                  This demo showcases the user interface available to reviewers
+                  to review a submission.
+                </p>
+
+                <p>
+                  The reviewer has access to the submission and all its
+                  associated resources (previous editors assessment, release
+                  notes etc.) in context (inbound resources{' '}
+                  <Iconoclass tagName="span" iconName="inbound" iconSize={10} />
+                  ).
+                </p>
+
+                <p>
+                  The reviewer needs to review the submission and can write
+                  general and contextual reviewer notes (annotations).
+                </p>
+
+                <p>
+                  Each reviewer note can precisely reference specific locations
+                  of the manuscript.
+                </p>
+
+                <p>
+                  The <abbr title="User Interface">UI</abbr> is designed to
+                  allow reviewers to view several resources at the same time
+                  while minimizing context switch. In particular:
+                </p>
+
+                <ul>
+                  <li>
+                    Links decorated with a{' '}
+                    <Iconoclass tagName="span" iconName="shell" iconSize={10} />{' '}
+                    icon allow to open resources in context to minize context
+                    switch.
+                  </li>
+                  <li>
+                    Links decorated with a{' '}
+                    <Iconoclass
+                      tagName="span"
+                      iconName="anchor"
+                      iconSize={10}
+                    />{' '}
+                    icon allow to scroll to the relevant content.
+                  </li>
+                </ul>
+              </Fragment>
             );
             break;
 

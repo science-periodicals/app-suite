@@ -19,7 +19,8 @@ export default class ReleaseNotesEditor extends React.Component {
     counter: PropTypes.instanceOf(Counter).isRequired,
 
     action: PropTypes.shape({
-      '@type': PropTypes.oneOf(['CreateReleaseAction'])
+      '@type': PropTypes.oneOf(['CreateReleaseAction']),
+      releaseNotes: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
     }).isRequired,
 
     isBlocked: PropTypes.bool,
