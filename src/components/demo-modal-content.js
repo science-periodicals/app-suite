@@ -31,18 +31,40 @@ export default class DemoModalContent extends React.Component {
                   configure journals.
                 </p>
                 <p>
-                  Explore the various settings and be sure to check out how{' '}
-                  <TextLogo /> allows you to create flexible editorial workflows
-                  (with arbitrary anonymity control){' '}
-                  <Iconoclass
-                    tagName="span"
-                    iconName="dispatch"
-                    iconSize={10}
-                  />{' '}
-                  and easily manage multiple article types{' '}
-                  <Iconoclass tagName="span" iconName="label" iconSize={10} />{' '}
-                  each with a dedicated style guide.
+                  Explore the various settings, and be sure to check out how{' '}
+                  <TextLogo /> allows you to:
                 </p>
+
+                <ul>
+                  <li>
+                    Create flexible editorial workflows{' '}
+                    <Iconoclass
+                      tagName="span"
+                      iconName="dispatch"
+                      iconSize={10}
+                    />{' '}
+                    (including any anonymity options, such as single, double or
+                    triple blind peer review)
+                  </li>
+                  <li>
+                    Easily manage multiple article types{' '}
+                    <Iconoclass tagName="span" iconName="label" iconSize={10} />
+                    , each with a dedicated style guide
+                  </li>
+                  <li>
+                    Create publication issues and special issues{' '}
+                    <Iconoclass
+                      tagName="span"
+                      iconName="layers"
+                      iconSize={10}
+                    />
+                  </li>
+                  <li>
+                    Publish Request for Articles (
+                    <abbr title="Request for Articles">RFA</abbr>){' '}
+                    <Iconoclass tagName="span" iconName="rfa" iconSize={10} />
+                  </li>
+                </ul>
               </Fragment>
             );
             break;
@@ -60,15 +82,31 @@ export default class DemoModalContent extends React.Component {
                 <p>
                   Links decorated with the{' '}
                   <Iconoclass tagName="span" iconName="shell" iconSize={10} />{' '}
-                  icon allow you to open resources in context to minize context
-                  switch.
+                  icon allow you to open resources in context to minimize
+                  context switch.
                 </p>
+
                 <p>
-                  The Download menu on the left side bar let you print a web
-                  first PDF generated on the fly from the content of the web
-                  version of the article or download the article rich metada in{' '}
-                  <a href="https://www.w3.org/TR/json-ld/">JSON-LD</a>.
+                  The Download menu{' '}
+                  <Iconoclass
+                    tagName="span"
+                    iconName="download"
+                    iconSize={10}
+                  />{' '}
+                  on the left side bar lets you:
                 </p>
+
+                <ul>
+                  <li>
+                    Print a web-first PDF generated on the fly from the web
+                    version of the article
+                  </li>
+                  <li>
+                    Download the article rich metadata in{' '}
+                    <a href="https://www.w3.org/TR/json-ld/">JSON-LD</a>
+                  </li>
+                </ul>
+
                 <p>
                   The{' '}
                   <Iconoclass
@@ -76,18 +114,18 @@ export default class DemoModalContent extends React.Component {
                     iconName="brightnessLight"
                     iconSize={10}
                   />{' '}
-                  icon in the header let you switch in between various themes
+                  icon in the header lets you switch between various themes
                   (dark, light and alt) for additional reading comfort.
                 </p>
                 <p>
                   Articles are fully responsive and work well on mobile, tablet
-                  and desktop environment.
+                  and desktop environments.
                 </p>
                 <p>
                   Under the hood, the markup (HTML +{' '}
-                  <a href="https://www.w3.org/TR/rdfa-primer/">RDFa</a>) in
+                  <a href="https://www.w3.org/TR/rdfa-primer/">RDFa</a>) is
                   sprinkled with <a href="https://schema.org">schema.org</a>{' '}
-                  terms to guarantee a good discoverability by all the major
+                  terms to guarantee good discoverability by all the major
                   search engines.
                 </p>
               </Fragment>
@@ -102,26 +140,34 @@ export default class DemoModalContent extends React.Component {
                   <p>This demo showcases a journal homepage.</p>
                   <p>
                     Journal homepages are fully responsive and work well on
-                    mobile, tablet and desktop environment.
+                    mobile, tablet and desktop environments.
                   </p>
                   <p>
                     Articles can be found using faceted search (left panel) or
                     full text search (header). An additional toggle in the
-                    header search bar also allows to switch to a view listing
-                    the issues and request for articles published by the
-                    journal.
+                    header search bar also allows the user to switch to a view
+                    listing the issues and Request for Articles (
+                    <abbr title="Request For Articles">RFA</abbr>s) published by
+                    the journal.
                   </p>
                   <p>
                     Articles (and the journal homepage) can easily be shared
                     using the share menu represented with a{' '}
                     <Iconoclass tagName="span" iconName="share" iconSize={10} />{' '}
-                    icon. The share menu also provides a quick access to a PDF
+                    icon. The share menu also provides quick access to a PDF
                     version of each article (generated on the fly from the
                     content of the web version of the article).
                   </p>
                   <p>
-                    A series of links take you to the journal staff page and
-                    journal information (About).
+                    Links connect to the journal staff page{' '}
+                    <Iconoclass
+                      tagName="span"
+                      iconName="roleEditorGroup"
+                      iconSize={10}
+                    />{' '}
+                    and journal information (About{' '}
+                    <Iconoclass tagName="span" iconName="info" iconSize={10} />
+                    ).
                   </p>
                   <p>
                     Last, the{' '}
@@ -130,8 +176,8 @@ export default class DemoModalContent extends React.Component {
                       iconName="logoSciAlt"
                       iconSize={10}
                     />{' '}
-                    menu in the header allows to access platform level features
-                    and navigate back to the documentation.
+                    menu in the header provides access to platform level
+                    features and the documentation.
                   </p>
                 </Fragment>
               );
@@ -139,12 +185,12 @@ export default class DemoModalContent extends React.Component {
               // dashboard demo
               body = (
                 <Fragment>
-                  <p>This demo showcases an editor dasbhoard.</p>
+                  <p>This demo showcases an editor dashboard.</p>
                   <p>
                     The dashboard acts like a <em>publishing inbox</em> and
-                    allows editor to track submissions (new, in progress or
-                    published / rejected) as well as quickly see the latest
-                    activity (notification panel{' '}
+                    allows the editor to track submissions (new, in progress or
+                    published / rejected) as well as to quickly see the latest
+                    activities (notification panel{' '}
                     <Iconoclass tagName="span" iconName="alert" iconSize={10} />
                     ) and active comments (active comments panel{' '}
                     <Iconoclass
@@ -155,7 +201,7 @@ export default class DemoModalContent extends React.Component {
                     ).
                   </p>
                   <p>
-                    Submission can be tagged and filtered using faceted search
+                    Submissions can be tagged and filtered using faceted search
                     (left side panel) or full text search (header).
                   </p>
                 </Fragment>
@@ -180,18 +226,17 @@ export default class DemoModalContent extends React.Component {
                 <p>
                   Each revision request can precisely reference specific
                   locations of the manuscript as well as indicate on which
-                  reviewer reviews they were based on (if any).
+                  reviews they were based.
                 </p>
 
                 <p>
                   The editorial team can work collaboratively by adding staging
-                  discussion commens (both general or in context, as
-                  annotations).
+                  discussion comments (both general or in context).
                 </p>
 
                 <p>
                   The editor has access to the author release notes as well as
-                  all the reviewer reviews in context (inbound resources{' '}
+                  to all the reviews in context (inbound resources{' '}
                   <Iconoclass tagName="span" iconName="inbound" iconSize={10} />
                   ).
                 </p>
@@ -206,8 +251,7 @@ export default class DemoModalContent extends React.Component {
                   <li>
                     Links decorated with a{' '}
                     <Iconoclass tagName="span" iconName="shell" iconSize={10} />{' '}
-                    icon allow to open resources in context to minize context
-                    switch.
+                    icon open resources in context.
                   </li>
                   <li>
                     Links decorated with a{' '}
@@ -216,7 +260,7 @@ export default class DemoModalContent extends React.Component {
                       iconName="anchor"
                       iconSize={10}
                     />{' '}
-                    icon allow to scroll to the relevant content.
+                    icon scroll to the relevant content.
                   </li>
                 </ul>
               </Fragment>
@@ -228,9 +272,9 @@ export default class DemoModalContent extends React.Component {
               <Fragment>
                 <p>
                   This demo showcases the user interface available to editors
-                  when they need to endorse (approve) a request for an{' '}
-                  <abbr title="Article Processing Charges">APC</abbr> discount
-                  made by the authors.
+                  when they need to endorse (approve) a request from authors for
+                  an <abbr title="Article Processing Charges">APC</abbr>{' '}
+                  discount.
                 </p>
                 <p>
                   The editor has the ability to engage with authors with
@@ -258,14 +302,13 @@ export default class DemoModalContent extends React.Component {
                     iconName="versionPast"
                     iconSize={10}
                   />
-                  ) as well as the author responses made to the previous
-                  revision requests.
+                  ) as well as to the author responses to editor revision
+                  requests.
                 </p>
 
                 <p>
                   The editorial team can work collaboratively by adding staging
-                  discussion commens (both general or in context, as
-                  annotations).
+                  discussion comments (both general or in context).
                 </p>
 
                 <p>
@@ -278,8 +321,7 @@ export default class DemoModalContent extends React.Component {
                   <li>
                     Links decorated with a{' '}
                     <Iconoclass tagName="span" iconName="shell" iconSize={10} />{' '}
-                    icon allow to open resources in context to minize context
-                    switch.
+                    icon open resources in context.
                   </li>
                   <li>
                     Links decorated with a{' '}
@@ -288,7 +330,7 @@ export default class DemoModalContent extends React.Component {
                       iconName="anchor"
                       iconSize={10}
                     />{' '}
-                    icon allow to scroll to the relevant content.
+                    icon scroll to the relevant content.
                   </li>
                 </ul>
               </Fragment>
@@ -303,10 +345,10 @@ export default class DemoModalContent extends React.Component {
                   when they need to publish a submission that has been accepted.
                 </p>
                 <p>
-                  The editors have the ability to work collaboratively to set
-                  the publication date and other properties required to publish
-                  the submission. Editors have access to general and in context
-                  (annotations) comments to coordinate their work.
+                  Editors have the ability to work collaboratively to set the
+                  publication date and other properties required to publish the
+                  submission. Editors have access to general and in context
+                  comments to coordinate their work.
                 </p>
 
                 <p>
@@ -319,8 +361,7 @@ export default class DemoModalContent extends React.Component {
                   <li>
                     Links decorated with a{' '}
                     <Iconoclass tagName="span" iconName="shell" iconSize={10} />{' '}
-                    icon allow to open resources in context to minize context
-                    switch.
+                    icon open resources in context.
                   </li>
                   <li>
                     Links decorated with a{' '}
@@ -329,7 +370,7 @@ export default class DemoModalContent extends React.Component {
                       iconName="anchor"
                       iconSize={10}
                     />{' '}
-                    icon allow to scroll to the relevant content.
+                    icon scroll to the relevant content.
                   </li>
                 </ul>
               </Fragment>
@@ -348,9 +389,9 @@ export default class DemoModalContent extends React.Component {
             body = (
               <Fragment>
                 <p>
-                  This demo showcases <TextLogo /> services settings where
-                  administrators can setup services that will be offered to
-                  authors during the execution of editorial workflows.
+                  This demo showcases how administrators can set up services
+                  that will be offered to authors during the execution of
+                  editorial workflows.
                 </p>
               </Fragment>
             );
@@ -359,18 +400,29 @@ export default class DemoModalContent extends React.Component {
           case '/':
             body = (
               <Fragment>
-                <p>This demo showcases a producer dasbhoard.</p>
+                <p>This demo showcases a producer dashboard.</p>
+                <p>The dashboard allows producers to keep track of:</p>
+
+                <ul>
+                  <li>Submissions requiring their attention</li>
+                  <li>
+                    The latest activity (notification panel{' '}
+                    <Iconoclass tagName="span" iconName="alert" iconSize={10} />
+                    )
+                  </li>
+                  <li>
+                    Active comments (active comments panel{' '}
+                    <Iconoclass
+                      tagName="span"
+                      iconName="comment"
+                      iconSize={10}
+                    />
+                    )
+                  </li>
+                </ul>
+
                 <p>
-                  The dashboard allows producers to keep track of submissions
-                  requiring their attention as well as the latest activity
-                  (notification panel{' '}
-                  <Iconoclass tagName="span" iconName="alert" iconSize={10} />)
-                  and active comments (active comments panel{' '}
-                  <Iconoclass tagName="span" iconName="comment" iconSize={10} />
-                  ).
-                </p>
-                <p>
-                  Submission can be tagged and filtered using faceted search
+                  Submissions can be tagged and filtered using faceted search
                   (left side panel) or full text search (header).
                 </p>
               </Fragment>
@@ -379,12 +431,17 @@ export default class DemoModalContent extends React.Component {
 
           case '/demo/typesetter-assesses-document-to-typeset/submission':
             body = (
-              <p>
-                This demo showcases the user interface available to producers
-                when they need to typeset a document. The producers have access
-                to the document to typeset and have the ability to request
-                changes from the author before proceeding with their work.
-              </p>
+              <Fragment>
+                <p>
+                  This demo showcases the user interface available to producers
+                  when they need to typeset a document.
+                </p>
+                <p>
+                  Producers have access to the document to typeset and have the
+                  ability to request changes from the author before proceeding
+                  with their work.
+                </p>
+              </Fragment>
             );
             break;
 
@@ -393,12 +450,11 @@ export default class DemoModalContent extends React.Component {
               <Fragment>
                 <p>
                   This demo showcases the user interface available to producers
-                  when they need to typeset a document.
+                  after they uploaded a typeset document.
                 </p>
                 <p>
-                  Here a typesetter has uploaded the typeset document and has
-                  the ability to engage with other typesetters through general
-                  or contextual comments (annotations) before sending the
+                  Typesetters have the ability to engage with other typesetters
+                  through general or contextual comments before sending the
                   typeset document to the authors.
                 </p>
               </Fragment>
@@ -417,7 +473,7 @@ export default class DemoModalContent extends React.Component {
             body = (
               <p>
                 This demo showcases the user interface available to reviewers to
-                setup their profile.
+                set up their profile.
               </p>
             );
             break;
@@ -425,22 +481,38 @@ export default class DemoModalContent extends React.Component {
           case '/':
             body = (
               <Fragment>
-                <p>This demo showcases a reviewer dasbhoard.</p>
+                <p>This demo showcases a reviewer dashboard.</p>
                 <p>
                   The dashboard acts like a <em>publishing inbox</em> and allows
-                  reviewers to track submission as well as quickly see the
-                  latest activity (notification panel{' '}
-                  <Iconoclass tagName="span" iconName="alert" iconSize={10} />
-                  ), active comments (active comments panel{' '}
-                  <Iconoclass tagName="span" iconName="comment" iconSize={10} />
-                  ) and pending invites (invites panel{' '}
-                  <Iconoclass
-                    tagName="span"
-                    iconName="personAdd"
-                    iconSize={10}
-                  />
-                  ) .
+                  reviewers to:
                 </p>
+
+                <ul>
+                  <li>Track submissions</li>
+                  <li>
+                    Quickly see the latest activity (notification panel{' '}
+                    <Iconoclass tagName="span" iconName="alert" iconSize={10} />
+                    )
+                  </li>
+                  <li>
+                    Preview active comments (active comments panel{' '}
+                    <Iconoclass
+                      tagName="span"
+                      iconName="comment"
+                      iconSize={10}
+                    />
+                    )
+                  </li>
+                  <li>
+                    View pending invites (invites panel{' '}
+                    <Iconoclass
+                      tagName="span"
+                      iconName="personAdd"
+                      iconSize={10}
+                    />
+                    )
+                  </li>
+                </ul>
                 <p>
                   Submissions can be tagged and filtered using faceted search
                   (left side panel) or full text search (header).
@@ -453,7 +525,7 @@ export default class DemoModalContent extends React.Component {
             body = (
               <p>
                 This demo shows a reviewer public profile and includes a summary
-                of the reviewer participation and activity.
+                of the reviewer’s participation and activity.
               </p>
             );
             break;
@@ -467,7 +539,8 @@ export default class DemoModalContent extends React.Component {
                 </p>
                 <p>
                   Reviewers can preview the submission and all the associated
-                  resources before deciding to accept or decline the invitation.
+                  resources before deciding to accept or decline the invitation
+                  using the controls provided in the sub-header.
                 </p>
               </Fragment>
             );
@@ -483,20 +556,22 @@ export default class DemoModalContent extends React.Component {
 
                 <p>
                   The reviewer has access to the submission and all its
-                  associated resources (previous editors assessment, release
-                  notes etc.) in context (inbound resources{' '}
+                  associated resources (previous editor assessments and release
+                  notes) in context (inbound resources{' '}
                   <Iconoclass tagName="span" iconName="inbound" iconSize={10} />
                   ).
                 </p>
 
                 <p>
                   The reviewer needs to review the submission and can write
-                  general and contextual reviewer notes (annotations).
+                  general and contextual reviewer notes (annotations). Each
+                  reviewer note can precisely reference specific locations of
+                  the manuscript.
                 </p>
 
                 <p>
-                  Each reviewer note can precisely reference specific locations
-                  of the manuscript.
+                  Reviewers also need to respond to any endorser comments from
+                  the editors in order to complete their reviews.
                 </p>
 
                 <p>
@@ -509,8 +584,7 @@ export default class DemoModalContent extends React.Component {
                   <li>
                     Links decorated with a{' '}
                     <Iconoclass tagName="span" iconName="shell" iconSize={10} />{' '}
-                    icon allow to open resources in context to minize context
-                    switch.
+                    icon open resources in context.
                   </li>
                   <li>
                     Links decorated with a{' '}
@@ -519,7 +593,7 @@ export default class DemoModalContent extends React.Component {
                       iconName="anchor"
                       iconSize={10}
                     />{' '}
-                    icon allow to scroll to the relevant content.
+                    icon scroll to the relevant content.
                   </li>
                 </ul>
               </Fragment>
@@ -528,17 +602,53 @@ export default class DemoModalContent extends React.Component {
 
           case '/demo/reviewer-reviews-revised-submission/submission':
             body = (
-              <p>
-                This demo showcases the user interface available to reviewers to
-                review a _revised_ submission. The reviewer has access to
-                revised version of the submission as well as the previous one
-                annotated with the editors revision requests. The reviewer needs
-                to review the revised submission and can write general and
-                contextual (annotations) reviewer notes. Each reviewer note can
-                precisely reference specific locations of the manuscript. The{' '}
-                <abbr title="User Interface">UI</abbr> offers the option to open
-                the various resources in a shell to minimize context switching.
-              </p>
+              <Fragment>
+                <p>
+                  This demo showcases the user interface available to reviewers
+                  to review a <em>revised</em> submission.
+                </p>
+
+                <p>
+                  The reviewer has access to the revised version of the
+                  submission as well as to the previous submission (annotated
+                  with editor revision requests and author responses).
+                </p>
+
+                <p>
+                  The reviewer needs to review the revised submission and can
+                  write general and contextual reviewer notes. Each reviewer
+                  note can precisely reference specific locations of the
+                  manuscript.
+                </p>
+
+                <p>
+                  Reviewers also need to respond to any endorser comments from
+                  the editors in order to complete their reviews.
+                </p>
+
+                <p>
+                  The <abbr title="User Interface">UI</abbr> is designed to
+                  allow reviewers to view several resources at the same time
+                  while minimizing context switch. In particular:
+                </p>
+
+                <ul>
+                  <li>
+                    Links decorated with a{' '}
+                    <Iconoclass tagName="span" iconName="shell" iconSize={10} />{' '}
+                    icon open resources in context.
+                  </li>
+                  <li>
+                    Links decorated with a{' '}
+                    <Iconoclass
+                      tagName="span"
+                      iconName="anchor"
+                      iconSize={10}
+                    />{' '}
+                    icon scroll to the relevant content.
+                  </li>
+                </ul>
+              </Fragment>
             );
             break;
           default:
@@ -555,22 +665,40 @@ export default class DemoModalContent extends React.Component {
                 <p>This demo showcases an author dasbhoard.</p>
                 <p>
                   The dashboard acts like a <em>publishing inbox</em> and allows
-                  authors to track submissions (new, in progress or published /
-                  rejected) as well as quickly see the latest activity
-                  (notification panel{' '}
-                  <Iconoclass tagName="span" iconName="alert" iconSize={10} />
-                  ), pending digital signatures (digital signatures panel{' '}
-                  <Iconoclass
-                    tagName="span"
-                    iconName="signature"
-                    iconSize={10}
-                  />
-                  ) or active comments (comments panel{' '}
-                  <Iconoclass tagName="span" iconName="comment" iconSize={10} />
-                  ).
+                  authors to:
                 </p>
+
+                <ul>
+                  <li>
+                    Track submissions (new, in progress or published / rejected)
+                  </li>
+                  <li>
+                    Quickly see the latest activity (notification panel{' '}
+                    <Iconoclass tagName="span" iconName="alert" iconSize={10} />
+                    )
+                  </li>
+                  <li>
+                    View pending digital signatures (digital signatures panel{' '}
+                    <Iconoclass
+                      tagName="span"
+                      iconName="signature"
+                      iconSize={10}
+                    />
+                    )
+                  </li>
+                  <li>
+                    Preview active comments (active comments panel{' '}
+                    <Iconoclass
+                      tagName="span"
+                      iconName="comment"
+                      iconSize={10}
+                    />
+                    )
+                  </li>
+                </ul>
+
                 <p>
-                  Submission can be tagged and filtered using faceted search
+                  Submissions can be tagged and filtered using faceted search
                   (left side panel) or full text search (header).
                 </p>
               </Fragment>
@@ -590,15 +718,30 @@ export default class DemoModalContent extends React.Component {
                 <p>
                   Links decorated with the{' '}
                   <Iconoclass tagName="span" iconName="shell" iconSize={10} />{' '}
-                  icon allows you to open resources in context to minize context
-                  switch.
+                  icon allow you to open resources in context to minimize
+                  context switch.
                 </p>
+
                 <p>
-                  The Download menu on the left side bar let you print a web
-                  first PDF generated on the fly from the content of the web
-                  version of the article or download the article rich metada in{' '}
-                  <a href="https://www.w3.org/TR/json-ld/">JSON-LD</a>.
+                  The Download menu{' '}
+                  <Iconoclass
+                    tagName="span"
+                    iconName="download"
+                    iconSize={10}
+                  />{' '}
+                  on the left side bar lets you:
                 </p>
+                <ul>
+                  <li>
+                    Print a web-first PDF generated on the fly from the web
+                    version of the article
+                  </li>
+                  <li>
+                    Download the article rich metadata in{' '}
+                    <a href="https://www.w3.org/TR/json-ld/">JSON-LD</a>
+                  </li>
+                </ul>
+
                 <p>
                   The{' '}
                   <Iconoclass
@@ -606,18 +749,20 @@ export default class DemoModalContent extends React.Component {
                     iconName="brightnessLight"
                     iconSize={10}
                   />{' '}
-                  icon in the header let you switch in between various themes
+                  icon in the header lets you switch between various themes
                   (dark, light and alt) for additional reading comfort.
                 </p>
+
                 <p>
                   Articles are fully responsive and work well on mobile, tablet
-                  and desktop environment.
+                  and desktop environments.
                 </p>
+
                 <p>
                   Under the hood, the markup (HTML +{' '}
-                  <a href="https://www.w3.org/TR/rdfa-primer/">RDFa</a>) in
+                  <a href="https://www.w3.org/TR/rdfa-primer/">RDFa</a>) is
                   sprinkled with <a href="https://schema.org">schema.org</a>{' '}
-                  terms to guarantee a good discoverability by all the major
+                  terms to guarantee good discoverability by all the major
                   search engines.
                 </p>
               </Fragment>
@@ -626,67 +771,126 @@ export default class DemoModalContent extends React.Component {
 
           case '/demo/author-prepares-submission/submission':
             body = (
-              <p>
-                This demo showcases the user interface available to authors when
-                they submit a manuscript. Authors need to upload their files and
-                provide release notes (akin to a cover letter). No other form
-                needs to be filled. A direct link to the style guide required by
-                the journal for this type of submission is provided in context.
-              </p>
+              <Fragment>
+                <p>
+                  This demo showcases the user interface available to authors
+                  when they submit a manuscript.
+                </p>
+                <p>
+                  Authors need to upload their files and provide release notes
+                  (akin to a cover letter). No other form needs to be filled
+                  out, and no information already present in the manuscript
+                  needs to be repeated.
+                </p>
+                <p>
+                  A direct link to the style guide required by the journal for
+                  this type of submission is provided in context.
+                </p>
+              </Fragment>
             );
             break;
 
           case '/demo/author-makes-declarations/submission':
             body = (
-              <p>
-                This demo showcases the user interface available to authors to
-                answer any questions or declarations required by the journal.
-                Authors can work collaboratively and have access to general and
-                in context (annotations) comments to coordinate their work.
-              </p>
+              <Fragment>
+                <p>
+                  This demo showcases the user interface available to authors to
+                  answer questions or make declarations required by the journal.
+                </p>
+                <p>
+                  Authors can work collaboratively and have access to general
+                  and in context comments to coordinate their work.
+                </p>
+              </Fragment>
             );
             break;
 
           case '/demo/author-prepares-revision/submission':
             body = (
-              <p>
-                This demo showcases the user interface available to authors to
-                submit a _revised_ version of a manuscript as requested by the
-                editor. Authors have access to the previous version of the
-                submission, the editor assessment, the revision requests and the
-                reviewer reviews all in context. When appropriate, the editor
-                revision requests are displayed in context (as annotations) on
-                the previous version of the manuscript. Authors need to answer
-                the editor revision requests and upload a new version of the
-                manuscript. When doing so, authors can efficiently link to
-                specific parts of the revised manuscript. The{' '}
-                <abbr title="User Interface">UI</abbr> offers the option to open
-                the various resources in a shell to minimize context switching.
-              </p>
+              <Fragment>
+                <p>
+                  This demo showcases the user interface available to authors to
+                  submit a <em>revised</em> version of a manuscript as requested
+                  by the editor.
+                </p>
+
+                <p>
+                  Authors have access to the previous version of the submission,
+                  the editor assessment, the revision requests and the reviewer
+                  reviews, all in context.
+                </p>
+
+                <p>
+                  When appropriate, the editor revision requests are displayed
+                  in context (as annotations) on the previous version of the
+                  manuscript.
+                </p>
+
+                <p>
+                  Authors can work collaboratively to answer the editor revision
+                  requests and upload a new version of the manuscript. When
+                  doing so, authors can efficiently link to specific parts of
+                  the revised manuscript.
+                </p>
+
+                <p>
+                  The <abbr title="User Interface">UI</abbr> is designed to
+                  allow authors to view several resources at the same time while
+                  minimizing context switch. In particular:
+                </p>
+
+                <ul>
+                  <li>
+                    Links decorated with a{' '}
+                    <Iconoclass tagName="span" iconName="shell" iconSize={10} />{' '}
+                    icon open resources in context.
+                  </li>
+                  <li>
+                    Links decorated with a{' '}
+                    <Iconoclass
+                      tagName="span"
+                      iconName="anchor"
+                      iconSize={10}
+                    />{' '}
+                    icon scroll to the relevant content.
+                  </li>
+                </ul>
+              </Fragment>
             );
             break;
 
           case '/demo/author-requests-apc-discount/submission':
             body = (
-              <p>
-                This demo showcases the user interface available to authors to
-                request a discount on the article processing charges set by the
-                journal. Authors have the ability to requests a discounted price
-                and engage with the editor to reach an agreed price. The
-                conversation can happen as general or contextual comments
-                (annotations).
-              </p>
+              <Fragment>
+                <p>
+                  This demo showcases the user interface available to authors to
+                  request a discount on the article processing charges set by
+                  the journal.
+                </p>
+                <p>
+                  Authors have the ability to request a discounted price and
+                  engage with the editor to reach an agreed upon price.
+                </p>
+                <p>
+                  The conversation can happen as general or contextual comments.
+                </p>
+              </Fragment>
             );
             break;
 
           case '/demo/author-confirms-contribution-and-identity/submission':
             body = (
-              <p>
-                This demo showcases the user interface available to authors to
-                confirm their contribution and identity to a manuscript. The
-                author can confirm or deny their participation by digitally
-                signing the manuscript.
-              </p>
+              <Fragment>
+                <p>
+                  This demo showcases the user interface available to authors to
+                  confirm their identity and contributions to the manuscript.
+                </p>
+                <p>
+                  The author can confirm or deny their participation by
+                  digitally signing the manuscript using the controls provided
+                  in the sub-header.
+                </p>
+              </Fragment>
             );
             break;
         }
