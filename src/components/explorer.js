@@ -372,20 +372,20 @@ class Explorer extends React.Component {
           </AppLayoutHeader>
 
           <AppLayoutLeft backgroundOnDesktop={false}>
-            {screenWidth <= CSS_TABLET && (
-              <div className="explorer__left-nav">
+            <div className="explorer__left-nav">
+              {screenWidth <= CSS_TABLET && (
                 <ExplorerNav
                   user={user}
                   displayHeader={false}
                   onClick={onPanelClick}
                 />
-              </div>
-            )}
-            <ExplorerFacets
-              mode={mode}
-              query={query}
-              onToggleFacet={this.handleToggleFacet}
-            />
+              )}
+              <ExplorerFacets
+                mode={mode}
+                query={query}
+                onToggleFacet={this.handleToggleFacet}
+              />
+            </div>
           </AppLayoutLeft>
 
           <AppLayoutMiddle widthMode="auto">
