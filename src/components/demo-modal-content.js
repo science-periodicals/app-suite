@@ -662,7 +662,7 @@ export default class DemoModalContent extends React.Component {
           case '/':
             body = (
               <Fragment>
-                <p>This demo showcases an author dasbhoard.</p>
+                <p>This demo showcases an author dashboard.</p>
                 <p>
                   The dashboard acts like a <em>publishing inbox</em> and allows
                   authors to:
