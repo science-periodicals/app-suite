@@ -89,9 +89,13 @@
     }
   }
 
-  /* journal nav gets moved from right margin to left margin on mobile */
+  /* Note: journal nav gets moved from right margin to left margin on mobile */
   &__left-nav {
     padding: var(--sgrd);
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    max-height: 100%;
+    box-sizing: border-box;
   }
 
   &__more-button-container {

@@ -3,6 +3,7 @@
   padding: var(--mgrd);
   padding-bottom: var(--footer-height);
   width: 100%;
+  min-height: 100%;
   margin: 0;
   background-color: var(--reader-bg-color);
 
