@@ -118,6 +118,16 @@ export default class RdfaArticleBodySection extends React.Component {
                   isMobile={isMobile}
                   isPrinting={isPrinting}
                 />
+
+                <MetaMarginContent>
+                  {domValues => (
+                    <MetaMarginMixedData
+                      graphId={getId(graph)}
+                      overwriteNodeMap={overwriteNodeMap}
+                      domValues={domValues}
+                    />
+                  )}
+                </MetaMarginContent>
               </MetaMargin>
             );
           }
