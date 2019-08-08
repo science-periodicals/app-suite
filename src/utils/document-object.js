@@ -608,13 +608,17 @@ export function getTocData(
 function getResources(section, _resources = []) {
   if (section.children) {
     section.children.forEach(child => {
+      // !! child.$node can be a text node
       if (
-        (child.$node.hasAttribute('resource') ||
+        child &&
+        child.$node &&
+        child.$node.nodeType === Node.ELEMENT_NODE &&
+        ((child.$node.hasAttribute('resource') ||
           child.$node.hasAttribute('about')) &&
-        child.$node.hasAttribute('typeof') &&
-        (child.$node.localName === 'figure' ||
-          child.$node.localName === 'table' ||
-          child.$node.localName === 'aside')
+          child.$node.hasAttribute('typeof') &&
+          (child.$node.localName === 'figure' ||
+            child.$node.localName === 'table' ||
+            child.$node.localName === 'aside'))
       ) {
         _resources.push(child);
       }
