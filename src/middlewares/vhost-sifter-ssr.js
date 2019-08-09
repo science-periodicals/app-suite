@@ -10,7 +10,6 @@ import { escJSON } from '@scipe/librarian';
 import Sifter from '../components/sifter/sifter';
 import JournalPage from '../components/sifter/journal-page';
 import rootReducer from '../reducers/root-reducer';
-import { searchGraphs } from '../actions/graph-action-creators';
 import { fetchActiveInvites } from '../actions/invite-action-creators';
 import bundlePaths from '../utils/bundle-paths';
 import vhostDataSifter from './vhost-data-sifter';
@@ -50,18 +49,10 @@ export default function vhostSifterSsr(req, res, next) {
       )
     ];
 
-    // TODO use matchPath and fetch issue(s) or rfa(s) as well
-    if (req.path === '/') {
-      toFetch.push(
-        store.dispatch(
-          searchGraphs({
-            query: req.query,
-            baseUrl,
-            cookie: req.headers.cookie
-          })
-        )
-      );
-    }
+    // Note: we do not fetch the list of article or issue or rfa
+    // this is done client side.
+    // this is _not_ an issue for SEO as the explorer router is SSR
+    // and takes care of that role
 
     Promise.all(toFetch)
       .then(() => {
