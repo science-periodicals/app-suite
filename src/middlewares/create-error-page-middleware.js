@@ -113,7 +113,7 @@ export function createErrorPageMiddleware(config) {
 }
 
 function getUser(req, callback) {
-  if (req.session.userId) {
+  if (req.session && req.session.userId) {
     req.librarian.getAppSuiteUser(req.session.userId, callback);
   } else {
     callback(null, null);

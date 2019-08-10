@@ -5,7 +5,7 @@ import expressSession from 'express-session';
 import connectRedis from 'connect-redis';
 import zmq from 'zeromq';
 import { validateBasicAuthCredentials } from '@scipe/api';
-import { getRedisConfig, getDbName } from '@scipe/librarian';
+import { Librarian, getRedisConfig, getDbName } from '@scipe/librarian';
 import registerRoutes from './routes/register';
 import loginRoutes from './routes/login';
 import resetPasswordRoutes from './routes/reset-password-routes';
@@ -95,6 +95,44 @@ export function appSuite(config = {}) {
 
   // vhost middlewares: used to serve sci.pe subdomains.
   // vhost middlewares must be called first and in the right order
+
+  // Middleware to autologout demo users
+  app.use((req, res, next) => {
+    if (req.accepts('html') && req.session.isDemoUser) {
+      if (req.session.fromDemoPage) {
+        delete req.session.fromDemoPage;
+        req.session.autoLogoutDemoUser = true;
+        next();
+      } else if (req.session.autoLogoutDemoUser) {
+        const librarian = new Librarian(req);
+        librarian.logout((err, headers, body) => {
+          // we do nothing if error, just log it
+          if (err) {
+            req.log.warn(
+              err,
+              'could not delete CouchDB session from autoLogoutDemoUser'
+            );
+          }
+          req.log.trace(
+            { headers, body },
+            'librarian.logout (autoLogoutDemoUser)'
+          );
+          req.session.destroy(err => {
+            if (err) {
+              req.log.warn(err, 'could not destroy express session');
+            }
+            res.clearCookie('AuthSession');
+            res.clearCookie('scipe.sid');
+            res.redirect(req.originalUrl);
+          });
+        });
+      } else {
+        next();
+      }
+    } else {
+      next();
+    }
+  });
 
   // must be called first
   // /

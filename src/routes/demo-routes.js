@@ -43,6 +43,8 @@ router.get(
     req.librarian.login(user, (err, token, authHeaders) => {
       if (err) return next(err);
 
+      req.session.isDemoUser = true;
+      req.session.fromDemoPage = true;
       req.session.userId = user['@id'];
       req.session.username = unprefix(user['@id']);
       req.session.couchDBAuthSession = token;
