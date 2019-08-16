@@ -25,7 +25,8 @@ import {
   RdfaCopyright,
   RdfaAbstractText,
   getDisplayName,
-  BemTags
+  BemTags,
+  WorkflowBadge
 } from '@scipe/ui';
 import { getOrderedAffiliationMap } from '../../utils/graph-utils';
 import { compareAbstracts } from '../../utils/sort';
@@ -81,6 +82,123 @@ export default class RdfaArticleFrontMatter extends React.Component {
     const isBlinded = !blindingData.visibleRoleNames.has('author');
 
     const bem = BemTags('@sa', '@meta-margin');
+
+    //TODO remove this test data after wiring the workflow badge
+    const A = 0;
+    const E = 1;
+    const R = 2;
+    const P = 3;
+    const testPaths = [
+      {
+        id: 'action:createReleaseActionId',
+        x: 0,
+        y: A,
+        z: [true, false, false, false] // only visible to author
+      },
+      {
+        id: 'action:createReleaseActionId',
+        x: 1,
+        y: A,
+        z: [true, true, false, false] // author and editor can view
+      },
+      {
+        id: 'action:createReleaseActionId',
+        x: 2,
+        y: 0,
+        z: [true, true, true, false] // all can view
+      },
+      {
+        id: 'action:createReleaseActionId',
+        x: 3,
+        y: A,
+        z: [true, true, true, true] // all can view
+      },
+
+      // ReviewAction
+      {
+        id: 'action:reviewActionId',
+        x: 4,
+        y: 2,
+        z: [false, true, true, false] // only visible to reviewer first
+      },
+
+      // editor
+      {
+        id: 'action:editorActionId',
+        x: 5,
+        y: E,
+        z: [false, false, true, false] // only visible to reviewer first
+      },
+
+      // author
+      {
+        id: 'action:editorActionId',
+        x: 6,
+        y: A,
+        z: [true, true, true, false] // only visible to reviewer first
+      },
+
+      // producer
+      {
+        id: 'action:editorActionId',
+        x: 7,
+        y: P,
+        z: [true, true, true, false] // only visible to reviewer first
+      },
+      // author
+      {
+        id: 'action:authorActionId',
+        x: 8,
+        y: A,
+        z: [true, true, true, false] // only visible to reviewer first
+      },
+      {
+        id: 'action:authorActionId',
+        x: 9,
+        y: A,
+        z: [true, true, true, true] // only visible to reviewer first
+      }
+    ];
+
+    const viewIdentityPermissionMatrix = {
+      authors: {
+        authors: true,
+        editors: true,
+        reviewers: false,
+        producers: true,
+        public: true
+      },
+      editors: {
+        authors: true,
+        editors: true,
+        reviewers: true,
+        producers: true,
+        public: true
+      },
+      reviewers: {
+        authors: false,
+        editors: true,
+        reviewers: false,
+        producers: false,
+        public: true
+      },
+      producers: {
+        authors: true,
+        editors: true,
+        reviewers: false,
+        producers: true,
+        public: false
+      }
+    };
+
+    const counts = {
+      authors: 2,
+      editors: 3,
+      reviewers: 3,
+      producers: 0
+    };
+
+    // !TODO remove ^^^ end of WorkflowBadge test data
 
     return (
       <section
@@ -389,40 +507,59 @@ export default class RdfaArticleFrontMatter extends React.Component {
         )}
 
         {/* Editors and Reviewers */}
-        {/* TODO wire: use compareEditors defined in utils/sort.js
-         <section>
-         <MetaMargin
-         margin={true}
-         url={counter
-           .increment({ level: 2 })
-           .increment({ level: 3 })
-           .getUrl()}
-         graph={graph}
-         resource={object}
-         mainEntity={mainEntity}
-         isPrinting={isPrinting}
-         isMobile={isMobile}
-         >
-         <div className={bem`__editorial-team__`}>
-         <div className={bem`__row`}>
-         <span className={bem`__label`}>Editors </span>
-         <ul className={bem`@__inline-list`}>
-         <li>Name One</li>
-         <li>Name Two</li>
-         </ul>
-         </div>
+        {/* TODO wire: use compareEditors defined in utils/sort.js */}
+        <section className={bem`journal-participants__`}>
+          <MetaMargin
+            margin={true}
+            url={counter
+              .increment({ level: 2 })
+              .increment({ level: 3 })
+              .getUrl()}
+            graph={graph}
+            resource={object}
+            mainEntity={mainEntity}
+            isPrinting={isPrinting}
+            isMobile={isMobile}
+          >
+            <h2>Journal Participants</h2>
+            <div className={bem`__list`}>
+              <div className={bem`__list__row`}>
+                <span className={bem`__list__label`}>Editors </span>
+                <ul className={bem`@__inline-list`}>
+                  <li>Name One</li>
+                  <li>Name Two</li>
+                </ul>
+              </div>
 
-         <div className={bem`__row`}>
-         <span className={bem`__label`}>Reviewers </span>
-         <ul className={bem`@__inline-list`}>
-         <li>Name One</li>
-         <li>Name Two</li>
-         </ul>
-         </div>
-         </div>
-         </MetaMargin>
-         </section> /*}
-
+              <div className={bem`__list__row`}>
+                <span className={bem`__list__label`}>Reviewers </span>
+                <ul className={bem`@__inline-list`}>
+                  <li>Name One</li>
+                  <li>Name Two</li>
+                </ul>
+              </div>
+              <div className={bem`__list__row`}>
+                <span className={bem`__list__label`}>Producers </span>
+                <ul className={bem`@__inline-list`}>
+                  <li>Name One</li>
+                  <li>Name Two</li>
+                </ul>
+              </div>
+            </div>
+            <MetaMarginContent>
+              <div className={bem`__meta-margin-workflow-badge-container`}>
+                <WorkflowBadge
+                  paths={testPaths}
+                  startTime={new Date()}
+                  endTime={new Date()}
+                  viewIdentityPermissionMatrix={viewIdentityPermissionMatrix}
+                  counts={counts}
+                  badgeSize={103}
+                />
+              </div>
+            </MetaMarginContent>
+          </MetaMargin>
+        </section>
 
         {/* Description (short abstract without title) */}
         {!!object.description && (

@@ -201,31 +201,36 @@
     }
   }
 
-  &__editorial-team {
+  &__journal-participants {
     /* border: 2px solid var(--ruling-color); */
-    font: var(--ui-type);
-    color: var(--ui-type__color);
-    letter-spacing: var(--ui-type__letter-spacing);
-    background-color: var(--grey-50);
-    margin: var(--xsgrd) 0;
-    &__row {
-      display: flex;
-      align-items: center;
 
-      border-bottom: 2px solid white;
-      padding: var(--xsgrd) var(--sgrd);
-      &:last-of-type {
-        border-bottom: none;
+    &__list {
+      font: var(--sans-body-type--small);
+      color: var(--sans-body-type--small__color);
+      letter-spacing: var(--sans-body-type--small__letter-spacing);
+      background-color: var(--grey-50);
+      &__row {
+        display: flex;
+        align-items: center;
+
+        border-bottom: 2px solid white;
+        padding: var(--xsgrd) var(--sgrd);
+        &:last-of-type {
+          border-bottom: none;
+        }
+      }
+
+      &__label {
+        font: var(--sans-body-type--small);
+        letter-spacing: var(--sans-body-type--small__letter-spacing);
+        color: var(--ui-type--label__color);
+        flex: 0 0 8rem;
+        text-transform: lowercase;
+        font-variant: small-caps;
       }
     }
-
-    &__label {
-      font: var(--ui-type--label);
-      color: var(--ui-type--label__color);
-      letter-spacing: var(--ui-type--label__letter-spacing);
-      flex: 0 0 8rem;
-      text-transform: lowercase;
-      font-variant: small-caps;
+    &__meta-margin-workflow-badge-container {
+      margin-top: 3.4rem;
     }
   }
 }
