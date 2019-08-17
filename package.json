@@ -1,6 +1,6 @@
 {
   "name": "@scipe/app-suite",
-  "version": "0.0.13",
+  "version": "0.0.15",
   "description": "sci.pe app suite",
   "main": "dist/index.js",
   "scripts": {
@@ -94,7 +94,7 @@
     "@scipe/librarian": "^1.0.11",
     "@scipe/ontology": "^23.0.0",
     "@scipe/resources": "^1.0.1",
-    "@scipe/ui": "^1.2.5",
+    "@scipe/ui": "^1.3.0",
     "async": "^2.6.2",
     "body-parser": "^1.19.0",
     "classnames": "^2.2.6",
@@ -167,7 +167,7 @@
     "@scipe/eslint-config": "^1.0.0",
     "@scipe/express-logger": "^1.0.0",
     "@scipe/ontologist": "^1.0.0",
-    "@scipe/stories": "^1.1.12",
+    "@scipe/stories": "^1.2.1",
     "@scipe/workers": "^1.0.2",
     "assets-webpack-plugin": "^3.9.10",
     "babel-loader": "^8.0.6",
@@ -201,6 +201,6 @@
     "webpack-bundle-analyzer": "^3.4.1",
     "webpack-cli": "^3.3.6",
     "webpack-dev-middleware": "^3.7.0",
-    "webpack-dev-server": "^3.7.2"
+    "webpack-dev-server": "^3.8.0"
   }
 }
