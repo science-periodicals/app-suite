@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import capitalize from 'lodash/capitalize';
 import Iconoclass from '@scipe/iconoclass';
 import {
   getId,
@@ -10,7 +11,7 @@ import {
   unprefix,
   textify
 } from '@scipe/jsonld';
-import { SA_DOI_PREFIX, getScopeId } from '@scipe/librarian';
+import { SA_DOI_PREFIX, getScopeId, getAgentId } from '@scipe/librarian';
 import {
   Logo,
   Span,
@@ -20,6 +21,7 @@ import {
   Div,
   RdfaDate,
   RdfaLicense,
+  RdfaPerson,
   RdfaPersonOrOrganization,
   RdfaContributorNotes,
   RdfaCopyright,
@@ -36,13 +38,13 @@ import MetaMargin, {
 } from '../meta-margin/meta-margin';
 import MetaMarginContent from '../meta-margin/meta-margin-content';
 import MetaMarginMixedData from '../meta-margin/meta-margin-mixed-data';
-
+import Droplet from '../droplet';
 import ContributorInfoMenu from '../contributor-info-menu';
 
 export default class RdfaArticleFrontMatter extends React.Component {
   static propTypes = {
     id: PropTypes.string,
-    graph: PropTypes.object,
+    graph: PropTypes.object.isRequired,
     journal: PropTypes.object,
     issue: PropTypes.object,
     object: PropTypes.object.isRequired,
@@ -75,6 +77,9 @@ export default class RdfaArticleFrontMatter extends React.Component {
 
     const authors = arrayify(object.author);
     const contributors = arrayify(object.contributor);
+    const reviewers = arrayify(graph.reviewer);
+    const editors = arrayify(graph.editor);
+    const producers = arrayify(graph.producer);
     const affiliationMap = getOrderedAffiliationMap(object);
 
     const publicationType = arrayify(graph.additionalType)[0];
@@ -506,60 +511,102 @@ export default class RdfaArticleFrontMatter extends React.Component {
           </section>
         )}
 
-        {/* Editors and Reviewers */}
-        {/* TODO wire: use compareEditors defined in utils/sort.js */}
-        <section className={bem`journal-participants__`}>
-          <MetaMargin
-            margin={true}
-            url={counter
-              .increment({ level: 2 })
-              .increment({ level: 3 })
-              .getUrl()}
-            graph={graph}
-            resource={object}
-            mainEntity={mainEntity}
-            isPrinting={isPrinting}
-            isMobile={isMobile}
-          >
-            <h2>Journal Participants</h2>
-            <div className={bem`__list`}>
-              <div className={bem`__list__row`}>
-                <span className={bem`__list__label`}>Editors </span>
-                <ul className={bem`@__inline-list`}>
-                  <li>Name One</li>
-                  <li>Name Two</li>
-                </ul>
+        {/* Editors, Reviewers and Producers */}
+        {!!(editors.length || reviewers.length || producers.length) && (
+          <section className={bem`journal-participants__`}>
+            <MetaMargin
+              margin={true}
+              url={counter
+                .increment({ level: 2 })
+                .increment({ level: 3 })
+                .getUrl()}
+              graph={graph}
+              resource={object}
+              mainEntity={mainEntity}
+              isPrintable={isPrintable}
+              isPrinting={isPrinting}
+              isMobile={isMobile}
+            >
+              <h2>Journal Participants</h2>
+
+              <div className={bem`__list`}>
+                {['editor', 'reviewer', 'producer']
+                  .filter(p => arrayify(graph[p]).length)
+                  .map(p => (
+                    <div key={p} className={bem`__list__row`}>
+                      <span className={bem`__list__label`}>
+                        {`${capitalize(p)}s`}{' '}
+                      </span>
+                      <ul className={bem`@__inline-list`}>
+                        {arrayify(graph[p]).map(role => {
+                          const isBlinded = !blindingData.visibleRoleNames.has(
+                            p
+                          );
+
+                          return (
+                            <li key={getId(role)}>
+                              <Droplet node={getAgentId(role)}>
+                                {unroled => {
+                                  const hydratedRole = Object.assign({}, role, {
+                                    [p]: unroled
+                                  });
+
+                                  return (
+                                    <Fragment>
+                                      <RdfaPerson
+                                        className={
+                                          isBlinded
+                                            ? 'rdfa-article-front-matter--blinded'
+                                            : undefined
+                                        }
+                                        blindedName={
+                                          isBlinded
+                                            ? getDisplayName(
+                                                blindingData,
+                                                hydratedRole,
+                                                {
+                                                  alwaysPrefix: true
+                                                }
+                                              )
+                                            : undefined
+                                        }
+                                        object={hydratedRole}
+                                        predicate={prefix(p)}
+                                        link={isPrinting ? true : false}
+                                      />
+                                      {!isBlinded && (
+                                        <ContributorInfoMenu
+                                          role={hydratedRole}
+                                          isPrinting={isPrinting}
+                                        />
+                                      )}
+                                    </Fragment>
+                                  );
+                                }}
+                              </Droplet>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  ))}
               </div>
 
-              <div className={bem`__list__row`}>
-                <span className={bem`__list__label`}>Reviewers </span>
-                <ul className={bem`@__inline-list`}>
-                  <li>Name One</li>
-                  <li>Name Two</li>
-                </ul>
-              </div>
-              <div className={bem`__list__row`}>
-                <span className={bem`__list__label`}>Producers </span>
-                <ul className={bem`@__inline-list`}>
-                  <li>Name One</li>
-                  <li>Name Two</li>
-                </ul>
-              </div>
-            </div>
-            <MetaMarginContent>
-              <div className={bem`__meta-margin-workflow-badge-container`}>
-                <WorkflowBadge
-                  paths={testPaths}
-                  startTime={new Date()}
-                  endTime={new Date()}
-                  viewIdentityPermissionMatrix={viewIdentityPermissionMatrix}
-                  counts={counts}
-                  badgeSize={103}
-                />
-              </div>
-            </MetaMarginContent>
-          </MetaMargin>
-        </section>
+              <MetaMarginContent>
+                <div className={bem`__meta-margin-workflow-badge-container`}>
+                  <WorkflowBadge
+                    paths={testPaths}
+                    startTime={new Date()}
+                    endTime={new Date()}
+                    viewIdentityPermissionMatrix={viewIdentityPermissionMatrix}
+                    counts={counts}
+                    badgeSize={103}
+                  />
+                </div>
+              </MetaMarginContent>
+            </MetaMargin>
+          </section>
+        )}
 
         {/* Description (short abstract without title) */}
         {!!object.description && (

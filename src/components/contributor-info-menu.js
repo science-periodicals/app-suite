@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import capitalize from 'lodash/capitalize';
 import { getAgent } from '@scipe/librarian';
-import { Menu, MenuCardItem, UserContactSheet } from '@scipe/ui';
+import { Menu, MenuItemLabel, MenuCardItem, UserContactSheet } from '@scipe/ui';
 
 // TODO add author notes (what the author did)...
 
@@ -42,6 +43,11 @@ export default class ContributorInfoMenu extends React.Component {
         iconSize={12}
         portal={true}
       >
+        {!!role.roleName && (
+          <MenuItemLabel>{`${capitalize(role.roleName)}${
+            role.name ? ` (${role.name})` : ''
+          }`}</MenuItemLabel>
+        )}
         <MenuCardItem>
           <UserContactSheet role={role} />
         </MenuCardItem>

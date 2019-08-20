@@ -795,7 +795,7 @@ html {
 
 /* Position inline user contact menus */
 .meta-margin .contributor-info-menu {
-  display: inline;
+  display: inline-block;
   vertical-align: baseline;
   width: 12px;
   height: 12px;
