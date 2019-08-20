@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 import capitalize from 'lodash/capitalize';
 import Iconoclass from '@scipe/iconoclass';
 import {
@@ -28,6 +30,7 @@ import {
   RdfaAbstractText,
   getDisplayName,
   BemTags,
+  getWorkflowBadgePaths,
   WorkflowBadge
 } from '@scipe/ui';
 import { getOrderedAffiliationMap } from '../../utils/graph-utils';
@@ -40,10 +43,12 @@ import MetaMarginContent from '../meta-margin/meta-margin-content';
 import MetaMarginMixedData from '../meta-margin/meta-margin-mixed-data';
 import Droplet from '../droplet';
 import ContributorInfoMenu from '../contributor-info-menu';
+import { createActionMapSelector } from '../../selectors/graph-selectors';
 
 export default class RdfaArticleFrontMatter extends React.Component {
   static propTypes = {
     id: PropTypes.string,
+    graphId: PropTypes.string.isRequired,
     graph: PropTypes.object.isRequired,
     journal: PropTypes.object,
     issue: PropTypes.object,
@@ -72,7 +77,8 @@ export default class RdfaArticleFrontMatter extends React.Component {
       mainEntity,
       counter,
       blindingData,
-      overwriteNodeMap
+      overwriteNodeMap,
+      graphId
     } = this.props;
 
     const authors = arrayify(object.author);
@@ -87,123 +93,6 @@ export default class RdfaArticleFrontMatter extends React.Component {
     const isBlinded = !blindingData.visibleRoleNames.has('author');
 
     const bem = BemTags('@sa', '@meta-margin');
-
-    //TODO remove this test data after wiring the workflow badge
-    const A = 0;
-    const E = 1;
-    const R = 2;
-    const P = 3;
-    const testPaths = [
-      {
-        id: 'action:createReleaseActionId',
-        x: 0,
-        y: A,
-        z: [true, false, false, false] // only visible to author
-      },
-      {
-        id: 'action:createReleaseActionId',
-        x: 1,
-        y: A,
-        z: [true, true, false, false] // author and editor can view
-      },
-      {
-        id: 'action:createReleaseActionId',
-        x: 2,
-        y: 0,
-        z: [true, true, true, false] // all can view
-      },
-      {
-        id: 'action:createReleaseActionId',
-        x: 3,
-        y: A,
-        z: [true, true, true, true] // all can view
-      },
-
-      // ReviewAction
-      {
-        id: 'action:reviewActionId',
-        x: 4,
-        y: 2,
-        z: [false, true, true, false] // only visible to reviewer first
-      },
-
-      // editor
-      {
-        id: 'action:editorActionId',
-        x: 5,
-        y: E,
-        z: [false, false, true, false] // only visible to reviewer first
-      },
-
-      // author
-      {
-        id: 'action:editorActionId',
-        x: 6,
-        y: A,
-        z: [true, true, true, false] // only visible to reviewer first
-      },
-
-      // producer
-      {
-        id: 'action:editorActionId',
-        x: 7,
-        y: P,
-        z: [true, true, true, false] // only visible to reviewer first
-      },
-      // author
-      {
-        id: 'action:authorActionId',
-        x: 8,
-        y: A,
-        z: [true, true, true, false] // only visible to reviewer first
-      },
-      {
-        id: 'action:authorActionId',
-        x: 9,
-        y: A,
-        z: [true, true, true, true] // only visible to reviewer first
-      }
-    ];
-
-    const viewIdentityPermissionMatrix = {
-      authors: {
-        authors: true,
-        editors: true,
-        reviewers: false,
-        producers: true,
-        public: true
-      },
-      editors: {
-        authors: true,
-        editors: true,
-        reviewers: true,
-        producers: true,
-        public: true
-      },
-      reviewers: {
-        authors: false,
-        editors: true,
-        reviewers: false,
-        producers: false,
-        public: true
-      },
-      producers: {
-        authors: true,
-        editors: true,
-        reviewers: false,
-        producers: true,
-        public: false
-      }
-    };
-
-    const counts = {
-      authors: 2,
-      editors: 3,
-      reviewers: 3,
-      producers: 0
-    };
-
-    // !TODO remove ^^^ end of WorkflowBadge test data
 
     return (
       <section
@@ -594,12 +483,10 @@ export default class RdfaArticleFrontMatter extends React.Component {
 
               <MetaMarginContent>
                 <div className={bem`__meta-margin-workflow-badge-container`}>
-                  <WorkflowBadge
-                    paths={testPaths}
-                    startTime={new Date()}
-                    endTime={new Date()}
-                    viewIdentityPermissionMatrix={viewIdentityPermissionMatrix}
-                    counts={counts}
+                  <ConnectedWorkflowBadge
+                    graphId={graphId}
+                    graph={graph}
+                    mainEntity={mainEntity}
                     badgeSize={103}
                   />
                 </div>
@@ -683,3 +570,93 @@ export default class RdfaArticleFrontMatter extends React.Component {
     );
   }
 }
+
+const ConnectedWorkflowBadge = connect(
+  createSelector(
+    createActionMapSelector(),
+    (state, props) => props.graph,
+    (state, props) => props.mainEntity,
+    (actionMap, graph, mainEntity = {}) => {
+      const stages = Object.values(actionMap).filter(
+        action => action['@type'] === 'StartWorkflowStageAction'
+      );
+
+      return {
+        viewIdentityPermissionMatrix: arrayify(
+          graph.hasDigitalDocumentPermission
+        ).reduce(
+          (matrix, perm) => {
+            if (perm.permissionType === 'ViewIdentityPermission') {
+              if (perm.grantee && perm.grantee.audienceType) {
+                arrayify(perm.permissionScope).forEach(permissionScope => {
+                  if (permissionScope.audienceType) {
+                    matrix[perm.grantee.audienceType][
+                      permissionScope.audienceType
+                    ] = true;
+                  }
+                });
+              }
+            }
+
+            return matrix;
+          },
+          {
+            author: {
+              author: false,
+              editor: false,
+              reviewer: false,
+              producer: false
+            },
+            editor: {
+              author: false,
+              editor: false,
+              reviewer: false,
+              producer: false
+            },
+            reviewer: {
+              author: false,
+              editor: false,
+              reviewer: false,
+              producer: false
+            },
+            producer: {
+              author: false,
+              editor: false,
+              reviewer: false,
+              producer: false
+            },
+            public: {
+              author: false,
+              editor: false,
+              reviewer: false,
+              producer: false
+            }
+          }
+        ),
+        startTime: new Date(graph.dateSubmitted || graph.dateCreated),
+        endTime: new Date(
+          graph.dateEnded ||
+            graph.dateModified ||
+            graph.datePublished ||
+            graph.dateRejected ||
+            graph.dateSubmitted ||
+            graph.dateCreated
+        ),
+        paths: getWorkflowBadgePaths(stages, { nCat: 3 }),
+        counts: {
+          authors: arrayify(mainEntity.author).concat(mainEntity.contributor)
+            .length,
+          editors: arrayify(graph.editor).length,
+          reviewers: arrayify(graph.reviewer).length,
+          producers: arrayify(graph.producer).length
+        }
+      };
+    }
+  )
+)(WorkflowBadge);
+
+ConnectedWorkflowBadge.propTypes = {
+  graphId: PropTypes.string.isRequired,
+  graph: PropTypes.object.isRequired,
+  mainEntity: PropTypes.object
+};

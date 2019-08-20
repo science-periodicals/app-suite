@@ -483,7 +483,7 @@ export function fetchGraph(
       includeDocs: true,
       query: q,
       nodes: !!reader || !!publisher || !!isNewGraph || !!nodes,
-      potentialActions: sifter || reader ? false : 'dashboard',
+      potentialActions: sifter ? false : reader ? 'reader' : 'dashboard',
       limit: 1,
       cache
     };
