@@ -416,7 +416,7 @@ export default class RdfaArticleFrontMatter extends React.Component {
               isPrinting={isPrinting}
               isMobile={isMobile}
             >
-              <h2>Journal Participants</h2>
+              <h2>Journal participants</h2>
 
               <div className={bem`__list`}>
                 {['editor', 'reviewer', 'producer']
@@ -487,7 +487,8 @@ export default class RdfaArticleFrontMatter extends React.Component {
                     graphId={graphId}
                     graph={graph}
                     mainEntity={mainEntity}
-                    badgeSize={103}
+                    badgeWidth={260}
+                    badgeHeight={108}
                   />
                 </div>
               </MetaMarginContent>
@@ -644,8 +645,9 @@ const ConnectedWorkflowBadge = connect(
         ),
         paths: getWorkflowBadgePaths(stages, { nCat: 3 }),
         counts: {
-          authors: arrayify(mainEntity.author).concat(mainEntity.contributor)
-            .length,
+          authors: arrayify(mainEntity.author).concat(
+            arrayify(mainEntity.contributor)
+          ).length,
           editors: arrayify(graph.editor).length,
           reviewers: arrayify(graph.reviewer).length,
           producers: arrayify(graph.producer).length

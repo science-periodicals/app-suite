@@ -402,7 +402,8 @@ export default class CreateComment extends React.Component {
                     participant: getMetaActionParticipants(
                       commentActionObject,
                       {
-                        addAgent: true
+                        addAgent: true,
+                        restrictToActiveAndStagedAudiences: true
                       }
                     )
                   }}

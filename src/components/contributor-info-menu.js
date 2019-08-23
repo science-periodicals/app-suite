@@ -29,7 +29,8 @@ export default class ContributorInfoMenu extends React.Component {
         role.roleContactPoint ||
         role.roleAffiliation ||
         unroled.url ||
-        unroled.sameAs
+        unroled.sameAs ||
+        unroled.affiliation
       )
     ) {
       return null;
